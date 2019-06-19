@@ -84,7 +84,7 @@ namespace SoftGenConverter
 
                 }
 
-                isEdit(edit);
+                isEditAval(false);
            
         }
 
@@ -627,39 +627,39 @@ namespace SoftGenConverter
             setFieldsP();
             
         }
-        public void isEdit(bool edit)
+        public void isEditAval(bool edit)
         {
-            platNumber.Enabled = mfo.Enabled = rahunok.Enabled = dateTimePicker1.Enabled =  cliBankCode.Enabled =  edit;
+            platNumber.Visible = mfo.Visible = rahunok.Visible = dateTimePicker1.Visible = label1.Visible = label2.Visible = label3.Visible = label4.Visible =    edit;
         }
 
 
-        private void Button1_Click(object sender, EventArgs e)
-        {
-            edit = !edit;
-            if (edit)
-            {
+        //private void Button1_Click(object sender, EventArgs e)
+        //{
+        //    edit = !edit;
+        //    if (edit)
+        //    {
 
                 
-                isEdit(true);
+        //        isEdit(true);
 
-            }
-            else
-            {
-                //button1.Image = editBtn;
-                //toolTip1.SetToolTip(button1, "Редагувати реквізити");
-                //button1.Text = "Редагувати шаблон";
-                if (shemes)
-                {
-                    WriteSettings(recviz, aval);
-                }
-                else
-                {
-                    WriteSettings(recviz, ukrBank);
-                }
+        //    }
+        //    else
+        //    {
+        //        //button1.Image = editBtn;
+        //        //toolTip1.SetToolTip(button1, "Редагувати реквізити");
+        //        //button1.Text = "Редагувати шаблон";
+        //        if (shemes)
+        //        {
+        //            WriteSettings(recviz, aval);
+        //        }
+        //        else
+        //        {
+        //            WriteSettings(recviz, ukrBank);
+        //        }
                 
-                isEdit(false);
-            }
-        }
+        //        isEdit(false);
+        //    }
+        //}
         void WriteIni(Datashit recviz, Bank bank)
         {
             if (shemes)
@@ -763,7 +763,7 @@ namespace SoftGenConverter
 
         private void Button3_Click(object sender, EventArgs e)
         {
-            comboEdr.Items.Add(comboEdr.Text);
+            isEditAval(true);
         }
 
        
