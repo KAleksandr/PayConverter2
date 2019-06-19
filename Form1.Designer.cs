@@ -30,9 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.укрГазToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.авальToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -231,6 +231,7 @@
             this.textBox2.BackColor = System.Drawing.SystemColors.Window;
             resources.ApplyResources(this.textBox2, "textBox2");
             this.textBox2.Name = "textBox2";
+            this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
             // label6
             // 
@@ -242,6 +243,7 @@
             this.textBox1.BackColor = System.Drawing.SystemColors.Window;
             resources.ApplyResources(this.textBox1, "textBox1");
             this.textBox1.Name = "textBox1";
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // label7
             // 
@@ -323,6 +325,7 @@
             // 
             resources.ApplyResources(this.dateTimePicker1, "dateTimePicker1");
             this.dateTimePicker1.Name = "dateTimePicker1";
+            this.dateTimePicker1.ValueChanged += new System.EventHandler(this.dateTimePicker1_ValueChanged);
             // 
             // button5
             // 
@@ -330,6 +333,7 @@
             resources.ApplyResources(this.button5, "button5");
             this.button5.Name = "button5";
             this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // label4
             // 
@@ -438,16 +442,16 @@
             // 
             // dataGridViewTextBoxColumn1
             // 
-            dataGridViewCellStyle1.NullValue = "0";
-            this.dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle13.NullValue = "0";
+            this.dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle13;
             resources.ApplyResources(this.dataGridViewTextBoxColumn1, "dataGridViewTextBoxColumn1");
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             this.dataGridViewTextBoxColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
             // dataGridViewTextBoxColumn2
             // 
-            dataGridViewCellStyle2.NullValue = "1";
-            this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle14.NullValue = "1";
+            this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle14;
             resources.ApplyResources(this.dataGridViewTextBoxColumn2, "dataGridViewTextBoxColumn2");
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             // 
@@ -488,8 +492,8 @@
             // 
             // dataGridViewTextBoxColumn10
             // 
-            dataGridViewCellStyle3.NullValue = "0";
-            this.dataGridViewTextBoxColumn10.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle15.NullValue = "0";
+            this.dataGridViewTextBoxColumn10.DefaultCellStyle = dataGridViewCellStyle15;
             resources.ApplyResources(this.dataGridViewTextBoxColumn10, "dataGridViewTextBoxColumn10");
             this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
             // 

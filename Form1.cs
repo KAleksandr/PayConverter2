@@ -29,16 +29,17 @@ namespace SoftGenConverter
         string[] recvizs;
         string path;
         bool edit = false;
+        bool editAval = false;
+        bool editUkrG = false;
         Image editBtn = Properties.Resources.edit_property_16px;//
         Image saveBtn = Properties.Resources.save_as_16px;
         private string[] data = { "11", "22", "33", "44", "55", "66", "77", "88", "99" };
-        // private CsvExport myExport = new CsvExport();
-        // private Account new1 = new Account();
+       
         private long numberDoc;
         private long numberDocAval;
         private long numberDocUkrg;
         private string P = "·";
-        //private IniFile myIni;
+       
       
         private string path2 = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"data.xml");
         public Form1()
@@ -84,8 +85,9 @@ namespace SoftGenConverter
 
                 }
 
-                isEditAval(false);
-           
+                isEditAval(editAval);
+                isEditUkrG(editUkrG);
+
         }
 
         public void setFieldsP()
@@ -188,13 +190,6 @@ namespace SoftGenConverter
                 }
             }
              
-            
-                
-            //string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"RO1306__.csv");
-            
-
-            //Заполняем listView из нашей структуры
-            
         }
         public string addDateToStr(string str, string date)
         {
@@ -205,7 +200,7 @@ namespace SoftGenConverter
        public  string findZkpo(string zkpo)
         {
             foreach (DataGridViewRow r in dataGridView3.Rows) // пока в dataGridView1 есть строки
-                {
+            {
                     if (r.Cells != null)
                     {
                         try
@@ -223,7 +218,7 @@ namespace SoftGenConverter
                                               
                     }
 
-                }
+            }
            
 
             return "null";
@@ -548,45 +543,20 @@ namespace SoftGenConverter
 
         private void PlatNumber_TextChanged(object sender, EventArgs e)
         {
-            if (shemes)
-            {
-                recviz.platNumber = string.IsNullOrEmpty(platNumber.Text) ? 0 : Int64.Parse(platNumber.Text);
-                numberDoc = recviz.platNumber;
-            }
-            else
-            {
-                recviz.platNumber2 = string.IsNullOrEmpty(platNumber.Text) ? 0 : Int64.Parse(platNumber.Text);
-                numberDoc = recviz.platNumber;
-            }
-
+            numberDocAval = Properties.Settings.Default.platNumber = string.IsNullOrEmpty(platNumber.Text) ? 0 : Int64.Parse(platNumber.Text);
+            
         }
 
         private void Mfo_TextChanged(object sender, EventArgs e)
         {
-
-            if (shemes)
-            {
-                recviz.mfo = string.IsNullOrEmpty(mfo.Text) ? "0" : mfo.Text;
-            }
-            else
-            {
-                recviz.edrpou = string.IsNullOrEmpty(mfo.Text) ? "0" : mfo.Text;
-            }
-
-
+            Properties.Settings.Default.mfo = string.IsNullOrEmpty(mfo.Text) ? "0" : mfo.Text;
+            
         }
 
         private void Rahunok_TextChanged(object sender, EventArgs e)
         {
-            if (shemes)
-            {
-                recviz.rahunok = string.IsNullOrEmpty(rahunok.Text) ? "0" : rahunok.Text;
-            }
-            else
-            {
-                recviz.rahunok2 = string.IsNullOrEmpty(rahunok.Text) ? "0" : rahunok.Text;
-            }
-
+            Properties.Settings.Default.rahunok = string.IsNullOrEmpty(rahunok.Text) ? "0" : rahunok.Text;
+            
         }
 
         private void SaveFile_Click_1(object sender, EventArgs e)
@@ -620,8 +590,8 @@ namespace SoftGenConverter
         private void АвальToolStripMenuItem_Click(object sender, EventArgs e)
         {
             recviz.state = 1;
-            dateTimePicker1.Visible = label4.Visible = label5.Visible = cliBankCode.Visible =   shemes = true;
-            label2.Text = "МФО Платника:";
+            //dateTimePicker1.Visible = label4.Visible = label5.Visible = cliBankCode.Visible =   shemes = true;
+            //label2.Text = "МФО Платника:";
             // setFields();
             
             setFieldsP();
@@ -631,6 +601,10 @@ namespace SoftGenConverter
         {
             platNumber.Visible = mfo.Visible = rahunok.Visible = dateTimePicker1.Visible = label1.Visible = label2.Visible = label3.Visible = label4.Visible =    edit;
         }
+        public void isEditUkrG(bool edit)
+        {
+            textBox2.Visible = cliBankCode.Visible = textBox1.Visible = label7.Visible = label6.Visible = label5.Visible = edit;
+        }
 
 
         //private void Button1_Click(object sender, EventArgs e)
@@ -639,7 +613,7 @@ namespace SoftGenConverter
         //    if (edit)
         //    {
 
-                
+
         //        isEdit(true);
 
         //    }
@@ -656,7 +630,7 @@ namespace SoftGenConverter
         //        {
         //            WriteSettings(recviz, ukrBank);
         //        }
-                
+
         //        isEdit(false);
         //    }
         //}
@@ -759,7 +733,18 @@ namespace SoftGenConverter
     
         private void Button3_Click(object sender, EventArgs e)
         {
-            isEditAval(true);
+           
+            editAval = !editAval;
+            if (editAval)
+            {
+                isEditAval(editAval);
+                button3.Image = saveBtn;
+            }
+            else
+            {
+                button3.Image = editBtn;
+                isEditAval(editAval);
+            }
         }
 
        
@@ -776,6 +761,51 @@ namespace SoftGenConverter
             {
                 Properties.Settings.Default.state = 3;
             }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            editUkrG = !editUkrG;
+            if (editUkrG)
+            {
+                isEditUkrG(editUkrG);
+                button5.Image = saveBtn;
+            }
+            else
+            {
+                button5.Image = editBtn;
+                isEditUkrG(editUkrG);
+            }
+        }
+
+        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.datePayment = converterDateToInt(dateTimePicker1.Value);
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+            if (Properties.Settings.Default.state == 2)
+            {
+                Properties.Settings.Default.edrpou = string.IsNullOrEmpty(platNumber.Text) ? "0" : platNumber.Text;
+            }
+            else
+            {
+                Properties.Settings.Default.edrpou2 = string.IsNullOrEmpty(platNumber.Text) ? "0" : platNumber.Text;
+            }
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            if (Properties.Settings.Default.state == 2)
+            {
+                numberDocUkrg = Properties.Settings.Default.platNumber2 = string.IsNullOrEmpty(platNumber.Text) ? 0 : Int64.Parse(platNumber.Text);
+            }
+            else
+            {
+                numberDocUkrg = Properties.Settings.Default.platNumber3 = string.IsNullOrEmpty(platNumber.Text) ? 0 : Int64.Parse(platNumber.Text);
+            }
+            
         }
     }
 }
