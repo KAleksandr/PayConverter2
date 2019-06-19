@@ -90,14 +90,14 @@ namespace SoftGenConverter
 
         public void setFieldsP()
         {
-            currentSheme.Text = Properties.Settings.Default.name;
+           
             platNumber.Text = Properties.Settings.Default.platNumber.ToString();
             dateTimePicker1.Value = convertStrToTime(Properties.Settings.Default.datePayment.ToString());//
             mfo.Text = Properties.Settings.Default.mfo.ToString();
             rahunok.Text = Properties.Settings.Default.rahunok;
 
             cliBankCode.Text = Properties.Settings.Default.clientBankCode;
-            recivPayNum.Text = Properties.Settings.Default.recivePayNum;
+            
             if (Properties.Settings.Default.state1 == 1)
             {
                 shemes = true;
@@ -120,7 +120,7 @@ namespace SoftGenConverter
             platNumber.Text = Properties.Settings.Default.platNumber2.ToString();
             mfo.Text = Properties.Settings.Default.edrpou.ToString();
             rahunok.Text = Properties.Settings.Default.rahunok2;
-            currentSheme.Text = Properties.Settings.Default.name2;
+           
             tableLayoutPanel7.RowStyles[0].Height = 100;
             tableLayoutPanel7.RowStyles[1].Height = 0;
             dataGridView1.Visible = true;
@@ -339,7 +339,7 @@ namespace SoftGenConverter
                         string date1 = ((date.Replace(".", "")).Remove(4, 3)).Substring(0, 4) + DateTime.Today.Year;
 
                         newLine = "0·1·" + recviz.platNumber + P + converterDateToInt(dateTimePicker1.Value) + P + arText[2] + P + recviz.mfo + P + arText[3] + P + recviz.rahunok + P + arText[5].Replace(".", "")
-                            + P + "0" + P + arText[0] + P + recivPayNum.Text + P + date1 + P + P + P + P + arText[4] + P + P + Environment.NewLine;
+                            + P + "0" + P + arText[0] + P + "recviz" + P + date1 + P + P + P + P + arText[4] + P + P + Environment.NewLine;
                         numberDoc++;
                         textImport.Text += newLine;
                         foreach (string grid in arText)
@@ -511,14 +511,14 @@ namespace SoftGenConverter
         }
         public void setFields()
         {
-            currentSheme.Text = recviz.name;
+            
             platNumber.Text = recviz.platNumber.ToString();
             dateTimePicker1.Value = convertStrToTime(recviz.datePayment.ToString());//
             mfo.Text = recviz.mfo.ToString();
             rahunok.Text = recviz.rahunok;
 
             cliBankCode.Text = recviz.cliBankCode;
-            recivPayNum.Text = recviz.recivPayNum;
+            
             if (recviz.state == 1)
             {
                 shemes = true;
@@ -539,7 +539,7 @@ namespace SoftGenConverter
             platNumber.Text = recviz.platNumber2.ToString();
             mfo.Text = recviz.edrpou.ToString();
             rahunok.Text = recviz.rahunok2;
-            currentSheme.Text = recviz.name2;
+            
             tableLayoutPanel7.RowStyles[0].Height = 100;
             tableLayoutPanel7.RowStyles[1].Height = 0;
             dataGridView1.Visible = true;
@@ -610,31 +610,26 @@ namespace SoftGenConverter
             //setFields2();
             setFieldsP2();
             
-
-
         }
 
         void texVisible(bool flag)
         {
-            dateTimePicker1.Visible = label4.Visible = label5.Visible = cliBankCode.Visible = label6.Visible = recivPayNum.Visible = shemes = flag;
+            dateTimePicker1.Visible = label4.Visible = label5.Visible = cliBankCode.Visible =   shemes = flag;
         }
 
         private void АвальToolStripMenuItem_Click(object sender, EventArgs e)
         {
             recviz.state = 1;
-            dateTimePicker1.Visible = label4.Visible = label5.Visible = cliBankCode.Visible = label6.Visible = recivPayNum.Visible =  shemes = true;
+            dateTimePicker1.Visible = label4.Visible = label5.Visible = cliBankCode.Visible =   shemes = true;
             label2.Text = "МФО Платника:";
             // setFields();
             
             setFieldsP();
-
             
-
-
         }
         public void isEdit(bool edit)
         {
-            platNumber.Enabled = mfo.Enabled = rahunok.Enabled = dateTimePicker1.Enabled = currentSheme.Enabled = cliBankCode.Enabled = recivPayNum.Enabled =  edit;
+            platNumber.Enabled = mfo.Enabled = rahunok.Enabled = dateTimePicker1.Enabled =  cliBankCode.Enabled =  edit;
         }
 
 
@@ -644,17 +639,15 @@ namespace SoftGenConverter
             if (edit)
             {
 
-                button1.Image = saveBtn;
-                toolTip1.SetToolTip(button1, "Зберегти реквізити");
-                button1.Text = "Зберегти шаблон";
+                
                 isEdit(true);
 
             }
             else
             {
-                button1.Image = editBtn;
-                toolTip1.SetToolTip(button1, "Редагувати реквізити");
-                button1.Text = "Редагувати шаблон";
+                //button1.Image = editBtn;
+                //toolTip1.SetToolTip(button1, "Редагувати реквізити");
+                //button1.Text = "Редагувати шаблон";
                 if (shemes)
                 {
                     WriteSettings(recviz, aval);
@@ -692,20 +685,7 @@ namespace SoftGenConverter
                
             }
            
-            ////Bank 
-            //myIni.Write("Bank", recviz.name);
-            //myIni.Write("PlatNumber", recviz.platNumber.ToString());
-            //myIni.Write("Mfo", recviz.mfo);
-            //myIni.Write("Rahunok", recviz.rahunok);
-            //myIni.Write("Paydate", recviz.datePayment.ToString());
-            //myIni.Write("Bankclentnum", recviz.cliBankCode);
-            //myIni.Write("PlatReciver", recviz.recivPayNum);
-            ////Bank2
-            //myIni.Write("Bank2", recviz.name2);
-            //myIni.Write("Platnumber2", recviz.platNumber2.ToString());
-            //myIni.Write("Edrpou", recviz.edrpou);
-            //myIni.Write("Rahunok2", recviz.rahunok2);
-            //myIni.Write("State", recviz.state.ToString());
+           
 
         }
         void WriteSettings(Datashit recviz, Bank bank)
@@ -737,58 +717,16 @@ namespace SoftGenConverter
             
 
         }
-        void WriteIni()
-        {
-            try
-            {
-                ////Bank 
-                //myIni.Write("Bank", "");
-                //myIni.Write("PlatNumber", "2");
-                //myIni.Write("Mfo", "00000");
-                //myIni.Write("Rahunok", "1111");
-                //myIni.Write("Paydate", "20190512");
-                //myIni.Write("Bankclentnum", "");
-                //myIni.Write("PlatReciver", "");
-                ////Bank2
-                //myIni.Write("Bank2", "");
-                //myIni.Write("Platnumber2", "");
-                //myIni.Write("Edrpou", "");
-                //myIni.Write("Rahunok2", "");
-                //myIni.Write("State", "1");
-            }
-            catch (System.NullReferenceException e)
-            {
-
-            }
-
-
-        }
+       
         private void CliBankCode_TextChanged(object sender, EventArgs e)
         {
             recviz.cliBankCode = cliBankCode.Text;
         }
 
-        private void RecivPayNum_TextChanged(object sender, EventArgs e)
-        {
-            recviz.recivPayNum = recivPayNum.Text;
-        }
+      
+       
 
-        private void CurrentSheme_TextChanged(object sender, EventArgs e)
-        {
-            if (shemes)
-            {
-                recviz.name = currentSheme.Text;
-            }
-            else
-            {
-                recviz.name2 = currentSheme.Text;
-            }
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
+     
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -808,15 +746,9 @@ namespace SoftGenConverter
 
         }
 
-        private void toolTip1_Popup(object sender, PopupEventArgs e)
-        {
+     
 
-        }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
+     
 
         private void button2_Click(object sender, EventArgs e)
         {
@@ -834,25 +766,9 @@ namespace SoftGenConverter
             comboEdr.Items.Add(comboEdr.Text);
         }
 
-        private void Label6_Click(object sender, EventArgs e)
-        {
+       
 
-        }
-
-        private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void dataGridView2_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void tableLayoutPanel7_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
+       
 
         private void comboEdr_SelectedIndexChanged(object sender, EventArgs e)
         {
