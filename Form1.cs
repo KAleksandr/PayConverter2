@@ -758,16 +758,7 @@ namespace SoftGenConverter
 
         private void comboEdr_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboEdr.Text.Equals(Properties.Settings.Default.name2))
-            {
-                Properties.Settings.Default.state = 2;
-                Properties.Settings.Default.Save();
-            }
-            else
-            {
-                Properties.Settings.Default.state = 3;
-                Properties.Settings.Default.Save();
-            }
+           
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -861,6 +852,20 @@ namespace SoftGenConverter
                     comboEdr2.Items.Add(Properties.Settings.Default.name2);
                     comboEdr2.Items.Add(Properties.Settings.Default.name3);
                 }
+            }
+        }
+
+        private void comboEdr2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboEdr.Text.Equals(Properties.Settings.Default.name))
+            {
+                Properties.Settings.Default.state = 2;
+                Properties.Settings.Default.Save();
+            }
+            else
+            {
+                Properties.Settings.Default.state = 3;
+                Properties.Settings.Default.Save();
             }
         }
     }
