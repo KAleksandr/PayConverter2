@@ -372,6 +372,7 @@
             this.comboEdr.FormattingEnabled = true;
             resources.ApplyResources(this.comboEdr, "comboEdr");
             this.comboEdr.Name = "comboEdr";
+            this.comboEdr.SelectedIndexChanged += new System.EventHandler(this.comboEdr_SelectedIndexChanged);
             // 
             // button3
             // 
