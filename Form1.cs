@@ -51,11 +51,18 @@ namespace SoftGenConverter
             comboEdr.Items.Add(Properties.Settings.Default.name2);
             comboEdr.Items.Add(Properties.Settings.Default.name3);
             numberDocAval = Properties.Settings.Default.platNumber;
-            if(Properties.Settings.Default.state ==2)
+            comboEdr2.Text = Properties.Settings.Default.name;
+            if (Properties.Settings.Default.state == 2)
+            {
                 numberDocUkrg = Properties.Settings.Default.platNumber2;
+                comboEdr.Text = Properties.Settings.Default.name2;
+            }
+                
+
             else
             {
                 numberDocUkrg = Properties.Settings.Default.platNumber3;
+                comboEdr.Text = Properties.Settings.Default.name3;
             }
 
             //comboBox1.Items.Insert(1, "Боливия");
