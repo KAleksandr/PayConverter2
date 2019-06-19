@@ -9,6 +9,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
 using System.Data;
+using System.Globalization;
 
 
 namespace SoftGenConverter
@@ -167,14 +168,14 @@ namespace SoftGenConverter
                     dataGridView1.Rows[n].Cells[7].Value = CSV_Struct[i].rahunok;
                     dataGridView1.Rows[n].Cells[8].Value = CSV_Struct[i].summa;
                     //dataGridView1.Rows[n].Cells[9].Value = "0";
-                   // dataGridView1.Rows[n].Cells[10].Value = CSV_Struct[i].name;
-
+                    // dataGridView1.Rows[n].Cells[10].Value = CSV_Struct[i].name;
+                    CultureInfo MyCultureInfo = new CultureInfo("de-DE");
                     n  = dataGridView2.Rows.Add();
                     dataGridView2.Rows[n].Cells[0].Value = "0";
                     dataGridView2.Rows[n].Cells[1].Value = "1";
                     dataGridView2.Rows[n].Cells[2].Value = numberDocAval++; 
                     dataGridView2.Rows[n].Cells[3].Value = CSV_Struct[i].dateP.ToString("dd.MM.yyyy");
-                    dateTimePicker1.Value = DateTime.Parse(CSV_Struct[i].dateP.ToString("dd.MM.yyyy"));
+                    dateTimePicker1.Value = DateTime.Parse(CSV_Struct[i].dateP.ToString("dd.MM.yyyy"), MyCultureInfo);
                     dataGridView2.Rows[n].Cells[4].Value = Properties.Settings.Default.mfo;
                     dataGridView2.Rows[n].Cells[5].Value = CSV_Struct[i].mfo;
                     dataGridView2.Rows[n].Cells[6].Value = Properties.Settings.Default.rahunok;
@@ -211,7 +212,7 @@ namespace SoftGenConverter
                                 return r.Cells[2].Value.ToString();
                             }
                         }
-                        catch (Exception e)
+                        catch (Exception)
                         {
                             return "null";
                         }
@@ -498,7 +499,7 @@ namespace SoftGenConverter
                 recviz.mfo = string.IsNullOrEmpty(recvizs[1]) ? "0" : recvizs[1];
                 recviz.rahunok = string.IsNullOrEmpty(recvizs[2]) ? "0" : recvizs[2];
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 MessageBox.Show("Помилка конвертації");
             }
