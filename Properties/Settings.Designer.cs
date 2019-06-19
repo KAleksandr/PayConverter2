@@ -193,7 +193,7 @@ namespace SoftGenConverter.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
         public long platNumber3 {
             get {
                 return ((long)(this["platNumber3"]));
@@ -229,7 +229,7 @@ namespace SoftGenConverter.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("2")]
+        [global::System.Configuration.DefaultSettingValueAttribute("3")]
         public int state {
             get {
                 return ((int)(this["state"]));

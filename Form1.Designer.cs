@@ -30,9 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle25 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle26 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle27 = new System.Windows.Forms.DataGridViewCellStyle();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.укрГазToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.авальToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -99,6 +99,7 @@
             this.Column13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.textBox3 = new System.Windows.Forms.TextBox();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
@@ -222,6 +223,7 @@
             // panel2
             // 
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.textBox3);
             this.panel2.Controls.Add(this.label9);
             this.panel2.Controls.Add(this.textBox2);
             this.panel2.Controls.Add(this.label6);
@@ -245,6 +247,7 @@
             this.textBox2.BackColor = System.Drawing.SystemColors.Window;
             resources.ApplyResources(this.textBox2, "textBox2");
             this.textBox2.Name = "textBox2";
+            this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged_1);
             // 
             // label6
             // 
@@ -256,6 +259,7 @@
             this.textBox1.BackColor = System.Drawing.SystemColors.Window;
             resources.ApplyResources(this.textBox1, "textBox1");
             this.textBox1.Name = "textBox1";
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged_1);
             // 
             // label7
             // 
@@ -479,16 +483,16 @@
             // 
             // dataGridViewTextBoxColumn1
             // 
-            dataGridViewCellStyle7.NullValue = "0";
-            this.dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle25.NullValue = "0";
+            this.dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle25;
             resources.ApplyResources(this.dataGridViewTextBoxColumn1, "dataGridViewTextBoxColumn1");
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             this.dataGridViewTextBoxColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
             // dataGridViewTextBoxColumn2
             // 
-            dataGridViewCellStyle8.NullValue = "1";
-            this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle26.NullValue = "1";
+            this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle26;
             resources.ApplyResources(this.dataGridViewTextBoxColumn2, "dataGridViewTextBoxColumn2");
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             // 
@@ -529,8 +533,8 @@
             // 
             // dataGridViewTextBoxColumn10
             // 
-            dataGridViewCellStyle9.NullValue = "0";
-            this.dataGridViewTextBoxColumn10.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle27.NullValue = "0";
+            this.dataGridViewTextBoxColumn10.DefaultCellStyle = dataGridViewCellStyle27;
             resources.ApplyResources(this.dataGridViewTextBoxColumn10, "dataGridViewTextBoxColumn10");
             this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
             // 
@@ -554,6 +558,12 @@
             this.toolTip1.AutomaticDelay = 200;
             this.toolTip1.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             this.toolTip1.ToolTipTitle = "Підсказка";
+            // 
+            // textBox3
+            // 
+            resources.ApplyResources(this.textBox3, "textBox3");
+            this.textBox3.Name = "textBox3";
+            this.textBox3.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
             // 
             // Form1
             // 
@@ -649,6 +659,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column10;
+        private System.Windows.Forms.TextBox textBox3;
     }
 }
 

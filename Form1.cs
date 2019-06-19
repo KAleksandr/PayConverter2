@@ -757,25 +757,8 @@ namespace SoftGenConverter
 
        
 
-        private void comboEdr_SelectedIndexChanged(object sender, EventArgs e)
-        {
-           
-        }
+    
 
-        private void button5_Click(object sender, EventArgs e)
-        {
-            editUkrG = !editUkrG;
-            if (editUkrG)
-            {
-                isEditUkrG(editUkrG);
-                button5.Image = saveBtn;
-            }
-            else
-            {
-                button5.Image = editBtn;
-                isEditUkrG(editUkrG);
-            }
-        }
 
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
@@ -815,17 +798,22 @@ namespace SoftGenConverter
 
         private void button5_Click_2(object sender, EventArgs e)
         {
+           // MessageBox.Show(Properties.Settings.Default.state.ToString());
             editUkrG = !editUkrG;
             if (editUkrG)
             {
+                comboEdr2.Visible = !editUkrG;
+                textBox3.Visible = editUkrG;
                 if (Properties.Settings.Default.state == 2)
                 {
                     textBox2.Text = Properties.Settings.Default.edrpou;
                     textBox1.Text = Properties.Settings.Default.platNumber2.ToString();
+                    textBox3.Text = Properties.Settings.Default.name2;
 
                 }
                 else
                 {
+                    textBox3.Text = Properties.Settings.Default.name3;
                     textBox2.Text = Properties.Settings.Default.edrpou2;
                     textBox1.Text = Properties.Settings.Default.platNumber3.ToString();
                 }
@@ -837,35 +825,87 @@ namespace SoftGenConverter
             {
                 button3.Image = editBtn;
                 isEditUkrG(editUkrG);
+                comboEdr2.Visible = !editUkrG;
+                textBox3.Visible = editUkrG;
                 if (Properties.Settings.Default.state == 2)
                 {
-                    Properties.Settings.Default.name2 = comboEdr2.Text;
+                    MessageBox.Show(Properties.Settings.Default.state.ToString());
+                    Properties.Settings.Default.name2 = textBox3.Text;
                     Properties.Settings.Default.Save();
-                    comboEdr2.Items.Clear();
+                    //comboEdr2.Items.Clear();
                     comboEdr2.Items.Add(Properties.Settings.Default.name2);
                     comboEdr2.Items.Add(Properties.Settings.Default.name3);
+                    comboEdr2.Text = Properties.Settings.Default.name2;
                 }
                 else
                 {
-                    Properties.Settings.Default.name3 = comboEdr2.Text;
+                    MessageBox.Show(Properties.Settings.Default.state.ToString());
+                    Properties.Settings.Default.name3 = textBox3.Text;
                     Properties.Settings.Default.Save();
-                    comboEdr2.Items.Clear();
+                    //comboEdr2.Items.Clear();
                     comboEdr2.Items.Add(Properties.Settings.Default.name2);
                     comboEdr2.Items.Add(Properties.Settings.Default.name3);
+                    comboEdr2.Text = Properties.Settings.Default.name3;
                 }
             }
         }
 
         private void comboEdr2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboEdr.Text.Equals(Properties.Settings.Default.name))
+           // MessageBox.Show(Properties.Settings.Default.state.ToString());
+            if (comboEdr2.Text.Equals(Properties.Settings.Default.name2))
             {
                 Properties.Settings.Default.state = 2;
+                numberDocUkrg = Properties.Settings.Default.platNumber2;
                 Properties.Settings.Default.Save();
             }
             else
             {
+                numberDocUkrg = Properties.Settings.Default.platNumber3;
                 Properties.Settings.Default.state = 3;
+                Properties.Settings.Default.Save();
+            }
+           // MessageBox.Show(Properties.Settings.Default.state.ToString());
+        }
+
+        private void textBox3_TextChanged(object sender, EventArgs e)
+        {
+            if (comboEdr2.Text.Equals(Properties.Settings.Default.name2))
+            {
+                Properties.Settings.Default.name2 = textBox3.Text;
+                Properties.Settings.Default.Save();
+            }
+            else
+            {
+                Properties.Settings.Default.name3 = textBox3.Text;
+                Properties.Settings.Default.Save();
+            }
+        }
+
+        private void textBox2_TextChanged_1(object sender, EventArgs e)
+        {
+            if (comboEdr2.Text.Equals(Properties.Settings.Default.name2))
+            {
+                Properties.Settings.Default.edrpou = textBox2.Text;
+                Properties.Settings.Default.Save();
+            }
+            else
+            {
+                Properties.Settings.Default.edrpou2 = textBox2.Text;
+                Properties.Settings.Default.Save();
+            }
+        }
+
+        private void textBox1_TextChanged_1(object sender, EventArgs e)
+        {
+            if (comboEdr2.Text.Equals(Properties.Settings.Default.name2))
+            {
+                Properties.Settings.Default.platNumber2 = Int64.Parse(textBox1.Text);
+                Properties.Settings.Default.Save();
+            }
+            else
+            {
+                Properties.Settings.Default.platNumber3 = Int64.Parse(textBox1.Text);
                 Properties.Settings.Default.Save();
             }
         }

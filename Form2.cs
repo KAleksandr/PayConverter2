@@ -65,13 +65,13 @@ namespace SoftGenConverter
                     try
                     {
                      foreach (DataRow item in ds.Tables["Employee"].Rows)
-                            {
+                     {
                                 int n = dataGridView1.Rows.Add(); 
                                 dataGridView1.Rows[n].Cells[0].Value = item["NAME"]; 
                                 dataGridView1.Rows[n].Cells[1].Value = item["ERDPO"]; 
                                 dataGridView1.Rows[n].Cells[2].Value = item["Comment"]; 
 
-                            }
+                     }
                     }catch(Exception) { }
                     
                 }
