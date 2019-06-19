@@ -48,22 +48,22 @@ namespace SoftGenConverter
             InitializeComponent();
            
             Xml.loadXml(dataGridView3,path2);
-            comboEdr2.Items.Add(Properties.Settings.Default.name);
-            comboEdr.Items.Add(Properties.Settings.Default.name2);
-            comboEdr.Items.Add(Properties.Settings.Default.name3);
+            comboEdr.Items.Add(Properties.Settings.Default.name);
+            comboEdr2.Items.Add(Properties.Settings.Default.name2);
+            comboEdr2.Items.Add(Properties.Settings.Default.name3);
             numberDocAval = Properties.Settings.Default.platNumber;
-            comboEdr2.Text = Properties.Settings.Default.name;
+            comboEdr.Text = Properties.Settings.Default.name;
             if (Properties.Settings.Default.state == 2)
             {
                 numberDocUkrg = Properties.Settings.Default.platNumber2;
-                comboEdr.Text = Properties.Settings.Default.name2;
+                comboEdr2.Text = Properties.Settings.Default.name2;
             }
                 
 
             else
             {
                 numberDocUkrg = Properties.Settings.Default.platNumber3;
-                comboEdr.Text = Properties.Settings.Default.name3;
+                comboEdr2.Text = Properties.Settings.Default.name3;
             }
 
             //comboBox1.Items.Insert(1, "Боливия");
@@ -744,6 +744,9 @@ namespace SoftGenConverter
             {
                 button3.Image = editBtn;
                 isEditAval(editAval);
+                Properties.Settings.Default.name = comboEdr.Text;
+                comboEdr.Items.Clear();
+                comboEdr.Items.Add(Properties.Settings.Default.name);
             }
         }
 
@@ -806,6 +809,47 @@ namespace SoftGenConverter
                 numberDocUkrg = Properties.Settings.Default.platNumber3 = string.IsNullOrEmpty(platNumber.Text) ? 0 : Int64.Parse(platNumber.Text);
             }
             
+        }
+
+        private void button5_Click_1(object sender, EventArgs e)
+        {
+            editUkrG = !editUkrG;
+            if (editUkrG)
+            {
+                if (Properties.Settings.Default.state == 2)
+                {
+                    textBox2.Text = Properties.Settings.Default.edrpou;
+                    textBox1.Text = Properties.Settings.Default.platNumber2.ToString();
+                }
+                else
+                {
+                    textBox2.Text = Properties.Settings.Default.edrpou2;
+                    textBox1.Text = Properties.Settings.Default.platNumber3.ToString();
+                }
+
+                isEditUkrG(editUkrG);
+                button3.Image = saveBtn;
+            }
+            else
+            {
+                button3.Image = editBtn;
+                isEditUkrG(editUkrG);
+                if (Properties.Settings.Default.state == 2)
+                {
+                    Properties.Settings.Default.name2 = comboEdr2.Text;
+                    
+                    comboEdr2.Items.Clear();
+                    comboEdr2.Items.Add(Properties.Settings.Default.name2);
+                    comboEdr2.Items.Add(Properties.Settings.Default.name3);
+                }
+                else
+                {
+                    Properties.Settings.Default.name3 = comboEdr2.Text;
+                    comboEdr2.Items.Clear();
+                    comboEdr2.Items.Add(Properties.Settings.Default.name2);
+                    comboEdr2.Items.Add(Properties.Settings.Default.name3);
+                }
+            }
         }
     }
 }
