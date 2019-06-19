@@ -73,7 +73,7 @@ namespace SoftGenConverter
                 {
                    //setFields();
                     setFieldsP();
-                    texVisible(shemes);
+                   
                    
 
                 }
@@ -81,7 +81,7 @@ namespace SoftGenConverter
                 {
                     setFieldsP2();
                     //setFields2();
-                    texVisible(shemes);
+                   
 
                 }
 
@@ -174,6 +174,7 @@ namespace SoftGenConverter
                     dataGridView2.Rows[n].Cells[1].Value = "1";
                     dataGridView2.Rows[n].Cells[2].Value = numberDocAval++; 
                     dataGridView2.Rows[n].Cells[3].Value = CSV_Struct[i].dateP.ToString("dd.MM.yyyy");
+                    dateTimePicker1.Value = DateTime.Parse(CSV_Struct[i].dateP.ToString("dd.MM.yyyy"));
                     dataGridView2.Rows[n].Cells[4].Value = Properties.Settings.Default.mfo;
                     dataGridView2.Rows[n].Cells[5].Value = CSV_Struct[i].mfo;
                     dataGridView2.Rows[n].Cells[6].Value = Properties.Settings.Default.rahunok;
@@ -575,17 +576,17 @@ namespace SoftGenConverter
         private void УкрГазToolStripMenuItem_Click(object sender, EventArgs e)
         {
             recviz.state = 2;
-            texVisible(false);
+            
             label2.Text = "ЕДРПОУ Платника:";
             //setFields2();
             setFieldsP2();
             
         }
 
-        void texVisible(bool flag)
-        {
-            dateTimePicker1.Visible = label4.Visible = label5.Visible = cliBankCode.Visible =   shemes = flag;
-        }
+        //void texVisible(bool flag)
+        //{
+        //    dateTimePicker1.Visible = label4.Visible = label5.Visible = cliBankCode.Visible =   shemes = flag;
+        //}
 
         private void АвальToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -599,11 +600,11 @@ namespace SoftGenConverter
         }
         public void isEditAval(bool edit)
         {
-            platNumber.Visible = mfo.Visible = rahunok.Visible = dateTimePicker1.Visible = label1.Visible = label2.Visible = label3.Visible = label4.Visible =    edit;
+            cliBankCode.Visible = platNumber.Visible = mfo.Visible = rahunok.Visible =  label1.Visible = label2.Visible = label3.Visible =   label5.Visible =   edit;
         }
         public void isEditUkrG(bool edit)
         {
-            textBox2.Visible = cliBankCode.Visible = textBox1.Visible = label7.Visible = label6.Visible = label5.Visible = edit;
+            textBox2.Visible =  textBox1.Visible = label7.Visible = label6.Visible =  edit;
         }
 
 
@@ -694,7 +695,8 @@ namespace SoftGenConverter
        
         private void CliBankCode_TextChanged(object sender, EventArgs e)
         {
-            recviz.cliBankCode = cliBankCode.Text;
+            Properties.Settings.Default.clientBankCode = cliBankCode.Text;
+            Properties.Settings.Default.Save();
         }
 
       
@@ -759,10 +761,12 @@ namespace SoftGenConverter
             if (comboEdr.Text.Equals(Properties.Settings.Default.name2))
             {
                 Properties.Settings.Default.state = 2;
+                Properties.Settings.Default.Save();
             }
             else
             {
                 Properties.Settings.Default.state = 3;
+                Properties.Settings.Default.Save();
             }
         }
 
@@ -784,6 +788,7 @@ namespace SoftGenConverter
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.datePayment = converterDateToInt(dateTimePicker1.Value);
+            Properties.Settings.Default.Save();
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)
@@ -791,10 +796,12 @@ namespace SoftGenConverter
             if (Properties.Settings.Default.state == 2)
             {
                 Properties.Settings.Default.edrpou = string.IsNullOrEmpty(platNumber.Text) ? "0" : platNumber.Text;
+                Properties.Settings.Default.Save();
             }
             else
             {
                 Properties.Settings.Default.edrpou2 = string.IsNullOrEmpty(platNumber.Text) ? "0" : platNumber.Text;
+                Properties.Settings.Default.Save();
             }
         }
 
@@ -803,15 +810,18 @@ namespace SoftGenConverter
             if (Properties.Settings.Default.state == 2)
             {
                 numberDocUkrg = Properties.Settings.Default.platNumber2 = string.IsNullOrEmpty(platNumber.Text) ? 0 : Int64.Parse(platNumber.Text);
+                Properties.Settings.Default.Save();
             }
             else
             {
                 numberDocUkrg = Properties.Settings.Default.platNumber3 = string.IsNullOrEmpty(platNumber.Text) ? 0 : Int64.Parse(platNumber.Text);
+                Properties.Settings.Default.Save();
             }
             
         }
 
-        private void button5_Click_1(object sender, EventArgs e)
+
+        private void button5_Click_2(object sender, EventArgs e)
         {
             editUkrG = !editUkrG;
             if (editUkrG)
@@ -820,6 +830,7 @@ namespace SoftGenConverter
                 {
                     textBox2.Text = Properties.Settings.Default.edrpou;
                     textBox1.Text = Properties.Settings.Default.platNumber2.ToString();
+
                 }
                 else
                 {
@@ -837,7 +848,7 @@ namespace SoftGenConverter
                 if (Properties.Settings.Default.state == 2)
                 {
                     Properties.Settings.Default.name2 = comboEdr2.Text;
-                    
+                    Properties.Settings.Default.Save();
                     comboEdr2.Items.Clear();
                     comboEdr2.Items.Add(Properties.Settings.Default.name2);
                     comboEdr2.Items.Add(Properties.Settings.Default.name3);
@@ -845,6 +856,7 @@ namespace SoftGenConverter
                 else
                 {
                     Properties.Settings.Default.name3 = comboEdr2.Text;
+                    Properties.Settings.Default.Save();
                     comboEdr2.Items.Clear();
                     comboEdr2.Items.Add(Properties.Settings.Default.name2);
                     comboEdr2.Items.Add(Properties.Settings.Default.name3);

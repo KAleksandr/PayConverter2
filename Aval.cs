@@ -42,7 +42,7 @@ namespace SoftGenConverter
         public static List<Aval> ReadFile(string filename)
         {
             List<Aval> res = new List<Aval>();
-            int date = 01012001;
+            int date = Properties.Settings.Default.datePayment;
             Regex regexDate = new Regex(@"\w*[0-9]{2}[.][0-9]{2}[.][0-9]{2}р.");
             Regex regexLine = new Regex(@".+;.+;.+;.+;.+;.+;.+;.+;.+;.+");
             bool flag = false;
