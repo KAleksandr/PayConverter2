@@ -29,7 +29,7 @@ namespace SoftGenConverter
                 string[] parts = line.Split(';');  //Разделитель в CSV файле.
 
                 name = parts[0];
-                recivPayNum = parts[1];
+                
                 mfo = parts[2];
                 rahunok = parts[3];
                 zkpo = parts[4];
