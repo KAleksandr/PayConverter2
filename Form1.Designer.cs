@@ -49,27 +49,32 @@
             this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.panel7 = new System.Windows.Forms.Panel();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.button2 = new System.Windows.Forms.Button();
+            this.platNumber = new System.Windows.Forms.TextBox();
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
             this.Column11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.platNumber = new System.Windows.Forms.TextBox();
-            this.cliBankCode = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.cliBankCode = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            this.rahunok = new System.Windows.Forms.TextBox();
-            this.mfo = new System.Windows.Forms.TextBox();
             this.comboEdr = new System.Windows.Forms.ComboBox();
             this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
+            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
             this.comboEdr2 = new System.Windows.Forms.ComboBox();
+            this.rahunok = new System.Windows.Forms.TextBox();
+            this.mfo = new System.Windows.Forms.TextBox();
+            this.panel8 = new System.Windows.Forms.Panel();
+            this.saveFile = new System.Windows.Forms.Button();
             this.openFile = new System.Windows.Forms.Button();
             this.dropDownButton1 = new System.Windows.Forms.Button();
-            this.saveFile = new System.Windows.Forms.Button();
-            this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -90,20 +95,17 @@
             this.Column13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.panel7 = new System.Windows.Forms.Panel();
-            this.panel8 = new System.Windows.Forms.Panel();
-            this.button2 = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
+            this.panel7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
+            this.panel8.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
-            this.panel7.SuspendLayout();
-            this.panel8.SuspendLayout();
             this.SuspendLayout();
             // 
             // contextMenuStrip1
@@ -147,7 +149,6 @@
             this.Column10});
             resources.ApplyResources(this.dataGridView1, "dataGridView1");
             this.dataGridView1.Name = "dataGridView1";
-         
             // 
             // Column1
             // 
@@ -201,6 +202,59 @@
             this.tableLayoutPanel2.Controls.Add(this.panel7, 0, 0);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             // 
+            // panel7
+            // 
+            this.panel7.Controls.Add(this.textBox2);
+            this.panel7.Controls.Add(this.label6);
+            this.panel7.Controls.Add(this.textBox1);
+            this.panel7.Controls.Add(this.label7);
+            this.panel7.Controls.Add(this.button2);
+            this.panel7.Controls.Add(this.platNumber);
+            this.panel7.Controls.Add(this.dataGridView3);
+            this.panel7.Controls.Add(this.label1);
+            this.panel7.Controls.Add(this.cliBankCode);
+            this.panel7.Controls.Add(this.label5);
+            this.panel7.Controls.Add(this.comboEdr);
+            this.panel7.Controls.Add(this.button3);
+            this.panel7.Controls.Add(this.button6);
+            this.panel7.Controls.Add(this.dateTimePicker1);
+            this.panel7.Controls.Add(this.button4);
+            this.panel7.Controls.Add(this.button5);
+            this.panel7.Controls.Add(this.label4);
+            this.panel7.Controls.Add(this.comboEdr2);
+            this.panel7.Controls.Add(this.rahunok);
+            this.panel7.Controls.Add(this.mfo);
+            this.panel7.Controls.Add(this.panel8);
+            this.panel7.Controls.Add(this.label3);
+            this.panel7.Controls.Add(this.label2);
+            resources.ApplyResources(this.panel7, "panel7");
+            this.panel7.Name = "panel7";
+            // 
+            // textBox1
+            // 
+            this.textBox1.BackColor = System.Drawing.SystemColors.Window;
+            resources.ApplyResources(this.textBox1, "textBox1");
+            this.textBox1.Name = "textBox1";
+            // 
+            // label7
+            // 
+            resources.ApplyResources(this.label7, "label7");
+            this.label7.Name = "label7";
+            // 
+            // button2
+            // 
+            resources.ApplyResources(this.button2, "button2");
+            this.button2.Name = "button2";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // platNumber
+            // 
+            this.platNumber.BackColor = System.Drawing.SystemColors.Window;
+            resources.ApplyResources(this.platNumber, "platNumber");
+            this.platNumber.Name = "platNumber";
+            this.platNumber.TextChanged += new System.EventHandler(this.PlatNumber_TextChanged);
+            // 
             // dataGridView3
             // 
             this.dataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -226,12 +280,10 @@
             resources.ApplyResources(this.Column14, "Column14");
             this.Column14.Name = "Column14";
             // 
-            // platNumber
+            // label1
             // 
-            this.platNumber.BackColor = System.Drawing.SystemColors.Window;
-            resources.ApplyResources(this.platNumber, "platNumber");
-            this.platNumber.Name = "platNumber";
-            this.platNumber.TextChanged += new System.EventHandler(this.PlatNumber_TextChanged);
+            resources.ApplyResources(this.label1, "label1");
+            this.label1.Name = "label1";
             // 
             // cliBankCode
             // 
@@ -240,34 +292,10 @@
             this.cliBankCode.Name = "cliBankCode";
             this.cliBankCode.TextChanged += new System.EventHandler(this.CliBankCode_TextChanged);
             // 
-            // label1
-            // 
-            resources.ApplyResources(this.label1, "label1");
-            this.label1.Name = "label1";
-            // 
             // label5
             // 
             resources.ApplyResources(this.label5, "label5");
             this.label5.Name = "label5";
-            // 
-            // dateTimePicker1
-            // 
-            resources.ApplyResources(this.dateTimePicker1, "dateTimePicker1");
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            // 
-            // rahunok
-            // 
-            this.rahunok.BackColor = System.Drawing.SystemColors.Window;
-            resources.ApplyResources(this.rahunok, "rahunok");
-            this.rahunok.Name = "rahunok";
-            this.rahunok.TextChanged += new System.EventHandler(this.Rahunok_TextChanged);
-            // 
-            // mfo
-            // 
-            this.mfo.BackColor = System.Drawing.SystemColors.Window;
-            resources.ApplyResources(this.mfo, "mfo");
-            this.mfo.Name = "mfo";
-            this.mfo.TextChanged += new System.EventHandler(this.Mfo_TextChanged);
             // 
             // comboEdr
             // 
@@ -284,6 +312,18 @@
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.Button3_Click);
             // 
+            // button6
+            // 
+            this.button6.Image = global::SoftGenConverter.Properties.Resources.delete_forever_16px;
+            resources.ApplyResources(this.button6, "button6");
+            this.button6.Name = "button6";
+            this.button6.UseVisualStyleBackColor = true;
+            // 
+            // dateTimePicker1
+            // 
+            resources.ApplyResources(this.dateTimePicker1, "dateTimePicker1");
+            this.dateTimePicker1.Name = "dateTimePicker1";
+            // 
             // button4
             // 
             this.button4.Image = global::SoftGenConverter.Properties.Resources.delete_forever_16px;
@@ -292,13 +332,6 @@
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.Button4_Click);
             // 
-            // button6
-            // 
-            this.button6.Image = global::SoftGenConverter.Properties.Resources.delete_forever_16px;
-            resources.ApplyResources(this.button6, "button6");
-            this.button6.Name = "button6";
-            this.button6.UseVisualStyleBackColor = true;
-            // 
             // button5
             // 
             this.button5.Image = global::SoftGenConverter.Properties.Resources.inscription_16px;
@@ -306,11 +339,47 @@
             this.button5.Name = "button5";
             this.button5.UseVisualStyleBackColor = true;
             // 
+            // label4
+            // 
+            resources.ApplyResources(this.label4, "label4");
+            this.label4.Name = "label4";
+            // 
             // comboEdr2
             // 
             resources.ApplyResources(this.comboEdr2, "comboEdr2");
             this.comboEdr2.FormattingEnabled = true;
             this.comboEdr2.Name = "comboEdr2";
+            // 
+            // rahunok
+            // 
+            this.rahunok.BackColor = System.Drawing.SystemColors.Window;
+            resources.ApplyResources(this.rahunok, "rahunok");
+            this.rahunok.Name = "rahunok";
+            this.rahunok.TextChanged += new System.EventHandler(this.Rahunok_TextChanged);
+            // 
+            // mfo
+            // 
+            this.mfo.BackColor = System.Drawing.SystemColors.Window;
+            resources.ApplyResources(this.mfo, "mfo");
+            this.mfo.Name = "mfo";
+            this.mfo.TextChanged += new System.EventHandler(this.Mfo_TextChanged);
+            // 
+            // panel8
+            // 
+            this.panel8.Controls.Add(this.saveFile);
+            this.panel8.Controls.Add(this.openFile);
+            this.panel8.Controls.Add(this.dropDownButton1);
+            resources.ApplyResources(this.panel8, "panel8");
+            this.panel8.Name = "panel8";
+            // 
+            // saveFile
+            // 
+            resources.ApplyResources(this.saveFile, "saveFile");
+            this.saveFile.Image = global::SoftGenConverter.Properties.Resources.save_32px;
+            this.saveFile.Name = "saveFile";
+            this.toolTip1.SetToolTip(this.saveFile, resources.GetString("saveFile.ToolTip"));
+            this.saveFile.UseVisualStyleBackColor = true;
+            this.saveFile.Click += new System.EventHandler(this.SaveFile_Click_1);
             // 
             // openFile
             // 
@@ -329,20 +398,6 @@
             this.toolTip1.SetToolTip(this.dropDownButton1, resources.GetString("dropDownButton1.ToolTip"));
             this.dropDownButton1.UseVisualStyleBackColor = true;
             this.dropDownButton1.Click += new System.EventHandler(this.DropDownButton1_Click);
-            // 
-            // saveFile
-            // 
-            resources.ApplyResources(this.saveFile, "saveFile");
-            this.saveFile.Image = global::SoftGenConverter.Properties.Resources.save_32px;
-            this.saveFile.Name = "saveFile";
-            this.toolTip1.SetToolTip(this.saveFile, resources.GetString("saveFile.ToolTip"));
-            this.saveFile.UseVisualStyleBackColor = true;
-            this.saveFile.Click += new System.EventHandler(this.SaveFile_Click_1);
-            // 
-            // label4
-            // 
-            resources.ApplyResources(this.label4, "label4");
-            this.label4.Name = "label4";
             // 
             // label3
             // 
@@ -466,59 +521,17 @@
             this.toolTip1.AutomaticDelay = 200;
             this.toolTip1.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             this.toolTip1.ToolTipTitle = "Підсказка";
-           
             // 
-            // panel7
+            // textBox2
             // 
-            this.panel7.Controls.Add(this.textBox1);
-            this.panel7.Controls.Add(this.label7);
-            this.panel7.Controls.Add(this.button2);
-            this.panel7.Controls.Add(this.platNumber);
-            this.panel7.Controls.Add(this.dataGridView3);
-            this.panel7.Controls.Add(this.label1);
-            this.panel7.Controls.Add(this.cliBankCode);
-            this.panel7.Controls.Add(this.label5);
-            this.panel7.Controls.Add(this.comboEdr);
-            this.panel7.Controls.Add(this.button3);
-            this.panel7.Controls.Add(this.button6);
-            this.panel7.Controls.Add(this.dateTimePicker1);
-            this.panel7.Controls.Add(this.button4);
-            this.panel7.Controls.Add(this.button5);
-            this.panel7.Controls.Add(this.label4);
-            this.panel7.Controls.Add(this.comboEdr2);
-            this.panel7.Controls.Add(this.rahunok);
-            this.panel7.Controls.Add(this.mfo);
-            this.panel7.Controls.Add(this.panel8);
-            this.panel7.Controls.Add(this.label3);
-            this.panel7.Controls.Add(this.label2);
-            resources.ApplyResources(this.panel7, "panel7");
-            this.panel7.Name = "panel7";
+            this.textBox2.BackColor = System.Drawing.SystemColors.Window;
+            resources.ApplyResources(this.textBox2, "textBox2");
+            this.textBox2.Name = "textBox2";
             // 
-            // panel8
+            // label6
             // 
-            this.panel8.Controls.Add(this.saveFile);
-            this.panel8.Controls.Add(this.openFile);
-            this.panel8.Controls.Add(this.dropDownButton1);
-            resources.ApplyResources(this.panel8, "panel8");
-            this.panel8.Name = "panel8";
-            // 
-            // button2
-            // 
-            resources.ApplyResources(this.button2, "button2");
-            this.button2.Name = "button2";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // textBox1
-            // 
-            this.textBox1.BackColor = System.Drawing.SystemColors.Window;
-            resources.ApplyResources(this.textBox1, "textBox1");
-            this.textBox1.Name = "textBox1";
-            // 
-            // label7
-            // 
-            resources.ApplyResources(this.label7, "label7");
-            this.label7.Name = "label7";
+            resources.ApplyResources(this.label6, "label6");
+            this.label6.Name = "label6";
             // 
             // Form1
             // 
@@ -528,18 +541,17 @@
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "Form1";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
-           
             this.contextMenuStrip1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.tableLayoutPanel2.ResumeLayout(false);
+            this.panel7.ResumeLayout(false);
+            this.panel7.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).EndInit();
+            this.panel8.ResumeLayout(false);
+            this.panel8.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel7.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
-            this.panel7.ResumeLayout(false);
-            this.panel7.PerformLayout();
-            this.panel8.ResumeLayout(false);
-            this.panel8.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -607,6 +619,8 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Panel panel8;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Label label6;
     }
 }
 
