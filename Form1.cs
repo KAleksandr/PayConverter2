@@ -45,6 +45,7 @@ namespace SoftGenConverter
             InitializeComponent();
            
             Xml.loadXml(dataGridView3,path2);
+            comboEdr2.Items.Add(Properties.Settings.Default.name);
             comboEdr.Items.Add(Properties.Settings.Default.name2);
             comboEdr.Items.Add(Properties.Settings.Default.name3);
 
