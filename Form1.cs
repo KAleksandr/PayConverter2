@@ -35,6 +35,8 @@ namespace SoftGenConverter
         // private CsvExport myExport = new CsvExport();
         // private Account new1 = new Account();
         private long numberDoc;
+        private long numberDocAval;
+        private long numberDocUkrg;
         private string P = "·";
         //private IniFile myIni;
       
@@ -48,6 +50,20 @@ namespace SoftGenConverter
             comboEdr2.Items.Add(Properties.Settings.Default.name);
             comboEdr.Items.Add(Properties.Settings.Default.name2);
             comboEdr.Items.Add(Properties.Settings.Default.name3);
+            numberDocAval = Properties.Settings.Default.platNumber;
+            comboEdr2.Text = Properties.Settings.Default.name;
+            if (Properties.Settings.Default.state == 2)
+            {
+                numberDocUkrg = Properties.Settings.Default.platNumber2;
+                comboEdr.Text = Properties.Settings.Default.name2;
+            }
+                
+
+            else
+            {
+                numberDocUkrg = Properties.Settings.Default.platNumber3;
+                comboEdr.Text = Properties.Settings.Default.name3;
+            }
 
             //comboBox1.Items.Insert(1, "Боливия");
 
@@ -112,29 +128,9 @@ namespace SoftGenConverter
             
         }
 
-        //bool isShame(Datashit recviz)
-        //{
-        //    try
-        //    {
-        //        recviz.state = Int32.Parse(myIni.Read("State"));
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        recviz.state = 2;
-        //    }
+        
 
-        //    if (recviz.state == 1)
-        //    {
-        //        return true;
-        //    }
-        //    else
-        //    {
-        //        return false;
-        //    }
-
-        //}
-
-        // Обработчик события окончания работы потока чтения.
+        
 
         private void OpenFile_Click(object sender, EventArgs e)
         {
@@ -147,26 +143,21 @@ namespace SoftGenConverter
             openFileDialog1.FileName = "file";//
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
+                if (dataGridView1.Rows.Count > 0)
+                {
+                    dataGridView1.Rows.Clear();
+                }
                 name = openFileDialog1.FileName;
                 List<Aval> CSV_Struct = new List<Aval>();
                 CSV_Struct = Aval.ReadFile(name);
                 for (int i = 0; i <= CSV_Struct.Count - 1; i++)
                 {
-
-
-                    //MessageBox.Show(i.ToString());
-                    //listView1.Items.Add(CSV_Struct[i].name);
-                    //listView1.Items[i].SubItems.Add(CSV_Struct[i].recivPayNum);
-                    //listView1.Items[i].SubItems.Add(CSV_Struct[i].mfo);
-                    //listView1.Items[i].SubItems.Add(CSV_Struct[i].rahunok);
-                    //listView1.Items[i].SubItems.Add(CSV_Struct[i].zkpo);
-                    //listView1.Items[i].SubItems.Add(CSV_Struct[i].datePayment.ToString());
-
+                    
                     int n = dataGridView1.Rows.Add();
 
                     dataGridView1.Rows[n].Cells[0].Value = "0";
                     dataGridView1.Rows[n].Cells[1].Value = "1";
-                    dataGridView1.Rows[n].Cells[2].Value = CSV_Struct[i].recivPayNum;
+                    dataGridView1.Rows[n].Cells[2].Value = numberDocUkrg++;
                     dataGridView1.Rows[n].Cells[3].Value = CSV_Struct[i].datePayment.ToString();
                     dataGridView1.Rows[n].Cells[4].Value = "!!";
                     dataGridView1.Rows[n].Cells[5].Value = CSV_Struct[i].mfo;
@@ -179,7 +170,7 @@ namespace SoftGenConverter
                     n  = dataGridView2.Rows.Add();
                     dataGridView2.Rows[n].Cells[0].Value = "0";
                     dataGridView2.Rows[n].Cells[1].Value = "1";
-                    dataGridView2.Rows[n].Cells[2].Value = CSV_Struct[i].recivPayNum;
+                    dataGridView2.Rows[n].Cells[2].Value = numberDocAval++; 
                     dataGridView2.Rows[n].Cells[3].Value = CSV_Struct[i].dateP.ToString("dd.MM.yyyy");
                     dataGridView2.Rows[n].Cells[4].Value = Properties.Settings.Default.mfo;
                     dataGridView2.Rows[n].Cells[5].Value = CSV_Struct[i].mfo;
@@ -861,6 +852,18 @@ namespace SoftGenConverter
         private void tableLayoutPanel7_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void comboEdr_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboEdr.Text.Equals(Properties.Settings.Default.name2))
+            {
+                Properties.Settings.Default.state = 2;
+            }
+            else
+            {
+                Properties.Settings.Default.state = 3;
+            }
         }
     }
 }
