@@ -30,9 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.укрГазToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.авальToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -49,42 +49,27 @@
             this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.panel4 = new System.Windows.Forms.Panel();
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
             this.Column11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.button2 = new System.Windows.Forms.Button();
-            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.platNumber = new System.Windows.Forms.TextBox();
-            this.recivPayNum = new System.Windows.Forms.TextBox();
             this.cliBankCode = new System.Windows.Forms.TextBox();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
-            this.panel5 = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
-            this.panel6 = new System.Windows.Forms.Panel();
-            this.label6 = new System.Windows.Forms.Label();
-            this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.rahunok = new System.Windows.Forms.TextBox();
             this.mfo = new System.Windows.Forms.TextBox();
-            this.panel2 = new System.Windows.Forms.Panel();
             this.comboEdr = new System.Windows.Forms.ComboBox();
             this.button3 = new System.Windows.Forms.Button();
-            this.currentSheme = new System.Windows.Forms.TextBox();
             this.button4 = new System.Windows.Forms.Button();
-            this.panel3 = new System.Windows.Forms.Panel();
             this.button6 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.comboEdr2 = new System.Windows.Forms.ComboBox();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.openFile = new System.Windows.Forms.Button();
             this.dropDownButton1 = new System.Windows.Forms.Button();
             this.saveFile = new System.Windows.Forms.Button();
-            this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.label4 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -105,23 +90,20 @@
             this.Column13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.panel7 = new System.Windows.Forms.Panel();
+            this.panel8 = new System.Windows.Forms.Panel();
+            this.button2 = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
-            this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
-            this.tableLayoutPanel4.SuspendLayout();
-            this.panel1.SuspendLayout();
-            this.panel5.SuspendLayout();
-            this.panel6.SuspendLayout();
-            this.tableLayoutPanel6.SuspendLayout();
-            this.panel2.SuspendLayout();
-            this.panel3.SuspendLayout();
-            this.flowLayoutPanel1.SuspendLayout();
-            this.tableLayoutPanel5.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
+            this.panel7.SuspendLayout();
+            this.panel8.SuspendLayout();
             this.SuspendLayout();
             // 
             // contextMenuStrip1
@@ -216,19 +198,8 @@
             // tableLayoutPanel2
             // 
             resources.ApplyResources(this.tableLayoutPanel2, "tableLayoutPanel2");
-            this.tableLayoutPanel2.Controls.Add(this.panel4, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.panel7, 0, 0);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            // 
-            // panel4
-            // 
-            this.panel4.Controls.Add(this.dataGridView3);
-            this.panel4.Controls.Add(this.button2);
-            this.panel4.Controls.Add(this.tableLayoutPanel4);
-            this.panel4.Controls.Add(this.tableLayoutPanel6);
-            this.panel4.Controls.Add(this.flowLayoutPanel1);
-            this.panel4.Controls.Add(this.tableLayoutPanel5);
-            resources.ApplyResources(this.panel4, "panel4");
-            this.panel4.Name = "panel4";
             // 
             // dataGridView3
             // 
@@ -255,37 +226,12 @@
             resources.ApplyResources(this.Column14, "Column14");
             this.Column14.Name = "Column14";
             // 
-            // button2
-            // 
-            resources.ApplyResources(this.button2, "button2");
-            this.button2.Name = "button2";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // tableLayoutPanel4
-            // 
-            resources.ApplyResources(this.tableLayoutPanel4, "tableLayoutPanel4");
-            this.tableLayoutPanel4.Controls.Add(this.platNumber, 1, 5);
-            this.tableLayoutPanel4.Controls.Add(this.recivPayNum, 1, 4);
-            this.tableLayoutPanel4.Controls.Add(this.cliBankCode, 1, 3);
-            this.tableLayoutPanel4.Controls.Add(this.panel1, 0, 5);
-            this.tableLayoutPanel4.Controls.Add(this.panel5, 0, 3);
-            this.tableLayoutPanel4.Controls.Add(this.panel6, 0, 4);
-            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
-            // 
             // platNumber
             // 
             this.platNumber.BackColor = System.Drawing.SystemColors.Window;
             resources.ApplyResources(this.platNumber, "platNumber");
             this.platNumber.Name = "platNumber";
             this.platNumber.TextChanged += new System.EventHandler(this.PlatNumber_TextChanged);
-            // 
-            // recivPayNum
-            // 
-            this.recivPayNum.BackColor = System.Drawing.SystemColors.Window;
-            resources.ApplyResources(this.recivPayNum, "recivPayNum");
-            this.recivPayNum.Name = "recivPayNum";
-            this.recivPayNum.TextChanged += new System.EventHandler(this.RecivPayNum_TextChanged);
             // 
             // cliBankCode
             // 
@@ -294,50 +240,15 @@
             this.cliBankCode.Name = "cliBankCode";
             this.cliBankCode.TextChanged += new System.EventHandler(this.CliBankCode_TextChanged);
             // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.label1);
-            resources.ApplyResources(this.panel1, "panel1");
-            this.panel1.Name = "panel1";
-            // 
             // label1
             // 
             resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
             // 
-            // panel5
-            // 
-            this.panel5.Controls.Add(this.label5);
-            resources.ApplyResources(this.panel5, "panel5");
-            this.panel5.Name = "panel5";
-            // 
             // label5
             // 
             resources.ApplyResources(this.label5, "label5");
             this.label5.Name = "label5";
-            // 
-            // panel6
-            // 
-            this.panel6.Controls.Add(this.label6);
-            resources.ApplyResources(this.panel6, "panel6");
-            this.panel6.Name = "panel6";
-            // 
-            // label6
-            // 
-            resources.ApplyResources(this.label6, "label6");
-            this.label6.Name = "label6";
-            this.label6.Click += new System.EventHandler(this.Label6_Click);
-            // 
-            // tableLayoutPanel6
-            // 
-            resources.ApplyResources(this.tableLayoutPanel6, "tableLayoutPanel6");
-            this.tableLayoutPanel6.Controls.Add(this.dateTimePicker1, 0, 4);
-            this.tableLayoutPanel6.Controls.Add(this.rahunok, 0, 3);
-            this.tableLayoutPanel6.Controls.Add(this.mfo, 0, 2);
-            this.tableLayoutPanel6.Controls.Add(this.panel2, 0, 0);
-            this.tableLayoutPanel6.Controls.Add(this.panel3, 0, 1);
-            this.tableLayoutPanel6.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.FixedSize;
-            this.tableLayoutPanel6.Name = "tableLayoutPanel6";
             // 
             // dateTimePicker1
             // 
@@ -358,15 +269,6 @@
             this.mfo.Name = "mfo";
             this.mfo.TextChanged += new System.EventHandler(this.Mfo_TextChanged);
             // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.comboEdr);
-            this.panel2.Controls.Add(this.button3);
-            this.panel2.Controls.Add(this.currentSheme);
-            this.panel2.Controls.Add(this.button4);
-            resources.ApplyResources(this.panel2, "panel2");
-            this.panel2.Name = "panel2";
-            // 
             // comboEdr
             // 
             this.comboEdr.FormattingEnabled = true;
@@ -381,15 +283,6 @@
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.Button3_Click);
             // 
-            // currentSheme
-            // 
-            this.currentSheme.BackColor = System.Drawing.SystemColors.Window;
-            this.currentSheme.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            resources.ApplyResources(this.currentSheme, "currentSheme");
-            this.currentSheme.Name = "currentSheme";
-            this.toolTip1.SetToolTip(this.currentSheme, resources.GetString("currentSheme.ToolTip"));
-            this.currentSheme.TextChanged += new System.EventHandler(this.CurrentSheme_TextChanged);
-            // 
             // button4
             // 
             this.button4.Image = global::SoftGenConverter.Properties.Resources.delete_forever_16px;
@@ -397,14 +290,6 @@
             this.button4.Name = "button4";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.Button4_Click);
-            // 
-            // panel3
-            // 
-            this.panel3.Controls.Add(this.button6);
-            this.panel3.Controls.Add(this.button5);
-            this.panel3.Controls.Add(this.comboEdr2);
-            resources.ApplyResources(this.panel3, "panel3");
-            this.panel3.Name = "panel3";
             // 
             // button6
             // 
@@ -425,14 +310,6 @@
             resources.ApplyResources(this.comboEdr2, "comboEdr2");
             this.comboEdr2.FormattingEnabled = true;
             this.comboEdr2.Name = "comboEdr2";
-            // 
-            // flowLayoutPanel1
-            // 
-            this.flowLayoutPanel1.Controls.Add(this.openFile);
-            this.flowLayoutPanel1.Controls.Add(this.dropDownButton1);
-            this.flowLayoutPanel1.Controls.Add(this.saveFile);
-            resources.ApplyResources(this.flowLayoutPanel1, "flowLayoutPanel1");
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             // 
             // openFile
             // 
@@ -461,29 +338,10 @@
             this.saveFile.UseVisualStyleBackColor = true;
             this.saveFile.Click += new System.EventHandler(this.SaveFile_Click_1);
             // 
-            // tableLayoutPanel5
-            // 
-            resources.ApplyResources(this.tableLayoutPanel5, "tableLayoutPanel5");
-            this.tableLayoutPanel5.Controls.Add(this.label4, 0, 4);
-            this.tableLayoutPanel5.Controls.Add(this.button1, 0, 0);
-            this.tableLayoutPanel5.Controls.Add(this.label3, 0, 3);
-            this.tableLayoutPanel5.Controls.Add(this.label2, 0, 2);
-            this.tableLayoutPanel5.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.FixedSize;
-            this.tableLayoutPanel5.Name = "tableLayoutPanel5";
-            // 
             // label4
             // 
             resources.ApplyResources(this.label4, "label4");
             this.label4.Name = "label4";
-            // 
-            // button1
-            // 
-            this.button1.Image = global::SoftGenConverter.Properties.Resources.edit_property_16px;
-            resources.ApplyResources(this.button1, "button1");
-            this.button1.Name = "button1";
-            this.toolTip1.SetToolTip(this.button1, resources.GetString("button1.ToolTip"));
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.Button1_Click);
             // 
             // label3
             // 
@@ -532,16 +390,16 @@
             // 
             // dataGridViewTextBoxColumn1
             // 
-            dataGridViewCellStyle4.NullValue = "0";
-            this.dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.NullValue = "0";
+            this.dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle1;
             resources.ApplyResources(this.dataGridViewTextBoxColumn1, "dataGridViewTextBoxColumn1");
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             this.dataGridViewTextBoxColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
             // dataGridViewTextBoxColumn2
             // 
-            dataGridViewCellStyle5.NullValue = "1";
-            this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.NullValue = "1";
+            this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle2;
             resources.ApplyResources(this.dataGridViewTextBoxColumn2, "dataGridViewTextBoxColumn2");
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             // 
@@ -582,8 +440,8 @@
             // 
             // dataGridViewTextBoxColumn10
             // 
-            dataGridViewCellStyle6.NullValue = "0";
-            this.dataGridViewTextBoxColumn10.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.NullValue = "0";
+            this.dataGridViewTextBoxColumn10.DefaultCellStyle = dataGridViewCellStyle3;
             resources.ApplyResources(this.dataGridViewTextBoxColumn10, "dataGridViewTextBoxColumn10");
             this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
             // 
@@ -609,6 +467,58 @@
             this.toolTip1.ToolTipTitle = "Підсказка";
             this.toolTip1.Popup += new System.Windows.Forms.PopupEventHandler(this.toolTip1_Popup);
             // 
+            // panel7
+            // 
+            this.panel7.Controls.Add(this.textBox1);
+            this.panel7.Controls.Add(this.label7);
+            this.panel7.Controls.Add(this.button2);
+            this.panel7.Controls.Add(this.platNumber);
+            this.panel7.Controls.Add(this.dataGridView3);
+            this.panel7.Controls.Add(this.label1);
+            this.panel7.Controls.Add(this.cliBankCode);
+            this.panel7.Controls.Add(this.label5);
+            this.panel7.Controls.Add(this.comboEdr);
+            this.panel7.Controls.Add(this.button3);
+            this.panel7.Controls.Add(this.button6);
+            this.panel7.Controls.Add(this.dateTimePicker1);
+            this.panel7.Controls.Add(this.button4);
+            this.panel7.Controls.Add(this.button5);
+            this.panel7.Controls.Add(this.label4);
+            this.panel7.Controls.Add(this.comboEdr2);
+            this.panel7.Controls.Add(this.rahunok);
+            this.panel7.Controls.Add(this.mfo);
+            this.panel7.Controls.Add(this.panel8);
+            this.panel7.Controls.Add(this.label3);
+            this.panel7.Controls.Add(this.label2);
+            resources.ApplyResources(this.panel7, "panel7");
+            this.panel7.Name = "panel7";
+            // 
+            // panel8
+            // 
+            this.panel8.Controls.Add(this.saveFile);
+            this.panel8.Controls.Add(this.openFile);
+            this.panel8.Controls.Add(this.dropDownButton1);
+            resources.ApplyResources(this.panel8, "panel8");
+            this.panel8.Name = "panel8";
+            // 
+            // button2
+            // 
+            resources.ApplyResources(this.button2, "button2");
+            this.button2.Name = "button2";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // textBox1
+            // 
+            this.textBox1.BackColor = System.Drawing.SystemColors.Window;
+            resources.ApplyResources(this.textBox1, "textBox1");
+            this.textBox1.Name = "textBox1";
+            // 
+            // label7
+            // 
+            resources.ApplyResources(this.label7, "label7");
+            this.label7.Name = "label7";
+            // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
@@ -621,28 +531,14 @@
             this.contextMenuStrip1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.tableLayoutPanel2.ResumeLayout(false);
-            this.panel4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).EndInit();
-            this.tableLayoutPanel4.ResumeLayout(false);
-            this.tableLayoutPanel4.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            this.panel5.ResumeLayout(false);
-            this.panel5.PerformLayout();
-            this.panel6.ResumeLayout(false);
-            this.panel6.PerformLayout();
-            this.tableLayoutPanel6.ResumeLayout(false);
-            this.tableLayoutPanel6.PerformLayout();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
-            this.panel3.ResumeLayout(false);
-            this.flowLayoutPanel1.ResumeLayout(false);
-            this.flowLayoutPanel1.PerformLayout();
-            this.tableLayoutPanel5.ResumeLayout(false);
-            this.tableLayoutPanel5.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel7.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
+            this.panel7.ResumeLayout(false);
+            this.panel7.PerformLayout();
+            this.panel8.ResumeLayout(false);
+            this.panel8.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -654,35 +550,26 @@
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel6;
         private System.Windows.Forms.TextBox platNumber;
         private System.Windows.Forms.TextBox rahunok;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Button openFile;
         private System.Windows.Forms.Button dropDownButton1;
         private System.Windows.Forms.Button saveFile;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox currentSheme;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.TextBox mfo;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         private System.Windows.Forms.TextBox cliBankCode;
-        private System.Windows.Forms.TextBox recivPayNum;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.ToolStripMenuItem укрГазToolStripMenuItem;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel7;
         private System.Windows.Forms.DataGridView dataGridView2;
         private System.Windows.Forms.ComboBox comboEdr;
-        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
@@ -707,19 +594,18 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column10;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.ComboBox comboEdr2;
-        private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Panel panel4;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Panel panel5;
-        private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.DataGridView dataGridView3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column11;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column12;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column14;
+        private System.Windows.Forms.Panel panel7;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Panel panel8;
     }
 }
 
