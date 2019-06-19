@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Configuration;
 using System.Drawing;
 using System.IO;
@@ -139,6 +140,7 @@ namespace SoftGenConverter
         {
             // openFiles();
             openCsv();
+            dataGridView2.Sort(dataGridView2.Columns[11], ListSortDirection.Ascending);
         }
 
         public void openCsv()
