@@ -756,11 +756,7 @@ namespace SoftGenConverter
             frm.ShowDialog();
         }
 
-        private void Button4_Click(object sender, EventArgs e)
-        {
-            comboEdr.Items.Remove(comboEdr.SelectedItem);
-        }
-
+    
         private void Button3_Click(object sender, EventArgs e)
         {
             isEditAval(true);

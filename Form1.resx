@@ -238,7 +238,7 @@
     <value>1</value>
   </data>
   <data name="textBox2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>552, 66</value>
+    <value>552, 48</value>
   </data>
   <data name="textBox2.Size" type="System.Drawing.Size, System.Drawing">
     <value>169, 20</value>
@@ -265,7 +265,7 @@
     <value>NoControl</value>
   </data>
   <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
-    <value>492, 72</value>
+    <value>492, 54</value>
   </data>
   <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
     <value>54, 13</value>
@@ -289,7 +289,7 @@
     <value>1</value>
   </data>
   <data name="textBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>552, 117</value>
+    <value>552, 99</value>
   </data>
   <data name="textBox1.Size" type="System.Drawing.Size, System.Drawing">
     <value>169, 20</value>
@@ -316,7 +316,7 @@
     <value>NoControl</value>
   </data>
   <data name="label7.Location" type="System.Drawing.Point, System.Drawing">
-    <value>413, 123</value>
+    <value>413, 105</value>
   </data>
   <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
     <value>135, 13</value>
@@ -469,7 +469,7 @@
     <value>7</value>
   </data>
   <data name="cliBankCode.Location" type="System.Drawing.Point, System.Drawing">
-    <value>552, 92</value>
+    <value>552, 74</value>
   </data>
   <data name="cliBankCode.Size" type="System.Drawing.Size, System.Drawing">
     <value>169, 20</value>
@@ -496,7 +496,7 @@
     <value>NoControl</value>
   </data>
   <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>430, 96</value>
+    <value>430, 78</value>
   </data>
   <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
     <value>116, 13</value>
@@ -523,7 +523,7 @@
     <value>200, 21</value>
   </data>
   <data name="comboEdr.Size" type="System.Drawing.Size, System.Drawing">
-    <value>121, 21</value>
+    <value>134, 21</value>
   </data>
   <data name="comboEdr.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -544,7 +544,7 @@
     <value>NoControl</value>
   </data>
   <data name="button3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>324, 20</value>
+    <value>342, 20</value>
   </data>
   <data name="button3.Size" type="System.Drawing.Size, System.Drawing">
     <value>22, 22</value>
@@ -563,30 +563,6 @@
   </data>
   <data name="&gt;&gt;button3.ZOrder" xml:space="preserve">
     <value>11</value>
-  </data>
-  <data name="button6.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="button6.Location" type="System.Drawing.Point, System.Drawing">
-    <value>700, 39</value>
-  </data>
-  <data name="button6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>21, 22</value>
-  </data>
-  <data name="button6.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="&gt;&gt;button6.Name" xml:space="preserve">
-    <value>button6</value>
-  </data>
-  <data name="&gt;&gt;button6.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;button6.Parent" xml:space="preserve">
-    <value>panel7</value>
-  </data>
-  <data name="&gt;&gt;button6.ZOrder" xml:space="preserve">
-    <value>12</value>
   </data>
   <data name="dateTimePicker1.Location" type="System.Drawing.Point, System.Drawing">
     <value>200, 120</value>
@@ -607,37 +583,13 @@
     <value>panel7</value>
   </data>
   <data name="&gt;&gt;dateTimePicker1.ZOrder" xml:space="preserve">
-    <value>13</value>
-  </data>
-  <data name="button4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="button4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>348, 20</value>
-  </data>
-  <data name="button4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>21, 22</value>
-  </data>
-  <data name="button4.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;button4.Name" xml:space="preserve">
-    <value>button4</value>
-  </data>
-  <data name="&gt;&gt;button4.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;button4.Parent" xml:space="preserve">
-    <value>panel7</value>
-  </data>
-  <data name="&gt;&gt;button4.ZOrder" xml:space="preserve">
-    <value>14</value>
+    <value>12</value>
   </data>
   <data name="button5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="button5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>676, 39</value>
+    <value>696, 21</value>
   </data>
   <data name="button5.Size" type="System.Drawing.Size, System.Drawing">
     <value>22, 22</value>
@@ -655,7 +607,7 @@
     <value>panel7</value>
   </data>
   <data name="&gt;&gt;button5.ZOrder" xml:space="preserve">
-    <value>15</value>
+    <value>13</value>
   </data>
   <data name="label4.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -685,16 +637,16 @@
     <value>panel7</value>
   </data>
   <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
-    <value>16</value>
+    <value>14</value>
   </data>
   <data name="comboEdr2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
   </data>
   <data name="comboEdr2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>552, 40</value>
+    <value>552, 22</value>
   </data>
   <data name="comboEdr2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>121, 21</value>
+    <value>138, 21</value>
   </data>
   <data name="comboEdr2.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
@@ -709,7 +661,7 @@
     <value>panel7</value>
   </data>
   <data name="&gt;&gt;comboEdr2.ZOrder" xml:space="preserve">
-    <value>17</value>
+    <value>15</value>
   </data>
   <data name="rahunok.Location" type="System.Drawing.Point, System.Drawing">
     <value>200, 96</value>
@@ -730,7 +682,7 @@
     <value>panel7</value>
   </data>
   <data name="&gt;&gt;rahunok.ZOrder" xml:space="preserve">
-    <value>18</value>
+    <value>16</value>
   </data>
   <data name="mfo.Location" type="System.Drawing.Point, System.Drawing">
     <value>200, 72</value>
@@ -754,7 +706,7 @@
     <value>panel7</value>
   </data>
   <data name="&gt;&gt;mfo.ZOrder" xml:space="preserve">
-    <value>19</value>
+    <value>17</value>
   </data>
   <data name="saveFile.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
@@ -890,7 +842,7 @@
     <value>panel7</value>
   </data>
   <data name="&gt;&gt;panel8.ZOrder" xml:space="preserve">
-    <value>20</value>
+    <value>18</value>
   </data>
   <data name="label3.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -920,7 +872,7 @@
     <value>panel7</value>
   </data>
   <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
-    <value>21</value>
+    <value>19</value>
   </data>
   <data name="label2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -950,7 +902,7 @@
     <value>panel7</value>
   </data>
   <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>22</value>
+    <value>20</value>
   </data>
   <data name="panel7.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
