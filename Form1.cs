@@ -630,7 +630,7 @@ namespace SoftGenConverter
         private void АвальToolStripMenuItem_Click(object sender, EventArgs e)
         {
             recviz.state = 1;
-            dateTimePicker1.Visible = label4.Visible = label5.Visible = cliBankCode.Visible = label6.Visible = recivPayNum.Visible = comboEdr2.Visible = shemes = true;
+            dateTimePicker1.Visible = label4.Visible = label5.Visible = cliBankCode.Visible = label6.Visible = recivPayNum.Visible =  shemes = true;
             label2.Text = "МФО Платника:";
             // setFields();
             
@@ -642,7 +642,7 @@ namespace SoftGenConverter
         }
         public void isEdit(bool edit)
         {
-            platNumber.Enabled = mfo.Enabled = rahunok.Enabled = dateTimePicker1.Enabled = currentSheme.Enabled = cliBankCode.Enabled = recivPayNum.Enabled = comboEdr.Enabled = comboEdr2.Enabled = edit;
+            platNumber.Enabled = mfo.Enabled = rahunok.Enabled = dateTimePicker1.Enabled = currentSheme.Enabled = cliBankCode.Enabled = recivPayNum.Enabled =  edit;
         }
 
 
