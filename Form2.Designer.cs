@@ -35,11 +35,11 @@
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.button1 = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.ederpo = new System.Windows.Forms.TextBox();
             this.button2 = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.ederpo = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel1.SuspendLayout();
@@ -103,7 +103,7 @@
             // 
             this.tableLayoutPanel2.ColumnCount = 2;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 184F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 136F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 769F));
             this.tableLayoutPanel2.Controls.Add(this.button1, 1, 3);
             this.tableLayoutPanel2.Controls.Add(this.button2, 0, 3);
             this.tableLayoutPanel2.Controls.Add(this.label1, 0, 2);
@@ -134,42 +134,6 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.label1.Location = new System.Drawing.Point(3, 63);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(178, 13);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Призначення платежу:";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(187, 52);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(758, 21);
-            this.textBox1.TabIndex = 0;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.label2.Location = new System.Drawing.Point(3, 36);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(178, 13);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "ЕДРПОУ:";
-            // 
-            // ederpo
-            // 
-            this.ederpo.Location = new System.Drawing.Point(187, 27);
-            this.ederpo.Multiline = true;
-            this.ederpo.Name = "ederpo";
-            this.ederpo.Size = new System.Drawing.Size(758, 19);
-            this.ederpo.TabIndex = 4;
-            // 
             // button2
             // 
             this.button2.Enabled = false;
@@ -181,6 +145,42 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Visible = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.label1.Location = new System.Drawing.Point(3, 63);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(178, 13);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Призначення платежу:";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.label2.Location = new System.Drawing.Point(3, 36);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(178, 13);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "ЕДРПОУ:";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(187, 52);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(758, 21);
+            this.textBox1.TabIndex = 0;
+            // 
+            // ederpo
+            // 
+            this.ederpo.Location = new System.Drawing.Point(187, 27);
+            this.ederpo.Multiline = true;
+            this.ederpo.Name = "ederpo";
+            this.ederpo.Size = new System.Drawing.Size(758, 19);
+            this.ederpo.TabIndex = 4;
             // 
             // label3
             // 
