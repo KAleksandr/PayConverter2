@@ -1,14 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Drawing;
 using System.IO;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading;
 using System.Windows.Forms;
-using System.Data;
 using System.Globalization;
 
 
@@ -22,9 +18,8 @@ namespace SoftGenConverter
         private TextBox textImport = new TextBox();
         
         private List<Bank> banks = new List<Bank>();
-        private Bank aval = new Bank();
-        private Bank ukrBank = new Bank();
-        //private string xmlConfig = "config.xml";
+        
+        
 
         Datashit recviz = new Datashit();
         string[] recvizs;
@@ -34,9 +29,8 @@ namespace SoftGenConverter
         bool editUkrG = false;
         Image editBtn = Properties.Resources.edit_property_16px;//
         Image saveBtn = Properties.Resources.save_as_16px;
-        private string[] data = { "11", "22", "33", "44", "55", "66", "77", "88", "99" };
        
-        private long numberDoc;
+        
         private long numberDocAval;
         private long numberDocUkrg;
         private string P = "·";
@@ -47,68 +41,37 @@ namespace SoftGenConverter
         {
 
             InitializeComponent();
-           
-            Xml.loadXml(dataGridView3,path2);
+            initData();
+
+
+
+        }
+
+        public void initData()
+        {
+            Xml.loadXml(dataGridView3, path2);
             comboEdr.Items.Add(Properties.Settings.Default.name);
             comboEdr2.Items.Add(Properties.Settings.Default.name2);
             comboEdr2.Items.Add(Properties.Settings.Default.name3);
             numberDocAval = Properties.Settings.Default.platNumber;
             comboEdr.Text = Properties.Settings.Default.name;
-            if (Properties.Settings.Default.state == 2)
-            {
-                numberDocUkrg = Properties.Settings.Default.platNumber2;
-                comboEdr2.Text = Properties.Settings.Default.name2;
-            }
-                
 
-            else
-            {
-                numberDocUkrg = Properties.Settings.Default.platNumber3;
-                comboEdr2.Text = Properties.Settings.Default.name3;
-            }
+            setFieldsP();
+            setFieldsP2();
 
-            //comboBox1.Items.Insert(1, "Боливия");
-
-
-            if (shemes = Properties.Settings.Default.state1 == 1 ? true : false)
-                {
-                   //setFields();
-                    setFieldsP();
-                   
-                   
-
-                }
-                else
-                {
-                    setFieldsP2();
-                    //setFields2();
-                   
-
-                }
-
-                isEditAval(editAval);
-                isEditUkrG(editUkrG);
-
+            isEditAval(editAval);
+            isEditUkrG(editUkrG);
         }
-
         public void setFieldsP()
         {
            
             platNumber.Text = Properties.Settings.Default.platNumber.ToString();
             dateTimePicker1.Value = convertStrToTime(Properties.Settings.Default.datePayment.ToString());//
-            mfo.Text = Properties.Settings.Default.mfo.ToString();
+            mfo.Text = Properties.Settings.Default.mfo;
             rahunok.Text = Properties.Settings.Default.rahunok;
-
             cliBankCode.Text = Properties.Settings.Default.clientBankCode;
-            
-            if (Properties.Settings.Default.state1 == 1)
-            {
-                shemes = true;
-            }
-            else
-            {
-                shemes = false;
-            }
+          
+
             tableLayoutPanel7.RowStyles[1].Height = 100;
             tableLayoutPanel7.RowStyles[0].Height = 0;
             dataGridView2.Visible = true;
@@ -120,9 +83,22 @@ namespace SoftGenConverter
 
         public void setFieldsP2()
         {
-            platNumber.Text = Properties.Settings.Default.platNumber2.ToString();
-            mfo.Text = Properties.Settings.Default.edrpou.ToString();
-            rahunok.Text = Properties.Settings.Default.rahunok2;
+            if (Properties.Settings.Default.state == 2)
+            {
+                textBox2.Text = Properties.Settings.Default.edrpou;
+                textBox1.Text = Properties.Settings.Default.platNumber2.ToString();
+                numberDocUkrg = Properties.Settings.Default.platNumber2;
+                comboEdr2.Text = Properties.Settings.Default.name2;
+
+            }
+            else
+            {
+                textBox2.Text = Properties.Settings.Default.edrpou2;
+                textBox1.Text = Properties.Settings.Default.platNumber3.ToString();
+                numberDocUkrg = Properties.Settings.Default.platNumber3;
+                comboEdr2.Text = Properties.Settings.Default.name3;
+            }
+            
            
             tableLayoutPanel7.RowStyles[0].Height = 100;
             tableLayoutPanel7.RowStyles[1].Height = 0;
@@ -155,37 +131,70 @@ namespace SoftGenConverter
                 CSV_Struct = Aval.ReadFile(name);
                 for (int i = 0; i <= CSV_Struct.Count - 1; i++)
                 {
-                    
-                    int n = dataGridView1.Rows.Add();
 
-                    dataGridView1.Rows[n].Cells[0].Value = "0";
-                    dataGridView1.Rows[n].Cells[1].Value = "1";
-                    dataGridView1.Rows[n].Cells[2].Value = numberDocUkrg++;
-                    dataGridView1.Rows[n].Cells[3].Value = CSV_Struct[i].datePayment.ToString();
-                    dataGridView1.Rows[n].Cells[4].Value = "!!";
-                    dataGridView1.Rows[n].Cells[5].Value = CSV_Struct[i].mfo;
-                    dataGridView1.Rows[n].Cells[6].Value = "00";
-                    dataGridView1.Rows[n].Cells[7].Value = CSV_Struct[i].rahunok;
-                    dataGridView1.Rows[n].Cells[8].Value = CSV_Struct[i].summa;
-                    //dataGridView1.Rows[n].Cells[9].Value = "0";
-                    // dataGridView1.Rows[n].Cells[10].Value = CSV_Struct[i].name;
+                    int n;
+                    if (CSV_Struct[i].isAval == 0)
+                    {
+                        n = dataGridView1.Rows.Add();
+
+                        dataGridView1.Rows[n].Cells[0].Value = CSV_Struct[i].summa;
+                        dataGridView1.Rows[n].Cells[1].Value = "UAH";
+                        dataGridView1.Rows[n].Cells[2].Value = addDateToStr(findZkpo(CSV_Struct[i].zkpo),
+                            dateTimePicker1.Value.ToString("dd.MM.yyyy"));
+                        ;
+                        //dataGridView1.Rows[n].Cells[3].Value = CSV_Struct[i].datePayment.ToString();
+                        //dataGridView1.Rows[n].Cells[4].Value = CSV_Struct[i].zkpo;
+                        if (Properties.Settings.Default.state == 2)
+                        {
+                            dataGridView1.Rows[n].Cells[3].Value = Properties.Settings.Default.rahunok2;
+                            dataGridView1.Rows[n].Cells[4].Value = Properties.Settings.Default.edrpou;
+
+                        }
+                        else
+                        {
+                            dataGridView1.Rows[n].Cells[3].Value = Properties.Settings.Default.rahunok3;
+                            dataGridView1.Rows[n].Cells[4].Value = Properties.Settings.Default.edrpou2;
+
+                        }
+
+                        dataGridView1.Rows[n].Cells[5].Value = CSV_Struct[i].mfo;
+                        dataGridView1.Rows[n].Cells[6].Value = CSV_Struct[i].rahunok;
+                        dataGridView1.Rows[n].Cells[7].Value = CSV_Struct[i].zkpo;
+                        dataGridView1.Rows[n].Cells[8].Value = CSV_Struct[i].name;
+                    }
+
                     CultureInfo MyCultureInfo = new CultureInfo("de-DE");
-                    n  = dataGridView2.Rows.Add();
-                    dataGridView2.Rows[n].Cells[0].Value = "0";
-                    dataGridView2.Rows[n].Cells[1].Value = "1";
-                    dataGridView2.Rows[n].Cells[2].Value = numberDocAval++; 
-                    dataGridView2.Rows[n].Cells[3].Value = CSV_Struct[i].dateP.ToString("dd.MM.yyyy");
-                    dateTimePicker1.Value = DateTime.Parse(CSV_Struct[i].dateP.ToString("dd.MM.yyyy"), MyCultureInfo);
-                    dataGridView2.Rows[n].Cells[4].Value = Properties.Settings.Default.mfo;
-                    dataGridView2.Rows[n].Cells[5].Value = CSV_Struct[i].mfo;
-                    dataGridView2.Rows[n].Cells[6].Value = Properties.Settings.Default.rahunok;
-                    dataGridView2.Rows[n].Cells[7].Value = CSV_Struct[i].rahunok;
-                    dataGridView2.Rows[n].Cells[8].Value = CSV_Struct[i].summa;
-                    dataGridView2.Rows[n].Cells[9].Value = "0";
-                    dataGridView2.Rows[n].Cells[10].Value = CSV_Struct[i].name;
-                    dataGridView2.Rows[n].Cells[12].Value = CSV_Struct[i].zkpo;
-                    dataGridView2.Rows[n].Cells[11].Value = addDateToStr(findZkpo(CSV_Struct[i].zkpo), CSV_Struct[i].dateP.ToString("dd.MM.yyyy"));
-                    
+                    if (CSV_Struct[i].isAval == 1)
+                    {
+                        try
+                        {
+                            dateTimePicker1.Value =
+                                DateTime.Parse(CSV_Struct[i].dateP.ToString("dd.MM.yyyy"), MyCultureInfo);
+                            
+                                n = dataGridView2.Rows.Add();
+                                dataGridView2.Rows[n].Cells[0].Value = "0";
+                                dataGridView2.Rows[n].Cells[1].Value = "1";
+                                dataGridView2.Rows[n].Cells[2].Value = numberDocAval++;
+                                dataGridView2.Rows[n].Cells[3].Value = CSV_Struct[i].dateP.ToString("dd.MM.yyyy");
+
+                                dataGridView2.Rows[n].Cells[4].Value = Properties.Settings.Default.mfo;
+                                dataGridView2.Rows[n].Cells[5].Value = CSV_Struct[i].mfo;
+                                dataGridView2.Rows[n].Cells[6].Value = Properties.Settings.Default.rahunok;
+                                dataGridView2.Rows[n].Cells[7].Value = CSV_Struct[i].rahunok;
+                                dataGridView2.Rows[n].Cells[8].Value = CSV_Struct[i].summa;
+                                dataGridView2.Rows[n].Cells[9].Value = "0";
+                                dataGridView2.Rows[n].Cells[10].Value = CSV_Struct[i].name;
+                                dataGridView2.Rows[n].Cells[12].Value = CSV_Struct[i].zkpo;
+                                dataGridView2.Rows[n].Cells[11].Value = addDateToStr(findZkpo(CSV_Struct[i].zkpo),
+                                CSV_Struct[i].dateP.ToString("dd.MM.yyyy"));
+                        }
+                        catch (Exception)
+                        {
+
+                        }
+                    }
+
+
 
 
 
@@ -225,9 +234,13 @@ namespace SoftGenConverter
 
             return "null";
         }
+
+       #region MyRegion
+
+   
         public void openFiles()
         {
-            numberDoc = string.IsNullOrEmpty(platNumber.Text) ? 0 : Convert.ToInt32(platNumber.Text);
+           
             int columnCount = 0;
             int rowcount = 0;
             string[] arText = new string[11];
@@ -337,7 +350,7 @@ namespace SoftGenConverter
 
                         newLine = "0·1·" + recviz.platNumber + P + converterDateToInt(dateTimePicker1.Value) + P + arText[2] + P + recviz.mfo + P + arText[3] + P + recviz.rahunok + P + arText[5].Replace(".", "")
                             + P + "0" + P + arText[0] + P + "recviz" + P + date1 + P + P + P + P + arText[4] + P + P + Environment.NewLine;
-                        numberDoc++;
+                        numberDocAval++;
                         textImport.Text += newLine;
                         foreach (string grid in arText)
                         {
@@ -382,6 +395,9 @@ namespace SoftGenConverter
 
             }
         }
+
+
+        #endregion
         public DateTime convertStrToTime(string dateP)
         {
             DateTime CreatdDate;
@@ -434,6 +450,25 @@ namespace SoftGenConverter
             }
         }
 
+        //public TextBox createBox()
+        //{
+        //    if (dataGridView1.SelectedRows.Count > 0) // make sure user select at least 1 row 
+        //    {
+        //        string one = dataGridView1.SelectedRows[0].Cells[0].Value + string.Empty;
+        //        string two = dataGridView1.SelectedRows[0].Cells[2].Value + string.Empty;
+
+                
+
+        //       //string newLine = "dataGridView1.SelectedRows[0].Cells[0].Value " + P+ dataGridView1.SelectedRows[0].Cells[0].Value + recviz.platNumber + P + converterDateToInt(dateTimePicker1.Value) + P + arText[2] + P + recviz.mfo + P + arText[3] + P + recviz.rahunok + P + arText[5].Replace(".", "")
+        //       //           + P + "0" + P + arText[0] + P + "recviz" + P + date1 + P + P + P + P + arText[4] + P + P + Environment.NewLine;
+        //        numberDocAval++;
+        //        //textImport.Text += newLine;
+
+        //    }
+
+        //    return "";
+        //}
+
 
 
         public string getNameFile()
@@ -458,14 +493,7 @@ namespace SoftGenConverter
 
         }
 
-        void progesDialog()
-        {
-            for (int i = 0; i <= 500; i++)
-            {
-                Thread.Sleep(20);
-            }
-        }
-
+       
         public void saveExcel()
         {
             SaveFileDialog saveDialog = new SaveFileDialog();
@@ -485,64 +513,7 @@ namespace SoftGenConverter
         }
 
 
-
-
-        public void getPayer()
-        {
-            path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"config.ini");
-            recvizs = File.ReadAllLines(path, Encoding.Default);
-            try
-            {
-
-                recviz.platNumber = Convert.ToInt32(string.IsNullOrEmpty(recvizs[0]) ? "0" : recvizs[0]);
-                recviz.datePayment = string.IsNullOrEmpty(recvizs[3]) ? 0 : Convert.ToInt32(recvizs[3]);//??
-                recviz.mfo = string.IsNullOrEmpty(recvizs[1]) ? "0" : recvizs[1];
-                recviz.rahunok = string.IsNullOrEmpty(recvizs[2]) ? "0" : recvizs[2];
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Помилка конвертації");
-            }
-
-
-        }
-        public void setFields()
-        {
-            
-            platNumber.Text = recviz.platNumber.ToString();
-            dateTimePicker1.Value = convertStrToTime(recviz.datePayment.ToString());//
-            mfo.Text = recviz.mfo.ToString();
-            rahunok.Text = recviz.rahunok;
-
-            cliBankCode.Text = recviz.cliBankCode;
-            
-            if (recviz.state == 1)
-            {
-                shemes = true;
-            }
-            else
-            {
-                shemes = false;
-            }
-            tableLayoutPanel7.RowStyles[1].Height = 100;
-            tableLayoutPanel7.RowStyles[0].Height = 0;
-            dataGridView2.Visible = true;
-            dataGridView1.Visible = false;
-        }
-
-        public void setFields2()
-        {
-
-            platNumber.Text = recviz.platNumber2.ToString();
-            mfo.Text = recviz.edrpou.ToString();
-            rahunok.Text = recviz.rahunok2;
-            
-            tableLayoutPanel7.RowStyles[0].Height = 100;
-            tableLayoutPanel7.RowStyles[1].Height = 0;
-            dataGridView1.Visible = true;
-            dataGridView2.Visible = false;
-        }
-
+       
         private void PlatNumber_TextChanged(object sender, EventArgs e)
         {
             numberDocAval = Properties.Settings.Default.platNumber = string.IsNullOrEmpty(platNumber.Text) ? 0 : Int64.Parse(platNumber.Text);
@@ -552,6 +523,7 @@ namespace SoftGenConverter
         private void Mfo_TextChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.mfo = string.IsNullOrEmpty(mfo.Text) ? "0" : mfo.Text;
+            Properties.Settings.Default.Save();
             
         }
 
@@ -563,14 +535,10 @@ namespace SoftGenConverter
 
         private void SaveFile_Click_1(object sender, EventArgs e)
         {
-            if (!shemes)
-            {
+          
                 saveExcel();
-            }
-            else
-            {
                 Save();
-            }
+          
 
         }
 
@@ -584,18 +552,10 @@ namespace SoftGenConverter
             
         }
 
-        //void texVisible(bool flag)
-        //{
-        //    dateTimePicker1.Visible = label4.Visible = label5.Visible = cliBankCode.Visible =   shemes = flag;
-        //}
-
+       
         private void АвальToolStripMenuItem_Click(object sender, EventArgs e)
         {
             recviz.state = 1;
-            //dateTimePicker1.Visible = label4.Visible = label5.Visible = cliBankCode.Visible =   shemes = true;
-            //label2.Text = "МФО Платника:";
-            // setFields();
-            
             setFieldsP();
             
         }
@@ -609,101 +569,13 @@ namespace SoftGenConverter
         }
 
 
-        //private void Button1_Click(object sender, EventArgs e)
-        //{
-        //    edit = !edit;
-        //    if (edit)
-        //    {
-
-
-        //        isEdit(true);
-
-        //    }
-        //    else
-        //    {
-        //        //button1.Image = editBtn;
-        //        //toolTip1.SetToolTip(button1, "Редагувати реквізити");
-        //        //button1.Text = "Редагувати шаблон";
-        //        if (shemes)
-        //        {
-        //            WriteSettings(recviz, aval);
-        //        }
-        //        else
-        //        {
-        //            WriteSettings(recviz, ukrBank);
-        //        }
-
-        //        isEdit(false);
-        //    }
-        //}
-        void WriteIni(Datashit recviz, Bank bank)
-        {
-            if (shemes)
-            {
-                bank.name =  recviz.name;
-                bank.platNumber =  recviz.platNumber;
-                bank.mfo = recviz.mfo;
-                bank.rahunok = recviz.rahunok;
-                bank.datePayment = recviz.datePayment;
-                bank.cliBankCode = recviz.cliBankCode;
-                bank.recivPayNum = recviz.recivPayNum;
-                bank.state = recviz.state;
-                
-               
-            }
-            else
-            {
-                bank.name = recviz.name2;
-                bank.platNumber = recviz.platNumber2;
-                bank.rahunok =  recviz.rahunok2;
-                bank.edrpou = recviz.edrpou;
-                bank.state = recviz.state;
-               
-            }
-           
-           
-
-        }
-        void WriteSettings(Datashit recviz, Bank bank)
-        {
-            if (shemes)
-            {
-                Properties.Settings.Default.name = recviz.name;
-                Properties.Settings.Default.platNumber = recviz.platNumber;
-                Properties.Settings.Default.mfo = recviz.mfo;
-                Properties.Settings.Default.rahunok = recviz.rahunok;
-                Properties.Settings.Default.datePayment = recviz.datePayment;
-                Properties.Settings.Default.clientBankCode = recviz.cliBankCode;
-                Properties.Settings.Default.recivePayNum = recviz.recivPayNum;
-                Properties.Settings.Default.state1 = recviz.state;
-                Properties.Settings.Default.Save();
-                //Xml.editXml(xmlConfig, bank);
-            }
-            else
-            {
-                Properties.Settings.Default.name2 = recviz.name2;
-                Properties.Settings.Default.platNumber2 = recviz.platNumber2;
-                Properties.Settings.Default.rahunok2 = recviz.rahunok2;
-                Properties.Settings.Default.edrpou = recviz.edrpou;
-                Properties.Settings.Default.state1 = recviz.state;
-                //Xml.CreteConfig(xmlConfig, bank);
-                Properties.Settings.Default.Save();
-            }
-
-            
-
-        }
        
         private void CliBankCode_TextChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.clientBankCode = cliBankCode.Text;
             Properties.Settings.Default.Save();
         }
-
-      
-       
-
-     
+   
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -753,58 +625,17 @@ namespace SoftGenConverter
             }
         }
 
-       
-
-       
-
-    
-
-
-        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
-        {
-            Properties.Settings.Default.datePayment = converterDateToInt(dateTimePicker1.Value);
-            Properties.Settings.Default.Save();
-        }
-
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-            if (Properties.Settings.Default.state == 2)
-            {
-                Properties.Settings.Default.edrpou = string.IsNullOrEmpty(platNumber.Text) ? "0" : platNumber.Text;
-                Properties.Settings.Default.Save();
-            }
-            else
-            {
-                Properties.Settings.Default.edrpou2 = string.IsNullOrEmpty(platNumber.Text) ? "0" : platNumber.Text;
-                Properties.Settings.Default.Save();
-            }
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-            if (Properties.Settings.Default.state == 2)
-            {
-                numberDocUkrg = Properties.Settings.Default.platNumber2 = string.IsNullOrEmpty(platNumber.Text) ? 0 : Int64.Parse(platNumber.Text);
-                Properties.Settings.Default.Save();
-            }
-            else
-            {
-                numberDocUkrg = Properties.Settings.Default.platNumber3 = string.IsNullOrEmpty(platNumber.Text) ? 0 : Int64.Parse(platNumber.Text);
-                Properties.Settings.Default.Save();
-            }
-            
-        }
-
-
+     
         private void button5_Click_2(object sender, EventArgs e)
         {
-           // MessageBox.Show(Properties.Settings.Default.state.ToString());
+           MessageBox.Show(Properties.Settings.Default.state.ToString());
             editUkrG = !editUkrG;
             if (editUkrG)
             {
                 comboEdr2.Visible = !editUkrG;
                 textBox3.Visible = editUkrG;
-                if (Properties.Settings.Default.state == 2)
+               // if (comboEdr2.Text.Equals(Properties.Settings.Default.name2))
+               if(Properties.Settings.Default.state == 2 )
                 {
                     textBox2.Text = Properties.Settings.Default.edrpou;
                     textBox1.Text = Properties.Settings.Default.platNumber2.ToString();
@@ -829,20 +660,24 @@ namespace SoftGenConverter
                 textBox3.Visible = editUkrG;
                 if (Properties.Settings.Default.state == 2)
                 {
-                    MessageBox.Show(Properties.Settings.Default.state.ToString());
+                    //MessageBox.Show(Properties.Settings.Default.state.ToString());
                     Properties.Settings.Default.name2 = textBox3.Text;
+                    Properties.Settings.Default.edrpou = textBox2.Text;
+                    Properties.Settings.Default.platNumber2 = Int64.Parse(textBox1.Text);
                     Properties.Settings.Default.Save();
-                    //comboEdr2.Items.Clear();
+                    comboEdr2.Items.Clear();
                     comboEdr2.Items.Add(Properties.Settings.Default.name2);
                     comboEdr2.Items.Add(Properties.Settings.Default.name3);
                     comboEdr2.Text = Properties.Settings.Default.name2;
                 }
                 else
                 {
-                    MessageBox.Show(Properties.Settings.Default.state.ToString());
+                    //MessageBox.Show(Properties.Settings.Default.state.ToString());
                     Properties.Settings.Default.name3 = textBox3.Text;
+                    Properties.Settings.Default.edrpou2 = textBox2.Text;
+                    Properties.Settings.Default.platNumber3 = Int64.Parse(textBox1.Text);
                     Properties.Settings.Default.Save();
-                    //comboEdr2.Items.Clear();
+                    comboEdr2.Items.Clear();
                     comboEdr2.Items.Add(Properties.Settings.Default.name2);
                     comboEdr2.Items.Add(Properties.Settings.Default.name3);
                     comboEdr2.Text = Properties.Settings.Default.name3;
@@ -886,28 +721,52 @@ namespace SoftGenConverter
         {
             if (comboEdr2.Text.Equals(Properties.Settings.Default.name2))
             {
-                Properties.Settings.Default.edrpou = textBox2.Text;
+                Properties.Settings.Default.edrpou = string.IsNullOrEmpty(platNumber.Text) ? "0" : platNumber.Text;
                 Properties.Settings.Default.Save();
             }
             else
             {
-                Properties.Settings.Default.edrpou2 = textBox2.Text;
+                Properties.Settings.Default.edrpou2 = string.IsNullOrEmpty(platNumber.Text) ? "0" : platNumber.Text;
                 Properties.Settings.Default.Save();
             }
+           
         }
 
         private void textBox1_TextChanged_1(object sender, EventArgs e)
         {
             if (comboEdr2.Text.Equals(Properties.Settings.Default.name2))
             {
-                Properties.Settings.Default.platNumber2 = Int64.Parse(textBox1.Text);
-                Properties.Settings.Default.Save();
+                try
+                {
+                    Properties.Settings.Default.platNumber2 = Int64.Parse(textBox1.Text);
+                    Properties.Settings.Default.Save();
+                }
+                catch (System.FormatException)
+                {
+                    Properties.Settings.Default.platNumber2 = 0;
+                    Properties.Settings.Default.Save();
+                }
             }
             else
             {
-                Properties.Settings.Default.platNumber3 = Int64.Parse(textBox1.Text);
-                Properties.Settings.Default.Save();
+                try
+                {
+                    Properties.Settings.Default.platNumber3 = Int64.Parse(textBox1.Text);
+                    Properties.Settings.Default.Save();
+                }
+                catch (System.FormatException)
+                {
+                    Properties.Settings.Default.platNumber3 = 0;
+                    Properties.Settings.Default.Save();
+                }
+                
             }
+        }
+
+        private void dateTimePicker1_ValueChanged_1(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.datePayment = converterDateToInt(dateTimePicker1.Value);
+            Properties.Settings.Default.Save();
         }
     }
 }

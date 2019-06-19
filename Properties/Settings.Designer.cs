@@ -238,5 +238,17 @@ namespace SoftGenConverter.Properties {
                 this["state"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("00000000000000")]
+        public string rahunok3 {
+            get {
+                return ((string)(this["rahunok3"]));
+            }
+            set {
+                this["rahunok3"] = value;
+            }
+        }
     }
 }
