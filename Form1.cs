@@ -13,18 +13,18 @@ namespace SoftGenConverter
     public partial class Form1 : Form
     {
         private string name;
-        private int MAX = 999;
+        
         private bool shemes = true;//true=Aval false= UkrGaz 
         private TextBox textImport = new TextBox();
         
-        private List<Bank> banks = new List<Bank>();
+        
         
         
 
-        Datashit recviz = new Datashit();
-        string[] recvizs;
-        string path;
-        bool edit = false;
+        
+        
+        
+        
         bool editAval = false;
         bool editUkrG = false;
         Image editBtn = Properties.Resources.edit_property_16px;//
@@ -238,163 +238,7 @@ namespace SoftGenConverter
        #region MyRegion
 
    
-        public void openFiles()
-        {
-           
-            int columnCount = 0;
-            int rowcount = 0;
-            string[] arText = new string[11];
-            string[] arText2 = new string[10];
-            int[] counts = new int[11];
-            string date = "";
-            openFileDialog1.FileName = "file";//
-            if (openFileDialog1.ShowDialog() == DialogResult.OK)
-            {
-                name = openFileDialog1.FileName;
-                // currentSheme.Clear();
-                string[] text = File.ReadAllLines(name, Encoding.GetEncoding(1251));
-                int count = 0;
-                Regex regexDate = new Regex(@"\w*[0-9]{2}[.][0-9]{2}[.][0-9]{2}\w*");
-                Regex regex = new Regex(@"^[-]+[+][-]+[+][-]+[+][-]+[+][-]+[+][-]+[+][-]+[+][-]+[+][-]+[+][-]+[+][-]+[+]");
-                Regex nextPage = new Regex(@"\W{1}");
-                Regex regexAv = new Regex(@"^[-]{100}");
-                int regAval = 0;
-                int countStr = MAX;
-                int countStr2 = MAX;
-                int chekLines = 0;
-                foreach (string line in text)
-                {
-                    MatchCollection matches = regex.Matches(line);
-                    MatchCollection dateMatch = regexDate.Matches(line);
-                    MatchCollection regexAval = regexAv.Matches(line);
 
-                    if (line.Length == 1)
-                    {
-                        count++;
-                        chekLines = 0;
-                        countStr = MAX;
-                        continue;
-
-                    }
-                    if (line.Contains("Всього"))
-                    {
-                        //chekLines = 0;
-                        rowcount=0;
-                        countStr = MAX;
-                        // continue;
-                    }
-                    if (matches.Count > 0)
-                    {
-                        // textBox1.Text = line;
-
-                        chekLines++;
-                        // break;
-                        if (chekLines == 2)
-                        {
-                            countStr = count + 2;
-
-
-                        }
-                    }
-                    if (regexAval.Count > 0)
-                    {
-                        regAval++;
-
-                        if (regAval == 2)
-                        {
-                            countStr2 = count + 1;
-
-                        }
-                        else if (regAval == 3)
-                        {
-                            countStr2 = MAX;
-                            break;
-                        }
-                    }
-
-                    if (dateMatch.Count > 0)
-                    {
-                        MatchCollection matchess = Regex.Matches(line, regexDate.ToString(), RegexOptions.IgnoreCase);
-
-                        date = "" + matchess[0] + Environment.NewLine;
-                    }
-                    line.IndexOf('+');
-                    //textBox1.Text = ""+ line.Length;
-                    //textBox1.Text = line.Substring(0, 31).Trim() + " " + line.Substring(31, 20).Trim();
-                    if (count >= 0 && count < 5)
-                    {
-                        // textBox1.Text += line + Environment.NewLine;
-                    }
-                    if (count >= countStr)
-                    {
-                        string newLine = "";
-
-                        arText[0] = line.Substring(0, 31).Trim();
-                        arText[1] = line.Substring(31, 20).Trim();
-                        arText[2] = line.Substring(52, 6).Trim();
-                        arText[3] = line.Substring(59, 14).Trim();
-                        arText[4] = line.Substring(74, 10).Trim();
-                        arText[5] = line.Substring(85, 12).Trim();
-                        arText[6] = line.Substring(99, 12).Trim();
-                        arText[7] = line.Substring(112, 10).Trim();
-                        arText[8] = line.Substring(122, 10).Trim();
-                        arText[9] = line.Substring(133, 10).Trim();
-                        arText[10] = line.Substring(144, 7).Trim();
-
-
-                        dataGridView1.Rows.Add();//·
-
-
-
-                        string date1 = ((date.Replace(".", "")).Remove(4, 3)).Substring(0, 4) + DateTime.Today.Year;
-
-                        newLine = "0·1·" + recviz.platNumber + P + converterDateToInt(dateTimePicker1.Value) + P + arText[2] + P + recviz.mfo + P + arText[3] + P + recviz.rahunok + P + arText[5].Replace(".", "")
-                            + P + "0" + P + arText[0] + P + "recviz" + P + date1 + P + P + P + P + arText[4] + P + P + Environment.NewLine;
-                        numberDocAval++;
-                        textImport.Text += newLine;
-                        foreach (string grid in arText)
-                        {
-                            dataGridView1.Rows[rowcount].Cells[columnCount++].Value = grid;
-
-                        }
-                        rowcount++;
-                        columnCount = 0;
-
-                    }
-                    if (count >= countStr2)
-                    {
-                        dataGridView2.Rows.Add();//·download character 2
-                        arText2[0] = line.Substring(0, 20).Trim();
-                        arText2[1] = line.Substring(20, 15).Trim();
-                        arText2[2] = line.Substring(34, 6).Trim();
-                        arText2[3] = line.Substring(40, 14).Trim();
-                        arText2[4] = line.Substring(53, 8).Trim();
-                        arText2[5] = line.Substring(65, 12).Trim();
-                        arText2[6] = line.Substring(77, 12).Trim();
-                        arText2[7] = line.Substring(89, 9).Trim();
-                        arText2[8] = line.Substring(98, 11).Trim();
-                        arText2[9] = line.Substring(109, 8).Trim();
-                        foreach (string grid in arText2)
-                        {
-                           // dataGridView3.Rows[rowcount].Cells[columnCount++].Value = grid;
-
-                        }
-                        rowcount++;
-                        columnCount = 0;
-                    }
-                    count++;
-
-
-                }
-
-
-
-
-               
-
-
-            }
-        }
 
 
         #endregion
@@ -415,11 +259,17 @@ namespace SoftGenConverter
 
             return CreatdDate;
         }
-        public int converterDateToInt(DateTime date)
+        public string converterDate(string dateS)
         {
-            string dateP = string.Format("{0: yyyyMMdd}", date);
+            if (!string.IsNullOrEmpty(dateS))
+            {
+                string t = dateS.Replace(".", "");
+                return t.Substring(4, 4) + t.Substring(2, 2) + t.Substring(0, 2);
+            }
+            else
+                return "";
 
-            return Convert.ToInt32(dateP);
+
         }
 
         
@@ -444,30 +294,42 @@ namespace SoftGenConverter
                 string k = "" + DateTime.Now;
 
                 name = saveFileDialog1.FileName;
+                createBox();
 
                 File.WriteAllText(name, textImport.Text);
 
             }
         }
 
-        //public TextBox createBox()
-        //{
-        //    if (dataGridView1.SelectedRows.Count > 0) // make sure user select at least 1 row 
-        //    {
-        //        string one = dataGridView1.SelectedRows[0].Cells[0].Value + string.Empty;
-        //        string two = dataGridView1.SelectedRows[0].Cells[2].Value + string.Empty;
+        public void createBox()
+        {
+            
+            bool flag = false;
+            foreach (DataGridViewRow r in dataGridView2.Rows) // пока в dataGridView1 есть строки
+            {
+                    if (r.Cells != null)
+                    {
+                    string t = "";
+                    try
+                    {
+                        t = r.Cells[3].Value.ToString();
+                    }
+                    catch (Exception) { }
+                   
+                        if (flag)
+                        textImport.Text += Environment.NewLine;
+                        textImport.Text += r.Cells[0].Value + P + r.Cells[1].Value + P + r.Cells[2].Value + P + converterDate(t) + P;
+                        textImport.Text += r.Cells[4].Value + P + r.Cells[5].Value + P + r.Cells[6].Value + P + r.Cells[7].Value + P;  
+                        textImport.Text += r.Cells[8].Value + P + r.Cells[9].Value + P + r.Cells[10].Value + P + r.Cells[11].Value + P; 
+                        
+                        flag = true;
+                        
+                    }
 
-                
+            }
 
-        //       //string newLine = "dataGridView1.SelectedRows[0].Cells[0].Value " + P+ dataGridView1.SelectedRows[0].Cells[0].Value + recviz.platNumber + P + converterDateToInt(dateTimePicker1.Value) + P + arText[2] + P + recviz.mfo + P + arText[3] + P + recviz.rahunok + P + arText[5].Replace(".", "")
-        //       //           + P + "0" + P + arText[0] + P + "recviz" + P + date1 + P + P + P + P + arText[4] + P + P + Environment.NewLine;
-        //        numberDocAval++;
-        //        //textImport.Text += newLine;
-
-        //    }
-
-        //    return "";
-        //}
+           
+        }
 
 
 
@@ -508,7 +370,7 @@ namespace SoftGenConverter
                 //  new Form1())              }
                 // formaLoad = new ProcessLoadForm(OnWorkIsDone);
                 // InitializeWaitForm();
-                ExportToExcel.saveExcel(saveDialog, dataGridView1, recviz);
+                ExportToExcel.saveExcel(saveDialog, dataGridView1);
             }
         }
 
@@ -544,7 +406,7 @@ namespace SoftGenConverter
 
         private void УкрГазToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            recviz.state = 2;
+            
             
             label2.Text = "ЕДРПОУ Платника:";
             //setFields2();
@@ -555,7 +417,7 @@ namespace SoftGenConverter
        
         private void АвальToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            recviz.state = 1;
+            
             setFieldsP();
             
         }
@@ -565,7 +427,7 @@ namespace SoftGenConverter
         }
         public void isEditUkrG(bool edit)
         {
-            textBox2.Visible =  textBox1.Visible = label7.Visible = label6.Visible =  edit;
+            textBox2.Visible =  textBox1.Visible = label7.Visible = label6.Visible = label10.Visible = textBox4.Visible = edit;
         }
 
 
@@ -628,7 +490,7 @@ namespace SoftGenConverter
      
         private void button5_Click_2(object sender, EventArgs e)
         {
-           MessageBox.Show(Properties.Settings.Default.state.ToString());
+           //MessageBox.Show(Properties.Settings.Default.state.ToString());
             editUkrG = !editUkrG;
             if (editUkrG)
             {
@@ -765,7 +627,7 @@ namespace SoftGenConverter
 
         private void dateTimePicker1_ValueChanged_1(object sender, EventArgs e)
         {
-            Properties.Settings.Default.datePayment = converterDateToInt(dateTimePicker1.Value);
+            //Properties.Settings.Default.datePayment = dateTimePicker1.Value;
             Properties.Settings.Default.Save();
         }
     }

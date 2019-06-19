@@ -9,11 +9,9 @@ namespace SoftGenConverter
 {
     class ExportToExcel
     {
-        public static void saveExcel(SaveFileDialog saveDialog, DataGridView dataGridView1, Datashit recviz)
+        public static void saveExcel(SaveFileDialog saveDialog, DataGridView dataGridView1)
         {
-            long numDoc = recviz.platNumber2;
-            string senderRah = recviz.rahunok2;
-            string edrpou = recviz.ToString();
+            
             
             // Creating a Excel object.
             Microsoft.Office.Interop.Excel._Application excel = new Microsoft.Office.Interop.Excel.Application();

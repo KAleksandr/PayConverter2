@@ -34,7 +34,7 @@ namespace SoftGenConverter
 
                         }
                     }
-                    catch (Exception e) { }
+                    catch (Exception) { }
 
                 }
                 else
@@ -59,7 +59,7 @@ namespace SoftGenConverter
                                 dataGridView.Rows[n].Cells[2].Value = item["Comment"]; 
 
                             }
-                    }catch(Exception e) { }
+                    }catch(Exception ) { }
                  }   
                     
             return dataGridView;

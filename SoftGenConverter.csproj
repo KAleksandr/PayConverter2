@@ -56,8 +56,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Aval.cs" />
-    <Compile Include="Bank.cs" />
-    <Compile Include="Datashit.cs" />
     <Compile Include="ExportToExcel.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -71,7 +69,6 @@
     <Compile Include="Form2.Designer.cs">
       <DependentUpon>Form2.cs</DependentUpon>
     </Compile>
-    <Compile Include="IniFile.cs" />
     <Compile Include="ProcessLoadForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -85,7 +82,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="ReadIni.cs" />
     <Compile Include="Xml.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
