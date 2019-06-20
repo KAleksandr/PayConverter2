@@ -307,9 +307,11 @@ namespace SoftGenConverter
 
                 name = saveFileDialog1.FileName;
                 createBox();
+             
+                string texts = textImport.Text.Replace("і", "i");
 
-                
-                File.WriteAllText(name, textImport.Text, Encoding.GetEncoding(866));
+
+                File.WriteAllText(name, texts, Encoding.GetEncoding(866));
 
             }
         }
