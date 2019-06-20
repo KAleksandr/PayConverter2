@@ -64,6 +64,44 @@ namespace SoftGenConverter
                     
             return dataGridView;
         }
+
+        public static void  saveXml(DataGridView dataGridView, string path)
+        {
+            try
+            {
+                DataSet ds = new DataSet(); // создаем пока что пустой кэш данных
+                DataTable dt = new DataTable(); // создаем пока что пустую таблицу данных
+                dt.TableName = "Employee"; // название таблицы
+                dt.Columns.Add("NAME"); // название колонок
+                dt.Columns.Add("ERDPO"); // название колонок
+                dt.Columns.Add("Comment");
+
+                ds.Tables.Add(dt); //в ds создается таблица, с названием и колонками, созданными выше
+
+                foreach (DataGridViewRow r in dataGridView.Rows) // пока в dataGridView1 есть строки
+                {
+                    if (r.Cells != null)
+                    {
+                        DataRow row = ds.Tables["Employee"].NewRow(); // создаем новую строку в таблице, занесенной в ds
+                        row["Name"] = r.Cells[0].Value;
+                        row["ERDPO"] = r.Cells[1].Value;  //в столбец этой строки заносим данные из первого столбца dataGridView1
+                        row["Comment"] = r.Cells[2].Value; // то же самое со вторыми столбцами
+
+                        ds.Tables["Employee"].Rows.Add(row); //добавление всей этой строки в таблицу ds.
+                    }
+
+                }
+
+
+
+                ds.WriteXml(path);
+               // MessageBox.Show("XML файл успішно збережений.", "Виконано.");
+            }
+            catch
+            {
+                MessageBox.Show("Неможливо зберегти дані в XML файл.", "Помилка.");
+            }
+        }
         #region MyRegion
         //public static void createConfig(string Path)
         //{
