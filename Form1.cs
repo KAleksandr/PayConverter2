@@ -309,20 +309,26 @@ namespace SoftGenConverter
             {
                     if (r.Cells != null)
                     {
-                    string t = "";
-                    try
-                    {
-                        t = r.Cells[3].Value.ToString();
-                    }
-                    catch (Exception) { }
-                   
+                        string t = "";
+                        string sum = "";
+                        try
+                        {
+                            t = r.Cells[3].Value.ToString();
+                            sum = r.Cells[8].Value.ToString().Replace(".", "");
+                        }
+                        catch (Exception) { }
+
                         if (flag)
-                        textImport.Text += Environment.NewLine;
-                        textImport.Text += r.Cells[0].Value + P + r.Cells[1].Value + P + r.Cells[2].Value + P + converterDate(t) + P;
-                        textImport.Text += r.Cells[4].Value + P + r.Cells[5].Value + P + r.Cells[6].Value + P + r.Cells[7].Value + P;  
-                        textImport.Text += r.Cells[8].Value + P + r.Cells[9].Value + P + r.Cells[10].Value + P + r.Cells[11].Value + P; 
-                        
-                        flag = true;
+                        {
+                             
+                            textImport.Text += Environment.NewLine;
+                        }
+                       
+                            textImport.Text += r.Cells[0].Value + P + r.Cells[1].Value + P + r.Cells[2].Value + P + converterDate(t) + P;
+                            textImport.Text += r.Cells[4].Value + P + r.Cells[5].Value + P + r.Cells[6].Value + P + r.Cells[7].Value + P;  
+                            textImport.Text += sum + P + r.Cells[9].Value + P + r.Cells[10].Value + P + r.Cells[11].Value + P + P + P + P + P + r.Cells[12].Value + P + P; 
+                            
+                            flag = true;
                         
                     }
 
