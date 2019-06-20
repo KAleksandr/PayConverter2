@@ -6,7 +6,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Globalization;
-
+using System.ComponentModel;
 
 namespace SoftGenConverter
 {
@@ -672,6 +672,7 @@ namespace SoftGenConverter
             dataGridView2.Visible = true;
             dataGridView1.Visible = false;
             gridHeader.Text = label8.Text;
+            dataGridView2.Sort(dataGridView2.Columns[11], ListSortDirection.Ascending);
         }
 
         private void Panel2_MouseClick(object sender, MouseEventArgs e)
@@ -681,6 +682,7 @@ namespace SoftGenConverter
             dataGridView2.Visible = false;
             dataGridView1.Visible = true;
             gridHeader.Text = label9.Text;
+            dataGridView1.Sort(dataGridView1.Columns[2], ListSortDirection.Ascending);
         }
         //запис в data.xml призначення платежу
         private void DataGridView2_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
