@@ -187,6 +187,10 @@ namespace SoftGenConverter
                                 dataGridView2.Rows[n].Cells[12].Value = CSV_Struct[i].zkpo;
                                 dataGridView2.Rows[n].Cells[11].Value = addDateToStr(findZkpo(CSV_Struct[i].zkpo),
                                 CSV_Struct[i].dateP.ToString("dd.MM.yyyy"));
+                                if (dataGridView2.Rows[n].Cells[11].Value.Equals("null"))
+                                {
+                                    dataGridView2.Rows[n].DefaultCellStyle.BackColor = Color.BurlyWood;
+                                }
                         }
                         catch (Exception)
                         {
@@ -235,13 +239,7 @@ namespace SoftGenConverter
             return "null";
         }
 
-       #region MyRegion
-
-   
-
-
-
-        #endregion
+      
         public DateTime convertStrToTime(string dateP)
         {
             DateTime CreatdDate;
