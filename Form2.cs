@@ -34,13 +34,15 @@ namespace SoftGenConverter
             else
             {
                 int n = dataGridView1.Rows.Add();
-                dataGridView1.Rows[n].Cells[0].Value = ederpo.Text; // 
-                dataGridView1.Rows[n].Cells[1].Value = textBox1.Text; // 
+                dataGridView1.Rows[n].Cells[0].Value = textBox2.Text; // 
+                dataGridView1.Rows[n].Cells[1].Value = ederpo.Text; // 
+                dataGridView1.Rows[n].Cells[2].Value = textBox1.Text; // 
 
             }
 
             ederpo.Text = string.Empty;
             textBox1.Text = string.Empty;
+            textBox2.Text = string.Empty;
 
 
 
