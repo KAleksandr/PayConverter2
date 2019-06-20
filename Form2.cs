@@ -22,6 +22,7 @@ namespace SoftGenConverter
             InitializeComponent();
 
             Xml.loadXml(dataGridView1, path);
+            RemoveDuplicate();
 
         }
 
@@ -90,40 +91,7 @@ namespace SoftGenConverter
         private void Form2_FormClosed(object sender, FormClosedEventArgs e)
         {
             Xml.saveXml(dataGridView1, path);
-            //try
-            //{
-            //    DataSet ds = new DataSet(); // создаем пока что пустой кэш данных
-            //    DataTable dt = new DataTable(); // создаем пока что пустую таблицу данных
-            //    dt.TableName = "Employee"; // название таблицы
-            //    dt.Columns.Add("NAME"); // название колонок
-            //    dt.Columns.Add("ERDPO"); // название колонок
-            //    dt.Columns.Add("Comment");
-
-            //    ds.Tables.Add(dt); //в ds создается таблица, с названием и колонками, созданными выше
-
-            //    foreach (DataGridViewRow r in dataGridView1.Rows) // пока в dataGridView1 есть строки
-            //    {
-            //        if (r.Cells != null)
-            //        {
-            //            DataRow row = ds.Tables["Employee"].NewRow(); // создаем новую строку в таблице, занесенной в ds
-            //            row["Name"] = r.Cells[0].Value;
-            //            row["ERDPO"] = r.Cells[1].Value;  //в столбец этой строки заносим данные из первого столбца dataGridView1
-            //            row["Comment"] = r.Cells[2].Value; // то же самое со вторыми столбцами
-
-            //            ds.Tables["Employee"].Rows.Add(row); //добавление всей этой строки в таблицу ds.
-            //        }
-
-            //    }
-
-
-
-            //    ds.WriteXml(path);
-            //    MessageBox.Show("XML файл успішно збережений.", "Виконано.");
-            //}
-            //catch
-            //{
-            //    MessageBox.Show("Неможливо зберегти XML файл.", "Помилка.");
-            //}
+            
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -189,7 +157,37 @@ namespace SoftGenConverter
                 return res;
             }
         }
+        public void RemoveDuplicate()
+        {
+            for (int currentRow = 0; currentRow < dataGridView1.Rows.Count - 1; currentRow++)
+            {
+                DataGridViewRow rowToCompare = dataGridView1.Rows[currentRow];
 
+                for (int otherRow = currentRow + 1; otherRow < dataGridView1.Rows.Count; otherRow++)
+                {
+                    DataGridViewRow row = dataGridView1.Rows[otherRow];
+
+                    bool duplicateRow = true;
+
+                    for (int cellIndex = 0; cellIndex < row.Cells.Count; cellIndex++)
+                    {
+                        if (!rowToCompare.Cells[1].Value.Equals(row.Cells[1].Value))
+                        {
+                            //MessageBox.Show(rowToCompare.Cells[cellIndex+1].Value.ToString() + "   -  " +row.Cells[cellIndex+1].Value);
+                            duplicateRow = false;
+                            break;
+                            
+                        }
+                    }
+
+                    if (duplicateRow)
+                    {
+                        dataGridView1.Rows.Remove(row);
+                        otherRow--;
+                    }
+                }
+            }
+        }
 
     }
 }
