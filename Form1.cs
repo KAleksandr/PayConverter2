@@ -370,12 +370,6 @@ namespace SoftGenConverter
 
             if (saveDialog.ShowDialog() == DialogResult.OK)
             {
-                //                using (ProcessLoadForm lfrm = new ProcessLoadForm(progesDialog))
-                //                {
-                //                    lfrm.ShowDialog(this);
-                //  new Form1())              }
-                // formaLoad = new ProcessLoadForm(OnWorkIsDone);
-                // InitializeWaitForm();
                 ExportToExcel.saveExcel(saveDialog, dataGridView1);
             }
         }
@@ -452,13 +446,13 @@ namespace SoftGenConverter
             {
                 Properties.Settings.Default.state1 = 2;
                 Properties.Settings.Default.Save();
-                //myIni.Write("PlatNumber", numberDoc.ToString());
+                
             }
             else
             {
                 Properties.Settings.Default.state1 = 1;
                 Properties.Settings.Default.Save();
-               // myIni.Write("PlatNumber2", numberDoc.ToString());
+              
             }
 
         }
@@ -508,6 +502,7 @@ namespace SoftGenConverter
                     textBox2.Text = Properties.Settings.Default.edrpou;
                     textBox1.Text = Properties.Settings.Default.platNumber2.ToString();
                     textBox3.Text = Properties.Settings.Default.name2;
+                    textBox4.Text = Properties.Settings.Default.rahunok2;
 
                 }
                 else
@@ -515,6 +510,7 @@ namespace SoftGenConverter
                     textBox3.Text = Properties.Settings.Default.name3;
                     textBox2.Text = Properties.Settings.Default.edrpou2;
                     textBox1.Text = Properties.Settings.Default.platNumber3.ToString();
+                    textBox4.Text = Properties.Settings.Default.rahunok3;
                 }
 
                 isEditUkrG(editUkrG);
@@ -532,6 +528,7 @@ namespace SoftGenConverter
                     Properties.Settings.Default.name2 = textBox3.Text;
                     Properties.Settings.Default.edrpou = textBox2.Text;
                     Properties.Settings.Default.platNumber2 = Int64.Parse(textBox1.Text);
+                    Properties.Settings.Default.rahunok2 = textBox4.Text;
                     Properties.Settings.Default.Save();
                     comboEdr2.Items.Clear();
                     comboEdr2.Items.Add(Properties.Settings.Default.name2);
@@ -544,6 +541,7 @@ namespace SoftGenConverter
                     Properties.Settings.Default.name3 = textBox3.Text;
                     Properties.Settings.Default.edrpou2 = textBox2.Text;
                     Properties.Settings.Default.platNumber3 = Int64.Parse(textBox1.Text);
+                    Properties.Settings.Default.rahunok3 = textBox4.Text;
                     Properties.Settings.Default.Save();
                     comboEdr2.Items.Clear();
                     comboEdr2.Items.Add(Properties.Settings.Default.name2);
@@ -635,6 +633,20 @@ namespace SoftGenConverter
         {
             //Properties.Settings.Default.datePayment = dateTimePicker1.Value;
             Properties.Settings.Default.Save();
+        }
+
+        private void textBox4_TextChanged(object sender, EventArgs e)
+        {
+            if (comboEdr2.Text.Equals(Properties.Settings.Default.name2))
+            {
+                Properties.Settings.Default.rahunok2 = string.IsNullOrEmpty(textBox4.Text) ? "0" : textBox4.Text;
+                Properties.Settings.Default.Save();
+            }
+            else
+            {
+                Properties.Settings.Default.rahunok3 = string.IsNullOrEmpty(textBox4.Text) ? "0" : textBox4.Text;
+                Properties.Settings.Default.Save();
+            }
         }
     }
 }

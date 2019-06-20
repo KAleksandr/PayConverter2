@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SoftGenConverter
@@ -35,16 +31,6 @@ namespace SoftGenConverter
                 {
                     for (int j = 0; j < dataGridView1.Columns.Count; j++)
                     {
-
-                        // Excel index starts from 1,1. As first Row would have the Column headers, adding a condition check.
-                        //if (cellRowIndex == 1) worksheet.Cells[cellRowIndex, cellColumnIndex] = dataGridView1.Columns[j].HeaderText;
-                       // else
-                        {
-                            //if (cellColumnIndex == 6)
-                            //{
-                            //    worksheet.Cells[cellRowIndex, cellColumnIndex].NumberFormat = "@";
-                            //}
-                           // worksheet.Cells[cellRowIndex, cellColumnIndex].NumberFormat = "@";
                             worksheet.Cells[cellRowIndex, cellColumnIndex] = dataGridView1.Rows[i].Cells[j].Value.ToString();
                             worksheet.Cells[cellRowIndex, cellColumnIndex] = dataGridView1.Rows[i].Cells[j].Value.ToString();
                             worksheet.Cells[cellRowIndex, cellColumnIndex] = dataGridView1.Rows[i].Cells[j].Value.ToString();
@@ -53,10 +39,7 @@ namespace SoftGenConverter
                             worksheet.Cells[cellRowIndex, cellColumnIndex] = dataGridView1.Rows[i].Cells[j].Value.ToString();
                             worksheet.Cells[cellRowIndex, cellColumnIndex] = dataGridView1.Rows[i].Cells[j].Value.ToString();
                             worksheet.Cells[cellRowIndex, cellColumnIndex] = dataGridView1.Rows[i].Cells[j].Value.ToString();
-                        }
                         
-
-                       
                         cellColumnIndex++;
                     }
                     cellColumnIndex = 1;
