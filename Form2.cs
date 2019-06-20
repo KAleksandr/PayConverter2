@@ -16,6 +16,7 @@ namespace SoftGenConverter
 {
     public partial class Form2 : Form
     {
+        private bool edit = false;
         private string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"data.xml");
         public Form2()
         {
@@ -29,24 +30,30 @@ namespace SoftGenConverter
         private void button1_Click(object sender, EventArgs e)
         {
             if (ederpo.Text == "" || textBox1.Text == "")
+                {
+                        MessageBox.Show("Заповніть всі поля.", "Помилка.");
+                }
+            else 
+            if (!edit)
             {
-                MessageBox.Show("Заповніть всі поля.", "Помилка.");
+                
+               int n = dataGridView1.Rows.Add();
+               dataGridView1.Rows[n].Cells[0].Value = textBox2.Text; // 
+               dataGridView1.Rows[n].Cells[1].Value = ederpo.Text; // 
+               dataGridView1.Rows[n].Cells[2].Value = textBox1.Text; // 
             }
             else
             {
-                int n = dataGridView1.Rows.Add();
-                dataGridView1.Rows[n].Cells[0].Value = textBox2.Text; // 
-                dataGridView1.Rows[n].Cells[1].Value = ederpo.Text; // 
-                dataGridView1.Rows[n].Cells[2].Value = textBox1.Text; // 
-
+                
+                dataGridView1.CurrentRow.Cells[0].Value = textBox2.Text; // 
+                dataGridView1.CurrentRow.Cells[1].Value = ederpo.Text; // 
+                dataGridView1.CurrentRow.Cells[2].Value = textBox1.Text; // 
+                edit = !edit;
             }
-
+            button1.Text = "Додати";
             ederpo.Text = string.Empty;
             textBox1.Text = string.Empty;
             textBox2.Text = string.Empty;
-
-
-
         }
 
         public void loadXml()
@@ -171,7 +178,7 @@ namespace SoftGenConverter
 
                     for (int cellIndex = 0; cellIndex < row.Cells.Count; cellIndex++)
                     {
-                        if (!rowToCompare.Cells[1].Value.Equals(row.Cells[1].Value))
+                        if (!rowToCompare.Cells[1].Value.Equals(row.Cells[1].Value) && !rowToCompare.Cells[0].Value.Equals(row.Cells[0].Value))
                         {
                             //MessageBox.Show(rowToCompare.Cells[cellIndex+1].Value.ToString() + "   -  " +row.Cells[cellIndex+1].Value);
                             duplicateRow = false;
@@ -189,6 +196,23 @@ namespace SoftGenConverter
             }
         }
 
+        private void dataGridView1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            textBox2.Text = dataGridView1.CurrentRow.Cells[0].Value.ToString();
+            ederpo.Text = dataGridView1.CurrentRow.Cells[1].Value.ToString();
+            textBox1.Text = dataGridView1.CurrentRow.Cells[2].Value.ToString();
+            button1.Text = "Редагувати";
+            edit = !edit; 
+
+        }
+
+        private void dataGridView1_MouseClick(object sender, MouseEventArgs e)
+        {
+            button1.Text = "Додати";
+            ederpo.Text = string.Empty;
+            textBox1.Text = string.Empty;
+            textBox2.Text = string.Empty;
+        }
     }
 }
 

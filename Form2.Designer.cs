@@ -75,6 +75,8 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(953, 305);
             this.dataGridView1.TabIndex = 0;
+            this.dataGridView1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dataGridView1_MouseClick);
+            this.dataGridView1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.dataGridView1_MouseDoubleClick);
             // 
             // Column1
             // 
@@ -126,9 +128,9 @@
             // button1
             // 
             this.button1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.button1.Location = new System.Drawing.Point(889, 79);
+            this.button1.Location = new System.Drawing.Point(825, 79);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(61, 48);
+            this.button1.Size = new System.Drawing.Size(125, 48);
             this.button1.TabIndex = 5;
             this.button1.Text = "Додати";
             this.button1.UseVisualStyleBackColor = true;
