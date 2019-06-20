@@ -308,18 +308,7 @@ namespace SoftGenConverter
                 name = saveFileDialog1.FileName;
                 createBox();
 
-                Encoding cp866 = Encoding.GetEncoding("CP866");
-                Encoding w1251 = Encoding.GetEncoding("UTF-8");
-                Byte[] w1251Bytes = w1251.GetBytes(textImport.Text);
-                String lineFinal = cp866.GetString(w1251Bytes);
-
-                //byte[] bytes = Encoding.UTF8.GetBytes(textImport.Text);
-                //byte[] newBytes = Encoding.Convert(Encoding.UTF8, Encoding.GetEncoding(1251), bytes);
-                //string str = Encoding.GetEncoding("CP866").GetString(newBytes);
-
-
-               // File.WriteAllText(name, lineFinal, Encoding.GetEncoding("CP866"));
-                //File.AppendAllText(name, lineFinal, Encoding.GetEncoding("CP866"));
+                
                 File.WriteAllText(name, textImport.Text, Encoding.GetEncoding(866));
 
             }
