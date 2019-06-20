@@ -89,40 +89,41 @@ namespace SoftGenConverter
 
         private void Form2_FormClosed(object sender, FormClosedEventArgs e)
         {
-            try
-            {
-                DataSet ds = new DataSet(); // создаем пока что пустой кэш данных
-                DataTable dt = new DataTable(); // создаем пока что пустую таблицу данных
-                dt.TableName = "Employee"; // название таблицы
-                dt.Columns.Add("NAME"); // название колонок
-                dt.Columns.Add("ERDPO"); // название колонок
-                dt.Columns.Add("Comment");
+            Xml.saveXml(dataGridView1, path);
+            //try
+            //{
+            //    DataSet ds = new DataSet(); // создаем пока что пустой кэш данных
+            //    DataTable dt = new DataTable(); // создаем пока что пустую таблицу данных
+            //    dt.TableName = "Employee"; // название таблицы
+            //    dt.Columns.Add("NAME"); // название колонок
+            //    dt.Columns.Add("ERDPO"); // название колонок
+            //    dt.Columns.Add("Comment");
 
-                ds.Tables.Add(dt); //в ds создается таблица, с названием и колонками, созданными выше
+            //    ds.Tables.Add(dt); //в ds создается таблица, с названием и колонками, созданными выше
 
-                foreach (DataGridViewRow r in dataGridView1.Rows) // пока в dataGridView1 есть строки
-                {
-                    if (r.Cells != null)
-                    {
-                        DataRow row = ds.Tables["Employee"].NewRow(); // создаем новую строку в таблице, занесенной в ds
-                        row["Name"] = r.Cells[0].Value;
-                        row["ERDPO"] = r.Cells[1].Value;  //в столбец этой строки заносим данные из первого столбца dataGridView1
-                        row["Comment"] = r.Cells[2].Value; // то же самое со вторыми столбцами
+            //    foreach (DataGridViewRow r in dataGridView1.Rows) // пока в dataGridView1 есть строки
+            //    {
+            //        if (r.Cells != null)
+            //        {
+            //            DataRow row = ds.Tables["Employee"].NewRow(); // создаем новую строку в таблице, занесенной в ds
+            //            row["Name"] = r.Cells[0].Value;
+            //            row["ERDPO"] = r.Cells[1].Value;  //в столбец этой строки заносим данные из первого столбца dataGridView1
+            //            row["Comment"] = r.Cells[2].Value; // то же самое со вторыми столбцами
 
-                        ds.Tables["Employee"].Rows.Add(row); //добавление всей этой строки в таблицу ds.
-                    }
+            //            ds.Tables["Employee"].Rows.Add(row); //добавление всей этой строки в таблицу ds.
+            //        }
 
-                }
+            //    }
 
 
 
-                ds.WriteXml(path);
-                MessageBox.Show("XML файл успішно збережений.", "Виконано.");
-            }
-            catch
-            {
-                MessageBox.Show("Неможливо зберегти XML файл.", "Помилка.");
-            }
+            //    ds.WriteXml(path);
+            //    MessageBox.Show("XML файл успішно збережений.", "Виконано.");
+            //}
+            //catch
+            //{
+            //    MessageBox.Show("Неможливо зберегти XML файл.", "Помилка.");
+            //}
         }
 
         private void button2_Click(object sender, EventArgs e)
