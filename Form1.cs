@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Text;
@@ -672,6 +673,7 @@ namespace SoftGenConverter
             dataGridView2.Visible = true;
             dataGridView1.Visible = false;
             gridHeader.Text = label8.Text;
+            
         }
 
         private void Panel2_MouseClick(object sender, MouseEventArgs e)
@@ -681,9 +683,12 @@ namespace SoftGenConverter
             dataGridView2.Visible = false;
             dataGridView1.Visible = true;
             gridHeader.Text = label9.Text;
+            
         }
-        //запис в data.xml призначення платежу
-        private void DataGridView2_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
+
+        
+
+        private void dataGridView2_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             int selRowNum = dataGridView2.SelectedCells[0].RowIndex;
             int selColNum = dataGridView2.SelectedCells[0].ColumnIndex;
@@ -703,20 +708,20 @@ namespace SoftGenConverter
                 }
         }
 
-        private void dataGridView1_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
+        private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            int selRowNum = dataGridView2.SelectedCells[0].RowIndex;
-            int selColNum = dataGridView2.SelectedCells[0].ColumnIndex;
-            if (dataGridView2[e.ColumnIndex, e.RowIndex].Value != null)
-                if (selColNum == 11)
+            int selRowNum = dataGridView1.SelectedCells[0].RowIndex;
+            int selColNum = dataGridView1.SelectedCells[0].ColumnIndex;
+            if (dataGridView1[e.ColumnIndex, e.RowIndex].Value != null)
+                if (selColNum == 2)
                 {
                     DialogResult dialogResult = MessageBox.Show("Зміни записати базу данних", "Запис данних", MessageBoxButtons.YesNo);
                     if (dialogResult == DialogResult.Yes)
                     {
-                        int n = dataGridView1.Rows.Add();
-                        dataGridView3.Rows[n].Cells[0].Value = dataGridView2.Rows[selRowNum].Cells[selColNum - 1].Value; // 
-                        dataGridView3.Rows[n].Cells[1].Value = dataGridView2.Rows[selRowNum].Cells[selColNum + 1].Value; // 
-                        dataGridView3.Rows[n].Cells[2].Value = dataGridView2.Rows[selRowNum].Cells[selColNum].Value; // 
+                        int n = dataGridView3.Rows.Add();
+                        dataGridView3.Rows[n].Cells[0].Value = dataGridView1.Rows[selRowNum].Cells[selColNum + 6].Value; // 
+                        dataGridView3.Rows[n].Cells[1].Value = dataGridView1.Rows[selRowNum].Cells[selColNum + 5].Value; // 
+                        dataGridView3.Rows[n].Cells[2].Value = dataGridView1.Rows[selRowNum].Cells[selColNum].Value; // 
                         Xml.saveXml(dataGridView3, path2);
                     }
 
