@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.IO;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace SoftGenConverter
 {
@@ -109,6 +110,30 @@ namespace SoftGenConverter
             }
 
             return res;
+        }
+        public static void StyleDataGridView(DataGridView dgv, bool isReadonly = true)
+        {
+            try
+            {
+                // Setting the style of the DataGridView control
+                dgv.RowHeadersVisible = true;
+                dgv.ColumnHeadersDefaultCellStyle.Font = new Font("Tahoma", 9, FontStyle.Bold, GraphicsUnit.Point);
+                dgv.ColumnHeadersDefaultCellStyle.BackColor = SystemColors.ControlDark;
+                dgv.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+                dgv.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                dgv.DefaultCellStyle.Font = new Font("Tahoma", 9, FontStyle.Regular, GraphicsUnit.Point);
+                dgv.DefaultCellStyle.BackColor = Color.Empty;
+                dgv.CellBorderStyle = DataGridViewCellBorderStyle.Single;
+                dgv.AllowUserToAddRows = false;
+                //dgv.ReadOnly = isReadonly;
+                dgv.SelectionMode = DataGridViewSelectionMode.CellSelect;
+                System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+                dataGridViewCellStyle1.BackColor = Color.LightBlue;
+                dgv.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            }
+            catch (Exception ex)
+            {
+            }
         }
     }
 }

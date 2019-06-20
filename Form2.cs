@@ -23,6 +23,7 @@ namespace SoftGenConverter
             InitializeComponent();
 
             Xml.loadXml(dataGridView1, path);
+           Aval.StyleDataGridView(dataGridView1, true);
             RemoveDuplicate();
 
         }
@@ -213,6 +214,7 @@ namespace SoftGenConverter
             textBox1.Text = string.Empty;
             textBox2.Text = string.Empty;
         }
+        
     }
 }
 

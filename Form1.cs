@@ -62,6 +62,8 @@ namespace SoftGenConverter
 
             isEditAval(editAval);
             isEditUkrG(editUkrG);
+            Aval.StyleDataGridView(dataGridView1, true);
+            Aval.StyleDataGridView(dataGridView2, true);
         }
 
        
@@ -306,7 +308,19 @@ namespace SoftGenConverter
                 name = saveFileDialog1.FileName;
                 createBox();
 
-                File.WriteAllText(name, textImport.Text);
+                Encoding cp866 = Encoding.GetEncoding("CP866");
+                Encoding w1251 = Encoding.GetEncoding("UTF-8");
+                Byte[] w1251Bytes = w1251.GetBytes(textImport.Text);
+                String lineFinal = cp866.GetString(w1251Bytes);
+
+                //byte[] bytes = Encoding.UTF8.GetBytes(textImport.Text);
+                //byte[] newBytes = Encoding.Convert(Encoding.UTF8, Encoding.GetEncoding(1251), bytes);
+                //string str = Encoding.GetEncoding("CP866").GetString(newBytes);
+
+
+               // File.WriteAllText(name, lineFinal, Encoding.GetEncoding("CP866"));
+                //File.AppendAllText(name, lineFinal, Encoding.GetEncoding("CP866"));
+                File.WriteAllText(name, textImport.Text, Encoding.GetEncoding(866));
 
             }
         }
@@ -328,17 +342,17 @@ namespace SoftGenConverter
                     }
                     catch (Exception) { }
 
-                    if (flag)
-                    {
+                    //if (flag)
+                    //{
 
-                        textImport.Text += Environment.NewLine;
-                    }
+                    //    textImport.Text += Environment.NewLine;
+                    //}
 
-                    textImport.Text += r.Cells[0].Value + P + r.Cells[1].Value + P + r.Cells[2].Value + P + converterDate(t) + P;
+                    textImport.Text += r.Cells[0].Value + P + r.Cells[1].Value + P +  P + converterDate(t) + P;
                     textImport.Text += r.Cells[4].Value + P + r.Cells[5].Value + P + r.Cells[6].Value + P + r.Cells[7].Value + P;
-                    textImport.Text += sum + P + r.Cells[9].Value + P + r.Cells[10].Value + P + r.Cells[11].Value + P + P + P + P + P + r.Cells[12].Value + P + P;
+                    textImport.Text += sum + P + r.Cells[9].Value + P + r.Cells[10].Value + P + r.Cells[11].Value + P + P + P + P + P + r.Cells[12].Value + P + P + "\r\n";
 
-                    flag = true;
+                   // flag = true;
 
                 }
 
@@ -353,7 +367,7 @@ namespace SoftGenConverter
         {
             string bcode = cliBankCode.Text.Insert(1, ".");
             string name = "R";
-            name += DateTime.Today.Day.ToString() + DateTime.Now.Hour + DateTime.Now.Minute + bcode;
+            name += DateTime.Today.Day.ToString() + DateTime.Now.Hour + DateTime.Now.Minute + bcode + ".";
             return name;
         }
 
