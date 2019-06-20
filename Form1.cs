@@ -142,6 +142,10 @@ namespace SoftGenConverter
                         dataGridView1.Rows[n].Cells[1].Value = "UAH";
                         dataGridView1.Rows[n].Cells[2].Value = addDateToStr(findZkpo(CSV_Struct[i].zkpo),
                             dateTimePicker1.Value.ToString("dd.MM.yyyy"));
+                        if (dataGridView1.Rows[n].Cells[2].Value.Equals("null"))
+                        {
+                            dataGridView1.Rows[n].DefaultCellStyle.BackColor = Color.BurlyWood;
+                        }
                         ;
                         //dataGridView1.Rows[n].Cells[3].Value = CSV_Struct[i].datePayment.ToString();
                         //dataGridView1.Rows[n].Cells[4].Value = CSV_Struct[i].zkpo;
@@ -243,17 +247,22 @@ namespace SoftGenConverter
       
         public DateTime convertStrToTime(string dateP)
         {
-            DateTime CreatdDate;
+            DateTime CreatdDate = DateTime.Today;
             if (!dateP.Equals(0))
             {
-                dateP = (dateP.Insert(4, "-")).Insert(7, "-");
-                CreatdDate = DateTime.ParseExact(dateP, "yyyy-MM-dd",
+                try
+                {
+                    dateP = (dateP.Insert(4, "-")).Insert(7, "-");
+                    CreatdDate = DateTime.ParseExact(dateP, "yyyy-MM-dd",
                                                System.Globalization.CultureInfo.InvariantCulture);
+                }
+                catch (Exception)
+                {
+
+                }
+                
             }
-            else
-            {
-                CreatdDate = DateTime.Today;
-            }
+            
 
 
             return CreatdDate;
