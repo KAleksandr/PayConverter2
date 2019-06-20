@@ -646,5 +646,41 @@ namespace SoftGenConverter
                 Properties.Settings.Default.Save();
             }
         }
+
+        private void Label8_MouseClick(object sender, MouseEventArgs e)
+        {
+            tableLayoutPanel7.RowStyles[1].Height = 100;
+            tableLayoutPanel7.RowStyles[0].Height = 0;
+            dataGridView2.Visible = true;
+            dataGridView1.Visible = false;
+        }
+
+        
+
+        private void Label9_MouseClick(object sender, MouseEventArgs e)
+        {
+            tableLayoutPanel7.RowStyles[0].Height = 100;
+            tableLayoutPanel7.RowStyles[1].Height = 0;
+            dataGridView2.Visible = false;
+            dataGridView1.Visible = true;
+        }
+
+        private void Panel1_MouseClick(object sender, MouseEventArgs e)
+        {
+            tableLayoutPanel7.RowStyles[1].Height = 100;
+            tableLayoutPanel7.RowStyles[0].Height = 0;
+            dataGridView2.Visible = true;
+            dataGridView1.Visible = false;
+            gridHeader.Text = label8.Text;
+        }
+
+        private void Panel2_MouseClick(object sender, MouseEventArgs e)
+        {
+            tableLayoutPanel7.RowStyles[0].Height = 100;
+            tableLayoutPanel7.RowStyles[1].Height = 0;
+            dataGridView2.Visible = false;
+            dataGridView1.Visible = true;
+            gridHeader.Text = label9.Text;
+        }
     }
 }
