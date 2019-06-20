@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Text;
@@ -684,8 +685,10 @@ namespace SoftGenConverter
             gridHeader.Text = label9.Text;
             dataGridView1.Sort(dataGridView1.Columns[2], ListSortDirection.Ascending);
         }
-        //запис в data.xml призначення платежу
-        private void DataGridView2_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
+
+        
+
+        private void dataGridView2_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             int selRowNum = dataGridView2.SelectedCells[0].RowIndex;
             int selColNum = dataGridView2.SelectedCells[0].ColumnIndex;
@@ -699,6 +702,26 @@ namespace SoftGenConverter
                         dataGridView3.Rows[n].Cells[0].Value = dataGridView2.Rows[selRowNum].Cells[selColNum - 1].Value; // 
                         dataGridView3.Rows[n].Cells[1].Value = dataGridView2.Rows[selRowNum].Cells[selColNum + 1].Value; // 
                         dataGridView3.Rows[n].Cells[2].Value = dataGridView2.Rows[selRowNum].Cells[selColNum].Value; // 
+                        Xml.saveXml(dataGridView3, path2);
+                    }
+
+                }
+        }
+
+        private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            int selRowNum = dataGridView1.SelectedCells[0].RowIndex;
+            int selColNum = dataGridView1.SelectedCells[0].ColumnIndex;
+            if (dataGridView1[e.ColumnIndex, e.RowIndex].Value != null)
+                if (selColNum == 2)
+                {
+                    DialogResult dialogResult = MessageBox.Show("Зміни записати базу данних", "Запис данних", MessageBoxButtons.YesNo);
+                    if (dialogResult == DialogResult.Yes)
+                    {
+                        int n = dataGridView3.Rows.Add();
+                        dataGridView3.Rows[n].Cells[0].Value = dataGridView1.Rows[selRowNum].Cells[selColNum + 6].Value; // 
+                        dataGridView3.Rows[n].Cells[1].Value = dataGridView1.Rows[selRowNum].Cells[selColNum + 5].Value; // 
+                        dataGridView3.Rows[n].Cells[2].Value = dataGridView1.Rows[selRowNum].Cells[selColNum].Value; // 
                         Xml.saveXml(dataGridView3, path2);
                     }
 
