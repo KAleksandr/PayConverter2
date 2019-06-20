@@ -16,6 +16,15 @@ namespace SoftGenConverter
         
         private bool shemes = true;//true=Aval false= UkrGaz 
         private TextBox textImport = new TextBox();
+        
+        
+        
+        
+
+        
+        
+        
+        
         bool editAval = false;
         bool editUkrG = false;
         Image editBtn = Properties.Resources.edit_property_16px;//
@@ -453,12 +462,7 @@ namespace SoftGenConverter
         private void button2_Click(object sender, EventArgs e)
         {
             Form frm = new Form2();
-            try
-            {
-                frm.ShowDialog();
-            }
-            catch (System.ArgumentException) { }
-            
+            frm.ShowDialog();
         }
 
     
@@ -642,26 +646,41 @@ namespace SoftGenConverter
                 Properties.Settings.Default.Save();
             }
         }
-//запис в data.xml призначення платежу
-        private void dataGridView2_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+
+        private void Label8_MouseClick(object sender, MouseEventArgs e)
         {
-            int selRowNum = dataGridView2.SelectedCells[0].RowIndex;
-            int  selColNum = dataGridView2.SelectedCells[0].ColumnIndex;
-            if (dataGridView2[e.ColumnIndex, e.RowIndex].Value != null)
-                if (selColNum == 11)
-                {
-                    DialogResult dialogResult = MessageBox.Show("Зміни записати базу данних", "Запис данних", MessageBoxButtons.YesNo);
-                    if (dialogResult == DialogResult.Yes)
-                    {
-                        int n = dataGridView1.Rows.Add();
-                        dataGridView3.Rows[n].Cells[0].Value = dataGridView2.Rows[selRowNum].Cells[selColNum-1].Value; // 
-                        dataGridView3.Rows[n].Cells[1].Value = dataGridView2.Rows[selRowNum].Cells[selColNum + 1].Value; // 
-                        dataGridView3.Rows[n].Cells[2].Value = dataGridView2.Rows[selRowNum].Cells[selColNum].Value; // 
-                        Xml.saveXml(dataGridView3, path2);
-                    }
-                       
-                }
-            
+            tableLayoutPanel7.RowStyles[1].Height = 100;
+            tableLayoutPanel7.RowStyles[0].Height = 0;
+            dataGridView2.Visible = true;
+            dataGridView1.Visible = false;
+        }
+
+        
+
+        private void Label9_MouseClick(object sender, MouseEventArgs e)
+        {
+            tableLayoutPanel7.RowStyles[0].Height = 100;
+            tableLayoutPanel7.RowStyles[1].Height = 0;
+            dataGridView2.Visible = false;
+            dataGridView1.Visible = true;
+        }
+
+        private void Panel1_MouseClick(object sender, MouseEventArgs e)
+        {
+            tableLayoutPanel7.RowStyles[1].Height = 100;
+            tableLayoutPanel7.RowStyles[0].Height = 0;
+            dataGridView2.Visible = true;
+            dataGridView1.Visible = false;
+            gridHeader.Text = label8.Text;
+        }
+
+        private void Panel2_MouseClick(object sender, MouseEventArgs e)
+        {
+            tableLayoutPanel7.RowStyles[0].Height = 100;
+            tableLayoutPanel7.RowStyles[1].Height = 0;
+            dataGridView2.Visible = false;
+            dataGridView1.Visible = true;
+            gridHeader.Text = label9.Text;
         }
     }
 }
