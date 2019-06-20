@@ -1,5 +1,5 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="" GeneratedClassName="Settings">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="SoftGenConverter.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
     <Setting Name="name" Type="System.String" Scope="User">
@@ -38,9 +38,6 @@
     <Setting Name="state2" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">2</Value>
     </Setting>
-    <Setting Name="datePayment" Type="System.DateTime" Scope="User">
-      <Value Profile="(Default)">2019-05-01</Value>
-    </Setting>
     <Setting Name="name3" Type="System.String" Scope="User">
       <Value Profile="(Default)">Назва 3</Value>
     </Setting>
@@ -58,6 +55,9 @@
     </Setting>
     <Setting Name="rahunok3" Type="System.String" Scope="User">
       <Value Profile="(Default)">00000000000000</Value>
+    </Setting>
+    <Setting Name="datePayment" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
     </Setting>
   </Settings>
 </SettingsFile>

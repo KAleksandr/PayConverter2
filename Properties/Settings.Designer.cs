@@ -169,18 +169,6 @@ namespace SoftGenConverter.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("20010101")]
-        public int datePayment {
-            get {
-                return ((int)(this["datePayment"]));
-            }
-            set {
-                this["datePayment"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Назва 3")]
         public string name3 {
             get {
@@ -248,6 +236,18 @@ namespace SoftGenConverter.Properties {
             }
             set {
                 this["rahunok3"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int datePayment {
+            get {
+                return ((int)(this["datePayment"]));
+            }
+            set {
+                this["datePayment"] = value;
             }
         }
     }
