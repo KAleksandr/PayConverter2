@@ -682,5 +682,10 @@ namespace SoftGenConverter
             dataGridView1.Visible = true;
             gridHeader.Text = label9.Text;
         }
+
+        private void DataGridView2_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
+        {
+
+        }
     }
 }
