@@ -702,5 +702,25 @@ namespace SoftGenConverter
 
                 }
         }
+
+        private void dataGridView1_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
+        {
+            int selRowNum = dataGridView2.SelectedCells[0].RowIndex;
+            int selColNum = dataGridView2.SelectedCells[0].ColumnIndex;
+            if (dataGridView2[e.ColumnIndex, e.RowIndex].Value != null)
+                if (selColNum == 11)
+                {
+                    DialogResult dialogResult = MessageBox.Show("Зміни записати базу данних", "Запис данних", MessageBoxButtons.YesNo);
+                    if (dialogResult == DialogResult.Yes)
+                    {
+                        int n = dataGridView1.Rows.Add();
+                        dataGridView3.Rows[n].Cells[0].Value = dataGridView2.Rows[selRowNum].Cells[selColNum - 1].Value; // 
+                        dataGridView3.Rows[n].Cells[1].Value = dataGridView2.Rows[selRowNum].Cells[selColNum + 1].Value; // 
+                        dataGridView3.Rows[n].Cells[2].Value = dataGridView2.Rows[selRowNum].Cells[selColNum].Value; // 
+                        Xml.saveXml(dataGridView3, path2);
+                    }
+
+                }
+        }
     }
 }
