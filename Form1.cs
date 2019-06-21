@@ -65,7 +65,7 @@ namespace SoftGenConverter
         {
 
             platNumber.Text = Properties.Settings.Default.platNumber.ToString();
-            dateTimePicker1.Value = convertStrToTime(Properties.Settings.Default.datePayment.ToString()); //
+            dateTimePicker1.Value = DateTime.Now;//convertStrToTime(Properties.Settings.Default.datePayment.ToString()); //
             mfo.Text = Properties.Settings.Default.mfo;
             rahunok.Text = Properties.Settings.Default.rahunok;
             cliBankCode.Text = Properties.Settings.Default.clientBankCode;
@@ -130,97 +130,7 @@ namespace SoftGenConverter
                 path=name = openFileDialog1.FileName;
                 loadFileRoot();
 
-                #region DELETE
-
-                //List<Aval> CSV_Struct = new List<Aval>();
-                //CSV_Struct = Aval.ReadFile(name);
-                //for (int i = 0; i <= CSV_Struct.Count - 1; i++)
-                //{
-
-                //    int n;
-                //    if (CSV_Struct[i].isAval == 0)
-                //    {
-                //        n = dataGridView1.Rows.Add();
-
-                //        dataGridView1.Rows[n].Cells[0].Value = CSV_Struct[i].summa;
-                //        dataGridView1.Rows[n].Cells[1].Value = "UAH";
-                //        dataGridView1.Rows[n].Cells[2].Value = addDateToStr(findZkpo(CSV_Struct[i].zkpo),
-                //            dateTimePicker1.Value.ToString("dd.MM.yyyy"));
-                //        if (dataGridView1.Rows[n].Cells[2].Value.Equals("null"))
-                //        {
-                //            dataGridView1.Rows[n].DefaultCellStyle.BackColor = Color.BurlyWood;
-                //            int m = dataGridView3.Rows.Add();
-                //            dataGridView3.Rows[m].Cells[0].Value = CSV_Struct[i].name;
-                //            dataGridView3.Rows[m].Cells[1].Value = CSV_Struct[i].zkpo;
-                //            dataGridView3.Rows[m].Cells[2].Value = dataGridView1.Rows[n].Cells[2].Value;
-                //            isNull = true;
-                //        }
-
-                //        ;
-                //        //dataGridView1.Rows[n].Cells[3].Value = CSV_Struct[i].datePayment.ToString();
-                //        //dataGridView1.Rows[n].Cells[4].Value = CSV_Struct[i].zkpo;
-                //        if (Properties.Settings.Default.state == 2)
-                //        {
-                //            dataGridView1.Rows[n].Cells[3].Value = Properties.Settings.Default.rahunok2;
-                //            dataGridView1.Rows[n].Cells[4].Value = Properties.Settings.Default.edrpou;
-
-                //        }
-                //        else
-                //        {
-                //            dataGridView1.Rows[n].Cells[3].Value = Properties.Settings.Default.rahunok3;
-                //            dataGridView1.Rows[n].Cells[4].Value = Properties.Settings.Default.edrpou2;
-
-                //        }
-
-                //        dataGridView1.Rows[n].Cells[5].Value = CSV_Struct[i].mfo;
-                //        dataGridView1.Rows[n].Cells[6].Value = CSV_Struct[i].rahunok;
-                //        dataGridView1.Rows[n].Cells[7].Value = CSV_Struct[i].zkpo;
-                //        dataGridView1.Rows[n].Cells[8].Value = CSV_Struct[i].name;
-                //    }
-
-                //    CultureInfo MyCultureInfo = new CultureInfo("de-DE");
-                //    if (CSV_Struct[i].isAval == 1)
-                //    {
-                //        try
-                //        {
-                //            dateTimePicker1.Value =
-                //                DateTime.Parse(CSV_Struct[i].dateP.ToString("dd.MM.yyyy"), MyCultureInfo);
-
-                //            n = dataGridView2.Rows.Add();
-                //            dataGridView2.Rows[n].Cells[0].Value = "0";
-                //            dataGridView2.Rows[n].Cells[1].Value = "1";
-                //            dataGridView2.Rows[n].Cells[2].Value = numberDocAval++;
-                //            dataGridView2.Rows[n].Cells[3].Value = CSV_Struct[i].dateP.ToString("dd.MM.yyyy");
-
-                //            dataGridView2.Rows[n].Cells[4].Value = Properties.Settings.Default.mfo;
-                //            dataGridView2.Rows[n].Cells[5].Value = CSV_Struct[i].mfo;
-                //            dataGridView2.Rows[n].Cells[6].Value = Properties.Settings.Default.rahunok;
-                //            dataGridView2.Rows[n].Cells[7].Value = CSV_Struct[i].rahunok;
-                //            dataGridView2.Rows[n].Cells[8].Value = CSV_Struct[i].summa;
-                //            dataGridView2.Rows[n].Cells[9].Value = "0";
-                //            dataGridView2.Rows[n].Cells[10].Value = CSV_Struct[i].name;
-                //            dataGridView2.Rows[n].Cells[12].Value = CSV_Struct[i].zkpo;
-                //            dataGridView2.Rows[n].Cells[11].Value = addDateToStr(findZkpo(CSV_Struct[i].zkpo),
-                //                CSV_Struct[i].dateP.ToString("dd.MM.yyyy"));
-                //            if (dataGridView2.Rows[n].Cells[11].Value.Equals("null"))
-                //            {
-                //                dataGridView2.Rows[n].DefaultCellStyle.BackColor = Color.BurlyWood;
-                //                int m = dataGridView3.Rows.Add();
-                //                dataGridView3.Rows[m].Cells[0].Value = CSV_Struct[i].name; 
-                //                dataGridView3.Rows[m].Cells[1].Value = CSV_Struct[i].zkpo;
-                //                dataGridView3.Rows[m].Cells[2].Value = dataGridView2.Rows[n].Cells[11].Value;
-                //                isNull = true;
-                //            }
-                //        }
-                //        catch (Exception)
-                //        {
-
-                //        }
-                //    }
-
-                //}
-
-                #endregion
+               
                 if (isNull)
                 {
                     Xml.saveXml(dataGridView3, path2);
@@ -244,7 +154,8 @@ namespace SoftGenConverter
                     dataGridView1.Rows[n].Cells[0].Value = CSV_Struct[i].summa;
                     dataGridView1.Rows[n].Cells[1].Value = "UAH";
                     dataGridView1.Rows[n].Cells[2].Value = addDateToStr(findZkpo(CSV_Struct[i].zkpo),
-                        dateTimePicker1.Value.ToString("dd.MM.yyyy"));
+                        CSV_Struct[i].dateP.ToString("dd.MM.yyyy"));
+                        //dateTimePicker1.Value.ToString("dd.MM.yyyy"));
                     if (dataGridView1.Rows[n].Cells[2].Value.Equals("null"))
                     {
                         dataGridView1.Rows[n].DefaultCellStyle.BackColor = Color.BurlyWood;
@@ -677,11 +588,11 @@ namespace SoftGenConverter
                 }
 
                 isEditUkrG(editUkrG);
-                button3.Image = saveBtn;
+                button5.Image = saveBtn;
             }
             else
             {
-                button3.Image = editBtn;
+                button5.Image = editBtn;
                 isEditUkrG(editUkrG);
                 comboEdr2.Visible = !editUkrG;
                 textBox3.Visible = editUkrG;
@@ -898,13 +809,21 @@ namespace SoftGenConverter
                             MessageBoxButtons.YesNo);
                         if (dialogResult == DialogResult.Yes)
                         {
+                            string pattern = @"за\s[0-9]{2}[.][0-9]{2}[.][0-9]{4}р\.";
+                            string str="";
                             int n = dataGridView3.Rows.Add();
                             dataGridView3.Rows[n].Cells[0].Value =
                                 dataGridView1.Rows[selRowNum].Cells[selColNum + 6].Value; // 
                             dataGridView3.Rows[n].Cells[1].Value =
                                 dataGridView1.Rows[selRowNum].Cells[selColNum + 5].Value; // 
-                            dataGridView3.Rows[n].Cells[2].Value =
-                                dataGridView1.Rows[selRowNum].Cells[selColNum].Value; // 
+                            try
+                            {
+                                 str = dataGridView1.Rows[selRowNum].Cells[selColNum].Value.ToString();
+                            }
+                            catch (Exception) { }
+                            string newLine = Regex.Replace(str, pattern, "  за ##.##.#### ");
+                            dataGridView3.Rows[n].Cells[2].Value = newLine;
+                                ; // 
                             Xml.saveXml(dataGridView3, path2);
                         }
                     }

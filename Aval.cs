@@ -48,6 +48,7 @@ namespace SoftGenConverter
                     zkpo = parts[3];
                     summa = parts[5];
                     isAval = 0;
+                    dateP = date;
                 }
                 
             }
@@ -64,9 +65,28 @@ namespace SoftGenConverter
             bool aval = false;
         DateTime datePl = new DateTime();
 
+        using (StreamReader sr = new StreamReader(filename, Encoding.GetEncoding(1251)))
+        {
+            string line;
+            while ((line = sr.ReadLine()) != null)
+            {
+                MatchCollection dateMatch = regexDate.Matches(line);
+                if (dateMatch.Count > 0)
+                {
+                    CultureInfo MyCultureInfo = new CultureInfo("de-DE");
+                   
+                    MatchCollection matchess = Regex.Matches(line, regexDate.ToString(), RegexOptions.IgnoreCase);
+                    date = Int32.Parse(matchess[0].ToString().Replace("за", "").Replace("р.", "").Trim()
+                        .Replace(".", ""));
+                    datePl = DateTime.Parse(matchess[0].ToString().Replace("за", "").Replace("р.", "").Trim(),
+                        MyCultureInfo);
+                   
+                }
+            }
+        }
 
-
-            using (StreamReader sr = new StreamReader(filename, Encoding.GetEncoding(1251)))
+        
+        using (StreamReader sr = new StreamReader(filename, Encoding.GetEncoding(1251)))
             {
                 string line;
                 while ((line = sr.ReadLine()) != null)
@@ -74,11 +94,11 @@ namespace SoftGenConverter
                     MatchCollection dateMatch = regexDate.Matches(line);
                     if (dateMatch.Count > 0)
                     {
-                        CultureInfo MyCultureInfo = new CultureInfo("de-DE");
+                        //CultureInfo MyCultureInfo = new CultureInfo("de-DE");
                         //MessageBox.Show(line);
-                        MatchCollection matchess = Regex.Matches(line, regexDate.ToString(), RegexOptions.IgnoreCase);
-                        date = Int32.Parse(matchess[0].ToString().Replace("за", "").Replace("р.", "").Trim().Replace(".", ""));
-                        datePl = DateTime.Parse(matchess[0].ToString().Replace("за", "").Replace("р.", "").Trim(), MyCultureInfo);
+                       // MatchCollection matchess = Regex.Matches(line, regexDate.ToString(), RegexOptions.IgnoreCase);
+                        //date = Int32.Parse(matchess[0].ToString().Replace("за", "").Replace("р.", "").Trim().Replace(".", ""));
+                        //datePl = DateTime.Parse(matchess[0].ToString().Replace("за", "").Replace("р.", "").Trim(), MyCultureInfo);
                         flag = false;
                         aval = true;
                     }

@@ -41,18 +41,21 @@ namespace SoftGenConverter
             else 
             if (!edit)
             {
-                
-               int n = dataGridView1.Rows.Add();
+                string pattern = @"за\s[0-9]{2}[.][0-9]{2}[.][0-9]{4}р\.";
+                string newLine = Regex.Replace(textBox1.Text, pattern, "  за ##.##.#### ");
+
+                int n = dataGridView1.Rows.Add();
                dataGridView1.Rows[n].Cells[0].Value = textBox2.Text; // 
                dataGridView1.Rows[n].Cells[1].Value = ederpo.Text; // 
-               dataGridView1.Rows[n].Cells[2].Value = textBox1.Text; // 
+               dataGridView1.Rows[n].Cells[2].Value = newLine; // 
             }
             else
             {
-                
+                string pattern = @"за\s[0-9]{2}[.][0-9]{2}[.][0-9]{4}р\.";
+                string newLine = Regex.Replace(textBox1.Text, pattern, "  за ##.##.#### ");
                 dataGridView1.CurrentRow.Cells[0].Value = textBox2.Text; // 
                 dataGridView1.CurrentRow.Cells[1].Value = ederpo.Text; // 
-                dataGridView1.CurrentRow.Cells[2].Value = textBox1.Text; // 
+                dataGridView1.CurrentRow.Cells[2].Value = newLine; // 
                 edit = !edit;
             }
             button1.Text = "Додати";
