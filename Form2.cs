@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.ComponentModel;
 using System.Data;
-
+using System.Drawing;
 using System.IO;
 
 using System.Text;
@@ -23,11 +23,15 @@ namespace SoftGenConverter
             InitializeComponent();
 
             Xml.loadXml(dataGridView1, path);
-           Aval.StyleDataGridView(dataGridView1, true);
+           
+            Aval.StyleDataGridView(dataGridView1, false);
+           
+           dataGridView1.Sort(dataGridView1.Columns[2], ListSortDirection.Ascending);
             RemoveDuplicate();
 
         }
 
+        
         private void button1_Click(object sender, EventArgs e)
         {
             if (ederpo.Text == "" || textBox1.Text == "")
@@ -203,18 +207,30 @@ namespace SoftGenConverter
             ederpo.Text = dataGridView1.CurrentRow.Cells[1].Value.ToString();
             textBox1.Text = dataGridView1.CurrentRow.Cells[2].Value.ToString();
             button1.Text = "Редагувати";
-            edit = !edit; 
+            edit = !edit;
+            
+        }
+
+      
+
+        private void dataGridView1_MouseClick(object sender, MouseEventArgs e)
+        {
+            textBox2.Text = dataGridView1.CurrentRow.Cells[0].Value.ToString();
+            ederpo.Text = dataGridView1.CurrentRow.Cells[1].Value.ToString();
+            textBox1.Text = dataGridView1.CurrentRow.Cells[2].Value.ToString();
+            button1.Text = "Редагувати";
+            edit = !edit;
+            
 
         }
 
-        private void dataGridView1_MouseClick(object sender, MouseEventArgs e)
+        private void dataGridView1_Scroll(object sender, ScrollEventArgs e)
         {
             button1.Text = "Додати";
             ederpo.Text = string.Empty;
             textBox1.Text = string.Empty;
             textBox2.Text = string.Empty;
         }
-        
     }
 }
 

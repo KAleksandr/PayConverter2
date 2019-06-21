@@ -15,29 +15,22 @@ namespace SoftGenConverter
     {
         private string name;
 
-        private bool shemes = true;//true=Aval false= UkrGaz 
+        private bool shemes = true; //true=Aval false= UkrGaz 
         private TextBox textImport = new TextBox();
-
-
-
-
-
-
-
-
+        private string currentCellValue = "";
 
         bool editAval = false;
         bool editUkrG = false;
-        Image editBtn = Properties.Resources.edit_property_16px;//
+        Image editBtn = Properties.Resources.edit_property_16px; //
         Image saveBtn = Properties.Resources.save_as_16px;
 
 
         private long numberDocAval;
         private long numberDocUkrg;
         private string P = "·";
-
-
+        
         private string path2 = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"data.xml");
+
         public Form1()
         {
 
@@ -62,16 +55,16 @@ namespace SoftGenConverter
 
             isEditAval(editAval);
             isEditUkrG(editUkrG);
-            Aval.StyleDataGridView(dataGridView1, true);
-            Aval.StyleDataGridView(dataGridView2, true);
+            Aval.StyleDataGridView(dataGridView1, false);
+            Aval.StyleDataGridView(dataGridView2, false);
         }
 
-       
+
         public void setFieldsP()
         {
 
             platNumber.Text = Properties.Settings.Default.platNumber.ToString();
-            dateTimePicker1.Value = convertStrToTime(Properties.Settings.Default.datePayment.ToString());//
+            dateTimePicker1.Value = convertStrToTime(Properties.Settings.Default.datePayment.ToString()); //
             mfo.Text = Properties.Settings.Default.mfo;
             rahunok.Text = Properties.Settings.Default.rahunok;
             cliBankCode.Text = Properties.Settings.Default.clientBankCode;
@@ -122,15 +115,17 @@ namespace SoftGenConverter
             openCsv();
         }
 
+        private bool isNull = false;
         public void openCsv()
         {
-            openFileDialog1.FileName = "file";//
+            openFileDialog1.FileName = "file"; //
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 if (dataGridView1.Rows.Count > 0)
                 {
                     dataGridView1.Rows.Clear();
                 }
+
                 name = openFileDialog1.FileName;
                 List<Aval> CSV_Struct = new List<Aval>();
                 CSV_Struct = Aval.ReadFile(name);
@@ -149,7 +144,13 @@ namespace SoftGenConverter
                         if (dataGridView1.Rows[n].Cells[2].Value.Equals("null"))
                         {
                             dataGridView1.Rows[n].DefaultCellStyle.BackColor = Color.BurlyWood;
+                            int m = dataGridView3.Rows.Add();
+                            dataGridView3.Rows[m].Cells[0].Value = CSV_Struct[i].name;
+                            dataGridView3.Rows[m].Cells[1].Value = CSV_Struct[i].zkpo;
+                            dataGridView3.Rows[m].Cells[2].Value = dataGridView1.Rows[n].Cells[2].Value;
+                            isNull = true;
                         }
+
                         ;
                         //dataGridView1.Rows[n].Cells[3].Value = CSV_Struct[i].datePayment.ToString();
                         //dataGridView1.Rows[n].Cells[4].Value = CSV_Struct[i].zkpo;
@@ -195,10 +196,15 @@ namespace SoftGenConverter
                             dataGridView2.Rows[n].Cells[10].Value = CSV_Struct[i].name;
                             dataGridView2.Rows[n].Cells[12].Value = CSV_Struct[i].zkpo;
                             dataGridView2.Rows[n].Cells[11].Value = addDateToStr(findZkpo(CSV_Struct[i].zkpo),
-                            CSV_Struct[i].dateP.ToString("dd.MM.yyyy"));
+                                CSV_Struct[i].dateP.ToString("dd.MM.yyyy"));
                             if (dataGridView2.Rows[n].Cells[11].Value.Equals("null"))
                             {
                                 dataGridView2.Rows[n].DefaultCellStyle.BackColor = Color.BurlyWood;
+                                int m = dataGridView3.Rows.Add();
+                                dataGridView3.Rows[m].Cells[0].Value = CSV_Struct[i].name; 
+                                dataGridView3.Rows[m].Cells[1].Value = CSV_Struct[i].zkpo;
+                                dataGridView3.Rows[m].Cells[2].Value = dataGridView2.Rows[n].Cells[11].Value;
+                                isNull = true;
                             }
                         }
                         catch (Exception)
@@ -206,21 +212,24 @@ namespace SoftGenConverter
 
                         }
                     }
+                    
+                }
 
-
-
-
-
+                if (isNull)
+                {
+                    Xml.saveXml(dataGridView3, path2);
                 }
             }
 
         }
+
         public string addDateToStr(string str, string date)
         {
             if (str.Equals("null")) return "null";
             str = str.Replace("##.##.####", date);
             return str;
         }
+
         public string findZkpo(string zkpo)
         {
             foreach (DataGridViewRow r in dataGridView3.Rows) // пока в dataGridView1 есть строки
@@ -258,7 +267,7 @@ namespace SoftGenConverter
                 {
                     dateP = (dateP.Insert(4, "-")).Insert(7, "-");
                     CreatdDate = DateTime.ParseExact(dateP, "yyyy-MM-dd",
-                                               System.Globalization.CultureInfo.InvariantCulture);
+                        System.Globalization.CultureInfo.InvariantCulture);
                 }
                 catch (Exception)
                 {
@@ -271,6 +280,7 @@ namespace SoftGenConverter
 
             return CreatdDate;
         }
+
         public string converterDate(string dateS)
         {
             if (!string.IsNullOrEmpty(dateS))
@@ -307,7 +317,7 @@ namespace SoftGenConverter
 
                 name = saveFileDialog1.FileName;
                 createBox();
-             
+
                 string texts = textImport.Text.Replace("і", "i");
 
 
@@ -331,7 +341,9 @@ namespace SoftGenConverter
                         t = r.Cells[3].Value.ToString();
                         sum = r.Cells[8].Value.ToString().Replace(".", "");
                     }
-                    catch (Exception) { }
+                    catch (Exception)
+                    {
+                    }
 
                     //if (flag)
                     //{
@@ -339,11 +351,13 @@ namespace SoftGenConverter
                     //    textImport.Text += Environment.NewLine;
                     //}
 
-                    textImport.Text += r.Cells[0].Value + P + r.Cells[1].Value + P +  P + converterDate(t) + P;
-                    textImport.Text += r.Cells[4].Value + P + r.Cells[5].Value + P + r.Cells[6].Value + P + r.Cells[7].Value + P;
-                    textImport.Text += sum + P + r.Cells[9].Value + P + r.Cells[10].Value + P + r.Cells[11].Value + P + P + P + P + P + r.Cells[12].Value + P + P + "\r\n";
+                    textImport.Text += r.Cells[0].Value + P + r.Cells[1].Value + P + P + converterDate(t) + P;
+                    textImport.Text += r.Cells[4].Value + P + r.Cells[5].Value + P + r.Cells[6].Value + P +
+                                       r.Cells[7].Value + P;
+                    textImport.Text += sum + P + r.Cells[9].Value + P + r.Cells[10].Value + P + r.Cells[11].Value + P +
+                                       P + P + P + P + r.Cells[12].Value + P + P + "\r\n";
 
-                   // flag = true;
+                    // flag = true;
 
                 }
 
@@ -380,7 +394,8 @@ namespace SoftGenConverter
         public void saveExcel()
         {
             SaveFileDialog saveDialog = new SaveFileDialog();
-            saveDialog.Filter = "Excel files(2003)| *.xls|Excel Files(2007+)|*.xlsx"; ;
+            saveDialog.Filter = "Excel files(2003)| *.xls|Excel Files(2007+)|*.xlsx";
+            ;
             saveDialog.FilterIndex = 2;
 
             if (saveDialog.ShowDialog() == DialogResult.OK)
@@ -393,7 +408,8 @@ namespace SoftGenConverter
 
         private void PlatNumber_TextChanged(object sender, EventArgs e)
         {
-            numberDocAval = Properties.Settings.Default.platNumber = string.IsNullOrEmpty(platNumber.Text) ? 0 : Int64.Parse(platNumber.Text);
+            numberDocAval = Properties.Settings.Default.platNumber =
+                string.IsNullOrEmpty(platNumber.Text) ? 0 : Int64.Parse(platNumber.Text);
 
         }
 
@@ -436,13 +452,17 @@ namespace SoftGenConverter
             setFieldsP();
 
         }
+
         public void isEditAval(bool edit)
         {
-            cliBankCode.Visible = platNumber.Visible = mfo.Visible = rahunok.Visible = label1.Visible = label2.Visible = label3.Visible = label5.Visible = edit;
+            cliBankCode.Visible = platNumber.Visible = mfo.Visible =
+                rahunok.Visible = label1.Visible = label2.Visible = label3.Visible = label5.Visible = edit;
         }
+
         public void isEditUkrG(bool edit)
         {
-            textBox2.Visible = textBox1.Visible = label7.Visible = label6.Visible = label10.Visible = textBox4.Visible = edit;
+            textBox2.Visible = textBox1.Visible =
+                label7.Visible = label6.Visible = label10.Visible = textBox4.Visible = edit;
         }
 
 
@@ -581,6 +601,7 @@ namespace SoftGenConverter
                 Properties.Settings.Default.state = 3;
                 Properties.Settings.Default.Save();
             }
+
             // MessageBox.Show(Properties.Settings.Default.state.ToString());
         }
 
@@ -711,37 +732,71 @@ namespace SoftGenConverter
             if (dataGridView2[e.ColumnIndex, e.RowIndex].Value != null)
                 if (selColNum == 11)
                 {
-                    DialogResult dialogResult = MessageBox.Show("Зміни записати базу данних", "Запис данних", MessageBoxButtons.YesNo);
-                    if (dialogResult == DialogResult.Yes)
+                    if (!currentCellValue.Equals(dataGridView1.CurrentRow.Cells[2].Value.ToString()))
                     {
-                        int n = dataGridView1.Rows.Add();
-                        dataGridView3.Rows[n].Cells[0].Value = dataGridView2.Rows[selRowNum].Cells[selColNum - 1].Value; // 
-                        dataGridView3.Rows[n].Cells[1].Value = dataGridView2.Rows[selRowNum].Cells[selColNum + 1].Value; // 
-                        dataGridView3.Rows[n].Cells[2].Value = dataGridView2.Rows[selRowNum].Cells[selColNum].Value; // 
-                        Xml.saveXml(dataGridView3, path2);
+                        DialogResult dialogResult = MessageBox.Show("Зміни записати базу данних", "Запис данних",
+                            MessageBoxButtons.YesNo);
+                        if (dialogResult == DialogResult.Yes)
+                        {
+                            int n = dataGridView1.Rows.Add();
+                            dataGridView3.Rows[n].Cells[0].Value =
+                                dataGridView2.Rows[selRowNum].Cells[selColNum - 1].Value; // 
+                            dataGridView3.Rows[n].Cells[1].Value =
+                                dataGridView2.Rows[selRowNum].Cells[selColNum + 1].Value; // 
+                            dataGridView3.Rows[n].Cells[2].Value =
+                                dataGridView2.Rows[selRowNum].Cells[selColNum].Value; // 
+                            Xml.saveXml(dataGridView3, path2);
+                        }
                     }
-
                 }
         }
 
         private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
+
             int selRowNum = dataGridView1.SelectedCells[0].RowIndex;
             int selColNum = dataGridView1.SelectedCells[0].ColumnIndex;
+
             if (dataGridView1[e.ColumnIndex, e.RowIndex].Value != null)
+            {
                 if (selColNum == 2)
                 {
-                    DialogResult dialogResult = MessageBox.Show("Зміни записати базу данних", "Запис данних", MessageBoxButtons.YesNo);
-                    if (dialogResult == DialogResult.Yes)
+
+                    if (!currentCellValue.Equals(dataGridView1.CurrentRow.Cells[2].Value.ToString()))
                     {
-                        int n = dataGridView3.Rows.Add();
-                        dataGridView3.Rows[n].Cells[0].Value = dataGridView1.Rows[selRowNum].Cells[selColNum + 6].Value; // 
-                        dataGridView3.Rows[n].Cells[1].Value = dataGridView1.Rows[selRowNum].Cells[selColNum + 5].Value; // 
-                        dataGridView3.Rows[n].Cells[2].Value = dataGridView1.Rows[selRowNum].Cells[selColNum].Value; // 
-                        Xml.saveXml(dataGridView3, path2);
+
+
+                        DialogResult dialogResult = MessageBox.Show("Зміни записати базу данних", "Запис данних",
+                            MessageBoxButtons.YesNo);
+                        if (dialogResult == DialogResult.Yes)
+                        {
+                            int n = dataGridView3.Rows.Add();
+                            dataGridView3.Rows[n].Cells[0].Value =
+                                dataGridView1.Rows[selRowNum].Cells[selColNum + 6].Value; // 
+                            dataGridView3.Rows[n].Cells[1].Value =
+                                dataGridView1.Rows[selRowNum].Cells[selColNum + 5].Value; // 
+                            dataGridView3.Rows[n].Cells[2].Value =
+                                dataGridView1.Rows[selRowNum].Cells[selColNum].Value; // 
+                            Xml.saveXml(dataGridView3, path2);
+                        }
                     }
 
                 }
+            }
+        }
+
+  
+
+        private void dataGridView1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            currentCellValue = dataGridView1.CurrentRow.Cells[2].Value.ToString();
+
+
+        }
+
+        private void dataGridView2_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            currentCellValue = dataGridView1.CurrentRow.Cells[11].Value.ToString();
         }
     }
 }

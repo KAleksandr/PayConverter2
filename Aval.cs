@@ -125,8 +125,8 @@ namespace SoftGenConverter
                 dgv.DefaultCellStyle.BackColor = Color.Empty;
                 dgv.CellBorderStyle = DataGridViewCellBorderStyle.Single;
                 dgv.AllowUserToAddRows = false;
-                //dgv.ReadOnly = isReadonly;
-                dgv.SelectionMode = DataGridViewSelectionMode.CellSelect;
+                dgv.ReadOnly = isReadonly;
+                //dgv.SelectionMode = DataGridViewSelectionMode.CellSelect;
                 System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
                 dataGridViewCellStyle1.BackColor = Color.LightBlue;
                 dgv.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
