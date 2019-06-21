@@ -103,7 +103,8 @@ namespace SoftGenConverter
         private void Form2_FormClosed(object sender, FormClosedEventArgs e)
         {
             Xml.saveXml(dataGridView1, path);
-            
+            this.DialogResult = DialogResult.OK;
+
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -231,6 +232,7 @@ namespace SoftGenConverter
             textBox1.Text = string.Empty;
             textBox2.Text = string.Empty;
         }
+
     }
 }
 
