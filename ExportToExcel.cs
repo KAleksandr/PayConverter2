@@ -34,6 +34,7 @@ namespace SoftGenConverter
                         if (cellRowIndex == 1) worksheet.Cells[cellRowIndex, cellColumnIndex] = dataGridView1.Columns[j].HeaderText;
                         else
                         {
+                            worksheet.Cells[cellRowIndex, cellColumnIndex].NumberFormat = "@";
                             worksheet.Cells[cellRowIndex, cellColumnIndex] = dataGridView1.Rows[i].Cells[j].Value.ToString();
                             worksheet.Cells[cellRowIndex, cellColumnIndex] = dataGridView1.Rows[i].Cells[j].Value.ToString();
                             worksheet.Cells[cellRowIndex, cellColumnIndex] = dataGridView1.Rows[i].Cells[j].Value.ToString();

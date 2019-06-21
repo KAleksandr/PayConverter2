@@ -32,17 +32,17 @@ namespace SoftGenConverter
                 string[] parts = line.Split(';');  //Разделитель в CSV файле.
                 if (aval)
                 {
-                    name = parts[0];
+                    name = parts[0].ToUpper().Replace("І","I");
                     mfo = parts[2];
                     rahunok = parts[3];
                     zkpo = parts[4];
                     dateP = date;
-                    summa = parts[6];
+                    summa = parts[8];
                     isAval = 1;
                 }
                 else
                 {
-                    name = parts[0];
+                    name = parts[0].ToUpper().Replace("І", "I"); ;
                     mfo = parts[1];
                     rahunok = parts[2];
                     zkpo = parts[3];
@@ -63,7 +63,7 @@ namespace SoftGenConverter
             Regex regexLine = new Regex(@".+;.*;.+;.+;.+;.+;.*;.*;.+;.*");
             bool flag = false;
             bool aval = false;
-        DateTime datePl = new DateTime();
+        DateTime datePl = DateTime.Today;
 
         using (StreamReader sr = new StreamReader(filename, Encoding.GetEncoding(1251)))
         {

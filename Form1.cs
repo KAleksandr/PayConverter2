@@ -23,7 +23,7 @@ namespace SoftGenConverter
         bool editUkrG = false;
         Image editBtn = Properties.Resources.edit_property_16px; //
         Image saveBtn = Properties.Resources.save_as_16px;
-
+        private int state = Properties.Settings.Default.state;
 
         private long numberDocAval;
         private long numberDocUkrg;
@@ -46,8 +46,8 @@ namespace SoftGenConverter
         {
             Xml.loadXml(dataGridView3, path2);
             comboEdr.Items.Add(Properties.Settings.Default.name);
-            comboEdr2.Items.Add(Properties.Settings.Default.name2);
-            comboEdr2.Items.Add(Properties.Settings.Default.name3);
+                // comboEdr2.Items.Add(Properties.Settings.Default.name2);
+            //comboEdr2.Items.Add(Properties.Settings.Default.name3);
             numberDocAval = Properties.Settings.Default.platNumber;
             comboEdr.Text = Properties.Settings.Default.name;
 
@@ -58,6 +58,14 @@ namespace SoftGenConverter
             isEditUkrG(editUkrG);
             Aval.StyleDataGridView(dataGridView1, false);
             Aval.StyleDataGridView(dataGridView2, false);
+            if (state == 2)
+            {
+                 comboEdr2.SelectedIndex = 0;
+            }
+            else
+            {
+                comboEdr2.SelectedIndex = 1;
+            }
         }
 
 
@@ -87,7 +95,7 @@ namespace SoftGenConverter
                 textBox2.Text = Properties.Settings.Default.edrpou;
                 textBox1.Text = Properties.Settings.Default.platNumber2.ToString();
                 numberDocUkrg = Properties.Settings.Default.platNumber2;
-                comboEdr2.Text = Properties.Settings.Default.name2;
+                //comboEdr2.Text = Properties.Settings.Default.name2;
 
             }
             else
@@ -95,7 +103,7 @@ namespace SoftGenConverter
                 textBox2.Text = Properties.Settings.Default.edrpou2;
                 textBox1.Text = Properties.Settings.Default.platNumber3.ToString();
                 numberDocUkrg = Properties.Settings.Default.platNumber3;
-                comboEdr2.Text = Properties.Settings.Default.name3;
+                //comboEdr2.Text = Properties.Settings.Default.name3;
             }
 
 
@@ -125,6 +133,8 @@ namespace SoftGenConverter
                 if (dataGridView1.Rows.Count > 0)
                 {
                     dataGridView1.Rows.Clear();
+                    dataGridView2.Rows.Clear();
+                    numberDocAval = 1;
                 }
 
                 path=name = openFileDialog1.FileName;
@@ -143,6 +153,7 @@ namespace SoftGenConverter
         {
             List<Aval> CSV_Struct = new List<Aval>();
             CSV_Struct = Aval.ReadFile(path);
+            DateTime dt1 = DateTime.Today;
             for (int i = 0; i <= CSV_Struct.Count - 1; i++)
             {
 
@@ -154,7 +165,7 @@ namespace SoftGenConverter
                     dataGridView1.Rows[n].Cells[0].Value = CSV_Struct[i].summa;
                     dataGridView1.Rows[n].Cells[1].Value = "UAH";
                     dataGridView1.Rows[n].Cells[2].Value = addDateToStr(findZkpo(CSV_Struct[i].zkpo),
-                        CSV_Struct[i].dateP.ToString("dd.MM.yyyy"));
+                       (CSV_Struct[i].dateP==dt1 ? dateTimePicker1.Value.ToString("dd.MM.yyyy") : CSV_Struct[i].dateP.ToString("dd.MM.yyyy")));
                         //dateTimePicker1.Value.ToString("dd.MM.yyyy"));
                     if (dataGridView1.Rows[n].Cells[2].Value.Equals("null"))
                     {
@@ -506,15 +517,15 @@ namespace SoftGenConverter
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             // WriteIni(recviz);
-            if (shemes)
+            if (state==2)
             {
-                Properties.Settings.Default.state1 = 2;
+                Properties.Settings.Default.state = state;
                 Properties.Settings.Default.Save();
 
             }
             else
             {
-                Properties.Settings.Default.state1 = 1;
+                Properties.Settings.Default.state = state;
                 Properties.Settings.Default.Save();
 
             }
@@ -568,23 +579,25 @@ namespace SoftGenConverter
             editUkrG = !editUkrG;
             if (editUkrG)
             {
-                comboEdr2.Visible = !editUkrG;
-                textBox3.Visible = editUkrG;
+                comboEdr2.Enabled = false;
+                
                 // if (comboEdr2.Text.Equals(Properties.Settings.Default.name2))
-                if (Properties.Settings.Default.state == 2)
+               // MessageBox.Show(Properties.Settings.Default.state.ToString());
+                if (state == 2)
                 {
                     textBox2.Text = Properties.Settings.Default.edrpou;
                     textBox1.Text = Properties.Settings.Default.platNumber2.ToString();
-                    textBox3.Text = Properties.Settings.Default.name2;
+                   
                     textBox4.Text = Properties.Settings.Default.rahunok2;
-
+                   // MessageBox.Show(Properties.Settings.Default.state.ToString());
                 }
                 else
                 {
-                    textBox3.Text = Properties.Settings.Default.name3;
+                   
                     textBox2.Text = Properties.Settings.Default.edrpou2;
                     textBox1.Text = Properties.Settings.Default.platNumber3.ToString();
                     textBox4.Text = Properties.Settings.Default.rahunok3;
+                   // MessageBox.Show(Properties.Settings.Default.state.ToString());
                 }
 
                 isEditUkrG(editUkrG);
@@ -594,51 +607,62 @@ namespace SoftGenConverter
             {
                 button5.Image = editBtn;
                 isEditUkrG(editUkrG);
-                comboEdr2.Visible = !editUkrG;
-                textBox3.Visible = editUkrG;
-                if (Properties.Settings.Default.state == 2)
+                comboEdr2.Enabled = true;
+               
+                if (state == 2)
                 {
                     //MessageBox.Show(Properties.Settings.Default.state.ToString());
-                    Properties.Settings.Default.name2 = textBox3.Text;
+                   
+                    
                     Properties.Settings.Default.edrpou = textBox2.Text;
                     Properties.Settings.Default.platNumber2 = Int64.Parse(textBox1.Text);
                     Properties.Settings.Default.rahunok2 = textBox4.Text;
                     Properties.Settings.Default.Save();
-                    comboEdr2.Items.Clear();
-                    comboEdr2.Items.Add(Properties.Settings.Default.name2);
-                    comboEdr2.Items.Add(Properties.Settings.Default.name3);
-                    comboEdr2.Text = Properties.Settings.Default.name2;
+                    //comboEdr2.Items.Clear();
+                   
+                    //comboEdr2.Items.Add(Properties.Settings.Default.name2);
+                    //comboEdr2.Items.Add(Properties.Settings.Default.name3);
+                    
                 }
                 else
                 {
                     //MessageBox.Show(Properties.Settings.Default.state.ToString());
-                    Properties.Settings.Default.name3 = textBox3.Text;
+                    
+                  
                     Properties.Settings.Default.edrpou2 = textBox2.Text;
                     Properties.Settings.Default.platNumber3 = Int64.Parse(textBox1.Text);
                     Properties.Settings.Default.rahunok3 = textBox4.Text;
                     Properties.Settings.Default.Save();
-                    comboEdr2.Items.Clear();
-                    comboEdr2.Items.Add(Properties.Settings.Default.name2);
-                    comboEdr2.Items.Add(Properties.Settings.Default.name3);
-                    comboEdr2.Text = Properties.Settings.Default.name3;
+                    // comboEdr2.Items.Clear();
+                    
+                    //comboEdr2.Items.Add(Properties.Settings.Default.name2);
+                    //comboEdr2.Items.Add(Properties.Settings.Default.name3);
+                    
                 }
+               // textBox3.Text = string.Empty;
             }
         }
 
         private void comboEdr2_SelectedIndexChanged(object sender, EventArgs e)
         {
             // MessageBox.Show(Properties.Settings.Default.state.ToString());
-            if (comboEdr2.Text.Equals(Properties.Settings.Default.name2))
+            string selectedState = comboEdr2.SelectedItem.ToString();
+           
+            if (selectedState.Equals(Properties.Settings.Default.name2))
             {
+                state = 2;
                 Properties.Settings.Default.state = 2;
-                numberDocUkrg = Properties.Settings.Default.platNumber2;
-                Properties.Settings.Default.Save();
+                //numberDocUkrg = Properties.Settings.Default.platNumber2;
+                //Properties.Settings.Default.Save();
+                //MessageBox.Show("2 " + state + " " + Properties.Settings.Default.name2);
             }
             else
             {
-                numberDocUkrg = Properties.Settings.Default.platNumber3;
-                Properties.Settings.Default.state = 3;
-                Properties.Settings.Default.Save();
+                state = 3;
+               // numberDocUkrg = Properties.Settings.Default.platNumber3;
+                //Properties.Settings.Default.state = 3;
+                //Properties.Settings.Default.Save();
+                //MessageBox.Show("3 " + state + " " + Properties.Settings.Default.name3);
             }
 
             // MessageBox.Show(Properties.Settings.Default.state.ToString());
@@ -646,14 +670,14 @@ namespace SoftGenConverter
 
         private void textBox3_TextChanged(object sender, EventArgs e)
         {
-            if (comboEdr2.Text.Equals(Properties.Settings.Default.name2))
+            if (state==2)
             {
-                Properties.Settings.Default.name2 = textBox3.Text;
+                
                 Properties.Settings.Default.Save();
             }
             else
             {
-                Properties.Settings.Default.name3 = textBox3.Text;
+               
                 Properties.Settings.Default.Save();
             }
         }

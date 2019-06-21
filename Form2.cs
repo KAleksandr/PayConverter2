@@ -38,6 +38,19 @@ namespace SoftGenConverter
                 {
                         MessageBox.Show("Заповніть всі поля.", "Помилка.");
                 }
+            else if (textBox1.Text.Length > 160)
+            {
+                ColorDialog dlg = new ColorDialog();
+                dlg.ShowDialog();
+
+                if (dlg.ShowDialog() == DialogResult.OK)
+                {
+                    string str = "Перевищено мінімальну кількість символів (160) - " + textBox1.Text.Length;
+                    str = dlg.Color.Name;
+                    MessageBox.Show(str);
+                }
+                MessageBox.Show("Перевищено мінімальну кількість символів (160) - "+ textBox1.Text.Length, "Помилка.");
+            }
             else 
             if (!edit)
             {
@@ -187,6 +200,7 @@ namespace SoftGenConverter
 
                     for (int cellIndex = 0; cellIndex < row.Cells.Count; cellIndex++)
                     {
+                        rowToCompare.Cells[2].Value = rowToCompare.Cells[2].Value.ToString().Replace("  ", @" ");
                         if (!rowToCompare.Cells[1].Value.Equals(row.Cells[1].Value) && !rowToCompare.Cells[0].Value.Equals(row.Cells[0].Value))
                         {
                             //MessageBox.Show(rowToCompare.Cells[cellIndex+1].Value.ToString() + "   -  " +row.Cells[cellIndex+1].Value);
