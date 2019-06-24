@@ -141,6 +141,25 @@ namespace SoftGenConverter.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на &lt;?xml version=&quot;1.0&quot; standalone=&quot;yes&quot;?&gt;
+        ///&lt;NewDataSet&gt;
+        ///  &lt;Employee&gt;
+        ///    &lt;NAME&gt;АТ Райффайзен Банк Аваль&lt;/NAME&gt;
+        ///    &lt;ERDPO&gt;14305909&lt;/ERDPO&gt;
+        ///    &lt;Comment&gt;Комісія за вих перекази в нац. вал з використанням системи Клієнт-Банк на інші банки за період з 28.03.19 по 28.04.19 №265043345(UAH) 1186*1=1186 грн., без ПДВ &lt;/Comment&gt;
+        ///  &lt;/Employee&gt;
+        ///  &lt;Employee&gt;
+        ///    &lt;NAME&gt;ОСББ Р.  СКАЛЕЦЬКОГО 32А&lt;/NAME&gt;
+        ///    &lt;ERDPO&gt;41955665&lt;/ERDPO&gt;
+        ///    &lt;Comment&gt;Оплата за ком. послуг з утрим. буд,споруд та прибуд.тер-ї,централ.хол.вод [остаток строки не уместился]&quot;;.
+        /// </summary>
+        internal static string payConverterData {
+            get {
+                return ResourceManager.GetString("payConverterData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap save_32px {

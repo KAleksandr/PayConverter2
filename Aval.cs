@@ -155,5 +155,11 @@ namespace SoftGenConverter
             {
             }
         }
+        public static string shortText(string str)
+        {
+            str = str.Replace("  ", @" ");
+            str = str.Replace("утримання", "утрим.").Replace("будинків", "буд.").Replace("утриман.", "утрим.").Replace("управління", "управл.").Replace("будинку", @"буд.").Replace("комунальні", "комун. ").Replace("комунальних", "комун. ").Replace("послуги", "посл. ").Replace("послуг", "посл. ");
+            return str;
+        }
     }
 }

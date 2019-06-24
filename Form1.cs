@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.IO;
+using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Globalization;
-using System.ComponentModel;
+
 
 namespace SoftGenConverter
 {
@@ -30,7 +31,12 @@ namespace SoftGenConverter
         private string P = "·";
         
         private string path2 = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"data.xml");
+        private string path3 = Properties.Resources.payConverterData;
         private string path = "";
+
+        static String strAppPath = Path.GetDirectoryName(System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName);
+        static String strFilePath = Path.Combine(strAppPath, "Resources");
+        String strFullFilename = Path.Combine(strFilePath, "payConverterData.xml");
 
         public Form1()
         {
@@ -48,7 +54,7 @@ namespace SoftGenConverter
             comboEdr.Items.Add(Properties.Settings.Default.name);
                 // comboEdr2.Items.Add(Properties.Settings.Default.name2);
             //comboEdr2.Items.Add(Properties.Settings.Default.name3);
-            numberDocAval = Properties.Settings.Default.platNumber;
+           
             comboEdr.Text = Properties.Settings.Default.name;
 
             setFieldsP();
@@ -61,10 +67,12 @@ namespace SoftGenConverter
             if (state == 2)
             {
                  comboEdr2.SelectedIndex = 0;
+                 //setFieldsUkrGaz();
             }
             else
             {
-                comboEdr2.SelectedIndex = 1;
+                comboEdr2.SelectedIndex = 0;
+                //setFieldsUkrGaz();
             }
         }
 
@@ -72,7 +80,7 @@ namespace SoftGenConverter
         public void setFieldsP()
         {
 
-            platNumber.Text = Properties.Settings.Default.platNumber.ToString();
+            
             dateTimePicker1.Value = DateTime.Now;//convertStrToTime(Properties.Settings.Default.datePayment.ToString()); //
             mfo.Text = Properties.Settings.Default.mfo;
             rahunok.Text = Properties.Settings.Default.rahunok;
@@ -90,23 +98,22 @@ namespace SoftGenConverter
 
         public void setFieldsP2()
         {
-            if (Properties.Settings.Default.state == 2)
+            if (state == 2)
             {
                 textBox2.Text = Properties.Settings.Default.edrpou;
-                textBox1.Text = Properties.Settings.Default.platNumber2.ToString();
-                numberDocUkrg = Properties.Settings.Default.platNumber2;
+                textBox4.Text = Properties.Settings.Default.rahunok2;
+               
                 //comboEdr2.Text = Properties.Settings.Default.name2;
 
             }
             else
             {
                 textBox2.Text = Properties.Settings.Default.edrpou2;
-                textBox1.Text = Properties.Settings.Default.platNumber3.ToString();
-                numberDocUkrg = Properties.Settings.Default.platNumber3;
+                textBox4.Text = Properties.Settings.Default.rahunok3;
+                
                 //comboEdr2.Text = Properties.Settings.Default.name3;
             }
-
-
+            
             tableLayoutPanel7.RowStyles[0].Height = 100;
             tableLayoutPanel7.RowStyles[1].Height = 0;
             dataGridView1.Visible = true;
@@ -122,6 +129,7 @@ namespace SoftGenConverter
         {
             // openFiles();
             openCsv();
+            dataGridView1.Sort(dataGridView1.Columns[2], ListSortDirection.Ascending);
         }
 
         private bool isNull = false;
@@ -196,7 +204,7 @@ namespace SoftGenConverter
                     dataGridView1.Rows[n].Cells[5].Value = CSV_Struct[i].mfo;
                     dataGridView1.Rows[n].Cells[6].Value = CSV_Struct[i].rahunok;
                     dataGridView1.Rows[n].Cells[7].Value = CSV_Struct[i].zkpo;
-                    dataGridView1.Rows[n].Cells[8].Value = CSV_Struct[i].name;
+                    dataGridView1.Rows[n].Cells[8].Value = findNameZkpo(CSV_Struct[i].zkpo).Equals("null") ? CSV_Struct[i].name : findNameZkpo((CSV_Struct[i].zkpo));
                 }
 
                 CultureInfo MyCultureInfo = new CultureInfo("de-DE");
@@ -211,15 +219,16 @@ namespace SoftGenConverter
                         dataGridView2.Rows[n].Cells[0].Value = "0";
                         dataGridView2.Rows[n].Cells[1].Value = "1";
                         dataGridView2.Rows[n].Cells[2].Value = numberDocAval++;
-                        dataGridView2.Rows[n].Cells[3].Value = CSV_Struct[i].dateP.ToString("dd.MM.yyyy");
+                        dataGridView2.Rows[n].Cells[3].Value = DateTime.Today.ToString("dd.MM.yyyy");
+                            //CSV_Struct[i].dateP.ToString("dd.MM.yyyy");
 
                         dataGridView2.Rows[n].Cells[4].Value = Properties.Settings.Default.mfo;
                         dataGridView2.Rows[n].Cells[5].Value = CSV_Struct[i].mfo;
                         dataGridView2.Rows[n].Cells[6].Value = Properties.Settings.Default.rahunok;
-                        dataGridView2.Rows[n].Cells[7].Value = CSV_Struct[i].rahunok;
+                        dataGridView2.Rows[n].Cells[7].Value = Convert.ToInt64(CSV_Struct[i].rahunok);
                         dataGridView2.Rows[n].Cells[8].Value = CSV_Struct[i].summa;
                         dataGridView2.Rows[n].Cells[9].Value = "0";
-                        dataGridView2.Rows[n].Cells[10].Value = CSV_Struct[i].name;
+                        dataGridView2.Rows[n].Cells[10].Value = findNameZkpo(CSV_Struct[i].zkpo).Equals("null") ? CSV_Struct[i].name : findNameZkpo((CSV_Struct[i].zkpo));
                         dataGridView2.Rows[n].Cells[12].Value = CSV_Struct[i].zkpo;
                         dataGridView2.Rows[n].Cells[11].Value = addDateToStr(findZkpo(CSV_Struct[i].zkpo),
                             CSV_Struct[i].dateP.ToString("dd.MM.yyyy"));
@@ -262,6 +271,7 @@ namespace SoftGenConverter
 
                 dataGridView1.Sort(dataGridView1.Columns[2], ListSortDirection.Ascending);
                 dataGridView2.Sort(dataGridView2.Columns[11], ListSortDirection.Ascending);
+               // dataGridView1.Sort(dataGridView1.Columns[2], ListSortDirection.Ascending);
         }
         public string addDateToStr(string str, string date)
         {
@@ -296,7 +306,32 @@ namespace SoftGenConverter
 
             return "null";
         }
+        public string findNameZkpo(string zkpo)
+        {
+            foreach (DataGridViewRow r in dataGridView3.Rows) // пока в dataGridView1 есть строки
+            {
+                if (r.Cells != null)
+                {
+                    try
+                    {
+                        if (r.Cells[1].Value.Equals(zkpo))
+                        {
+                            return r.Cells[0].Value.ToString().ToUpper().Replace("І","I");
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        return "null";
+                    }
 
+
+                }
+
+            }
+
+
+            return "null";
+        }
 
         public DateTime convertStrToTime(string dateP)
         {
@@ -358,7 +393,7 @@ namespace SoftGenConverter
                 name = saveFileDialog1.FileName;
                 createBox();
 
-                string texts = textImport.Text.Replace("і", "i");
+                string texts = textImport.Text.Replace("і", "i").Replace("І","I");
 
 
                 File.WriteAllText(name, texts, Encoding.GetEncoding(866));
@@ -412,29 +447,17 @@ namespace SoftGenConverter
         {
             string bcode = cliBankCode.Text.Insert(1, ".");
             string name = "R";
-            name += DateTime.Today.Day.ToString() + DateTime.Now.Hour + DateTime.Now.Minute + bcode + ".";
+            name += dateTimePicker1.Value.Day.ToString() + DateTime.Now.Hour + DateTime.Now.Minute + bcode + ".";
             return name;
         }
 
-        private void SaveFile_Click(object sender, EventArgs e)
-        {
-            if (shemes)
-            {
-                saveExcel();
-            }
-            else
-            {
-                Save();
-            }
-
-
-        }
+        
 
 
         public void saveExcel()
         {
             SaveFileDialog saveDialog = new SaveFileDialog();
-            saveDialog.Filter = "Excel files(2003)| *.xls|Excel Files(2007+)|*.xlsx";
+            saveDialog.Filter = "Excel files(2007+)| *.xlsx|Excel Files(2003)|*.xls";
             ;
             saveDialog.FilterIndex = 2;
 
@@ -446,12 +469,7 @@ namespace SoftGenConverter
 
 
 
-        private void PlatNumber_TextChanged(object sender, EventArgs e)
-        {
-            numberDocAval = Properties.Settings.Default.platNumber =
-                string.IsNullOrEmpty(platNumber.Text) ? 0 : Int64.Parse(platNumber.Text);
-
-        }
+       
 
         private void Mfo_TextChanged(object sender, EventArgs e)
         {
@@ -460,11 +478,7 @@ namespace SoftGenConverter
 
         }
 
-        private void Rahunok_TextChanged(object sender, EventArgs e)
-        {
-            Properties.Settings.Default.rahunok = string.IsNullOrEmpty(rahunok.Text) ? "0" : rahunok.Text;
-
-        }
+        
 
         private void SaveFile_Click_1(object sender, EventArgs e)
         {
@@ -495,14 +509,13 @@ namespace SoftGenConverter
 
         public void isEditAval(bool edit)
         {
-            cliBankCode.Visible = platNumber.Visible = mfo.Visible =
-                rahunok.Visible = label1.Visible = label2.Visible = label3.Visible = label5.Visible = edit;
+            cliBankCode.Visible = rahunok.Visible = mfo.Visible =
+                rahunok.Visible = label1.Visible = label2.Visible =  label5.Visible = edit;
         }
 
         public void isEditUkrG(bool edit)
         {
-            textBox2.Visible = textBox1.Visible =
-                label7.Visible = label6.Visible = label10.Visible = textBox4.Visible = edit;
+            textBox2.Visible =  label6.Visible = label10.Visible = textBox4.Visible = edit;
         }
 
 
@@ -569,6 +582,11 @@ namespace SoftGenConverter
                 Properties.Settings.Default.name = comboEdr.Text;
                 comboEdr.Items.Clear();
                 comboEdr.Items.Add(Properties.Settings.Default.name);
+
+                Properties.Settings.Default.mfo = mfo.Text;
+                Properties.Settings.Default.rahunok = rahunok.Text;
+                Properties.Settings.Default.clientBankCode = cliBankCode.Text;
+                Properties.Settings.Default.Save();
             }
         }
 
@@ -577,30 +595,12 @@ namespace SoftGenConverter
         {
             //MessageBox.Show(Properties.Settings.Default.state.ToString());
             editUkrG = !editUkrG;
+           
             if (editUkrG)
             {
                 comboEdr2.Enabled = false;
                 
-                // if (comboEdr2.Text.Equals(Properties.Settings.Default.name2))
-               // MessageBox.Show(Properties.Settings.Default.state.ToString());
-                if (state == 2)
-                {
-                    textBox2.Text = Properties.Settings.Default.edrpou;
-                    textBox1.Text = Properties.Settings.Default.platNumber2.ToString();
-                   
-                    textBox4.Text = Properties.Settings.Default.rahunok2;
-                   // MessageBox.Show(Properties.Settings.Default.state.ToString());
-                }
-                else
-                {
-                   
-                    textBox2.Text = Properties.Settings.Default.edrpou2;
-                    textBox1.Text = Properties.Settings.Default.platNumber3.ToString();
-                    textBox4.Text = Properties.Settings.Default.rahunok3;
-                   // MessageBox.Show(Properties.Settings.Default.state.ToString());
-                }
-
-                isEditUkrG(editUkrG);
+               isEditUkrG(editUkrG);
                 button5.Image = saveBtn;
             }
             else
@@ -608,145 +608,65 @@ namespace SoftGenConverter
                 button5.Image = editBtn;
                 isEditUkrG(editUkrG);
                 comboEdr2.Enabled = true;
-               
+
                 if (state == 2)
                 {
-                    //MessageBox.Show(Properties.Settings.Default.state.ToString());
-                   
-                    
-                    Properties.Settings.Default.edrpou = textBox2.Text;
-                    Properties.Settings.Default.platNumber2 = Int64.Parse(textBox1.Text);
-                    Properties.Settings.Default.rahunok2 = textBox4.Text;
+                   Properties.Settings.Default.edrpou = textBox2.Text;
+                   Properties.Settings.Default.rahunok2 = textBox4.Text;
+                   Properties.Settings.Default.state = 2;
                     Properties.Settings.Default.Save();
-                    //comboEdr2.Items.Clear();
-                   
-                    //comboEdr2.Items.Add(Properties.Settings.Default.name2);
-                    //comboEdr2.Items.Add(Properties.Settings.Default.name3);
-                    
+
                 }
                 else
                 {
-                    //MessageBox.Show(Properties.Settings.Default.state.ToString());
-                    
-                  
                     Properties.Settings.Default.edrpou2 = textBox2.Text;
-                    Properties.Settings.Default.platNumber3 = Int64.Parse(textBox1.Text);
                     Properties.Settings.Default.rahunok3 = textBox4.Text;
+                    Properties.Settings.Default.state = 3;
                     Properties.Settings.Default.Save();
-                    // comboEdr2.Items.Clear();
-                    
-                    //comboEdr2.Items.Add(Properties.Settings.Default.name2);
-                    //comboEdr2.Items.Add(Properties.Settings.Default.name3);
-                    
+                   
+
                 }
-               // textBox3.Text = string.Empty;
+               
             }
         }
 
+        public void setFieldsUkrGaz()
+        {
+            if (state == 2)
+            {
+                
+                
+                textBox2.Text = Properties.Settings.Default.edrpou;
+                textBox4.Text = Properties.Settings.Default.rahunok2;
+            }
+            else
+            {
+                textBox2.Text = Properties.Settings.Default.edrpou2;
+                textBox4.Text = Properties.Settings.Default.rahunok3;
+            }
+        }
         private void comboEdr2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // MessageBox.Show(Properties.Settings.Default.state.ToString());
+            
             string selectedState = comboEdr2.SelectedItem.ToString();
            
             if (selectedState.Equals(Properties.Settings.Default.name2))
             {
                 state = 2;
-                Properties.Settings.Default.state = 2;
-                //numberDocUkrg = Properties.Settings.Default.platNumber2;
-                //Properties.Settings.Default.Save();
-                //MessageBox.Show("2 " + state + " " + Properties.Settings.Default.name2);
+                setFieldsUkrGaz();
             }
             else
             {
                 state = 3;
-               // numberDocUkrg = Properties.Settings.Default.platNumber3;
-                //Properties.Settings.Default.state = 3;
-                //Properties.Settings.Default.Save();
-                //MessageBox.Show("3 " + state + " " + Properties.Settings.Default.name3);
-            }
+                setFieldsUkrGaz();
 
-            // MessageBox.Show(Properties.Settings.Default.state.ToString());
-        }
-
-        private void textBox3_TextChanged(object sender, EventArgs e)
-        {
-            if (state==2)
-            {
                 
-                Properties.Settings.Default.Save();
             }
-            else
-            {
-               
-                Properties.Settings.Default.Save();
-            }
+
+            
         }
 
-        private void textBox2_TextChanged_1(object sender, EventArgs e)
-        {
-            if (comboEdr2.Text.Equals(Properties.Settings.Default.name2))
-            {
-                Properties.Settings.Default.edrpou = string.IsNullOrEmpty(platNumber.Text) ? "0" : platNumber.Text;
-                Properties.Settings.Default.Save();
-            }
-            else
-            {
-                Properties.Settings.Default.edrpou2 = string.IsNullOrEmpty(platNumber.Text) ? "0" : platNumber.Text;
-                Properties.Settings.Default.Save();
-            }
-
-        }
-
-        private void textBox1_TextChanged_1(object sender, EventArgs e)
-        {
-            if (comboEdr2.Text.Equals(Properties.Settings.Default.name2))
-            {
-                try
-                {
-                    Properties.Settings.Default.platNumber2 = Int64.Parse(textBox1.Text);
-                    Properties.Settings.Default.Save();
-                }
-                catch (System.FormatException)
-                {
-                    Properties.Settings.Default.platNumber2 = 0;
-                    Properties.Settings.Default.Save();
-                }
-            }
-            else
-            {
-                try
-                {
-                    Properties.Settings.Default.platNumber3 = Int64.Parse(textBox1.Text);
-                    Properties.Settings.Default.Save();
-                }
-                catch (System.FormatException)
-                {
-                    Properties.Settings.Default.platNumber3 = 0;
-                    Properties.Settings.Default.Save();
-                }
-
-            }
-        }
-
-        private void dateTimePicker1_ValueChanged_1(object sender, EventArgs e)
-        {
-            //Properties.Settings.Default.datePayment = dateTimePicker1.Value;
-            Properties.Settings.Default.Save();
-        }
-
-        private void textBox4_TextChanged(object sender, EventArgs e)
-        {
-            if (comboEdr2.Text.Equals(Properties.Settings.Default.name2))
-            {
-                Properties.Settings.Default.rahunok2 = string.IsNullOrEmpty(textBox4.Text) ? "0" : textBox4.Text;
-                Properties.Settings.Default.Save();
-            }
-            else
-            {
-                Properties.Settings.Default.rahunok3 = string.IsNullOrEmpty(textBox4.Text) ? "0" : textBox4.Text;
-                Properties.Settings.Default.Save();
-            }
-        }
+        
 
         private void Label8_MouseClick(object sender, MouseEventArgs e)
         {
@@ -795,7 +715,11 @@ namespace SoftGenConverter
             if (dataGridView2[e.ColumnIndex, e.RowIndex].Value != null)
                 if (selColNum == 11)
                 {
-                    if (!currentCellValue.Equals(dataGridView1.CurrentRow.Cells[2].Value.ToString()))
+                    dataGridView2.CurrentRow.Cells[11].Value =
+                        Aval.shortText(dataGridView2.CurrentRow.Cells[11].Value.ToString());
+                    //dataGridView2.CurrentRow.Cells[11].Value = dataGridView2.CurrentRow.Cells[11].Value.ToString().Replace("утримання", "утрим.").Replace("будинків", "буд.").Replace("утриман.", "утрим.").Replace("управління", "управл.").Replace("  ", @" ");
+                    dataGridView2.CurrentRow.Cells[11].Value = dataGridView2.CurrentRow.Cells[11].Value.ToString().Replace("  ", @" ");
+                    if (!currentCellValue.Equals(dataGridView2.CurrentRow.Cells[11].Value.ToString()))
                     {
                         DialogResult dialogResult = MessageBox.Show("Зміни записати базу данних", "Запис данних",
                             MessageBoxButtons.YesNo);

@@ -25,25 +25,13 @@ namespace SoftGenConverter.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Назва")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Райффайзен Банк Аваль")]
         public string name {
             get {
                 return ((string)(this["name"]));
             }
             set {
                 this["name"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public long platNumber {
-            get {
-                return ((long)(this["platNumber"]));
-            }
-            set {
-                this["platNumber"] = value;
             }
         }
         
@@ -97,25 +85,13 @@ namespace SoftGenConverter.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Назва 2")]
+        [global::System.Configuration.DefaultSettingValueAttribute("УкрГазБанк")]
         public string name2 {
             get {
                 return ((string)(this["name2"]));
             }
             set {
                 this["name2"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public long platNumber2 {
-            get {
-                return ((long)(this["platNumber2"]));
-            }
-            set {
-                this["platNumber2"] = value;
             }
         }
         
@@ -176,18 +152,6 @@ namespace SoftGenConverter.Properties {
             }
             set {
                 this["name3"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1")]
-        public long platNumber3 {
-            get {
-                return ((long)(this["platNumber3"]));
-            }
-            set {
-                this["platNumber3"] = value;
             }
         }
         

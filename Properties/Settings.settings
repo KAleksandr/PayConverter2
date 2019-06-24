@@ -3,10 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="name" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Назва</Value>
-    </Setting>
-    <Setting Name="platNumber" Type="System.Int64" Scope="User">
-      <Value Profile="(Default)">0</Value>
+      <Value Profile="(Default)">Райффайзен Банк Аваль</Value>
     </Setting>
     <Setting Name="mfo" Type="System.String" Scope="User">
       <Value Profile="(Default)">000000</Value>
@@ -21,10 +18,7 @@
       <Value Profile="(Default)">00000</Value>
     </Setting>
     <Setting Name="name2" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Назва 2</Value>
-    </Setting>
-    <Setting Name="platNumber2" Type="System.Int64" Scope="User">
-      <Value Profile="(Default)">0</Value>
+      <Value Profile="(Default)">УкрГазБанк</Value>
     </Setting>
     <Setting Name="edrpou" Type="System.String" Scope="User">
       <Value Profile="(Default)">00000000</Value>
@@ -40,9 +34,6 @@
     </Setting>
     <Setting Name="name3" Type="System.String" Scope="User">
       <Value Profile="(Default)">Назва 3</Value>
-    </Setting>
-    <Setting Name="platNumber3" Type="System.Int64" Scope="User">
-      <Value Profile="(Default)">1</Value>
     </Setting>
     <Setting Name="edrpou2" Type="System.String" Scope="User">
       <Value Profile="(Default)">00000000</Value>
