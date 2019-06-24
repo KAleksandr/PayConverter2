@@ -27,11 +27,11 @@ namespace SoftGenConverter
             Aval.StyleDataGridView(dataGridView1, false);
             try
             {
-                dataGridView1.Sort(dataGridView1.Columns[2], ListSortDirection.Ascending);
+                dataGridView1.Sort(dataGridView1.Columns[3], ListSortDirection.Ascending);
             }
             catch (Exception) { }
           
-            RemoveDuplicate();
+           // RemoveDuplicate();
 
         }
 
@@ -136,6 +136,10 @@ namespace SoftGenConverter
 
         private void button2_Click(object sender, EventArgs e)
         {
+            //if (dataGridView1.Rows.Count > 0)
+            //{
+            //    dataGridView1.Rows.Clear();
+            //}
             List<Cargo> CSV_Struct = new List<Cargo>();
             string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"export.csv");
             CSV_Struct = Cargo.ReadFile(path);
@@ -149,9 +153,10 @@ namespace SoftGenConverter
                     
 
                     int n = dataGridView1.Rows.Add();
-                    dataGridView1.Rows[n].Cells[0].Value = CSV_Struct[i].Name;
+                    dataGridView1.Rows[n].Cells[0].Value = CSV_Struct[i].Name.Replace("@","\"");
                     dataGridView1.Rows[n].Cells[1].Value = CSV_Struct[i].List_price;
-                    dataGridView1.Rows[n].Cells[2].Value = CSV_Struct[i].MyPrice;
+                    dataGridView1.Rows[n].Cells[2].Value = CSV_Struct[i].RRahunok.ToString();
+                    dataGridView1.Rows[n].Cells[3].Value = CSV_Struct[i].MyPrice;
                 }
 
             }
@@ -162,6 +167,7 @@ namespace SoftGenConverter
             public string Name { get; set; }
             public string List_price { get; set; }
             public string MyPrice { get; set; }
+            public string RRahunok { get; set; }
             public override string ToString()
             {
                 return Name + " " + List_price +" " + MyPrice;
@@ -193,8 +199,9 @@ namespace SoftGenConverter
                 ID = parts[0];
                 Name = parts[10];
                 List_price = parts[9];
+                RRahunok = parts[8];
                 // Regex regexDate = new Regex(@"[за ][0-9]{2}[.][0-9]{2}[.][0-9]{2}[р.]");
-                string pattern = @"за\s[0-9]{2}[.][0-9]{2}[.][0-9]{4}р\.";
+                string pattern = @"за\s?[0-9]{2}[.][0-9]{2}[.][0-9]{4}р.";
                 string text = parts[15];
                 string yes = Regex.Replace(text, pattern, "  за ##.##.#### ");
 
@@ -236,17 +243,23 @@ namespace SoftGenConverter
 
                     for (int cellIndex = 0; cellIndex < row.Cells.Count; cellIndex++)
                     {
-                        rowToCompare.Cells[2].Value = Aval.shortText(rowToCompare.Cells[2].Value.ToString());
+                        rowToCompare.Cells[3].Value = Aval.shortText(rowToCompare.Cells[3].Value.ToString());
+                        string pattern = @"за\s?[0-9]{2}[.][0-9]{2}[.][0-9]{4}р.";
+
+                        rowToCompare.Cells[3].Value = Regex.Replace(rowToCompare.Cells[3].Value.ToString(), pattern, "  за ##.##.#### ");
+
                         //rowToCompare.Cells[2].Value = rowToCompare.Cells[2].Value.ToString().Replace("  ", @" ");
                         //rowToCompare.Cells[2].Value = rowToCompare.Cells[2].Value.ToString().Replace("утримання", "утрим.").Replace("будинків", "буд.").Replace("утриман.", "утрим.").Replace("управління", "управл.");
-                       
-                        if (!rowToCompare.Cells[1].Value.Equals(row.Cells[1].Value) && !rowToCompare.Cells[0].Value.Equals(row.Cells[0].Value))
+
+                        if (!rowToCompare.Cells[1].Value.Equals(row.Cells[1].Value) && !rowToCompare.Cells[2].Value.Equals(row.Cells[2].Value) )
                         {
                             //MessageBox.Show(rowToCompare.Cells[cellIndex+1].Value.ToString() + "   -  " +row.Cells[cellIndex+1].Value);
+
                             duplicateRow = false;
                             break;
                             
                         }
+
                     }
 
                     if (duplicateRow)
@@ -266,7 +279,7 @@ namespace SoftGenConverter
                 {
                     dataGridView1.CurrentRow.Cells[2].Value = "null";
                 }
-                dataGridView1.CurrentRow.Cells[2].Value = Aval.shortText(dataGridView1.CurrentRow.Cells[2].Value.ToString());
+                dataGridView1.CurrentRow.Cells[3].Value = Aval.shortText(dataGridView1.CurrentRow.Cells[2].Value.ToString());
                 textBox2.Text = dataGridView1.CurrentRow.Cells[0].Value.ToString();
                 ederpo.Text = dataGridView1.CurrentRow.Cells[1].Value.ToString();
                 textBox1.Text = dataGridView1.CurrentRow.Cells[2].Value.ToString();
@@ -324,7 +337,7 @@ namespace SoftGenConverter
 
                     MessageBox.Show("Перевищено мінімальну кількість символів (160) - " + textBox1.Text.Length, "Помилка.");
                 }
-                dataGridView1.CurrentRow.Cells[2].Value =
+                dataGridView1.CurrentRow.Cells[3].Value =
                     Aval.shortText(dataGridView1.CurrentRow.Cells[2].Value.ToString());
                 
             }
@@ -335,9 +348,20 @@ namespace SoftGenConverter
            
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void dataGridView1_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
         {
+            var grid = sender as DataGridView;
+            var rowIdx = (e.RowIndex + 1).ToString();
 
+            var centerFormat = new StringFormat()
+            {
+                // right alignment might actually make more sense for numbers
+                Alignment = StringAlignment.Center,
+                LineAlignment = StringAlignment.Center
+            };
+
+            var headerBounds = new Rectangle(e.RowBounds.Left, e.RowBounds.Top, grid.RowHeadersWidth, e.RowBounds.Height);
+            e.Graphics.DrawString(rowIdx, this.Font, SystemBrushes.ControlText, headerBounds, centerFormat);
         }
     }
 }

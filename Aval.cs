@@ -34,8 +34,8 @@ namespace SoftGenConverter
                 {
                     name = parts[0].ToUpper().Replace("І","I");
                     mfo = parts[2];
-                    rahunok = parts[3];
-                    zkpo = parts[4];
+                    rahunok = ""+ Convert.ToInt64(parts[3]);
+                    zkpo = "" + Convert.ToInt64(parts[4]);
                     dateP = date;
                     summa = parts[8];
                     isAval = 1;
@@ -44,8 +44,8 @@ namespace SoftGenConverter
                 {
                     name = parts[0].ToUpper().Replace("І", "I"); ;
                     mfo = parts[1];
-                    rahunok = parts[2];
-                    zkpo = parts[3];
+                    rahunok = ""+ Convert.ToInt64(parts[2]);
+                    zkpo = "" + Convert.ToInt64(parts[3]);
                     summa = parts[5];
                     isAval = 0;
                     dateP = date;
@@ -64,28 +64,33 @@ namespace SoftGenConverter
             bool flag = false;
             bool aval = false;
         DateTime datePl = DateTime.Today;
-
-        using (StreamReader sr = new StreamReader(filename, Encoding.GetEncoding(1251)))
-        {
-            string line;
-            while ((line = sr.ReadLine()) != null)
+            try
             {
-                MatchCollection dateMatch = regexDate.Matches(line);
-                if (dateMatch.Count > 0)
-                {
-                    CultureInfo MyCultureInfo = new CultureInfo("de-DE");
+                using (StreamReader sr = new StreamReader(filename, Encoding.GetEncoding(1251)))
+                        {
+                            string line;
+                            while ((line = sr.ReadLine()) != null)
+                            {
+                                MatchCollection dateMatch = regexDate.Matches(line);
+                                if (dateMatch.Count > 0)
+                                {
+                                    CultureInfo MyCultureInfo = new CultureInfo("de-DE");
                    
-                    MatchCollection matchess = Regex.Matches(line, regexDate.ToString(), RegexOptions.IgnoreCase);
-                    date = Int32.Parse(matchess[0].ToString().Replace("за", "").Replace("р.", "").Trim()
-                        .Replace(".", ""));
-                    datePl = DateTime.Parse(matchess[0].ToString().Replace("за", "").Replace("р.", "").Trim(),
-                        MyCultureInfo);
+                                    MatchCollection matchess = Regex.Matches(line, regexDate.ToString(), RegexOptions.IgnoreCase);
+                                    date = Int32.Parse(matchess[0].ToString().Replace("за", "").Replace("р.", "").Trim()
+                                        .Replace(".", ""));
+                                    datePl = DateTime.Parse(matchess[0].ToString().Replace("за", "").Replace("р.", "").Trim(),
+                                        MyCultureInfo);
                    
-                }
-            }
-        }
+                                }
+                            }
+                        }
 
-        
+            }
+            catch (Exception) { }
+
+            try
+            {
         using (StreamReader sr = new StreamReader(filename, Encoding.GetEncoding(1251)))
             {
                 string line;
@@ -94,11 +99,7 @@ namespace SoftGenConverter
                     MatchCollection dateMatch = regexDate.Matches(line);
                     if (dateMatch.Count > 0)
                     {
-                        //CultureInfo MyCultureInfo = new CultureInfo("de-DE");
-                        //MessageBox.Show(line);
-                       // MatchCollection matchess = Regex.Matches(line, regexDate.ToString(), RegexOptions.IgnoreCase);
-                        //date = Int32.Parse(matchess[0].ToString().Replace("за", "").Replace("р.", "").Trim().Replace(".", ""));
-                        //datePl = DateTime.Parse(matchess[0].ToString().Replace("за", "").Replace("р.", "").Trim(), MyCultureInfo);
+                        
                         flag = false;
                         aval = true;
                     }
@@ -129,6 +130,9 @@ namespace SoftGenConverter
                 }
             }
 
+            }
+            catch (Exception) { }
+
             return res;
         }
         public static void StyleDataGridView(DataGridView dgv, bool isReadonly = true)
@@ -151,7 +155,7 @@ namespace SoftGenConverter
                 dataGridViewCellStyle1.BackColor = Color.LightBlue;
                 dgv.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             }
-            catch (Exception ex)
+            catch (Exception )
             {
             }
         }

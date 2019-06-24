@@ -16,7 +16,7 @@ namespace SoftGenConverter
     {
         private string name;
 
-        private bool shemes = true; //true=Aval false= UkrGaz 
+        
         private TextBox textImport = new TextBox();
         private string currentCellValue = "";
 
@@ -27,7 +27,7 @@ namespace SoftGenConverter
         private int state = Properties.Settings.Default.state;
 
         private long numberDocAval;
-        private long numberDocUkrg;
+        
         private string P = "·";
         
         private string path2 = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"data.xml");
@@ -172,16 +172,17 @@ namespace SoftGenConverter
 
                     dataGridView1.Rows[n].Cells[0].Value = CSV_Struct[i].summa;
                     dataGridView1.Rows[n].Cells[1].Value = "UAH";
-                    dataGridView1.Rows[n].Cells[2].Value = addDateToStr(findZkpo(CSV_Struct[i].zkpo),
+                    dataGridView1.Rows[n].Cells[2].Value = addDateToStr(findZkpo(CSV_Struct[i].zkpo, CSV_Struct[i].rahunok),
                        (CSV_Struct[i].dateP==dt1 ? dateTimePicker1.Value.ToString("dd.MM.yyyy") : CSV_Struct[i].dateP.ToString("dd.MM.yyyy")));
-                        //dateTimePicker1.Value.ToString("dd.MM.yyyy"));
+                    //dateTimePicker1.Value.ToString("dd.MM.yyyy"));
                     if (dataGridView1.Rows[n].Cells[2].Value.Equals("null"))
                     {
                         dataGridView1.Rows[n].DefaultCellStyle.BackColor = Color.BurlyWood;
                         int m = dataGridView3.Rows.Add();
                         dataGridView3.Rows[m].Cells[0].Value = CSV_Struct[i].name;
                         dataGridView3.Rows[m].Cells[1].Value = CSV_Struct[i].zkpo;
-                        dataGridView3.Rows[m].Cells[2].Value = dataGridView1.Rows[n].Cells[2].Value;
+                        dataGridView3.Rows[m].Cells[2].Value =  CSV_Struct[i].rahunok;
+                        dataGridView3.Rows[m].Cells[3].Value = dataGridView1.Rows[n].Cells[2].Value;
                         isNull = true;
                     }
 
@@ -204,7 +205,7 @@ namespace SoftGenConverter
                     dataGridView1.Rows[n].Cells[5].Value = CSV_Struct[i].mfo;
                     dataGridView1.Rows[n].Cells[6].Value = CSV_Struct[i].rahunok;
                     dataGridView1.Rows[n].Cells[7].Value = CSV_Struct[i].zkpo;
-                    dataGridView1.Rows[n].Cells[8].Value = findNameZkpo(CSV_Struct[i].zkpo).Equals("null") ? CSV_Struct[i].name : findNameZkpo((CSV_Struct[i].zkpo));
+                    dataGridView1.Rows[n].Cells[8].Value = findNameZkpo(CSV_Struct[i].zkpo, CSV_Struct[i].rahunok).Equals("null") ? CSV_Struct[i].name : findNameZkpo(CSV_Struct[i].zkpo, CSV_Struct[i].rahunok);
                 }
 
                 CultureInfo MyCultureInfo = new CultureInfo("de-DE");
@@ -228,9 +229,9 @@ namespace SoftGenConverter
                         dataGridView2.Rows[n].Cells[7].Value = Convert.ToInt64(CSV_Struct[i].rahunok);
                         dataGridView2.Rows[n].Cells[8].Value = CSV_Struct[i].summa;
                         dataGridView2.Rows[n].Cells[9].Value = "0";
-                        dataGridView2.Rows[n].Cells[10].Value = findNameZkpo(CSV_Struct[i].zkpo).Equals("null") ? CSV_Struct[i].name : findNameZkpo((CSV_Struct[i].zkpo));
+                        dataGridView2.Rows[n].Cells[10].Value = findNameZkpo(CSV_Struct[i].zkpo, CSV_Struct[i].rahunok).Equals("null") ? CSV_Struct[i].name : findNameZkpo(CSV_Struct[i].zkpo,CSV_Struct[i].rahunok);
                         dataGridView2.Rows[n].Cells[12].Value = CSV_Struct[i].zkpo;
-                        dataGridView2.Rows[n].Cells[11].Value = addDateToStr(findZkpo(CSV_Struct[i].zkpo),
+                        dataGridView2.Rows[n].Cells[11].Value = addDateToStr(findZkpo(CSV_Struct[i].zkpo, CSV_Struct[i].rahunok),
                             CSV_Struct[i].dateP.ToString("dd.MM.yyyy"));
                         if (dataGridView2.Rows[n].Cells[11].Value.Equals("null"))
                         {
@@ -238,7 +239,8 @@ namespace SoftGenConverter
                             int m = dataGridView3.Rows.Add();
                             dataGridView3.Rows[m].Cells[0].Value = CSV_Struct[i].name;
                             dataGridView3.Rows[m].Cells[1].Value = CSV_Struct[i].zkpo;
-                            dataGridView3.Rows[m].Cells[2].Value = dataGridView2.Rows[n].Cells[11].Value;
+                            dataGridView3.Rows[m].Cells[2].Value = CSV_Struct[i].rahunok;
+                            dataGridView3.Rows[m].Cells[3].Value = dataGridView2.Rows[n].Cells[11].Value;
                             isNull = true;
                         }
                     }
@@ -280,7 +282,7 @@ namespace SoftGenConverter
             return str;
         }
 
-        public string findZkpo(string zkpo)
+        public string findZkpo(string zkpo, string rrahunok)
         {
             foreach (DataGridViewRow r in dataGridView3.Rows) // пока в dataGridView1 есть строки
             {
@@ -288,9 +290,9 @@ namespace SoftGenConverter
                 {
                     try
                     {
-                        if (r.Cells[1].Value.Equals(zkpo))
+                        if (r.Cells[1].Value.Equals(zkpo) && r.Cells[2].Value.Equals(rrahunok))
                         {
-                            return r.Cells[2].Value.ToString();
+                            return r.Cells[3].Value.ToString();
                         }
                     }
                     catch (Exception)
@@ -306,7 +308,7 @@ namespace SoftGenConverter
 
             return "null";
         }
-        public string findNameZkpo(string zkpo)
+        public string findNameZkpo(string zkpo, string rrahunok)
         {
             foreach (DataGridViewRow r in dataGridView3.Rows) // пока в dataGridView1 есть строки
             {
@@ -314,7 +316,7 @@ namespace SoftGenConverter
                 {
                     try
                     {
-                        if (r.Cells[1].Value.Equals(zkpo))
+                        if (r.Cells[1].Value.Equals(zkpo) && r.Cells[2].Value.Equals(rrahunok))
                         {
                             return r.Cells[0].Value.ToString().ToUpper().Replace("І","I");
                         }
@@ -404,7 +406,7 @@ namespace SoftGenConverter
         public void createBox()
         {
 
-            bool flag = false;
+            
             foreach (DataGridViewRow r in dataGridView2.Rows) // пока в dataGridView1 есть строки
             {
                 if (r.Cells != null)
@@ -792,6 +794,38 @@ namespace SoftGenConverter
         private void dataGridView2_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             currentCellValue = dataGridView2.CurrentRow.Cells[11].Value.ToString();
+        }
+
+        private void dataGridView1_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        {
+            var grid = sender as DataGridView;
+            var rowIdx = (e.RowIndex + 1).ToString();
+
+            var centerFormat = new StringFormat()
+            {
+                // right alignment might actually make more sense for numbers
+                Alignment = StringAlignment.Center,
+                LineAlignment = StringAlignment.Center
+            };
+
+            var headerBounds = new Rectangle(e.RowBounds.Left, e.RowBounds.Top, grid.RowHeadersWidth, e.RowBounds.Height);
+            e.Graphics.DrawString(rowIdx, this.Font, SystemBrushes.ControlText, headerBounds, centerFormat);
+        }
+
+        private void dataGridView2_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        {
+            var grid = sender as DataGridView;
+            var rowIdx = (e.RowIndex + 1).ToString();
+
+            var centerFormat = new StringFormat()
+            {
+                // right alignment might actually make more sense for numbers
+                Alignment = StringAlignment.Center,
+                LineAlignment = StringAlignment.Center
+            };
+
+            var headerBounds = new Rectangle(e.RowBounds.Left, e.RowBounds.Top, grid.RowHeadersWidth, e.RowBounds.Height);
+            e.Graphics.DrawString(rowIdx, this.Font, SystemBrushes.ControlText, headerBounds, centerFormat);
         }
     }
 }

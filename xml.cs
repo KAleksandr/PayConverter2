@@ -30,7 +30,9 @@ namespace SoftGenConverter
                             int n = dataGridView1.Rows.Add();
                             dataGridView1.Rows[n].Cells[0].Value = item["NAME"];
                             dataGridView1.Rows[n].Cells[1].Value = item["ERDPO"];
-                            dataGridView1.Rows[n].Cells[2].Value = item["Comment"];
+                            
+                            dataGridView1.Rows[n].Cells[2].Value = item["RRahunok"];
+                            dataGridView1.Rows[n].Cells[3].Value = item["Comment"];
 
                         }
                     }
@@ -39,7 +41,7 @@ namespace SoftGenConverter
                 }
                 else
                 {
-                    MessageBox.Show("XML файл не найден.", "Ошибка.");
+                    MessageBox.Show("XML файл не знайдений.", "Помилка.");
                 }
             }
         }
@@ -74,6 +76,7 @@ namespace SoftGenConverter
                 dt.TableName = "Employee"; // название таблицы
                 dt.Columns.Add("NAME"); // название колонок
                 dt.Columns.Add("ERDPO"); // название колонок
+                dt.Columns.Add("RRahunok");
                 dt.Columns.Add("Comment");
 
                 ds.Tables.Add(dt); //в ds создается таблица, с названием и колонками, созданными выше
@@ -85,7 +88,8 @@ namespace SoftGenConverter
                         DataRow row = ds.Tables["Employee"].NewRow(); // создаем новую строку в таблице, занесенной в ds
                         row["Name"] = r.Cells[0].Value;
                         row["ERDPO"] = r.Cells[1].Value;  //в столбец этой строки заносим данные из первого столбца dataGridView1
-                        row["Comment"] = r.Cells[2].Value; // то же самое со вторыми столбцами
+                        row["Comment"] = r.Cells[3].Value; // то же самое со вторыми столбцами
+                        row["RRahunok"] = r.Cells[2].Value;
 
                         ds.Tables["Employee"].Rows.Add(row); //добавление всей этой строки в таблицу ds.
                     }
