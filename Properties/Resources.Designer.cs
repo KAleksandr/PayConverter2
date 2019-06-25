@@ -153,6 +153,16 @@ namespace SoftGenConverter.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Form2EditLine_32 {
+            get {
+                object obj = ResourceManager.GetObject("Form2EditLine_32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icons8_add_list_64 {
             get {
                 object obj = ResourceManager.GetObject("icons8_add_list_64", resourceCulture);

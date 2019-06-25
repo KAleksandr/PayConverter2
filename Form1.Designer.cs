@@ -33,9 +33,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.укрГазToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.авальToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
@@ -99,7 +96,6 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
             this.panel7.SuspendLayout();
@@ -111,27 +107,6 @@
             this.tableLayoutPanel7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.SuspendLayout();
-            // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.укрГазToolStripMenuItem,
-            this.авальToolStripMenuItem});
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            resources.ApplyResources(this.contextMenuStrip1, "contextMenuStrip1");
-            // 
-            // укрГазToolStripMenuItem
-            // 
-            this.укрГазToolStripMenuItem.Name = "укрГазToolStripMenuItem";
-            resources.ApplyResources(this.укрГазToolStripMenuItem, "укрГазToolStripMenuItem");
-            this.укрГазToolStripMenuItem.Click += new System.EventHandler(this.УкрГазToolStripMenuItem_Click);
-            // 
-            // авальToolStripMenuItem
-            // 
-            this.авальToolStripMenuItem.Name = "авальToolStripMenuItem";
-            resources.ApplyResources(this.авальToolStripMenuItem, "авальToolStripMenuItem");
-            this.авальToolStripMenuItem.Click += new System.EventHandler(this.АвальToolStripMenuItem_Click);
             // 
             // openFileDialog1
             // 
@@ -269,6 +244,7 @@
             this.button5.Image = global::SoftGenConverter.Properties.Resources.inscription_16px;
             resources.ApplyResources(this.button5, "button5");
             this.button5.Name = "button5";
+            this.toolTip1.SetToolTip(this.button5, resources.GetString("button5.ToolTip"));
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click_2);
             // 
@@ -339,6 +315,7 @@
             this.button3.Image = global::SoftGenConverter.Properties.Resources.inscription_16px;
             resources.ApplyResources(this.button3, "button3");
             this.button3.Name = "button3";
+            this.toolTip1.SetToolTip(this.button3, resources.GetString("button3.ToolTip"));
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.Button3_Click);
             // 
@@ -437,6 +414,7 @@
             resources.ApplyResources(this.button2, "button2");
             this.button2.Image = global::SoftGenConverter.Properties.Resources.PRP_32;
             this.button2.Name = "button2";
+            this.toolTip1.SetToolTip(this.button2, resources.GetString("button2.ToolTip"));
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
@@ -567,7 +545,7 @@
             // 
             this.toolTip1.AutomaticDelay = 200;
             this.toolTip1.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
-            this.toolTip1.ToolTipTitle = "Підсказка";
+            this.toolTip1.ToolTipTitle = "Підказка";
             // 
             // textBox1
             // 
@@ -584,7 +562,6 @@
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "Form1";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
-            this.contextMenuStrip1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.tableLayoutPanel2.ResumeLayout(false);
             this.panel7.ResumeLayout(false);
@@ -605,8 +582,6 @@
         }
 
         #endregion
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem авальToolStripMenuItem;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.DataGridView dataGridView1;
@@ -624,7 +599,6 @@
         private System.Windows.Forms.TextBox cliBankCode;
         private System.Windows.Forms.Label label5;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
-        private System.Windows.Forms.ToolStripMenuItem укрГазToolStripMenuItem;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel7;
         private System.Windows.Forms.DataGridView dataGridView2;
         private System.Windows.Forms.ComboBox comboEdr;

@@ -175,4 +175,7 @@
   <data name="icons8_add_list_64" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8_add_list_64.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Form2EditLine_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Form2EditLine_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>
