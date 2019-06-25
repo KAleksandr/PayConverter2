@@ -174,10 +174,12 @@
     <None Include="Resources\save.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\payConverterData.xml" />
     <None Include="bin\Debug\data.xml" />
     <Content Include="logo.ico" />
     <Content Include="pay.ico" />
+    <None Include="PayConverterData.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="ReleaseNotes.css" />
     <None Include="Resources\delete_forever_16px.png" />
     <None Include="Resources\inscription_16px.png" />

@@ -144,18 +144,25 @@ namespace SoftGenConverter.Properties {
         ///   Ищет локализованную строку, похожую на &lt;?xml version=&quot;1.0&quot; standalone=&quot;yes&quot;?&gt;
         ///&lt;NewDataSet&gt;
         ///  &lt;Employee&gt;
-        ///    &lt;NAME&gt;АТ Райффайзен Банк Аваль&lt;/NAME&gt;
-        ///    &lt;ERDPO&gt;14305909&lt;/ERDPO&gt;
-        ///    &lt;Comment&gt;Комісія за вих перекази в нац. вал з використанням системи Клієнт-Банк на інші банки за період з 28.03.19 по 28.04.19 №265043345(UAH) 1186*1=1186 грн., без ПДВ &lt;/Comment&gt;
+        ///    &lt;NAME&gt;ОСББ&quot;ТУРКIШ СIТI ВIНН.1&quot; (ОСББ-)&lt;/NAME&gt;
+        ///    &lt;ERDPO&gt;42623309&lt;/ERDPO&gt;
+        ///    &lt;RRahunok&gt;26001924856502&lt;/RRahunok&gt;
+        ///    &lt;Comment&gt;null&lt;/Comment&gt;
         ///  &lt;/Employee&gt;
         ///  &lt;Employee&gt;
-        ///    &lt;NAME&gt;ОСББ Р.  СКАЛЕЦЬКОГО 32А&lt;/NAME&gt;
-        ///    &lt;ERDPO&gt;41955665&lt;/ERDPO&gt;
-        ///    &lt;Comment&gt;Оплата за ком. послуг з утрим. буд,споруд та прибуд.тер-ї,централ.хол.вод [остаток строки не уместился]&quot;;.
+        ///    &lt;NAME&gt;ОСББ&quot;ПИРОГОВА 63&quot; (ОСББ-)&lt;/NAME&gt;
+        ///    &lt;ERDPO&gt;42966510&lt;/ERDPO&gt;
+        ///    &lt;RRahunok&gt;26001055349581&lt;/RRahunok&gt;
+        ///    &lt;Comment&gt;null&lt;/Comment&gt;
+        ///  &lt;/Employee&gt;
+        ///  &lt;Employee&gt;
+        ///    &lt;NAME&gt;ПП&quot;ВЕКТОР-6&quot;&lt;/NAME&gt;
+        ///    &lt;ERDPO&gt;37836393&lt;/ERDPO&gt;
+        ///    &lt;RRahunok&gt;26001350500300&lt;/RRa [остаток строки не уместился]&quot;;.
         /// </summary>
-        internal static string payConverterData {
+        internal static string PayConverterData {
             get {
-                return ResourceManager.GetString("payConverterData", resourceCulture);
+                return ResourceManager.GetString("PayConverterData", resourceCulture);
             }
         }
         

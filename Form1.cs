@@ -30,18 +30,17 @@ namespace SoftGenConverter
         
         private string P = "·";
         
-        private string path2 = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"data.xml");
-        private string path3 = Properties.Resources.payConverterData;
+        private string path2 = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"PayConverterData.xml");
+       private string path3 = Properties.Resources.PayConverterData;
         private string path = "";
 
 
 
-        static String strAppPath = Path.GetDirectoryName(System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName);
-        static String strFilePath = Path.Combine(strAppPath, "Resources");
-        String strFullFilename = Path.Combine(strFilePath, "payConverterData.xml");
+        
 
         public Form1()
         {
+            
 
             InitializeComponent();
             initData();

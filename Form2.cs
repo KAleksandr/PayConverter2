@@ -19,7 +19,7 @@ namespace SoftGenConverter
     {
         private BindingSource baseB = new BindingSource();
         private bool edit = false;
-        private string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"data.xml");
+        private string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"PayConverterData.xml");
         public Form2()
         {
             InitializeComponent();
