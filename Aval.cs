@@ -32,7 +32,7 @@ namespace SoftGenConverter
                 string[] parts = line.Split(';');  //Разделитель в CSV файле.
                 if (aval)
                 {
-                    name = parts[0].ToUpper().Replace("І","I");
+                    name = parts[0].ToUpper();
                     mfo = parts[2];
                     rahunok = ""+ Convert.ToInt64(parts[3]);
                     zkpo = parts[4];
@@ -42,7 +42,7 @@ namespace SoftGenConverter
                 }
                 else
                 {
-                    name = parts[0].ToUpper().Replace("І", "I"); ;
+                    name = parts[0].ToUpper();
                     mfo = parts[1];
                     rahunok = ""+ Convert.ToInt64(parts[2]);
                     zkpo = parts[3];
@@ -161,13 +161,27 @@ namespace SoftGenConverter
         }
         public static string shortText(string str)
         {
-            str = str.Replace("  ", @" ").Replace("i","і");
-            str = str.Replace("утримання", "утрим. ").Replace("будинків", "буд. ").Replace("утриман.", "утрим. ").Replace("управління", "управл. ").Replace("будинку", @"буд. ").Replace("комунальні", "комун. ").Replace("комунальних", "комун. ").Replace("послуги", "посл. ").Replace("послуг", "посл. ").Replace("і","i");
+            string pattern = @"будин\S+";
+            string pattern2 = @"комунал\S+";
+            string pattern3 = @"послуг\S+";
+            string pattern4 = @"утриман\S+";
+            string pattern5 = @"управл\S+";
+            
+            
+            str = Regex.Replace(str.Trim(), @"[^\S\r\n]+", " ");
+            str = Regex.Replace(str, pattern, "буд. ");
+            str =Regex.Replace(str, pattern2, "комун. ");
+            str =Regex.Replace(str, pattern3, "посл. ");
+            str =Regex.Replace(str, pattern4, "утрим. ");
+            str =Regex.Replace(str, pattern5, "управл. ");
+          
+           // str = str.Replace("  ", @" ").Replace("i","і");
+            
             return str;
         }
         public static void Filter(DataGridView dataGridView1, string foundText, int[] col)
         {
-            string textF = foundText.Trim().Replace("і", "i").ToLower();
+            string textF = foundText.Trim().ToLower();
 
             for (int i = 0; i < dataGridView1.RowCount; i++)
                 
@@ -191,6 +205,12 @@ namespace SoftGenConverter
                 }
             if (string.IsNullOrEmpty(foundText)) dataGridView1.ClearSelection();
 
+        }
+        public static string convertDate(string text)
+        {
+            string pattern = @"за\s?[0-9]{2}[.][0-9]{2}[.][0-9]{4}\s*р?.?";
+             
+            return Regex.Replace(text, pattern, "  за ##.##.#### "); 
         }
     }
 }
