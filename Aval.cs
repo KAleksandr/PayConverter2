@@ -35,7 +35,7 @@ namespace SoftGenConverter
                     name = parts[0].ToUpper().Replace("І","I");
                     mfo = parts[2];
                     rahunok = ""+ Convert.ToInt64(parts[3]);
-                    zkpo = "" + Convert.ToInt64(parts[4]);
+                    zkpo = parts[4];
                     dateP = date;
                     summa = parts[8];
                     isAval = 1;
@@ -45,7 +45,7 @@ namespace SoftGenConverter
                     name = parts[0].ToUpper().Replace("І", "I"); ;
                     mfo = parts[1];
                     rahunok = ""+ Convert.ToInt64(parts[2]);
-                    zkpo = "" + Convert.ToInt64(parts[3]);
+                    zkpo = parts[3];
                     summa = parts[5];
                     isAval = 0;
                     dateP = date;
@@ -161,8 +161,8 @@ namespace SoftGenConverter
         }
         public static string shortText(string str)
         {
-            str = str.Replace("  ", @" ");
-            str = str.Replace("утримання", "утрим.").Replace("будинків", "буд.").Replace("утриман.", "утрим.").Replace("управління", "управл.").Replace("будинку", @"буд.").Replace("комунальні", "комун. ").Replace("комунальних", "комун. ").Replace("послуги", "посл. ").Replace("послуг", "посл. ");
+            str = str.Replace("  ", @" ").Replace("i","і");
+            str = str.Replace("утримання", "утрим. ").Replace("будинків", "буд. ").Replace("утриман.", "утрим. ").Replace("управління", "управл. ").Replace("будинку", @"буд. ").Replace("комунальні", "комун. ").Replace("комунальних", "комун. ").Replace("послуги", "посл. ").Replace("послуг", "посл. ").Replace("і","i");
             return str;
         }
     }

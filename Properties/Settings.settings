@@ -6,25 +6,22 @@
       <Value Profile="(Default)">Райффайзен Банк Аваль</Value>
     </Setting>
     <Setting Name="mfo" Type="System.String" Scope="User">
-      <Value Profile="(Default)">000000</Value>
+      <Value Profile="(Default)">380805</Value>
     </Setting>
     <Setting Name="rahunok" Type="System.String" Scope="User">
-      <Value Profile="(Default)">00000000000000</Value>
+      <Value Profile="(Default)">265043345</Value>
     </Setting>
     <Setting Name="clientBankCode" Type="System.String" Scope="User">
-      <Value Profile="(Default)">0000</Value>
-    </Setting>
-    <Setting Name="recivePayNum" Type="System.String" Scope="User">
-      <Value Profile="(Default)">00000</Value>
+      <Value Profile="(Default)">3069252</Value>
     </Setting>
     <Setting Name="name2" Type="System.String" Scope="User">
       <Value Profile="(Default)">УкрГазБанк</Value>
     </Setting>
     <Setting Name="edrpou" Type="System.String" Scope="User">
-      <Value Profile="(Default)">00000000</Value>
+      <Value Profile="(Default)">40375721</Value>
     </Setting>
     <Setting Name="rahunok2" Type="System.String" Scope="User">
-      <Value Profile="(Default)">00000000000000</Value>
+      <Value Profile="(Default)">26545743585101.980</Value>
     </Setting>
     <Setting Name="state1" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">1</Value>

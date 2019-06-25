@@ -32,7 +32,7 @@ namespace SoftGenConverter
                             dataGridView1.Rows[n].Cells[1].Value = item["ERDPO"];
                             
                             dataGridView1.Rows[n].Cells[2].Value = item["RRahunok"];
-                            dataGridView1.Rows[n].Cells[3].Value = item["Comment"];
+                            dataGridView1.Rows[n].Cells[3].Value = Aval.shortText(item["Comment"].ToString());
 
                         }
                     }

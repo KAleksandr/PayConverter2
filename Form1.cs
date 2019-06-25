@@ -64,16 +64,10 @@ namespace SoftGenConverter
             isEditUkrG(editUkrG);
             Aval.StyleDataGridView(dataGridView1, false);
             Aval.StyleDataGridView(dataGridView2, false);
-            if (state == 2)
-            {
+            
                  comboEdr2.SelectedIndex = 0;
                  //setFieldsUkrGaz();
-            }
-            else
-            {
-                comboEdr2.SelectedIndex = 0;
-                //setFieldsUkrGaz();
-            }
+            
         }
 
 
@@ -98,21 +92,13 @@ namespace SoftGenConverter
 
         public void setFieldsP2()
         {
-            if (state == 2)
-            {
+            
                 textBox2.Text = Properties.Settings.Default.edrpou;
                 textBox4.Text = Properties.Settings.Default.rahunok2;
                
                 //comboEdr2.Text = Properties.Settings.Default.name2;
 
-            }
-            else
-            {
-                textBox2.Text = Properties.Settings.Default.edrpou2;
-                textBox4.Text = Properties.Settings.Default.rahunok3;
-                
-                //comboEdr2.Text = Properties.Settings.Default.name3;
-            }
+           
             
             tableLayoutPanel7.RowStyles[0].Height = 100;
             tableLayoutPanel7.RowStyles[1].Height = 0;
@@ -175,7 +161,7 @@ namespace SoftGenConverter
                     dataGridView1.Rows[n].Cells[2].Value = addDateToStr(findZkpo(CSV_Struct[i].zkpo, CSV_Struct[i].rahunok),
                        (CSV_Struct[i].dateP==dt1 ? dateTimePicker1.Value.ToString("dd.MM.yyyy") : CSV_Struct[i].dateP.ToString("dd.MM.yyyy")));
                     //dateTimePicker1.Value.ToString("dd.MM.yyyy"));
-                    if (dataGridView1.Rows[n].Cells[2].Value.Equals("null"))
+                    if (dataGridView1.Rows[n].Cells[2].Value.Equals("null") )
                     {
                         dataGridView1.Rows[n].DefaultCellStyle.BackColor = Color.BurlyWood;
                         int m = dataGridView3.Rows.Add();
@@ -611,60 +597,36 @@ namespace SoftGenConverter
                 isEditUkrG(editUkrG);
                 comboEdr2.Enabled = true;
 
-                if (state == 2)
-                {
+                
                    Properties.Settings.Default.edrpou = textBox2.Text;
                    Properties.Settings.Default.rahunok2 = textBox4.Text;
                    Properties.Settings.Default.state = 2;
                     Properties.Settings.Default.Save();
 
-                }
-                else
-                {
-                    Properties.Settings.Default.edrpou2 = textBox2.Text;
-                    Properties.Settings.Default.rahunok3 = textBox4.Text;
-                    Properties.Settings.Default.state = 3;
-                    Properties.Settings.Default.Save();
-                   
-
-                }
+                
                
             }
         }
 
         public void setFieldsUkrGaz()
         {
-            if (state == 2)
-            {
+           
                 
                 
                 textBox2.Text = Properties.Settings.Default.edrpou;
                 textBox4.Text = Properties.Settings.Default.rahunok2;
-            }
-            else
-            {
-                textBox2.Text = Properties.Settings.Default.edrpou2;
-                textBox4.Text = Properties.Settings.Default.rahunok3;
-            }
+            
+           
         }
         private void comboEdr2_SelectedIndexChanged(object sender, EventArgs e)
         {
             
-            string selectedState = comboEdr2.SelectedItem.ToString();
+            //string selectedState = comboEdr2.SelectedItem.ToString();
            
-            if (selectedState.Equals(Properties.Settings.Default.name2))
-            {
+            
                 state = 2;
                 setFieldsUkrGaz();
-            }
-            else
-            {
-                state = 3;
-                setFieldsUkrGaz();
-
-                
-            }
-
+           
             
         }
 

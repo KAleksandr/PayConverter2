@@ -37,7 +37,7 @@ namespace SoftGenConverter.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("000000")]
+        [global::System.Configuration.DefaultSettingValueAttribute("380805")]
         public string mfo {
             get {
                 return ((string)(this["mfo"]));
@@ -49,7 +49,7 @@ namespace SoftGenConverter.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("00000000000000")]
+        [global::System.Configuration.DefaultSettingValueAttribute("265043345")]
         public string rahunok {
             get {
                 return ((string)(this["rahunok"]));
@@ -61,25 +61,13 @@ namespace SoftGenConverter.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0000")]
+        [global::System.Configuration.DefaultSettingValueAttribute("3069252")]
         public string clientBankCode {
             get {
                 return ((string)(this["clientBankCode"]));
             }
             set {
                 this["clientBankCode"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("00000")]
-        public string recivePayNum {
-            get {
-                return ((string)(this["recivePayNum"]));
-            }
-            set {
-                this["recivePayNum"] = value;
             }
         }
         
@@ -97,7 +85,7 @@ namespace SoftGenConverter.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("00000000")]
+        [global::System.Configuration.DefaultSettingValueAttribute("40375721")]
         public string edrpou {
             get {
                 return ((string)(this["edrpou"]));
@@ -109,7 +97,7 @@ namespace SoftGenConverter.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("00000000000000")]
+        [global::System.Configuration.DefaultSettingValueAttribute("26545743585101.980")]
         public string rahunok2 {
             get {
                 return ((string)(this["rahunok2"]));

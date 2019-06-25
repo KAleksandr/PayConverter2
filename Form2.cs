@@ -31,7 +31,7 @@ namespace SoftGenConverter
             }
             catch (Exception) { }
           
-           // RemoveDuplicate();
+            RemoveDuplicate();
 
         }
 
@@ -243,21 +243,24 @@ namespace SoftGenConverter
 
                     for (int cellIndex = 0; cellIndex < row.Cells.Count; cellIndex++)
                     {
-                        rowToCompare.Cells[3].Value = Aval.shortText(rowToCompare.Cells[3].Value.ToString());
-                        string pattern = @"за\s?[0-9]{2}[.][0-9]{2}[.][0-9]{4}р.";
+                        //dataGridView1.
+                        //rowToCompare.Cells[3].Value = Aval.shortText(rowToCompare.Cells[3].Value.ToString());
+                        //string pattern = @"за\s?[0-9]{2}[.][0-9]{2}[.][0-9]{4}р.";
 
-                        rowToCompare.Cells[3].Value = Regex.Replace(rowToCompare.Cells[3].Value.ToString(), pattern, "  за ##.##.#### ");
+                        //rowToCompare.Cells[3].Value = Regex.Replace(rowToCompare.Cells[3].Value.ToString(), pattern, "  за ##.##.#### ");
 
-                        //rowToCompare.Cells[2].Value = rowToCompare.Cells[2].Value.ToString().Replace("  ", @" ");
-                        //rowToCompare.Cells[2].Value = rowToCompare.Cells[2].Value.ToString().Replace("утримання", "утрим.").Replace("будинків", "буд.").Replace("утриман.", "утрим.").Replace("управління", "управл.");
 
-                        if (!rowToCompare.Cells[1].Value.Equals(row.Cells[1].Value) && !rowToCompare.Cells[2].Value.Equals(row.Cells[2].Value) )
+                        if (!rowToCompare.Cells[2].Value.Equals(row.Cells[2].Value) )
                         {
                             //MessageBox.Show(rowToCompare.Cells[cellIndex+1].Value.ToString() + "   -  " +row.Cells[cellIndex+1].Value);
 
                             duplicateRow = false;
                             break;
-                            
+
+                        }
+                        else
+                        {
+                           // MessageBox.Show(rowToCompare.Cells[cellIndex+1].Value.ToString() + "   -  " +row.Cells[cellIndex+1].Value);
                         }
 
                     }
@@ -293,17 +296,32 @@ namespace SoftGenConverter
             
         }
 
-      
+        public void fillFieldsD()
+        {
+            textBox2.Text = dataGridView1.CurrentRow.Cells[0].Value.ToString();
+            ederpo.Text = dataGridView1.CurrentRow.Cells[1].Value.ToString();
+
+            textBox1.Text = dataGridView1.CurrentRow.Cells[2].Value.ToString();
+            textBox3.Text = dataGridView1.CurrentRow.Cells[3].Value.ToString();
+        }
+        public void fillFieldsDg()
+        {
+            int id = dataGridView1.CurrentRow.Index - 1;
+            if (id < 0) id = 0;
+
+            textBox2.Text = dataGridView1.Rows[id].Cells[0].Value.ToString();
+           // textBox2.Text = dataGridView1.CurrentRow.Cells[0].Value.ToString();
+            ederpo.Text = dataGridView1.CurrentRow.Cells[1].Value.ToString();
+
+            textBox1.Text = dataGridView1.CurrentRow.Cells[2].Value.ToString();
+            textBox3.Text = dataGridView1.CurrentRow.Cells[3].Value.ToString();
+        }
 
         private void dataGridView1_MouseClick(object sender, MouseEventArgs e)
         {
             try
             {
-                textBox2.Text = dataGridView1.CurrentRow.Cells[0].Value.ToString();
-                ederpo.Text = dataGridView1.CurrentRow.Cells[1].Value.ToString();
-              
-            textBox1.Text = dataGridView1.CurrentRow.Cells[2].Value.ToString();
-            textBox3.Text = dataGridView1.CurrentRow.Cells[3].Value.ToString();
+                fillFieldsD();
             }
             catch (Exception )
             {
@@ -311,12 +329,14 @@ namespace SoftGenConverter
             }
             
             button1.Text = "Редагувати";
-            edit = !edit;
+            edit = true;
            
         }
 
         private void dataGridView1_Scroll(object sender, ScrollEventArgs e)
         {
+            dataGridView1.CurrentRow.Selected = false;
+            edit = false;
             button1.Text = "Додати";
             ederpo.Text = string.Empty;
             textBox1.Text = string.Empty;
@@ -365,6 +385,81 @@ namespace SoftGenConverter
 
             var headerBounds = new Rectangle(e.RowBounds.Left, e.RowBounds.Top, grid.RowHeadersWidth, e.RowBounds.Height);
             e.Graphics.DrawString(rowIdx, this.Font, SystemBrushes.ControlText, headerBounds, centerFormat);
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            textBox3.Text = Aval.shortText(textBox3.Text);
+            //textBox1.Text = textBox1.Text.Replace("утримання", "утрим.").Replace("будинків", "буд.").Replace("утриман.", "утрим.").Replace("управління", "управл.").Replace("  ",@" ");
+            if (ederpo.Text == "" || textBox3.Text == "" || textBox1.Text =="")
+            {
+                MessageBox.Show("Заповніть всі поля.", "Помилка.");
+            }
+            else if (textBox3.Text.Length > 160)
+            {
+
+
+                MessageBox.Show("Перевищено мінімальну кількість символів (160) - " + textBox3.Text.Length, "Помилка.");
+            }
+            else
+            {
+                    string pattern = @"за\s?[0-9]{2}[.][0-9]{2}[.][0-9]{4}р.";
+                    string newLine = Regex.Replace(textBox3.Text, pattern, "  за ##.##.#### ");
+                if (!edit)
+                {
+                    
+
+                    int n = dataGridView1.Rows.Add();
+                    dataGridView1.Rows[n].Cells[0].Value = textBox2.Text; // 
+                    dataGridView1.Rows[n].Cells[1].Value = ederpo.Text; // 
+                    dataGridView1.Rows[n].Cells[2].Value = textBox1.Text;
+                    dataGridView1.Rows[n].Cells[3].Value = newLine; // 
+                }
+                else
+                {
+                    
+                    dataGridView1.CurrentRow.Cells[0].Value = textBox2.Text; // 
+                    dataGridView1.CurrentRow.Cells[1].Value = ederpo.Text; // 
+                    dataGridView1.CurrentRow.Cells[2].Value = textBox1.Text; // 
+                    dataGridView1.CurrentRow.Cells[3].Value = newLine; // 
+                    edit = !edit;
+                }
+
+            }
+           
+
+            if (textBox1.Text.Length <= 160)
+            {
+                button1.Text = "Додати";
+                ederpo.Text = string.Empty;
+                textBox1.Text = string.Empty;
+                textBox2.Text = string.Empty;
+                textBox3.Text = string.Empty;
+                dataGridView1.Refresh();
+            }
+        }
+
+        private void textBox4_KeyPress(object sender, KeyPressEventArgs e)
+        {
+
+            for (int i = 0; i <dataGridView1.RowCount; i++)
+                if (dataGridView1[0, i].FormattedValue.ToString().ToLower().
+                    Contains(textBox4.Text.Trim().ToLower()))
+                {
+                    //MessageBox.Show(dataGridView1[1, i].FormattedValue.ToString());
+                    dataGridView1.Rows[i].Selected = true;
+                        //dataGridView1.Sort(dataGridView1.Columns[0], ListSortDirection.Ascending);
+                    //return;
+                }
+                else
+                {
+                    dataGridView1.Rows[i].Selected = false;
+                }
+        }
+
+        private void dataGridView1_KeyDown(object sender, KeyEventArgs e)
+        {
+           // fillFieldsDg();
         }
     }
 }
