@@ -30,9 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.укрГазToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.авальToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -69,7 +69,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.mfo = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
             this.Column11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -78,6 +77,7 @@
             this.panel8 = new System.Windows.Forms.Panel();
             this.saveFile = new System.Windows.Forms.Button();
             this.openFile = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.label4 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -219,7 +219,6 @@
             this.panel7.Controls.Add(this.panel2);
             this.panel7.Controls.Add(this.gridHeader);
             this.panel7.Controls.Add(this.panel1);
-            this.panel7.Controls.Add(this.button2);
             this.panel7.Controls.Add(this.dataGridView3);
             this.panel7.Controls.Add(this.panel8);
             this.panel7.Controls.Add(this.dateTimePicker1);
@@ -249,9 +248,8 @@
             // label9
             // 
             resources.ApplyResources(this.label9, "label9");
-            this.label9.BackColor = System.Drawing.SystemColors.Info;
-            this.label9.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label9.ForeColor = System.Drawing.Color.Tomato;
+            this.label9.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.label9.ForeColor = System.Drawing.Color.SteelBlue;
             this.label9.Name = "label9";
             this.label9.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Label9_MouseClick);
             // 
@@ -314,9 +312,8 @@
             // label8
             // 
             resources.ApplyResources(this.label8, "label8");
-            this.label8.BackColor = System.Drawing.SystemColors.Info;
-            this.label8.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label8.ForeColor = System.Drawing.Color.Tomato;
+            this.label8.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.label8.ForeColor = System.Drawing.Color.SteelBlue;
             this.label8.Name = "label8";
             this.label8.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Label8_MouseClick);
             // 
@@ -369,13 +366,6 @@
             resources.ApplyResources(this.label2, "label2");
             this.label2.Name = "label2";
             // 
-            // button2
-            // 
-            resources.ApplyResources(this.button2, "button2");
-            this.button2.Name = "button2";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
             // dataGridView3
             // 
             this.dataGridView3.AllowUserToAddRows = false;
@@ -412,13 +402,16 @@
             // 
             this.panel8.Controls.Add(this.saveFile);
             this.panel8.Controls.Add(this.openFile);
+            this.panel8.Controls.Add(this.button2);
             resources.ApplyResources(this.panel8, "panel8");
             this.panel8.Name = "panel8";
             // 
             // saveFile
             // 
             resources.ApplyResources(this.saveFile, "saveFile");
-            this.saveFile.Image = global::SoftGenConverter.Properties.Resources.save_32px;
+            this.saveFile.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.saveFile.FlatAppearance.BorderSize = 0;
+            this.saveFile.Image = global::SoftGenConverter.Properties.Resources.icons8_save_file_32;
             this.saveFile.Name = "saveFile";
             this.toolTip1.SetToolTip(this.saveFile, resources.GetString("saveFile.ToolTip"));
             this.saveFile.UseVisualStyleBackColor = true;
@@ -427,11 +420,25 @@
             // openFile
             // 
             resources.ApplyResources(this.openFile, "openFile");
-            this.openFile.Image = global::SoftGenConverter.Properties.Resources.browse_folder_32px;
+            this.openFile.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.openFile.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.openFile.FlatAppearance.BorderSize = 0;
+            this.openFile.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.openFile.Image = global::SoftGenConverter.Properties.Resources.icons8_view_file_32;
             this.openFile.Name = "openFile";
             this.toolTip1.SetToolTip(this.openFile, resources.GetString("openFile.ToolTip"));
-            this.openFile.UseVisualStyleBackColor = true;
+            this.openFile.UseVisualStyleBackColor = false;
             this.openFile.Click += new System.EventHandler(this.OpenFile_Click);
+            // 
+            // button2
+            // 
+            this.button2.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button2.FlatAppearance.BorderSize = 0;
+            resources.ApplyResources(this.button2, "button2");
+            this.button2.Image = global::SoftGenConverter.Properties.Resources.PRP_32;
+            this.button2.Name = "button2";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // dateTimePicker1
             // 
@@ -484,16 +491,16 @@
             // 
             // dataGridViewTextBoxColumn1
             // 
-            dataGridViewCellStyle1.NullValue = "0";
-            this.dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.NullValue = "0";
+            this.dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle4;
             resources.ApplyResources(this.dataGridViewTextBoxColumn1, "dataGridViewTextBoxColumn1");
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             this.dataGridViewTextBoxColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
             // dataGridViewTextBoxColumn2
             // 
-            dataGridViewCellStyle2.NullValue = "1";
-            this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.NullValue = "1";
+            this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle5;
             resources.ApplyResources(this.dataGridViewTextBoxColumn2, "dataGridViewTextBoxColumn2");
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             // 
@@ -534,8 +541,8 @@
             // 
             // dataGridViewTextBoxColumn10
             // 
-            dataGridViewCellStyle3.NullValue = "0";
-            this.dataGridViewTextBoxColumn10.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.NullValue = "0";
+            this.dataGridViewTextBoxColumn10.DefaultCellStyle = dataGridViewCellStyle6;
             resources.ApplyResources(this.dataGridViewTextBoxColumn10, "dataGridViewTextBoxColumn10");
             this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
             // 

@@ -174,6 +174,13 @@
     <None Include="Resources\save.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\icons8_add_list_64.png" />
+    <None Include="Resources\form2Add_32.png" />
+    <None Include="Resources\PRP_32.png" />
+    <None Include="Resources\icons8_save_file_32.png" />
+    <None Include="Resources\icons8_view_file_32.png" />
+    <None Include="Resources\fileView.jpg" />
+    <None Include="Resources\fileView.png" />
     <None Include="bin\Debug\data.xml" />
     <Content Include="logo.ico" />
     <Content Include="pay.ico" />

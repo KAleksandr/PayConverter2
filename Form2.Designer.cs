@@ -67,8 +67,8 @@
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 26.53061F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 73.46939F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 27.45826F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 72.54174F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(959, 539);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
@@ -82,9 +82,9 @@
             this.Column4,
             this.Column3});
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(3, 145);
+            this.dataGridView1.Location = new System.Drawing.Point(3, 150);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(953, 391);
+            this.dataGridView1.Size = new System.Drawing.Size(953, 386);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellEndEdit);
             this.dataGridView1.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridView1_RowPostPaint);
@@ -125,6 +125,7 @@
             // 
             // tableLayoutPanel2
             // 
+            this.tableLayoutPanel2.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.tableLayoutPanel2.ColumnCount = 2;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 145F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 808F));
@@ -148,7 +149,7 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 104F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(953, 136);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(953, 141);
             this.tableLayoutPanel2.TabIndex = 1;
             // 
             // label2
@@ -165,7 +166,7 @@
             // 
             this.textBox1.Location = new System.Drawing.Point(148, 51);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(758, 20);
+            this.textBox1.Size = new System.Drawing.Size(680, 20);
             this.textBox1.TabIndex = 0;
             // 
             // ederpo
@@ -174,7 +175,7 @@
             this.ederpo.Location = new System.Drawing.Point(148, 27);
             this.ederpo.Multiline = true;
             this.ederpo.Name = "ederpo";
-            this.ederpo.Size = new System.Drawing.Size(758, 18);
+            this.ederpo.Size = new System.Drawing.Size(680, 18);
             this.ederpo.TabIndex = 4;
             // 
             // label3
@@ -192,7 +193,7 @@
             this.textBox2.Dock = System.Windows.Forms.DockStyle.Left;
             this.textBox2.Location = new System.Drawing.Point(148, 3);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(758, 20);
+            this.textBox2.Size = new System.Drawing.Size(680, 20);
             this.textBox2.TabIndex = 8;
             // 
             // label1
@@ -219,7 +220,7 @@
             // 
             this.textBox3.Location = new System.Drawing.Point(148, 75);
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(758, 20);
+            this.textBox3.Size = new System.Drawing.Size(680, 20);
             this.textBox3.TabIndex = 11;
             // 
             // panel1
@@ -254,19 +255,20 @@
             this.panel2.Controls.Add(this.button2);
             this.panel2.Location = new System.Drawing.Point(3, 99);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(139, 33);
+            this.panel2.Size = new System.Drawing.Size(139, 38);
             this.panel2.TabIndex = 13;
             // 
             // button1
             // 
             this.button1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.button1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.button1.Location = new System.Drawing.Point(0, 0);
+            this.button1.FlatAppearance.BorderSize = 0;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Image = global::SoftGenConverter.Properties.Resources.form2Add_32;
+            this.button1.Location = new System.Drawing.Point(6, 3);
             this.button1.Name = "button1";
             this.button1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.button1.Size = new System.Drawing.Size(80, 33);
+            this.button1.Size = new System.Drawing.Size(36, 35);
             this.button1.TabIndex = 10;
-            this.button1.Text = "Додати";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
@@ -275,7 +277,7 @@
             this.button2.Dock = System.Windows.Forms.DockStyle.Right;
             this.button2.Location = new System.Drawing.Point(70, 0);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(69, 33);
+            this.button2.Size = new System.Drawing.Size(69, 38);
             this.button2.TabIndex = 6;
             this.button2.Text = "button2";
             this.button2.UseVisualStyleBackColor = true;
