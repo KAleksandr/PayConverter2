@@ -275,14 +275,15 @@ namespace SoftGenConverter
         {
             try
             {
-                if (string.IsNullOrEmpty(dataGridView1.CurrentRow.Cells[2].Value.ToString()))
+                if (string.IsNullOrEmpty(dataGridView1.CurrentRow.Cells[3].Value.ToString()))
                 {
-                    dataGridView1.CurrentRow.Cells[2].Value = "null";
+                    dataGridView1.CurrentRow.Cells[3].Value = "null";
                 }
-                dataGridView1.CurrentRow.Cells[3].Value = Aval.shortText(dataGridView1.CurrentRow.Cells[2].Value.ToString());
+                dataGridView1.CurrentRow.Cells[3].Value = Aval.shortText(dataGridView1.CurrentRow.Cells[3].Value.ToString());
                 textBox2.Text = dataGridView1.CurrentRow.Cells[0].Value.ToString();
                 ederpo.Text = dataGridView1.CurrentRow.Cells[1].Value.ToString();
                 textBox1.Text = dataGridView1.CurrentRow.Cells[2].Value.ToString();
+                textBox3.Text = dataGridView1.CurrentRow.Cells[3].Value.ToString();
             }
             catch (Exception) { }
             
@@ -302,6 +303,7 @@ namespace SoftGenConverter
                 ederpo.Text = dataGridView1.CurrentRow.Cells[1].Value.ToString();
               
             textBox1.Text = dataGridView1.CurrentRow.Cells[2].Value.ToString();
+            textBox3.Text = dataGridView1.CurrentRow.Cells[3].Value.ToString();
             }
             catch (Exception )
             {
@@ -319,6 +321,7 @@ namespace SoftGenConverter
             ederpo.Text = string.Empty;
             textBox1.Text = string.Empty;
             textBox2.Text = string.Empty;
+            textBox3.Text = string.Empty;
         }
 
         private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
@@ -326,10 +329,10 @@ namespace SoftGenConverter
             int id = dataGridView1.CurrentCell.RowIndex;
             try
             {
-                if (dataGridView1.CurrentRow.Cells[2].Value.ToString() == "" || dataGridView1.CurrentRow.Cells[2].Value.ToString() == "")
+                if (dataGridView1.CurrentRow.Cells[3].Value.ToString() == "" || dataGridView1.CurrentRow.Cells[3].Value.ToString() == "")
                 {
                     MessageBox.Show("Заповніть всі поля.", "Помилка.");
-                    dataGridView1.CurrentRow.Cells[2].Value = "null";
+                    dataGridView1.CurrentRow.Cells[3].Value = "null";
                 }
                 else if (textBox1.Text.Length > 160)
                 {
@@ -338,7 +341,7 @@ namespace SoftGenConverter
                     MessageBox.Show("Перевищено мінімальну кількість символів (160) - " + textBox1.Text.Length, "Помилка.");
                 }
                 dataGridView1.CurrentRow.Cells[3].Value =
-                    Aval.shortText(dataGridView1.CurrentRow.Cells[2].Value.ToString());
+                    Aval.shortText(dataGridView1.CurrentRow.Cells[3].Value.ToString());
                 
             }
             catch (Exception)
