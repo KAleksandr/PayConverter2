@@ -356,14 +356,7 @@ namespace SoftGenConverter
 
 
 
-        private void DropDownButton1_Click(object sender, EventArgs e)
-        {
-
-
-            contextMenuStrip1.Show(Cursor.Position.X, Cursor.Position.Y);
-
-
-        }
+        
 
         public void Save()
         {
