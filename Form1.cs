@@ -40,13 +40,9 @@ namespace SoftGenConverter
 
         public Form1()
         {
-            
-
             InitializeComponent();
             initData();
-
-
-
+            
         }
 
         public void initData()
@@ -305,7 +301,7 @@ namespace SoftGenConverter
                     {
                         if (r.Cells[1].Value.Equals(zkpo) && r.Cells[2].Value.Equals(rrahunok))
                         {
-                            return r.Cells[0].Value.ToString().ToUpper().Replace("І","I");
+                            return r.Cells[0].Value.ToString().ToUpper();
                         }
                     }
                     catch (Exception)
@@ -322,28 +318,28 @@ namespace SoftGenConverter
             return "null";
         }
 
-        public DateTime convertStrToTime(string dateP)
-        {
-            DateTime CreatdDate = DateTime.Today;
-            if (!dateP.Equals(0))
-            {
-                try
-                {
-                    dateP = (dateP.Insert(4, "-")).Insert(7, "-");
-                    CreatdDate = DateTime.ParseExact(dateP, "yyyy-MM-dd",
-                        System.Globalization.CultureInfo.InvariantCulture);
-                }
-                catch (Exception)
-                {
+        //public DateTime convertStrToTime(string dateP)
+        //{
+        //    DateTime CreatdDate = DateTime.Today;
+        //    if (!dateP.Equals(0))
+        //    {
+        //        try
+        //        {
+        //            dateP = (dateP.Insert(4, "-")).Insert(7, "-");
+        //            CreatdDate = DateTime.ParseExact(dateP, "yyyy-MM-dd",
+        //                System.Globalization.CultureInfo.InvariantCulture);
+        //        }
+        //        catch (Exception)
+        //        {
 
-                }
+        //        }
 
-            }
+        //    }
 
 
 
-            return CreatdDate;
-        }
+        //    return CreatdDate;
+        //}
 
         public string converterDate(string dateS)
         {

@@ -44,51 +44,7 @@ namespace SoftGenConverter
         //    return str;
         //}
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            textBox1.Text = Aval.shortText(textBox1.Text);
-            //textBox1.Text = textBox1.Text.Replace("утримання", "утрим.").Replace("будинків", "буд.").Replace("утриман.", "утрим.").Replace("управління", "управл.").Replace("  ",@" ");
-            if (ederpo.Text == "" || textBox1.Text == "")
-                {
-                        MessageBox.Show("Заповніть всі поля.", "Помилка.");
-                }
-            else if (textBox1.Text.Length > 160)
-            {
-                
-
-                MessageBox.Show("Перевищено мінімальну кількість символів (160) - "+ textBox1.Text.Length, "Помилка.");
-            }
-            else 
-                if (!edit)
-                {
-                    string pattern = @"за\s[0-9]{2}[.][0-9]{2}[.][0-9]{4}р\.";
-                    string newLine = Regex.Replace(textBox1.Text, pattern, "  за ##.##.#### ");
-
-                    int n = dataGridView1.Rows.Add();
-                   dataGridView1.Rows[n].Cells[0].Value = textBox2.Text; // 
-                   dataGridView1.Rows[n].Cells[1].Value = ederpo.Text; // 
-                   dataGridView1.Rows[n].Cells[2].Value = newLine; // 
-                }
-                else
-                {
-                    string pattern = @"за\s[0-9]{2}[.][0-9]{2}[.][0-9]{4}р\.";
-                    string newLine = Regex.Replace(textBox1.Text, pattern, "  за ##.##.#### ");
-                    dataGridView1.CurrentRow.Cells[0].Value = textBox2.Text; // 
-                    dataGridView1.CurrentRow.Cells[1].Value = ederpo.Text; // 
-                    dataGridView1.CurrentRow.Cells[2].Value = newLine; // 
-                    edit = !edit;
-                }
-
-            if (textBox1.Text.Length <= 160)
-            {
-                button1.Text = "Додати";
-                ederpo.Text = string.Empty;
-                textBox1.Text = string.Empty;
-                textBox2.Text = string.Empty;
-                dataGridView1.Refresh();
-            }
-                
-        }
+        
 
         public void loadXml()
         {
@@ -176,23 +132,8 @@ namespace SoftGenConverter
             }
 
 
-            //Метод для получения частей из строки
-            public void piece(string line)
-            {
-
-                string[] parts = line.Split(';');  //Разделитель в CSV файле.
-
-                ID = parts[0].Replace("\"", "");
-                Name = parts[19].Replace("", "");
-                List_price = parts[20].Replace("", "");
-                // Regex regexDate = new Regex(@"[за ][0-9]{2}[.][0-9]{2}[.][0-9]{2}[р.]");
-               // string pattern = @"за\s[0-9]{2}[.][0-9]{2}[.][0-9]{4}р\.";
-               // string text = parts[23].Replace("\"", "");
-                //string yes = Regex.Replace(text, pattern, "  за ##.##.#### ");
-
-                //MyPrice = yes;
-                MyPrice = parts[23]; 
-            }
+            
+        
             public void exportPrplat(string line)
             {
 
@@ -202,12 +143,12 @@ namespace SoftGenConverter
                 Name = parts[10];
                 List_price = parts[9];
                 RRahunok = parts[8];
-                // Regex regexDate = new Regex(@"[за ][0-9]{2}[.][0-9]{2}[.][0-9]{2}[р.]");
-                string pattern = @"за\s?[0-9]{2}[.][0-9]{2}[.][0-9]{4}р.";
+           
+               // string pattern = @"за\s?[0-9]{2}[.][0-9]{2}[.][0-9]{4}..";
                 string text = parts[15];
-                string yes = Regex.Replace(text, pattern, "  за ##.##.#### ");
+               // string yes = Regex.Replace(text, pattern, "  за ##.##.#### ");
 
-                MyPrice = yes;
+                MyPrice = Aval.convertDate(text);
             }
             public static List<Cargo> ReadFile(string filename)
             {
@@ -356,28 +297,7 @@ namespace SoftGenConverter
 
         private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            int id = dataGridView1.CurrentCell.RowIndex;
-            try
-            {
-                if (dataGridView1.CurrentRow.Cells[3].Value.ToString() == "" || dataGridView1.CurrentRow.Cells[3].Value.ToString() == "")
-                {
-                    MessageBox.Show("Заповніть всі поля.", "Помилка.");
-                    dataGridView1.CurrentRow.Cells[3].Value = "null";
-                }
-                else if (textBox1.Text.Length > 160)
-                {
-
-
-                    MessageBox.Show("Перевищено мінімальну кількість символів (160) - " + textBox1.Text.Length, "Помилка.");
-                }
-                dataGridView1.CurrentRow.Cells[3].Value =
-                    Aval.shortText(dataGridView1.CurrentRow.Cells[3].Value.ToString());
-                
-            }
-            catch (Exception)
-            {
-
-            }
+            
            
         }
 
@@ -397,6 +317,12 @@ namespace SoftGenConverter
             e.Graphics.DrawString(rowIdx, this.Font, SystemBrushes.ControlText, headerBounds, centerFormat);
         }
 
+        //public string convertDate(string text)
+        //{
+        //    string pattern = @"за\s?[0-9]{2}[.][0-9]{2}[.][0-9]{4}\s*р?.?";
+        //    string newLine = Regex.Replace(text, pattern, "  за ##.##.#### ");
+        //    return newLine;
+        //}
         private void button1_Click_1(object sender, EventArgs e)
         {
             textBox3.Text = Aval.shortText(textBox3.Text);
@@ -413,8 +339,9 @@ namespace SoftGenConverter
             }
             else
             {
-                    string pattern = @"за\s?[0-9]{2}[.][0-9]{2}[.][0-9]{4}р.";
-                    string newLine = Regex.Replace(textBox3.Text, pattern, "  за ##.##.#### ");
+                string newLine = Aval.convertDate(textBox3.Text);
+                    //string pattern = @"за\s?[0-9]{2}[.][0-9]{2}[.][0-9]{4}р.";
+                    //string newLine = Regex.Replace(textBox3.Text, pattern, "  за ##.##.#### ");
                 if (!edit)
                 {
                     
@@ -459,10 +386,33 @@ namespace SoftGenConverter
 
         private void dataGridView1_KeyDown(object sender, KeyEventArgs e)
         {
-           // fillFieldsDg();
+            // fillFieldsDg();
+            //if (e.KeyCode == Keys.Enter)
+            //{
+            //    MessageBox.Show("Enter");
+            //}
         }
 
-       
+        private void dataGridView1_CurrentCellDirtyStateChanged(object sender, EventArgs e)
+        {
+            if (dataGridView1.CurrentRow.Cells[3].Value.ToString() == "")
+            {
+                MessageBox.Show("Заповніть всі поля.", "Помилка.");
+                dataGridView1.CurrentRow.Cells[3].Value = "null";
+            }
+            else if (dataGridView1.CurrentRow.Cells[3].ToString().Length > 160)
+            {
+
+
+                MessageBox.Show("Перевищено мінімальну кількість символів (160) - " + textBox1.Text.Length, "Помилка.");
+            }
+
+            //string str = dataGridView1.CurrentRow.Cells[3].Value.ToString();
+
+
+            dataGridView1.CurrentRow.Cells[3].Value = Aval.shortText(dataGridView1.CurrentRow.Cells[3].Value.ToString());
+            dataGridView1.CurrentRow.Cells[3].Value = Aval.convertDate(dataGridView1.CurrentRow.Cells[3].Value.ToString());
+        }
     }
 }
 
