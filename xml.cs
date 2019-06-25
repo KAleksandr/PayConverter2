@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -33,7 +34,10 @@ namespace SoftGenConverter
                             
                             dataGridView1.Rows[n].Cells[2].Value = item["RRahunok"];
                             dataGridView1.Rows[n].Cells[3].Value = Aval.shortText(item["Comment"].ToString());
-
+                            if (dataGridView1.Rows[n].Cells[3].Value.Equals("null"))
+                            {
+                                dataGridView1.Rows[n].DefaultCellStyle.BackColor = Color.BurlyWood;
+                            }
                         }
                     }
                     catch (Exception) { }

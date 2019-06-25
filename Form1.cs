@@ -34,6 +34,8 @@ namespace SoftGenConverter
         private string path3 = Properties.Resources.payConverterData;
         private string path = "";
 
+
+
         static String strAppPath = Path.GetDirectoryName(System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName);
         static String strFilePath = Path.Combine(strAppPath, "Resources");
         String strFullFilename = Path.Combine(strFilePath, "payConverterData.xml");
@@ -481,7 +483,7 @@ namespace SoftGenConverter
         {
 
 
-            label2.Text = "ЕДРПОУ Платника:";
+            //  label2.Text = "ЕДРПОУ Платника:";
             //setFields2();
             setFieldsP2();
 
@@ -630,14 +632,15 @@ namespace SoftGenConverter
             
         }
 
-        
 
+        private bool changeDataG = false; // false -  dataGrid1, true - dataGrid2
         private void Label8_MouseClick(object sender, MouseEventArgs e)
         {
             tableLayoutPanel7.RowStyles[1].Height = 100;
             tableLayoutPanel7.RowStyles[0].Height = 0;
             dataGridView2.Visible = true;
             dataGridView1.Visible = false;
+            changeDataG = false;
         }
 
 
@@ -648,6 +651,7 @@ namespace SoftGenConverter
             tableLayoutPanel7.RowStyles[1].Height = 0;
             dataGridView2.Visible = false;
             dataGridView1.Visible = true;
+            changeDataG = true;
         }
 
         private void Panel1_MouseClick(object sender, MouseEventArgs e)
@@ -658,6 +662,7 @@ namespace SoftGenConverter
             dataGridView1.Visible = false;
             gridHeader.Text = label8.Text;
             dataGridView2.Sort(dataGridView2.Columns[11], ListSortDirection.Ascending);
+            textBox1.Text = string.Empty;
         }
 
         private void Panel2_MouseClick(object sender, MouseEventArgs e)
@@ -668,6 +673,7 @@ namespace SoftGenConverter
             dataGridView1.Visible = true;
             gridHeader.Text = label9.Text;
             dataGridView1.Sort(dataGridView1.Columns[2], ListSortDirection.Ascending);
+            textBox1.Text = string.Empty;
         }
 
 
@@ -790,6 +796,20 @@ namespace SoftGenConverter
             e.Graphics.DrawString(rowIdx, this.Font, SystemBrushes.ControlText, headerBounds, centerFormat);
         }
 
-        
+        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (dataGridView1.Visible)
+            {
+
+                int[] col = { 2, 6, 7, 8 };
+            Aval.Filter(dataGridView1, textBox1.Text, col);
+            }
+            else
+            {
+                int[] col = { 4, 10, 11, 12 };
+                Aval.Filter(dataGridView2, textBox1.Text, col);
+            }
+
+        }
     }
 }

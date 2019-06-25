@@ -165,5 +165,32 @@ namespace SoftGenConverter
             str = str.Replace("утримання", "утрим. ").Replace("будинків", "буд. ").Replace("утриман.", "утрим. ").Replace("управління", "управл. ").Replace("будинку", @"буд. ").Replace("комунальні", "комун. ").Replace("комунальних", "комун. ").Replace("послуги", "посл. ").Replace("послуг", "посл. ").Replace("і","i");
             return str;
         }
+        public static void Filter(DataGridView dataGridView1, string foundText, int[] col)
+        {
+            string textF = foundText.Trim().Replace("і", "i").ToLower();
+
+            for (int i = 0; i < dataGridView1.RowCount; i++)
+                
+                if (dataGridView1[col[0], i].FormattedValue.ToString().ToLower().
+                        Contains(textF) || dataGridView1[col[1], i].FormattedValue.ToString().ToLower().
+                        Contains(textF) || dataGridView1[col[2], i].FormattedValue.ToString().ToLower().
+                        Contains(textF) || dataGridView1[col[3], i].FormattedValue.ToString().ToLower().
+                        Contains(textF))
+                {
+                    //MessageBox.Show(dataGridView1[1, i].FormattedValue.ToString());
+                    dataGridView1.Rows[i].Selected = true;
+                    dataGridView1.Rows[i].Visible = true;
+
+
+                }
+                else
+                {
+                    dataGridView1.Rows[i].Visible = false;
+                    dataGridView1.Rows[i].Selected = false;
+
+                }
+            if (string.IsNullOrEmpty(foundText)) dataGridView1.ClearSelection();
+
+        }
     }
 }

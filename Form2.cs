@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.IO;
 
@@ -16,6 +17,7 @@ namespace SoftGenConverter
 {
     public partial class Form2 : Form
     {
+        private BindingSource baseB = new BindingSource();
         private bool edit = false;
         private string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"data.xml");
         public Form2()
@@ -32,7 +34,7 @@ namespace SoftGenConverter
             catch (Exception) { }
           
             RemoveDuplicate();
-
+            baseB.DataSource = dataGridView1.DataSource;
         }
 
         //public string shortText(string str)
@@ -335,7 +337,15 @@ namespace SoftGenConverter
 
         private void dataGridView1_Scroll(object sender, ScrollEventArgs e)
         {
-            dataGridView1.CurrentRow.Selected = false;
+            try
+            {
+                dataGridView1.CurrentRow.Selected = false;
+            }
+            catch (Exception)
+            {
+                
+            }
+            
             edit = false;
             button1.Text = "Додати";
             ederpo.Text = string.Empty;
@@ -439,28 +449,20 @@ namespace SoftGenConverter
             }
         }
 
+       
         private void textBox4_KeyPress(object sender, KeyPressEventArgs e)
         {
-
-            for (int i = 0; i <dataGridView1.RowCount; i++)
-                if (dataGridView1[0, i].FormattedValue.ToString().ToLower().
-                    Contains(textBox4.Text.Trim().ToLower()))
-                {
-                    //MessageBox.Show(dataGridView1[1, i].FormattedValue.ToString());
-                    dataGridView1.Rows[i].Selected = true;
-                        //dataGridView1.Sort(dataGridView1.Columns[0], ListSortDirection.Ascending);
-                    //return;
-                }
-                else
-                {
-                    dataGridView1.Rows[i].Selected = false;
-                }
+            int[] col = {0, 1, 2, 3};
+            Aval.Filter(dataGridView1, textBox4.Text, col);
+            
         }
 
         private void dataGridView1_KeyDown(object sender, KeyEventArgs e)
         {
            // fillFieldsDg();
         }
+
+       
     }
 }
 
