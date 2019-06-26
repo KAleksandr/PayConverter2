@@ -21,7 +21,7 @@ namespace SoftGenConverter
         private bool edit = false;
         private string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"PayConverterData.xml");
         Image editBtn = Properties.Resources.Form2EditLine_32; //
-        Image saveBtn = Properties.Resources.icons8_add_list_64;
+        Image saveBtn = Properties.Resources.form2Add_32;
         public Form2()
         {
             InitializeComponent();
