@@ -327,11 +327,14 @@
   <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
+  <data name="button5.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
   <data name="button5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="button5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>306, 9</value>
+    <value>300, 8</value>
   </data>
   <data name="button5.Size" type="System.Drawing.Size, System.Drawing">
     <value>22, 22</value>
@@ -365,7 +368,7 @@
     <value>УкрГазБанк - 1</value>
   </data>
   <data name="comboEdr2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>161, 9</value>
+    <value>161, 10</value>
   </data>
   <data name="comboEdr2.Size" type="System.Drawing.Size, System.Drawing">
     <value>138, 21</value>
@@ -571,11 +574,14 @@
   <data name="&gt;&gt;comboEdr.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
+  <data name="button3.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
   <data name="button3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="button3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>300, 10</value>
+    <value>293, 9</value>
   </data>
   <data name="button3.Size" type="System.Drawing.Size, System.Drawing">
     <value>22, 22</value>

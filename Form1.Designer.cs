@@ -241,8 +241,10 @@
             // 
             // button5
             // 
-            this.button5.Image = global::SoftGenConverter.Properties.Resources.inscription_16px;
+            this.button5.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button5.FlatAppearance.BorderSize = 0;
             resources.ApplyResources(this.button5, "button5");
+            this.button5.Image = global::SoftGenConverter.Properties.Resources.form1Edit;
             this.button5.Name = "button5";
             this.toolTip1.SetToolTip(this.button5, resources.GetString("button5.ToolTip"));
             this.button5.UseVisualStyleBackColor = true;
@@ -312,8 +314,10 @@
             // 
             // button3
             // 
-            this.button3.Image = global::SoftGenConverter.Properties.Resources.inscription_16px;
+            this.button3.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button3.FlatAppearance.BorderSize = 0;
             resources.ApplyResources(this.button3, "button3");
+            this.button3.Image = global::SoftGenConverter.Properties.Resources.form1Edit;
             this.button3.Name = "button3";
             this.toolTip1.SetToolTip(this.button3, resources.GetString("button3.ToolTip"));
             this.button3.UseVisualStyleBackColor = true;

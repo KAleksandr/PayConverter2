@@ -63,36 +63,6 @@ namespace SoftGenConverter.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap browse_folder_32px {
-            get {
-                object obj = ResourceManager.GetObject("browse_folder_32px", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap browse_folder_50px {
-            get {
-                object obj = ResourceManager.GetObject("browse_folder_50px", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap delete_forever_16px {
-            get {
-                object obj = ResourceManager.GetObject("delete_forever_16px", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap edit_property_16px {
             get {
                 object obj = ResourceManager.GetObject("edit_property_16px", resourceCulture);
@@ -113,16 +83,6 @@ namespace SoftGenConverter.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap edit_property_32px {
-            get {
-                object obj = ResourceManager.GetObject("edit_property_32px", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap fileView {
             get {
                 object obj = ResourceManager.GetObject("fileView", resourceCulture);
@@ -136,6 +96,26 @@ namespace SoftGenConverter.Properties {
         internal static System.Drawing.Bitmap fileView1 {
             get {
                 object obj = ResourceManager.GetObject("fileView1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap form1Edit {
+            get {
+                object obj = ResourceManager.GetObject("form1Edit", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap form1EndEdit {
+            get {
+                object obj = ResourceManager.GetObject("form1EndEdit", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -242,36 +222,6 @@ namespace SoftGenConverter.Properties {
         internal static System.Drawing.Bitmap PRP_32 {
             get {
                 object obj = ResourceManager.GetObject("PRP_32", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap save_32px {
-            get {
-                object obj = ResourceManager.GetObject("save_32px", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap save_as_16px {
-            get {
-                object obj = ResourceManager.GetObject("save_as_16px", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap theme_list_32px {
-            get {
-                object obj = ResourceManager.GetObject("theme_list_32px", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

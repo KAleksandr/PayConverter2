@@ -22,8 +22,8 @@ namespace SoftGenConverter
 
         bool editAval = false;
         bool editUkrG = false;
-        Image editBtn = Properties.Resources.edit_property_16px; //
-        Image saveBtn = Properties.Resources.save_as_16px;
+        Image editBtn = Properties.Resources.form1Edit; //
+        Image saveBtn = Properties.Resources.form1EndEdit;
         private int state = Properties.Settings.Default.state;
 
         private long numberDocAval;
