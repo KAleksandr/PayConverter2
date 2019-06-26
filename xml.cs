@@ -104,11 +104,15 @@ namespace SoftGenConverter
                 ds.WriteXml(path);
                 // MessageBox.Show("XML файл успішно збережений.", "Виконано.");
             }
-            catch
+            catch (System.Exception ex)
             {
                 MessageBox.Show("Неможливо зберегти дані в XML файл.", "Помилка.");
+                MessageBox.Show(ex.Message);
             }
-        }
+           
+           
+                
+            }
         #region MyRegion
         //public static void createConfig(string Path)
         //{

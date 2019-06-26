@@ -8,8 +8,6 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using System.Xml;
-using System.Xml.Linq;
 
 
 namespace SoftGenConverter
@@ -29,16 +27,20 @@ namespace SoftGenConverter
         private string P = "·";
 
         private string path2 = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"PayConverterData.xml");
-        
+        private string Version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
         private string path = "";
 
         public Form1()
         {
             InitializeComponent();
             initData();
+
+
+            //MessageBox.Show("");
         }
+
         //Двойная буферизация для таблиц
-        void SetDoubleBuffered(Control c, bool value)
+        private void SetDoubleBuffered(Control c, bool value)
         {
             PropertyInfo pi = typeof(Control).GetProperty("DoubleBuffered", BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic);
             if (pi != null)
@@ -65,8 +67,30 @@ namespace SoftGenConverter
             SetDoubleBuffered(dataGridView1, true);
             SetDoubleBuffered(dataGridView2, true);
             SetDoubleBuffered(dataGridView3, true);
+            Properties.Settings.Default.count++;
+            Properties.Settings.Default.Save();
+            backUpData();
+
         }
 
+        public void backUpData()
+        {
+            if (Properties.Settings.Default.count % 10 == 0)
+            {
+                string directory = $@"{Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)}" + "\\PayConverterBackup";
+                bool exists = System.IO.Directory.Exists(directory);
+                if (!exists)
+                {
+                    System.IO.Directory.CreateDirectory(directory);
+                }
+
+                string date = DateTime.Today.ToString("ddMMyyyy");
+                string bakFilePath = directory + "\\" + date + "PayConverterData.xml" + ".bak";
+                Xml.saveXml(dataGridView3, bakFilePath);
+
+            }
+
+        }
 
         public void setFieldsP()
         {
@@ -200,7 +224,7 @@ namespace SoftGenConverter
                             isNull = true;
                         }
                     }
-                    catch (Exception)
+                    catch
                     {
 
                     }
@@ -251,7 +275,7 @@ namespace SoftGenConverter
                             return r.Cells[3].Value.ToString();
                         }
                     }
-                    catch (Exception)
+                    catch
                     {
                         return "null";
                     }
@@ -272,7 +296,7 @@ namespace SoftGenConverter
                             return r.Cells[0].Value.ToString().ToUpper();
                         }
                     }
-                    catch (Exception)
+                    catch
                     {
                         return "null";
                     }
@@ -321,7 +345,7 @@ namespace SoftGenConverter
                         t = r.Cells[3].Value.ToString();
                         sum = r.Cells[8].Value.ToString().Replace(".", "");
                     }
-                    catch (Exception)
+                    catch
                     {
                     }
 
@@ -347,7 +371,7 @@ namespace SoftGenConverter
             SaveFileDialog saveDialog = new SaveFileDialog();
             saveDialog.Filter = "Excel files(2007+)| *.xlsx|Excel Files(2003)|*.xls";
             saveDialog.FilterIndex = 2;
-            saveDialog.FileName = DateTime.Now.ToString().Replace(":","_");
+            saveDialog.FileName = DateTime.Now.ToString().Replace(":", "_");
             if (saveDialog.ShowDialog() == DialogResult.OK)
             {
                 saveExcel(saveDialog, dataGridView1);
@@ -548,14 +572,14 @@ namespace SoftGenConverter
         }
 
 
-        
+
         private void Label8_MouseClick(object sender, MouseEventArgs e)
         {
             tableLayoutPanel7.RowStyles[1].Height = 100;
             tableLayoutPanel7.RowStyles[0].Height = 0;
             dataGridView2.Visible = true;
             dataGridView1.Visible = false;
-           
+
         }
 
 
@@ -566,7 +590,7 @@ namespace SoftGenConverter
             tableLayoutPanel7.RowStyles[1].Height = 0;
             dataGridView2.Visible = false;
             dataGridView1.Visible = true;
-           
+
         }
 
         private void Panel1_MouseClick(object sender, MouseEventArgs e)
