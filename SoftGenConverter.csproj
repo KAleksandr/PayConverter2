@@ -176,7 +176,6 @@
     <None Include="Resources\icons8_view_file_32.png" />
     <None Include="Resources\fileView.jpg" />
     <None Include="Resources\fileView.png" />
-    <None Include="bin\Debug\data.xml" />
     <Content Include="logo.ico" />
     <None Include="PayConverterData.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -192,6 +191,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="bin\Debug\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
