@@ -35,22 +35,17 @@ namespace SoftGenConverter
         {
             InitializeComponent();
             initData();
-            //Двойная буферизация для таблиц
-            void SetDoubleBuffered(Control c, bool value)
-            {
-                PropertyInfo pi = typeof(Control).GetProperty("DoubleBuffered", BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic);
-                if (pi != null)
-                {
-                    pi.SetValue(c, value, null);
-                }
-            }
-            // 
-            SetDoubleBuffered(dataGridView1, true);
-            SetDoubleBuffered(dataGridView2, true);
-            SetDoubleBuffered(dataGridView3, true);
-
+          
         }
-
+        //Двойная буферизация для таблиц
+        void SetDoubleBuffered(Control c, bool value)
+        {
+            PropertyInfo pi = typeof(Control).GetProperty("DoubleBuffered", BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic);
+            if (pi != null)
+            {
+                pi.SetValue(c, value, null);
+            }
+        }
         public void initData()
         {
             Xml.loadXml(dataGridView3, path2);
@@ -67,6 +62,9 @@ namespace SoftGenConverter
             Aval.StyleDataGridView(dataGridView2, false);
 
             comboEdr2.SelectedIndex = 0;
+            SetDoubleBuffered(dataGridView1, true);
+            SetDoubleBuffered(dataGridView2, true);
+            SetDoubleBuffered(dataGridView3, true);
         }
 
 

@@ -33,20 +33,18 @@ namespace SoftGenConverter
 
             RemoveDuplicate();
             baseB.DataSource = dataGridView1.DataSource;
-
-            void SetDoubleBuffered(Control c, bool value)
-            {
-                PropertyInfo pi = typeof(Control).GetProperty("DoubleBuffered", BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic);
-                if (pi != null)
-                {
-                    pi.SetValue(c, value, null);
-                }
-            }
-            // Применение
+            
             SetDoubleBuffered(dataGridView1, true);
 
         }
-
+        void SetDoubleBuffered(Control c, bool value)
+        {
+            PropertyInfo pi = typeof(Control).GetProperty("DoubleBuffered", BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic);
+            if (pi != null)
+            {
+                pi.SetValue(c, value, null);
+            }
+        }
 
         public void loadXml()
         {
