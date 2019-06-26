@@ -349,7 +349,7 @@ namespace SoftGenConverter
             SaveFileDialog saveDialog = new SaveFileDialog();
             saveDialog.Filter = "Excel files(2007+)| *.xlsx|Excel Files(2003)|*.xls";
             saveDialog.FilterIndex = 2;
-            saveDialog.FileName = DateTime.Now.ToString();
+            saveDialog.FileName = DateTime.Now.ToString().Replace(":","_");
             if (saveDialog.ShowDialog() == DialogResult.OK)
             {
                 saveExcel(saveDialog, dataGridView1);
