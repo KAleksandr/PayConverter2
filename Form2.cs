@@ -20,6 +20,8 @@ namespace SoftGenConverter
         private BindingSource baseB = new BindingSource();
         private bool edit = false;
         private string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"PayConverterData.xml");
+        Image editBtn = Properties.Resources.Form2EditLine_32; //
+        Image saveBtn = Properties.Resources.icons8_add_list_64;
         public Form2()
         {
             InitializeComponent();
@@ -232,9 +234,9 @@ namespace SoftGenConverter
                 textBox3.Text = dataGridView1.CurrentRow.Cells[3].Value.ToString();
             }
             catch (Exception) { }
-            
-            button1.Text = "Редагувати";
-            
+
+            //button1.Text = "Редагувати";
+            button1.Image = editBtn;
             edit = !edit;
             
         }
@@ -270,8 +272,9 @@ namespace SoftGenConverter
             {
                 
             }
-            
-            button1.Text = "Редагувати";
+
+            //button1.Text = "Редагувати";
+            button1.Image = editBtn;
             edit = true;
            
         }
@@ -288,7 +291,8 @@ namespace SoftGenConverter
             }
             
             edit = false;
-            button1.Text = "Додати";
+            //button1.Text = "Додати";
+            button1.Image = saveBtn;
             ederpo.Text = string.Empty;
             textBox1.Text = string.Empty;
             textBox2.Text = string.Empty;
@@ -367,7 +371,8 @@ namespace SoftGenConverter
 
             if (textBox1.Text.Length <= 160)
             {
-                button1.Text = "Додати";
+                // button1.Text = "Додати";
+                button1.Image = saveBtn;
                 ederpo.Text = string.Empty;
                 textBox1.Text = string.Empty;
                 textBox2.Text = string.Empty;
