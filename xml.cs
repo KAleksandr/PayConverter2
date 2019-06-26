@@ -1,16 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml;
 namespace SoftGenConverter
 {
-    class Xml
+    internal class Xml
     {
         public static void loadXml(DataGridView dataGridView1, string path)
         {
@@ -19,59 +14,59 @@ namespace SoftGenConverter
                 dataGridView1.Rows.Clear();
             }
 
+            if (File.Exists(path)) //
             {
-                if (File.Exists(path)) //
+                DataSet ds = new DataSet();
+                ds.ReadXml(path);
+                try
                 {
-                    DataSet ds = new DataSet();
-                    ds.ReadXml(path);
-                    try
+                    foreach (DataRow item in ds.Tables["Employee"].Rows)
                     {
-                        foreach (DataRow item in ds.Tables["Employee"].Rows)
+                        int n = dataGridView1.Rows.Add();
+                        dataGridView1.Rows[n].Cells[0].Value = item["NAME"];
+                        dataGridView1.Rows[n].Cells[1].Value = item["ERDPO"];
+
+                        dataGridView1.Rows[n].Cells[2].Value = item["RRahunok"];
+                        dataGridView1.Rows[n].Cells[3].Value = Aval.shortText(item["Comment"].ToString());
+                        if (dataGridView1.Rows[n].Cells[3].Value.Equals("null"))
                         {
-                            int n = dataGridView1.Rows.Add();
-                            dataGridView1.Rows[n].Cells[0].Value = item["NAME"];
-                            dataGridView1.Rows[n].Cells[1].Value = item["ERDPO"];
-                            
-                            dataGridView1.Rows[n].Cells[2].Value = item["RRahunok"];
-                            dataGridView1.Rows[n].Cells[3].Value = Aval.shortText(item["Comment"].ToString());
-                            if (dataGridView1.Rows[n].Cells[3].Value.Equals("null"))
-                            {
-                                dataGridView1.Rows[n].DefaultCellStyle.BackColor = Color.BurlyWood;
-                            }
+                            dataGridView1.Rows[n].DefaultCellStyle.BackColor = Color.BurlyWood;
                         }
                     }
-                    catch (Exception) { }
+                }
+                catch (Exception) { }
 
-                }
-                else
-                {
-                    MessageBox.Show("XML файл не знайдений.", "Помилка.");
-                }
             }
+            else
+            {
+                MessageBox.Show("XML файл не знайдений.", "Помилка.");
+            }
+
         }
         public static DataGridView loadXml(string path)
         {
             DataGridView dataGridView = new DataGridView();
-           DataSet ds = new DataSet(); 
+            DataSet ds = new DataSet();
             if (File.Exists(path)) //
+            {
+                ds.ReadXml(path); try
                 {
-                    ds.ReadXml(path);try
+                    foreach (DataRow item in ds.Tables["Employee"].Rows)
                     {
-                     foreach (DataRow item in ds.Tables["Employee"].Rows)
-                            {
-                                int n = dataGridView.Rows.Add(); 
-                                dataGridView.Rows[n].Cells[0].Value = item["NAME"]; 
-                                dataGridView.Rows[n].Cells[1].Value = item["ERDPO"]; 
-                                dataGridView.Rows[n].Cells[2].Value = item["Comment"]; 
+                        int n = dataGridView.Rows.Add();
+                        dataGridView.Rows[n].Cells[0].Value = item["NAME"];
+                        dataGridView.Rows[n].Cells[1].Value = item["ERDPO"];
+                        dataGridView.Rows[n].Cells[2].Value = item["Comment"];
 
-                            }
-                    }catch(Exception ) { }
-                 }   
-                    
+                    }
+                }
+                catch (Exception) { }
+            }
+
             return dataGridView;
         }
 
-        public static void  saveXml(DataGridView dataGridView, string path)
+        public static void saveXml(DataGridView dataGridView, string path)
         {
             try
             {
@@ -97,13 +92,10 @@ namespace SoftGenConverter
 
                         ds.Tables["Employee"].Rows.Add(row); //добавление всей этой строки в таблицу ds.
                     }
-
                 }
 
-
-
                 ds.WriteXml(path);
-               // MessageBox.Show("XML файл успішно збережений.", "Виконано.");
+                // MessageBox.Show("XML файл успішно збережений.", "Виконано.");
             }
             catch
             {

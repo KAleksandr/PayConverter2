@@ -2,16 +2,12 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.IO;
 using System.Reflection;
 using System.Text;
 
 using System.Windows.Forms;
-
-
-using System.Text.RegularExpressions;
 
 namespace SoftGenConverter
 {
@@ -20,21 +16,21 @@ namespace SoftGenConverter
         private BindingSource baseB = new BindingSource();
         private bool edit = false;
         private string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"PayConverterData.xml");
-        Image editBtn = Properties.Resources.Form2EditLine_32; //
-        Image saveBtn = Properties.Resources.form2Add_32;
+        private Image editBtn = Properties.Resources.Form2EditLine_32; //
+        private Image saveBtn = Properties.Resources.form2Add_32;
         public Form2()
         {
             InitializeComponent();
 
             Xml.loadXml(dataGridView1, path);
-           
+
             Aval.StyleDataGridView(dataGridView1, false);
             try
             {
                 dataGridView1.Sort(dataGridView1.Columns[3], ListSortDirection.Ascending);
             }
             catch (Exception) { }
-          
+
             RemoveDuplicate();
             baseB.DataSource = dataGridView1.DataSource;
 
@@ -51,14 +47,6 @@ namespace SoftGenConverter
 
         }
 
-        //public string shortText(string str)
-        //{
-        //    str = str.Replace("  ", @" ");
-        //    str = str.Replace("утримання", "утрим.").Replace("будинків", "буд.").Replace("утриман.", "утрим.").Replace("управління", "управл.").Replace("будинку", @"буд.").Replace("комунальні","комун. ").Replace("комунальних","комун. ").Replace("послуги","посл. ").Replace("послуг", "посл. ");
-        //    return str;
-        //}
-
-        
 
         public void loadXml()
         {
@@ -66,28 +54,25 @@ namespace SoftGenConverter
             {
                 dataGridView1.Rows.Clear();
             }
-            //if (dataGridView1.Rows.Count > 0) //если в таблице больше нуля строк
-            //{
-            //    MessageBox.Show("Очистите поле перед загрузкой нового файла.", "Ошибка.");
-            //}
-            //else
+
             {
                 if (File.Exists(path)) //
                 {
-                    DataSet ds = new DataSet(); 
+                    DataSet ds = new DataSet();
                     ds.ReadXml(path);
                     try
                     {
-                     foreach (DataRow item in ds.Tables["Employee"].Rows)
-                     {
-                                int n = dataGridView1.Rows.Add(); 
-                                dataGridView1.Rows[n].Cells[0].Value = item["NAME"]; 
-                                dataGridView1.Rows[n].Cells[1].Value = item["ERDPO"]; 
-                                dataGridView1.Rows[n].Cells[2].Value = item["Comment"]; 
+                        foreach (DataRow item in ds.Tables["Employee"].Rows)
+                        {
+                            int n = dataGridView1.Rows.Add();
+                            dataGridView1.Rows[n].Cells[0].Value = item["NAME"];
+                            dataGridView1.Rows[n].Cells[1].Value = item["ERDPO"];
+                            dataGridView1.Rows[n].Cells[2].Value = item["Comment"];
 
-                     }
-                    }catch(Exception) { }
-                    
+                        }
+                    }
+                    catch (Exception) { }
+
                 }
                 else
                 {
@@ -96,22 +81,17 @@ namespace SoftGenConverter
             }
         }
 
-    
+
 
 
         private void Form2_FormClosed(object sender, FormClosedEventArgs e)
         {
             Xml.saveXml(dataGridView1, path);
             this.DialogResult = DialogResult.OK;
-
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            //if (dataGridView1.Rows.Count > 0)
-            //{
-            //    dataGridView1.Rows.Clear();
-            //}
             List<Cargo> CSV_Struct = new List<Cargo>();
             string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"export.csv");
             CSV_Struct = Cargo.ReadFile(path);
@@ -121,11 +101,8 @@ namespace SoftGenConverter
             {
                 if (i != 0)
                 {
-                    //MessageBox.Show(i.ToString());
-                    
-
                     int n = dataGridView1.Rows.Add();
-                    dataGridView1.Rows[n].Cells[0].Value = CSV_Struct[i].Name.Replace("@","\"");
+                    dataGridView1.Rows[n].Cells[0].Value = CSV_Struct[i].Name.Replace("@", "\"");
                     dataGridView1.Rows[n].Cells[1].Value = CSV_Struct[i].List_price;
                     dataGridView1.Rows[n].Cells[2].Value = CSV_Struct[i].RRahunok.ToString();
                     dataGridView1.Rows[n].Cells[3].Value = CSV_Struct[i].MyPrice;
@@ -142,12 +119,12 @@ namespace SoftGenConverter
             public string RRahunok { get; set; }
             public override string ToString()
             {
-                return Name + " " + List_price +" " + MyPrice;
+                return Name + " " + List_price + " " + MyPrice;
             }
 
 
-            
-        
+
+
             public void exportPrplat(string line)
             {
 
@@ -157,32 +134,27 @@ namespace SoftGenConverter
                 Name = parts[10];
                 List_price = parts[9];
                 RRahunok = parts[8];
-           
-               // string pattern = @"за\s?[0-9]{2}[.][0-9]{2}[.][0-9]{4}..";
+
                 string text = parts[15];
-               // string yes = Regex.Replace(text, pattern, "  за ##.##.#### ");
 
                 MyPrice = Aval.convertDate(text);
             }
             public static List<Cargo> ReadFile(string filename)
             {
-                
                 List<Cargo> res = new List<Cargo>();
                 using (StreamReader sr = new StreamReader(filename, Encoding.GetEncoding(1251)))
                 {
                     string line;
                     while ((line = sr.ReadLine()) != null)
                     {
-                        
-                            Cargo p = new Cargo();
-                            p.exportPrplat(line);
-                            res.Add(p);
-                            //MessageBox.Show(p.ToString());
-                        
+                        Cargo p = new Cargo();
+                        p.exportPrplat(line);
+                        res.Add(p);
+                        //MessageBox.Show(p.ToString());
                     }
                 }
 
-               
+
                 return res;
             }
         }
@@ -200,24 +172,10 @@ namespace SoftGenConverter
 
                     for (int cellIndex = 0; cellIndex < row.Cells.Count; cellIndex++)
                     {
-                        //dataGridView1.
-                        //rowToCompare.Cells[3].Value = Aval.shortText(rowToCompare.Cells[3].Value.ToString());
-                        //string pattern = @"за\s?[0-9]{2}[.][0-9]{2}[.][0-9]{4}р.";
-
-                        //rowToCompare.Cells[3].Value = Regex.Replace(rowToCompare.Cells[3].Value.ToString(), pattern, "  за ##.##.#### ");
-
-
-                        if (!rowToCompare.Cells[2].Value.Equals(row.Cells[2].Value) )
+                        if (!rowToCompare.Cells[2].Value.Equals(row.Cells[2].Value))
                         {
-                            //MessageBox.Show(rowToCompare.Cells[cellIndex+1].Value.ToString() + "   -  " +row.Cells[cellIndex+1].Value);
-
                             duplicateRow = false;
                             break;
-
-                        }
-                        else
-                        {
-                           // MessageBox.Show(rowToCompare.Cells[cellIndex+1].Value.ToString() + "   -  " +row.Cells[cellIndex+1].Value);
                         }
 
                     }
@@ -247,10 +205,8 @@ namespace SoftGenConverter
             }
             catch (Exception) { }
 
-            //button1.Text = "Редагувати";
             button1.Image = editBtn;
             edit = !edit;
-            
         }
 
         public void fillFieldsD()
@@ -264,12 +220,13 @@ namespace SoftGenConverter
         public void fillFieldsDg()
         {
             int id = dataGridView1.CurrentRow.Index - 1;
-            if (id < 0) id = 0;
+            if (id < 0)
+            {
+                id = 0;
+            }
 
             textBox2.Text = dataGridView1.Rows[id].Cells[0].Value.ToString();
-           // textBox2.Text = dataGridView1.CurrentRow.Cells[0].Value.ToString();
             ederpo.Text = dataGridView1.CurrentRow.Cells[1].Value.ToString();
-
             textBox1.Text = dataGridView1.CurrentRow.Cells[2].Value.ToString();
             textBox3.Text = dataGridView1.CurrentRow.Cells[3].Value.ToString();
         }
@@ -280,15 +237,11 @@ namespace SoftGenConverter
             {
                 fillFieldsD();
             }
-            catch (Exception )
-            {
-                
-            }
+            catch (Exception) { }
 
-            //button1.Text = "Редагувати";
             button1.Image = editBtn;
             edit = true;
-           
+
         }
 
         private void dataGridView1_Scroll(object sender, ScrollEventArgs e)
@@ -299,11 +252,11 @@ namespace SoftGenConverter
             }
             catch (Exception)
             {
-                
+
             }
-            
+
             edit = false;
-            //button1.Text = "Додати";
+
             button1.Image = saveBtn;
             ederpo.Text = string.Empty;
             textBox1.Text = string.Empty;
@@ -311,11 +264,6 @@ namespace SoftGenConverter
             textBox3.Text = string.Empty;
         }
 
-        private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
-        {
-            
-           
-        }
 
         private void dataGridView1_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
         {
@@ -324,7 +272,6 @@ namespace SoftGenConverter
 
             var centerFormat = new StringFormat()
             {
-                // right alignment might actually make more sense for numbers
                 Alignment = StringAlignment.Center,
                 LineAlignment = StringAlignment.Center
             };
@@ -333,35 +280,24 @@ namespace SoftGenConverter
             e.Graphics.DrawString(rowIdx, this.Font, SystemBrushes.ControlText, headerBounds, centerFormat);
         }
 
-        //public string convertDate(string text)
-        //{
-        //    string pattern = @"за\s?[0-9]{2}[.][0-9]{2}[.][0-9]{4}\s*р?.?";
-        //    string newLine = Regex.Replace(text, pattern, "  за ##.##.#### ");
-        //    return newLine;
-        //}
         private void button1_Click_1(object sender, EventArgs e)
         {
             textBox3.Text = Aval.shortText(textBox3.Text);
-            //textBox1.Text = textBox1.Text.Replace("утримання", "утрим.").Replace("будинків", "буд.").Replace("утриман.", "утрим.").Replace("управління", "управл.").Replace("  ",@" ");
-            if (ederpo.Text == "" || textBox3.Text == "" || textBox1.Text =="")
+
+            if (ederpo.Text == "" || textBox3.Text == "" || textBox1.Text == "")
             {
                 MessageBox.Show("Заповніть всі поля.", "Помилка.");
             }
             else if (textBox3.Text.Length > 160)
             {
-
-
                 MessageBox.Show("Перевищено мінімальну кількість символів (160) - " + textBox3.Text.Length, "Помилка.");
             }
             else
             {
                 string newLine = Aval.convertDate(textBox3.Text);
-                    //string pattern = @"за\s?[0-9]{2}[.][0-9]{2}[.][0-9]{4}р.";
-                    //string newLine = Regex.Replace(textBox3.Text, pattern, "  за ##.##.#### ");
+
                 if (!edit)
                 {
-                    
-
                     int n = dataGridView1.Rows.Add();
                     dataGridView1.Rows[n].Cells[0].Value = textBox2.Text; // 
                     dataGridView1.Rows[n].Cells[1].Value = ederpo.Text; // 
@@ -370,20 +306,16 @@ namespace SoftGenConverter
                 }
                 else
                 {
-                    
                     dataGridView1.CurrentRow.Cells[0].Value = textBox2.Text; // 
                     dataGridView1.CurrentRow.Cells[1].Value = ederpo.Text; // 
                     dataGridView1.CurrentRow.Cells[2].Value = textBox1.Text; // 
                     dataGridView1.CurrentRow.Cells[3].Value = newLine; // 
                     edit = !edit;
                 }
-
             }
-           
 
             if (textBox1.Text.Length <= 160)
             {
-                // button1.Text = "Додати";
                 button1.Image = saveBtn;
                 ederpo.Text = string.Empty;
                 textBox1.Text = string.Empty;
@@ -393,22 +325,12 @@ namespace SoftGenConverter
             }
         }
 
-       
         private void textBox4_KeyPress(object sender, KeyPressEventArgs e)
         {
-            int[] col = {0, 1, 2, 3};
+            int[] col = { 0, 1, 2, 3 };
             Aval.Filter(dataGridView1, textBox4.Text, col);
-            
         }
 
-        private void dataGridView1_KeyDown(object sender, KeyEventArgs e)
-        {
-            // fillFieldsDg();
-            //if (e.KeyCode == Keys.Enter)
-            //{
-            //    MessageBox.Show("Enter");
-            //}
-        }
 
         private void dataGridView1_CurrentCellDirtyStateChanged(object sender, EventArgs e)
         {
@@ -423,9 +345,6 @@ namespace SoftGenConverter
 
                 MessageBox.Show("Перевищено мінімальну кількість символів (160) - " + textBox1.Text.Length, "Помилка.");
             }
-
-            //string str = dataGridView1.CurrentRow.Cells[3].Value.ToString();
-
 
             dataGridView1.CurrentRow.Cells[3].Value = Aval.shortText(dataGridView1.CurrentRow.Cells[3].Value.ToString());
             dataGridView1.CurrentRow.Cells[3].Value = Aval.convertDate(dataGridView1.CurrentRow.Cells[3].Value.ToString());
