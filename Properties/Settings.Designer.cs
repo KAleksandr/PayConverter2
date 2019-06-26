@@ -190,17 +190,5 @@ namespace SoftGenConverter.Properties {
                 this["rahunok3"] = value;
             }
         }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int datePayment {
-            get {
-                return ((int)(this["datePayment"]));
-            }
-            set {
-                this["datePayment"] = value;
-            }
-        }
     }
 }

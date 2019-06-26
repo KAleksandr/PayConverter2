@@ -103,6 +103,7 @@
     <Compile Include="Form2.Designer.cs">
       <DependentUpon>Form2.cs</DependentUpon>
     </Compile>
+    <Compile Include="ModifyProgressBarColor.cs" />
     <Compile Include="ProcessLoadForm.cs">
       <SubType>Form</SubType>
     </Compile>

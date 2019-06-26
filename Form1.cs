@@ -10,6 +10,7 @@ using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Globalization;
 using SoftGenConverter.Properties;
+using System.Runtime.InteropServices;
 
 
 
@@ -459,13 +460,93 @@ namespace SoftGenConverter
 
             if (saveDialog.ShowDialog() == DialogResult.OK)
             {
-                ExportToExcel.saveExcel(saveDialog, dataGridView1);
+                
+               saveExcel(saveDialog, dataGridView1);
+            }
+        }
+
+        public void saveExcel(SaveFileDialog saveDialog, DataGridView dataGridView1)
+        {
+
+
+            // Creating a Excel object.
+            Microsoft.Office.Interop.Excel._Application excel = new Microsoft.Office.Interop.Excel.Application();
+            Microsoft.Office.Interop.Excel._Workbook workbook = excel.Workbooks.Add(Type.Missing);
+            Microsoft.Office.Interop.Excel._Worksheet worksheet = null;
+
+
+
+            try
+            {
+                progressBar1.Visible = true;
+                ModifyProgressBarColor.SetState(progressBar1, 3);
+               progressBar1.Minimum = 1;
+                progressBar1.Maximum = dataGridView1.Rows.Count;
+                progressBar1.Value = 1;
+                progressBar1.Step = 1;
+
+                worksheet = workbook.ActiveSheet;
+
+                worksheet.Name = "ExportedFromDatGrid";
+
+                int cellRowIndex = 1;
+                int cellColumnIndex = 1;
+
+
+                for (int i = 0; i < dataGridView1.Rows.Count; i++)
+                {
+                    for (int j = 0; j < dataGridView1.Columns.Count; j++)
+                    {
+                        if (cellRowIndex == 1) worksheet.Cells[cellRowIndex, cellColumnIndex] = dataGridView1.Columns[j].HeaderText;
+                        else
+                        {
+                            worksheet.Cells[cellRowIndex, cellColumnIndex].NumberFormat = "@";
+                            worksheet.Cells[cellRowIndex, cellColumnIndex] = dataGridView1.Rows[i].Cells[j].Value.ToString();
+                            worksheet.Cells[cellRowIndex, cellColumnIndex] = dataGridView1.Rows[i].Cells[j].Value.ToString();
+                            worksheet.Cells[cellRowIndex, cellColumnIndex] = dataGridView1.Rows[i].Cells[j].Value.ToString();
+                            worksheet.Cells[cellRowIndex, cellColumnIndex] = dataGridView1.Rows[i].Cells[j].Value.ToString();
+                            worksheet.Cells[cellRowIndex, cellColumnIndex] = dataGridView1.Rows[i].Cells[j].Value.ToString();
+                            worksheet.Cells[cellRowIndex, cellColumnIndex] = dataGridView1.Rows[i].Cells[j].Value.ToString();
+                            worksheet.Cells[cellRowIndex, cellColumnIndex] = dataGridView1.Rows[i].Cells[j].Value.ToString();
+                            worksheet.Cells[cellRowIndex, cellColumnIndex] = dataGridView1.Rows[i].Cells[j].Value.ToString();
+                        }
+
+
+                        cellColumnIndex++;
+                    }
+                    cellColumnIndex = 1;
+                    cellRowIndex++;
+                    progressBar1.PerformStep();
+                }
+
+
+
+                {
+
+                    workbook.SaveAs(saveDialog.FileName);
+                    MessageBox.Show("Експорт завершено ");
+
+                    progressBar1.Value = 1;
+                    progressBar1.Visible = false;
+
+                }
+
+            }
+            catch (System.Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                excel.Quit();
+                workbook = null;
+                excel = null;
             }
         }
 
 
 
-       
+
 
         private void Mfo_TextChanged(object sender, EventArgs e)
         {
@@ -817,5 +898,7 @@ namespace SoftGenConverter
             }
 
         }
+
+    
     }
 }
