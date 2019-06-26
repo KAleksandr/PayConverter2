@@ -164,6 +164,7 @@
     <None Include="Resources\save.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="version.xml" />
     <None Include="Resources\icons8_move_node_up_16.png" />
     <None Include="Resources\icons8_edit_node_16.png" />
     <None Include="Resources\Form2EditLine_32.png" />
