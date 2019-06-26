@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Drawing;
 using System.IO;
 using System.Reflection;
@@ -8,6 +9,8 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Globalization;
+using SoftGenConverter.Properties;
+
 
 
 namespace SoftGenConverter
@@ -22,7 +25,7 @@ namespace SoftGenConverter
 
         bool editAval = false;
         bool editUkrG = false;
-        Image editBtn = Properties.Resources.form1Edit; //
+        Image editBtn = Properties.Resources.form1Edit; 
         Image saveBtn = Properties.Resources.form1EndEdit;
         private int state = Properties.Settings.Default.state;
 
@@ -42,8 +45,23 @@ namespace SoftGenConverter
         {
             InitializeComponent();
             initData();
-            
+            //Двойная буферизация для таблиц
+            void SetDoubleBuffered(Control c, bool value)
+            {
+                PropertyInfo pi = typeof(Control).GetProperty("DoubleBuffered", BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic);
+                if (pi != null)
+                {
+                    pi.SetValue(c, value, null);
+                }
+            }
+            // Применение
+            SetDoubleBuffered(dataGridView1, true);
+            SetDoubleBuffered(dataGridView2, true);
+            SetDoubleBuffered(dataGridView3, true);
+            //Двойная буферизация для таблиц *КОНЕЦ*
         }
+
+        
 
         public void initData()
         {

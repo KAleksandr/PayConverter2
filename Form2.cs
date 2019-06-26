@@ -5,7 +5,7 @@ using System.Data;
 using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.IO;
-
+using System.Reflection;
 using System.Text;
 
 using System.Windows.Forms;
@@ -37,6 +37,18 @@ namespace SoftGenConverter
           
             RemoveDuplicate();
             baseB.DataSource = dataGridView1.DataSource;
+
+            void SetDoubleBuffered(Control c, bool value)
+            {
+                PropertyInfo pi = typeof(Control).GetProperty("DoubleBuffered", BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic);
+                if (pi != null)
+                {
+                    pi.SetValue(c, value, null);
+                }
+            }
+            // Применение
+            SetDoubleBuffered(dataGridView1, true);
+
         }
 
         //public string shortText(string str)
