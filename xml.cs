@@ -3,12 +3,15 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
+using System.Xml;
+
 namespace SoftGenConverter
 {
     internal class Xml
     {
-        public static void loadXml(DataGridView dataGridView1, string path)
+       public static void loadXml(DataGridView dataGridView1, string path)
         {
+            string path2 = Properties.Resources.PayConverterData;
             if (dataGridView1.Rows.Count > 0)
             {
                 dataGridView1.Rows.Clear();
@@ -39,7 +42,11 @@ namespace SoftGenConverter
             }
             else
             {
-                MessageBox.Show("XML файл не знайдений.", "Помилка.");
+                MessageBox.Show("PayConverterData.xml файл не знайдений. Файл створено з конфігурації програми.", "Помилка.");
+               
+                XmlDocument doc = new XmlDocument();
+                doc.LoadXml(path2);
+                doc.Save("PayConverterData.xml");
             }
 
         }

@@ -8,7 +8,8 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-
+using System.Xml;
+using System.Xml.Linq;
 
 
 namespace SoftGenConverter
@@ -28,14 +29,13 @@ namespace SoftGenConverter
         private string P = "·";
 
         private string path2 = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"PayConverterData.xml");
-        private string path3 = Properties.Resources.PayConverterData;
+        
         private string path = "";
 
         public Form1()
         {
             InitializeComponent();
             initData();
-          
         }
         //Двойная буферизация для таблиц
         void SetDoubleBuffered(Control c, bool value)
