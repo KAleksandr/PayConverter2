@@ -156,13 +156,15 @@ namespace SoftGenConverter
             string pattern3 = @"послуг\S+";
             string pattern4 = @"утриман\S+";
             string pattern5 = @"управл\S+";
+            string pattern6 = @"вивезе\S+";
 
             str = Regex.Replace(str.Trim(), @"[^\S\r\n]+", " ");
-            str = Regex.Replace(str, pattern, "буд. ");
-            str = Regex.Replace(str, pattern2, "комун. ");
-            str = Regex.Replace(str, pattern3, "посл. ");
-            str = Regex.Replace(str, pattern4, "утрим. ");
-            str = Regex.Replace(str, pattern5, "управл. ");
+            str = Regex.Replace(str, pattern, "буд.");
+            str = Regex.Replace(str, pattern2, "комун.");
+            str = Regex.Replace(str, pattern3, "посл.");
+            str = Regex.Replace(str, pattern4, "утрим.");
+            str = Regex.Replace(str, pattern5, "управл.");
+            str = Regex.Replace(str, pattern6, "вивез.");
 
             return str;
         }
