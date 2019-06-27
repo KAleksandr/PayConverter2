@@ -35,8 +35,6 @@ namespace SoftGenConverter
             InitializeComponent();
             initData();
 
-
-            //MessageBox.Show("");
         }
 
         //Двойная буферизация для таблиц
