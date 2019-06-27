@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace SoftGenConverter
 {
-    internal class Aval
+    public class Bank
     {
 
         public string name { get; set; }
@@ -17,11 +17,16 @@ namespace SoftGenConverter
         public int datePayment { get; set; }
         public string mfo { get; set; }
         public string rahunok { get; set; }
-        public string zkpo { get; set; }
+        public string edrpou { get; set; }
         //public string cliBankCode { get; set; }
-        public string recivPayNum { get; set; }
+        public string clientBankCode { get; set; }
         public string summa { get; set; }
         public DateTime dateP { get; set; }
+
+        public override string ToString()
+        {
+            return name + " " + rahunok;
+        }
 
         public void piece(string line, DateTime date, bool aval)
         {
@@ -32,7 +37,7 @@ namespace SoftGenConverter
                     name = parts[0].ToUpper();
                     mfo = parts[2];
                     rahunok = "" + Convert.ToInt64(parts[3]);
-                    zkpo = parts[4];
+                    edrpou = parts[4];
                     dateP = date;
                     summa = parts[8];
                     isAval = 1;
@@ -42,7 +47,7 @@ namespace SoftGenConverter
                     name = parts[0].ToUpper();
                     mfo = parts[1];
                     rahunok = "" + Convert.ToInt64(parts[2]);
-                    zkpo = parts[3];
+                    edrpou = parts[3];
                     summa = parts[5];
                     isAval = 0;
                     dateP = date;
@@ -52,9 +57,9 @@ namespace SoftGenConverter
 
 
         }
-        public static List<Aval> ReadFile(string filename)
+        public static List<Bank> ReadFile(string filename)
         {
-            List<Aval> res = new List<Aval>();
+            List<Bank> res = new List<Bank>();
             int date = 0;
             Regex regexDate = new Regex(@"\w*[0-9]{2}[.][0-9]{2}[.][0-9]{2}р.");
             Regex regexLine = new Regex(@".+;.*;.+;.+;.+;.+;.*;.*;.+;.*");
@@ -111,7 +116,7 @@ namespace SoftGenConverter
                                     flag = false;
                                     aval = true;
                                 }
-                                Aval p = new Aval();
+                                Bank p = new Bank();
                                 p.piece(line, datePl, aval);
                                 res.Add(p);
                             }

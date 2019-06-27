@@ -193,6 +193,33 @@ namespace SoftGenConverter.Properties {
         /// <summary>
         ///   Ищет локализованную строку, похожую на &lt;?xml version=&quot;1.0&quot; standalone=&quot;yes&quot;?&gt;
         ///&lt;NewDataSet&gt;
+        ///  &lt;Bank&gt;
+        ///    &lt;NAME&gt;Райффайзен Банк Аваль&lt;/NAME&gt;
+        ///    &lt;MFO&gt;380805&lt;/MFO&gt;
+        ///	&lt;edrpou&gt;&lt;/edrpou&gt;
+        ///    &lt;RRAHUNOK&gt;265043345&lt;/RRAHUNOK&gt;
+        ///    &lt;clientBankCode&gt;3069252&lt;/clientBankCode&gt;
+        ///	&lt;STATE&gt;0&lt;/STATE&gt;
+        ///  &lt;/Bank&gt;
+        ///  &lt;Bank&gt;
+        ///    &lt;NAME&gt;УкрГазБанк&lt;/NAME&gt;
+        ///    &lt;MFO&gt;&lt;/MFO&gt;
+        ///	&lt;edrpou&gt;40375721&lt;/edrpou&gt;
+        ///    &lt;RRAHUNOK&gt;26545743585101.980&lt;/RRAHUNOK&gt;
+        ///    &lt;clientBankCode&gt;&lt;/clientBankCode&gt;
+        ///	&lt;STATE&gt;1&lt;/STATE&gt;
+        ///  &lt;/Bank&gt;
+        ///  &lt;/NewDataSet&gt;.
+        /// </summary>
+        internal static string PayConverterConfig {
+            get {
+                return ResourceManager.GetString("PayConverterConfig", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на &lt;?xml version=&quot;1.0&quot; standalone=&quot;yes&quot;?&gt;
+        ///&lt;NewDataSet&gt;
         ///  &lt;Employee&gt;
         ///    &lt;NAME&gt;АТ &quot;Райффайзен Банк Аваль&quot;&lt;/NAME&gt;
         ///    &lt;ERDPO&gt;14305909&lt;/ERDPO&gt;

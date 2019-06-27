@@ -21,19 +21,27 @@ namespace SoftGenConverter
         private bool editUkrG = false;
         private Image editBtn = Properties.Resources.form1Edit;
         private Image saveBtn = Properties.Resources.form1EndEdit;
-        private int state = Properties.Settings.Default.state;
+        private List<Bank> config = new List<Bank>();
+        private Bank aval = new Bank();
+        private Bank ukrGaz = new Bank();
 
         private long numberDocAval;
         private string P = "·";
 
         private string path2 = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"PayConverterData.xml");
+        private string pathConfig = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"PayConverterConfig.xml");
         private string Version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
         private string path = "";
+        private string strData = Properties.Resources.PayConverterData;
+        private string strConfig = Properties.Resources.PayConverterConfig;
 
         public Form1()
         {
+
+
             InitializeComponent();
-            initData();
+            //initData();
+            Xml.saveXml(pathConfig);
 
         }
 
@@ -48,20 +56,37 @@ namespace SoftGenConverter
         }
         public void initData()
         {
+            Xml.isExistsFile(path2, strData);
+            Xml.isExistsFile(pathConfig, strConfig);
             Xml.loadXml(dataGridView3, path2);
-            comboEdr.Items.Add(Properties.Settings.Default.name);
 
-            comboEdr.Text = Properties.Settings.Default.name;
+            config = Xml.loadXml(pathConfig);
+
+            for (int i = 0; i <= config.Count - 1; i++)
+            {
+
+                if (config[i].isAval == 0)
+                {
+                    aval = config[i];
+                }
+                else
+                {
+                    ukrGaz = config[i];
+                }
+            }
 
             setFieldsP();
             setFieldsP2();
+            //comboEdr.Items.Add(aval.name);
+           // comboEdr.Text = aval.name;
 
             isEditAval(editAval);
             isEditUkrG(editUkrG);
-            Aval.StyleDataGridView(dataGridView1, false);
-            Aval.StyleDataGridView(dataGridView2, false);
+            Bank.StyleDataGridView(dataGridView1, false);
+            Bank.StyleDataGridView(dataGridView2, false);
 
             comboEdr2.SelectedIndex = 0;
+            comboEdr.SelectedIndex = 0;
             SetDoubleBuffered(dataGridView1, true);
             SetDoubleBuffered(dataGridView2, true);
             SetDoubleBuffered(dataGridView3, true);
@@ -87,15 +112,18 @@ namespace SoftGenConverter
                 Xml.saveXml(dataGridView3, bakFilePath);
 
             }
-
         }
 
         public void setFieldsP()
         {
+
+
+            mfo.Text = aval.mfo;
+            rahunok.Text = aval.rahunok;
+            cliBankCode.Text = aval.clientBankCode;
+
             dateTimePicker1.Value = DateTime.Now;
-            mfo.Text = Properties.Settings.Default.mfo;
-            rahunok.Text = Properties.Settings.Default.rahunok;
-            cliBankCode.Text = Properties.Settings.Default.clientBankCode;
+
 
             tableLayoutPanel7.RowStyles[1].Height = 100;
             tableLayoutPanel7.RowStyles[0].Height = 0;
@@ -106,8 +134,8 @@ namespace SoftGenConverter
 
         public void setFieldsP2()
         {
-            textBox2.Text = Properties.Settings.Default.edrpou;
-            textBox4.Text = Properties.Settings.Default.rahunok2;
+            textBox2.Text = ukrGaz.edrpou;
+            textBox4.Text = ukrGaz.rahunok;
 
             tableLayoutPanel7.RowStyles[0].Height = 100;
             tableLayoutPanel7.RowStyles[1].Height = 0;
@@ -146,8 +174,8 @@ namespace SoftGenConverter
 
         public void loadFileRoot()
         {
-            List<Aval> CSV_Struct = new List<Aval>();
-            CSV_Struct = Aval.ReadFile(path);
+            List<Bank> CSV_Struct = new List<Bank>();
+            CSV_Struct = Bank.ReadFile(path);
             DateTime dt1 = DateTime.Today;
             for (int i = 0; i <= CSV_Struct.Count - 1; i++)
             {
@@ -158,7 +186,7 @@ namespace SoftGenConverter
 
                     dataGridView1.Rows[n].Cells[0].Value = CSV_Struct[i].summa;
                     dataGridView1.Rows[n].Cells[1].Value = "UAH";
-                    dataGridView1.Rows[n].Cells[2].Value = addDateToStr(findZkpo(CSV_Struct[i].zkpo, CSV_Struct[i].rahunok),
+                    dataGridView1.Rows[n].Cells[2].Value = addDateToStr(findZkpo(CSV_Struct[i].edrpou, CSV_Struct[i].rahunok),
                        (CSV_Struct[i].dateP == dt1 ? dateTimePicker1.Value.ToString("dd.MM.yyyy") : CSV_Struct[i].dateP.ToString("dd.MM.yyyy")));
 
                     if (dataGridView1.Rows[n].Cells[2].Value.Equals("null"))
@@ -166,27 +194,19 @@ namespace SoftGenConverter
                         dataGridView1.Rows[n].DefaultCellStyle.BackColor = Color.BurlyWood;
                         int m = dataGridView3.Rows.Add();
                         dataGridView3.Rows[m].Cells[0].Value = CSV_Struct[i].name;
-                        dataGridView3.Rows[m].Cells[1].Value = CSV_Struct[i].zkpo;
+                        dataGridView3.Rows[m].Cells[1].Value = CSV_Struct[i].edrpou;
                         dataGridView3.Rows[m].Cells[2].Value = CSV_Struct[i].rahunok;
                         dataGridView3.Rows[m].Cells[3].Value = dataGridView1.Rows[n].Cells[2].Value;
                         isNull = true;
                     }
 
-                    if (Properties.Settings.Default.state == 2)
-                    {
-                        dataGridView1.Rows[n].Cells[3].Value = Properties.Settings.Default.rahunok2;
-                        dataGridView1.Rows[n].Cells[4].Value = Properties.Settings.Default.edrpou;
-                    }
-                    else
-                    {
-                        dataGridView1.Rows[n].Cells[3].Value = Properties.Settings.Default.rahunok3;
-                        dataGridView1.Rows[n].Cells[4].Value = Properties.Settings.Default.edrpou2;
-                    }
+                    dataGridView1.Rows[n].Cells[3].Value = ukrGaz.rahunok;
+                    dataGridView1.Rows[n].Cells[4].Value = ukrGaz.edrpou;
 
                     dataGridView1.Rows[n].Cells[5].Value = CSV_Struct[i].mfo;
                     dataGridView1.Rows[n].Cells[6].Value = CSV_Struct[i].rahunok;
-                    dataGridView1.Rows[n].Cells[7].Value = CSV_Struct[i].zkpo;
-                    dataGridView1.Rows[n].Cells[8].Value = findNameZkpo(CSV_Struct[i].zkpo, CSV_Struct[i].rahunok).Equals("null") ? CSV_Struct[i].name : findNameZkpo(CSV_Struct[i].zkpo, CSV_Struct[i].rahunok);
+                    dataGridView1.Rows[n].Cells[7].Value = CSV_Struct[i].edrpou;
+                    dataGridView1.Rows[n].Cells[8].Value = findNameZkpo(CSV_Struct[i].edrpou, CSV_Struct[i].rahunok).Equals("null") ? CSV_Struct[i].name : findNameZkpo(CSV_Struct[i].edrpou, CSV_Struct[i].rahunok);
                 }
                 CultureInfo MyCultureInfo = new CultureInfo("de-DE");
                 if (CSV_Struct[i].isAval == 1)
@@ -201,22 +221,22 @@ namespace SoftGenConverter
                         dataGridView2.Rows[n].Cells[1].Value = "1";
                         dataGridView2.Rows[n].Cells[2].Value = numberDocAval++;
                         dataGridView2.Rows[n].Cells[3].Value = DateTime.Today.ToString("dd.MM.yyyy");
-                        dataGridView2.Rows[n].Cells[4].Value = Properties.Settings.Default.mfo;
+                        dataGridView2.Rows[n].Cells[4].Value = aval.mfo;
                         dataGridView2.Rows[n].Cells[5].Value = CSV_Struct[i].mfo;
-                        dataGridView2.Rows[n].Cells[6].Value = Properties.Settings.Default.rahunok;
+                        dataGridView2.Rows[n].Cells[6].Value = aval.rahunok;
                         dataGridView2.Rows[n].Cells[7].Value = Convert.ToInt64(CSV_Struct[i].rahunok);
                         dataGridView2.Rows[n].Cells[8].Value = CSV_Struct[i].summa;
                         dataGridView2.Rows[n].Cells[9].Value = "0";
-                        dataGridView2.Rows[n].Cells[10].Value = findNameZkpo(CSV_Struct[i].zkpo, CSV_Struct[i].rahunok).Equals("null") ? CSV_Struct[i].name : findNameZkpo(CSV_Struct[i].zkpo, CSV_Struct[i].rahunok);
-                        dataGridView2.Rows[n].Cells[12].Value = CSV_Struct[i].zkpo;
-                        dataGridView2.Rows[n].Cells[11].Value = addDateToStr(findZkpo(CSV_Struct[i].zkpo, CSV_Struct[i].rahunok),
+                        dataGridView2.Rows[n].Cells[10].Value = findNameZkpo(CSV_Struct[i].edrpou, CSV_Struct[i].rahunok).Equals("null") ? CSV_Struct[i].name : findNameZkpo(CSV_Struct[i].edrpou, CSV_Struct[i].rahunok);
+                        dataGridView2.Rows[n].Cells[12].Value = CSV_Struct[i].edrpou;
+                        dataGridView2.Rows[n].Cells[11].Value = addDateToStr(findZkpo(CSV_Struct[i].edrpou, CSV_Struct[i].rahunok),
                             CSV_Struct[i].dateP.ToString("dd.MM.yyyy"));
                         if (dataGridView2.Rows[n].Cells[11].Value.Equals("null"))
                         {
                             dataGridView2.Rows[n].DefaultCellStyle.BackColor = Color.BurlyWood;
                             int m = dataGridView3.Rows.Add();
                             dataGridView3.Rows[m].Cells[0].Value = CSV_Struct[i].name;
-                            dataGridView3.Rows[m].Cells[1].Value = CSV_Struct[i].zkpo;
+                            dataGridView3.Rows[m].Cells[1].Value = CSV_Struct[i].edrpou;
                             dataGridView3.Rows[m].Cells[2].Value = CSV_Struct[i].rahunok;
                             dataGridView3.Rows[m].Cells[3].Value = dataGridView2.Rows[n].Cells[11].Value;
                             isNull = true;
@@ -427,7 +447,9 @@ namespace SoftGenConverter
 
                 {
                     workbook.SaveAs(saveDialog.FileName);
-                    MessageBox.Show("Експорт завершено ");
+                    MessageBox.Show("Експорт завершено ", "Інформація", MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+
                     progressBar1.Value = 1;
                     progressBar1.Visible = false;
                 }
@@ -435,7 +457,8 @@ namespace SoftGenConverter
             }
             catch (System.Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message, "Помилка", MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
             }
             finally
             {
@@ -447,8 +470,7 @@ namespace SoftGenConverter
 
         private void Mfo_TextChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.mfo = string.IsNullOrEmpty(mfo.Text) ? "0" : mfo.Text;
-            Properties.Settings.Default.Save();
+            aval.mfo = string.IsNullOrEmpty(mfo.Text) ? "0" : mfo.Text;
         }
 
         private void SaveFile_Click_1(object sender, EventArgs e)
@@ -457,14 +479,7 @@ namespace SoftGenConverter
             Save();
         }
 
-        private void УкрГазToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            setFieldsP2();
-        }
-        private void АвальToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            setFieldsP();
-        }
+
 
         public void isEditAval(bool edit)
         {
@@ -479,23 +494,14 @@ namespace SoftGenConverter
 
         private void CliBankCode_TextChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.clientBankCode = cliBankCode.Text;
-            Properties.Settings.Default.Save();
+            aval.clientBankCode = cliBankCode.Text;
+
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-
-            if (state == 2)
-            {
-                Properties.Settings.Default.state = state;
-                Properties.Settings.Default.Save();
-            }
-            else
-            {
-                Properties.Settings.Default.state = state;
-                Properties.Settings.Default.Save();
-            }
+           
+            Properties.Settings.Default.Save();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -523,15 +529,19 @@ namespace SoftGenConverter
             {
                 button3.Image = editBtn;
                 isEditAval(editAval);
-                Properties.Settings.Default.name = comboEdr.Text;
+                aval.name = comboEdr.Text;
                 comboEdr.Items.Clear();
-                comboEdr.Items.Add(Properties.Settings.Default.name);
-
-                Properties.Settings.Default.mfo = mfo.Text;
-                Properties.Settings.Default.rahunok = rahunok.Text;
-                Properties.Settings.Default.clientBankCode = cliBankCode.Text;
-                Properties.Settings.Default.Save();
+                comboEdr.Items.Add(aval.name);
+                aval.name = comboEdr.Text;
+                aval.mfo = mfo.Text;
+                aval.rahunok = rahunok.Text;
+                aval.clientBankCode = cliBankCode.Text;
+                aval.isAval = 0;
+               
+                
+                Xml.saveXml( pathConfig);
             }
+           
         }
 
         private void button5_Click_2(object sender, EventArgs e)
@@ -551,21 +561,22 @@ namespace SoftGenConverter
                 isEditUkrG(editUkrG);
                 comboEdr2.Enabled = true;
 
-                Properties.Settings.Default.edrpou = textBox2.Text;
-                Properties.Settings.Default.rahunok2 = textBox4.Text;
-                Properties.Settings.Default.state = 2;
-                Properties.Settings.Default.Save();
+                ukrGaz.edrpou = textBox2.Text;
+                ukrGaz.rahunok = textBox4.Text;
+                ukrGaz.name = comboEdr2.Text;
+                ukrGaz.isAval = 1;
+                
+                Xml.saveXml(pathConfig);
             }
         }
 
         public void setFieldsUkrGaz()
         {
-            textBox2.Text = Properties.Settings.Default.edrpou;
-            textBox4.Text = Properties.Settings.Default.rahunok2;
+            textBox2.Text = ukrGaz.edrpou;
+            textBox4.Text = ukrGaz.rahunok;
         }
         private void comboEdr2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            state = 2;
             setFieldsUkrGaz();
         }
 
@@ -624,13 +635,13 @@ namespace SoftGenConverter
                 if (selColNum == 11)
                 {
                     dataGridView2.CurrentRow.Cells[11].Value =
-                        Aval.shortText(dataGridView2.CurrentRow.Cells[11].Value.ToString());
+                        Bank.shortText(dataGridView2.CurrentRow.Cells[11].Value.ToString());
                     //dataGridView2.CurrentRow.Cells[11].Value = dataGridView2.CurrentRow.Cells[11].Value.ToString().Replace("утримання", "утрим.").Replace("будинків", "буд.").Replace("утриман.", "утрим.").Replace("управління", "управл.").Replace("  ", @" ");
                     dataGridView2.CurrentRow.Cells[11].Value = dataGridView2.CurrentRow.Cells[11].Value.ToString().Replace("  ", @" ");
                     if (!currentCellValue.Equals(dataGridView2.CurrentRow.Cells[11].Value.ToString()))
                     {
                         DialogResult dialogResult = MessageBox.Show("Зміни записати базу данних", "Запис данних",
-                            MessageBoxButtons.YesNo);
+                            MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                         if (dialogResult == DialogResult.Yes)
                         {
                             int n = dataGridView1.Rows.Add();
@@ -659,7 +670,7 @@ namespace SoftGenConverter
                     if (!currentCellValue.Equals(dataGridView1.CurrentRow.Cells[2].Value.ToString()))
                     {
                         DialogResult dialogResult = MessageBox.Show("Зміни записати базу данних", "Запис данних",
-                            MessageBoxButtons.YesNo);
+                            MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                         if (dialogResult == DialogResult.Yes)
                         {
                             string pattern = @"за\s[0-9]{2}[.][0-9]{2}[.][0-9]{4}р\.";
@@ -731,13 +742,15 @@ namespace SoftGenConverter
             if (dataGridView1.Visible)
             {
                 int[] col = { 2, 6, 7, 8 };
-                Aval.Filter(dataGridView1, textBox1.Text, col);
+                Bank.Filter(dataGridView1, textBox1.Text, col);
             }
             else
             {
                 int[] col = { 4, 10, 11, 12 };
-                Aval.Filter(dataGridView2, textBox1.Text, col);
+                Bank.Filter(dataGridView2, textBox1.Text, col);
             }
         }
+
+     
     }
 }

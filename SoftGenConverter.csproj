@@ -89,7 +89,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Aval.cs" />
+    <Compile Include="Bank.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -164,6 +164,8 @@
     <None Include="Resources\save.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="bin\Debug\PayConverter.config.xml" />
+    <None Include="bin\Debug\PayConverterConfig.xml" />
     <Content Include="version.xml" />
     <None Include="Resources\icons8_move_node_up_16.png" />
     <None Include="Resources\icons8_edit_node_16.png" />
@@ -193,9 +195,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="bin\Debug\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>
