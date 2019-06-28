@@ -20,8 +20,8 @@ namespace SoftGenConverter
         private bool editAval = false;
         private bool editUkrG = false;
         private Image editBtn = Properties.Resources.form1Edit;
-        private Image saveBtn = Properties.Resources.form1EndEdit;
-        private List<Bank> config = new List<Bank>();
+        private Image saveBtn = Properties.Resources.edit_property_16px1;
+
         private Bank aval = new Bank();
         private Bank ukrGaz = new Bank();
 
@@ -40,8 +40,10 @@ namespace SoftGenConverter
 
 
             InitializeComponent();
-            //initData();
-            Xml.saveXml(pathConfig);
+            // Bank[] banks = Xml.ReadXml(pathConfig);
+            //MessageBox.Show(banks[0].ToString());
+            initData();
+
 
         }
 
@@ -58,32 +60,31 @@ namespace SoftGenConverter
         {
             Xml.isExistsFile(path2, strData);
             Xml.isExistsFile(pathConfig, strConfig);
+
             Xml.loadXml(dataGridView3, path2);
-
-            config = Xml.loadXml(pathConfig);
-
-            for (int i = 0; i <= config.Count - 1; i++)
+            try
             {
 
-                if (config[i].isAval == 0)
-                {
-                    aval = config[i];
-                }
-                else
-                {
-                    ukrGaz = config[i];
-                }
+            Bank[] banks = Xml.ReadXml(pathConfig);
+            aval = banks[0];
+            ukrGaz = banks[1];
+            }
+            catch
+            {
+
             }
 
+            button3.Image = saveBtn;
+            button5.Image = saveBtn;
             setFieldsP();
             setFieldsP2();
             //comboEdr.Items.Add(aval.name);
-           // comboEdr.Text = aval.name;
+            // comboEdr.Text = aval.name;
 
             isEditAval(editAval);
             isEditUkrG(editUkrG);
-            Bank.StyleDataGridView(dataGridView1, false);
-            Bank.StyleDataGridView(dataGridView2, false);
+            MyDataGrid.StyleDataGridView(dataGridView1, false);
+            MyDataGrid.StyleDataGridView(dataGridView2, false);
 
             comboEdr2.SelectedIndex = 0;
             comboEdr.SelectedIndex = 0;
@@ -180,7 +181,7 @@ namespace SoftGenConverter
             for (int i = 0; i <= CSV_Struct.Count - 1; i++)
             {
                 int n;
-                if (CSV_Struct[i].isAval == 0)
+                if (CSV_Struct[i].id == 0)
                 {
                     n = dataGridView1.Rows.Add();
 
@@ -209,7 +210,7 @@ namespace SoftGenConverter
                     dataGridView1.Rows[n].Cells[8].Value = findNameZkpo(CSV_Struct[i].edrpou, CSV_Struct[i].rahunok).Equals("null") ? CSV_Struct[i].name : findNameZkpo(CSV_Struct[i].edrpou, CSV_Struct[i].rahunok);
                 }
                 CultureInfo MyCultureInfo = new CultureInfo("de-DE");
-                if (CSV_Struct[i].isAval == 1)
+                if (CSV_Struct[i].id == 1)
                 {
                     try
                     {
@@ -386,10 +387,12 @@ namespace SoftGenConverter
 
         public void saveExcel()
         {
-            SaveFileDialog saveDialog = new SaveFileDialog();
-            saveDialog.Filter = "Excel files(2007+)| *.xlsx|Excel Files(2003)|*.xls";
-            saveDialog.FilterIndex = 2;
-            saveDialog.FileName = DateTime.Now.ToString().Replace(":", "_");
+            SaveFileDialog saveDialog = new SaveFileDialog
+            {
+                Filter = "Excel files(2007+)| *.xlsx|Excel Files(2003)|*.xls",
+                FilterIndex = 2,
+                FileName = DateTime.Now.ToString().Replace(":", "_")
+            };
             if (saveDialog.ShowDialog() == DialogResult.OK)
             {
                 saveExcel(saveDialog, dataGridView1);
@@ -500,7 +503,7 @@ namespace SoftGenConverter
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-           
+
             Properties.Settings.Default.Save();
         }
 
@@ -536,12 +539,13 @@ namespace SoftGenConverter
                 aval.mfo = mfo.Text;
                 aval.rahunok = rahunok.Text;
                 aval.clientBankCode = cliBankCode.Text;
-                aval.isAval = 0;
-               
-                
-                Xml.saveXml( pathConfig);
+                aval.id = 0;
+                Xml.EditXml(aval, pathConfig);
+
+
+
             }
-           
+
         }
 
         private void button5_Click_2(object sender, EventArgs e)
@@ -564,9 +568,9 @@ namespace SoftGenConverter
                 ukrGaz.edrpou = textBox2.Text;
                 ukrGaz.rahunok = textBox4.Text;
                 ukrGaz.name = comboEdr2.Text;
-                ukrGaz.isAval = 1;
-                
-                Xml.saveXml(pathConfig);
+                ukrGaz.id = 1;
+                Xml.EditXml(ukrGaz, pathConfig);
+
             }
         }
 
@@ -635,7 +639,7 @@ namespace SoftGenConverter
                 if (selColNum == 11)
                 {
                     dataGridView2.CurrentRow.Cells[11].Value =
-                        Bank.shortText(dataGridView2.CurrentRow.Cells[11].Value.ToString());
+                        MyDataGrid.shortText(dataGridView2.CurrentRow.Cells[11].Value.ToString());
                     //dataGridView2.CurrentRow.Cells[11].Value = dataGridView2.CurrentRow.Cells[11].Value.ToString().Replace("утримання", "утрим.").Replace("будинків", "буд.").Replace("утриман.", "утрим.").Replace("управління", "управл.").Replace("  ", @" ");
                     dataGridView2.CurrentRow.Cells[11].Value = dataGridView2.CurrentRow.Cells[11].Value.ToString().Replace("  ", @" ");
                     if (!currentCellValue.Equals(dataGridView2.CurrentRow.Cells[11].Value.ToString()))
@@ -708,32 +712,32 @@ namespace SoftGenConverter
 
         private void dataGridView1_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
         {
-            var grid = sender as DataGridView;
-            var rowIdx = (e.RowIndex + 1).ToString();
+            DataGridView grid = sender as DataGridView;
+            string rowIdx = (e.RowIndex + 1).ToString();
 
-            var centerFormat = new StringFormat()
+            StringFormat centerFormat = new StringFormat()
             {
                 // right alignment might actually make more sense for numbers
                 Alignment = StringAlignment.Center,
                 LineAlignment = StringAlignment.Center
             };
 
-            var headerBounds = new Rectangle(e.RowBounds.Left, e.RowBounds.Top, grid.RowHeadersWidth, e.RowBounds.Height);
+            Rectangle headerBounds = new Rectangle(e.RowBounds.Left, e.RowBounds.Top, grid.RowHeadersWidth, e.RowBounds.Height);
             e.Graphics.DrawString(rowIdx, this.Font, SystemBrushes.ControlText, headerBounds, centerFormat);
         }
 
         private void dataGridView2_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
         {
-            var grid = sender as DataGridView;
-            var rowIdx = (e.RowIndex + 1).ToString();
+            DataGridView grid = sender as DataGridView;
+            string rowIdx = (e.RowIndex + 1).ToString();
 
-            var centerFormat = new StringFormat()
+            StringFormat centerFormat = new StringFormat()
             {
                 Alignment = StringAlignment.Center,
                 LineAlignment = StringAlignment.Center
             };
 
-            var headerBounds = new Rectangle(e.RowBounds.Left, e.RowBounds.Top, grid.RowHeadersWidth, e.RowBounds.Height);
+            Rectangle headerBounds = new Rectangle(e.RowBounds.Left, e.RowBounds.Top, grid.RowHeadersWidth, e.RowBounds.Height);
             e.Graphics.DrawString(rowIdx, this.Font, SystemBrushes.ControlText, headerBounds, centerFormat);
         }
 
@@ -742,15 +746,15 @@ namespace SoftGenConverter
             if (dataGridView1.Visible)
             {
                 int[] col = { 2, 6, 7, 8 };
-                Bank.Filter(dataGridView1, textBox1.Text, col);
+                MyDataGrid.Filter(dataGridView1, textBox1.Text, col);
             }
             else
             {
                 int[] col = { 4, 10, 11, 12 };
-                Bank.Filter(dataGridView2, textBox1.Text, col);
+                MyDataGrid.Filter(dataGridView2, textBox1.Text, col);
             }
         }
 
-     
+
     }
 }

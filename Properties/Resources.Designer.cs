@@ -191,25 +191,21 @@ namespace SoftGenConverter.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на &lt;?xml version=&quot;1.0&quot; standalone=&quot;yes&quot;?&gt;
-        ///&lt;NewDataSet&gt;
-        ///  &lt;Bank&gt;
-        ///    &lt;NAME&gt;Райффайзен Банк Аваль&lt;/NAME&gt;
-        ///    &lt;MFO&gt;380805&lt;/MFO&gt;
-        ///	&lt;edrpou&gt;&lt;/edrpou&gt;
-        ///    &lt;RRAHUNOK&gt;265043345&lt;/RRAHUNOK&gt;
-        ///    &lt;clientBankCode&gt;3069252&lt;/clientBankCode&gt;
-        ///	&lt;STATE&gt;0&lt;/STATE&gt;
-        ///  &lt;/Bank&gt;
-        ///  &lt;Bank&gt;
-        ///    &lt;NAME&gt;УкрГазБанк&lt;/NAME&gt;
+        ///   Ищет локализованную строку, похожую на &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+        ///&lt;Banks&gt;
+        ///  &lt;bank1 id=&quot;0&quot;&gt;
+        ///    &lt;NAME&gt;AvalBank&lt;/NAME&gt;
+        ///    &lt;MFO&gt;302010&lt;/MFO&gt;
+        ///    &lt;EDRPOU&gt;&lt;/EDRPOU&gt;
+        ///    &lt;clientBankCode&gt;758785&lt;/clientBankCode&gt;
+        ///  &lt;/bank1&gt;
+        ///  &lt;bank2 id=&quot;1&quot;&gt;
+        ///    &lt;NAME&gt;UkrBank&lt;/NAME&gt;
         ///    &lt;MFO&gt;&lt;/MFO&gt;
-        ///	&lt;edrpou&gt;40375721&lt;/edrpou&gt;
-        ///    &lt;RRAHUNOK&gt;26545743585101.980&lt;/RRAHUNOK&gt;
+        ///    &lt;EDRPOU&gt;562314&lt;/EDRPOU&gt;
         ///    &lt;clientBankCode&gt;&lt;/clientBankCode&gt;
-        ///	&lt;STATE&gt;1&lt;/STATE&gt;
-        ///  &lt;/Bank&gt;
-        ///  &lt;/NewDataSet&gt;.
+        ///  &lt;/bank2&gt;
+        ///&lt;/Banks&gt;.
         /// </summary>
         internal static string PayConverterConfig {
             get {
