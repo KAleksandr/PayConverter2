@@ -756,5 +756,15 @@ namespace SoftGenConverter
         }
 
 
+        private void Button1_Click(object sender, EventArgs e)
+        {
+            DialogResult dr = new DialogResult();
+            Form frm = new Form3();
+            frm.StartPosition = FormStartPosition.CenterScreen;
+            dr = frm.ShowDialog();
+        }
+
+        
+
     }
 }
