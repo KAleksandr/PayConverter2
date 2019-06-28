@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Banks>
+  <bank id="0">
+    <NAME>AvalBank</NAME>
+    <RAHUNOK>26003265</RAHUNOK>
+    <MFO>302010</MFO>
+    <EDRPOU></EDRPOU>
+    <clientBankCode>758785</clientBankCode>
+  </bank>
+  <bank id="1">
+    <NAME>UkrBank</NAME>
+    <RAHUNOK>215624897</RAHUNOK>
+    <MFO></MFO>
+    <EDRPOU>562314</EDRPOU>
+    <clientBankCode></clientBankCode>
+  </bank>
+</Banks>

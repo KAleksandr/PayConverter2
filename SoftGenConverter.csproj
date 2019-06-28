@@ -66,10 +66,16 @@
     <ManifestKeyFile>SoftGenConverter_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <GenerateManifests>true</GenerateManifests>
+    <GenerateManifests>false</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
     <SignManifests>false</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
@@ -89,7 +95,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Aval.cs" />
+    <Compile Include="Bank.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -116,6 +122,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="MyDataGrid.cs" />
     <Compile Include="Xml.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
@@ -135,6 +142,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="packages.config" />
+    <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -173,8 +181,12 @@
     <None Include="Resources\save.png" />
   </ItemGroup>
   <ItemGroup>
+
     <None Include="Resources\info_48.png" />
     <None Include="Resources\playVideo_32.png" />
+
+    <None Include="PayConverterConfig.xml" />
+
     <Content Include="version.xml" />
     <None Include="Resources\icons8_move_node_up_16.png" />
     <None Include="Resources\icons8_edit_node_16.png" />
@@ -204,6 +216,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+
   <ItemGroup>
     <Folder Include="bin\Debug\" />
   </ItemGroup>
@@ -226,6 +239,9 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
+
+  <ItemGroup />
+
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>
