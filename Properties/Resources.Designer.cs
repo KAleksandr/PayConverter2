@@ -191,6 +191,29 @@ namespace SoftGenConverter.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+        ///&lt;Banks&gt;
+        ///  &lt;bank1 id=&quot;0&quot;&gt;
+        ///    &lt;NAME&gt;AvalBank&lt;/NAME&gt;
+        ///    &lt;MFO&gt;302010&lt;/MFO&gt;
+        ///    &lt;EDRPOU&gt;&lt;/EDRPOU&gt;
+        ///    &lt;clientBankCode&gt;758785&lt;/clientBankCode&gt;
+        ///  &lt;/bank1&gt;
+        ///  &lt;bank2 id=&quot;1&quot;&gt;
+        ///    &lt;NAME&gt;UkrBank&lt;/NAME&gt;
+        ///    &lt;MFO&gt;&lt;/MFO&gt;
+        ///    &lt;EDRPOU&gt;562314&lt;/EDRPOU&gt;
+        ///    &lt;clientBankCode&gt;&lt;/clientBankCode&gt;
+        ///  &lt;/bank2&gt;
+        ///&lt;/Banks&gt;.
+        /// </summary>
+        internal static string PayConverterConfig {
+            get {
+                return ResourceManager.GetString("PayConverterConfig", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на &lt;?xml version=&quot;1.0&quot; standalone=&quot;yes&quot;?&gt;
         ///&lt;NewDataSet&gt;
         ///  &lt;Employee&gt;

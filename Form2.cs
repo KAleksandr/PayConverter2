@@ -24,7 +24,7 @@ namespace SoftGenConverter
 
             Xml.loadXml(dataGridView1, path);
 
-            Aval.StyleDataGridView(dataGridView1, false);
+            MyDataGrid.StyleDataGridView(dataGridView1, false);
             try
             {
                 dataGridView1.Sort(dataGridView1.Columns[3], ListSortDirection.Ascending);
@@ -135,7 +135,7 @@ namespace SoftGenConverter
 
                 string text = parts[15];
 
-                MyPrice = Aval.convertDate(text);
+                MyPrice = MyDataGrid.convertDate(text);
             }
             public static List<Cargo> ReadFile(string filename)
             {
@@ -195,7 +195,7 @@ namespace SoftGenConverter
                 {
                     dataGridView1.CurrentRow.Cells[3].Value = "null";
                 }
-                dataGridView1.CurrentRow.Cells[3].Value = Aval.shortText(dataGridView1.CurrentRow.Cells[3].Value.ToString());
+                dataGridView1.CurrentRow.Cells[3].Value = MyDataGrid.shortText(dataGridView1.CurrentRow.Cells[3].Value.ToString());
                 textBox2.Text = dataGridView1.CurrentRow.Cells[0].Value.ToString();
                 ederpo.Text = dataGridView1.CurrentRow.Cells[1].Value.ToString();
                 textBox1.Text = dataGridView1.CurrentRow.Cells[2].Value.ToString();
@@ -280,19 +280,19 @@ namespace SoftGenConverter
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            textBox3.Text = Aval.shortText(textBox3.Text);
+            textBox3.Text = MyDataGrid.shortText(textBox3.Text);
 
             if (ederpo.Text == "" || textBox3.Text == "" || textBox1.Text == "")
             {
-                MessageBox.Show("Заповніть всі поля.", "Помилка.");
+                MessageBox.Show("Заповніть всі поля.", "Порожнє поле.", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             else if (textBox3.Text.Length > 160)
             {
-                MessageBox.Show("Перевищено мінімальну кількість символів (160) - " + textBox3.Text.Length, "Помилка.");
+                MessageBox.Show("Перевищено мінімальну кількість символів (160) - " + textBox3.Text.Length, "Помилка.", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             else
             {
-                string newLine = Aval.convertDate(textBox3.Text);
+                string newLine = MyDataGrid.convertDate(textBox3.Text);
 
                 if (!edit)
                 {
@@ -326,7 +326,7 @@ namespace SoftGenConverter
         private void textBox4_KeyPress(object sender, KeyPressEventArgs e)
         {
             int[] col = { 0, 1, 2, 3 };
-            Aval.Filter(dataGridView1, textBox4.Text, col);
+            MyDataGrid.Filter(dataGridView1, textBox4.Text, col);
         }
 
 
@@ -334,18 +334,18 @@ namespace SoftGenConverter
         {
             if (dataGridView1.CurrentRow.Cells[3].Value.ToString() == "")
             {
-                MessageBox.Show("Заповніть всі поля.", "Помилка.");
+                MessageBox.Show("Заповніть всі поля.", "Помилка.", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 dataGridView1.CurrentRow.Cells[3].Value = "null";
             }
             else if (dataGridView1.CurrentRow.Cells[3].ToString().Length > 160)
             {
 
 
-                MessageBox.Show("Перевищено мінімальну кількість символів (160) - " + textBox1.Text.Length, "Помилка.");
+                MessageBox.Show("Перевищено мінімальну кількість символів (160) - " + textBox1.Text.Length, "Помилка.", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 
-            dataGridView1.CurrentRow.Cells[3].Value = Aval.shortText(dataGridView1.CurrentRow.Cells[3].Value.ToString());
-            dataGridView1.CurrentRow.Cells[3].Value = Aval.convertDate(dataGridView1.CurrentRow.Cells[3].Value.ToString());
+            dataGridView1.CurrentRow.Cells[3].Value = MyDataGrid.shortText(dataGridView1.CurrentRow.Cells[3].Value.ToString());
+            dataGridView1.CurrentRow.Cells[3].Value = MyDataGrid.convertDate(dataGridView1.CurrentRow.Cells[3].Value.ToString());
         }
     }
 }
