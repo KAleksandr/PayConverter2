@@ -20,10 +20,8 @@ namespace SoftGenConverter
         private bool editAval = false;
         private bool editUkrG = false;
         private Image editBtn = Properties.Resources.form1Edit; 
-        private Image saveBtn = Properties.Resources.edit_property_16px1;
-        private Image openBtn = Properties.Resources.fileView1; 
-            private Image saveFBtn = Properties.Resources.icons8_save_file_32;
-        private Image openBBtn = Properties.Resources.PRP_32;
+        private Image saveBtn = Properties.Resources.form1EndEdit;
+        
         private Bank aval = new Bank();
         private Bank ukrGaz = new Bank();
 
@@ -76,9 +74,7 @@ namespace SoftGenConverter
 
             }
 
-            button3.Image = saveBtn;
-            button5.Image = saveBtn;
-            button2.Image = openBBtn;
+            
             setFieldsP();
             setFieldsP2();
             //comboEdr.Items.Add(aval.name);
