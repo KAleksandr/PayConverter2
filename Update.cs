@@ -17,16 +17,14 @@ namespace SoftGenConverter
         private string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"version.xml");
         private string path2 = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"PayConverter.update");
         private string path3 = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"updater.exe");
-        
 
         private string url = "https://raw.githubusercontent.com/KAleksandr/PayConverter2/master/version.xml";
-             
         private string url2 = "https://github.com/KAleksandr/PayConverter2/blob/master/PayConverter.exe?raw=true";
         private string url3 = "https://github.com/KAleksandr/PayConverter2/blob/master/updater.exe?raw=true";
 
         public void Download()
         {
-
+            if (File.Exists(updater)) { File.Delete(updater); }
             XmlDocument doc = new XmlDocument();
             try
             {
@@ -34,7 +32,7 @@ namespace SoftGenConverter
                 Thread.Sleep(300);
 
                 bool exists = File.Exists(path);
-               
+
                 if (exists)
                 {
                     doc.Load(path);
@@ -49,16 +47,15 @@ namespace SoftGenConverter
 
 
 
-               
+
                 if (localVersion < remoteVersion)
                 {
-                    
+
                     DownloadFile(new Uri(url2), pCUpdate);
                     DownloadFile(new Uri(url3), updater);
-                    //while(!File.Exists(pCUpdate) && !File.Exists(updater))
-                    //{
-                    //    Thread.Sleep(300);
-                    //}
+
+                    Thread.Sleep(300);
+                    
 
 
                     if (File.Exists(updater) && File.Exists(pCUpdate) && new Version(FileVersionInfo.GetVersionInfo(pCUpdate).FileVersion) > new Version(Application.ProductVersion))
@@ -69,8 +66,8 @@ namespace SoftGenConverter
                                               "Додаток буде автоматично оновлено.",
                             Application.ProductName + " v" + Application.ProductVersion, MessageBoxButtons.OK,
                             MessageBoxIcon.Information);
-                       
-                         checkUpdates();
+
+                        checkUpdates();
 
                     }
                     else
@@ -78,8 +75,6 @@ namespace SoftGenConverter
                         if (File.Exists(pCUpdate)) { File.Delete(pCUpdate); }
                         if (File.Exists(updater)) { File.Delete(updater); }
                     }
-
-
                 }
             }
             catch (System.Net.WebException) { }
@@ -93,7 +88,7 @@ namespace SoftGenConverter
                 //wc.DownloadProgressChanged += (s, te) => { progressBar1.Value = te.ProgressPercentage; };
 
                 wc.DownloadFile(adress, fileName);
-               
+
             }
         }
 
@@ -101,16 +96,18 @@ namespace SoftGenConverter
         {
             try
             {
-                
-                
+
+
                 if (File.Exists(pCUpdate) && remoteVersion > localVersion)
                 {
-                    Process.Start("updater.exe", "progressbar.exe  launcher.update");
+                    Process.Start(updater, "PayConverter.exe  PayConverter.update");
+                    Thread.Sleep(200);
                     Process.GetCurrentProcess().CloseMainWindow();
+                    Thread.Sleep(600);
                     Application.Exit();
 
                 }
-                 else
+                else
                 {
                     if (File.Exists(pCUpdate)) { File.Delete(pCUpdate); }
                     //Download();
