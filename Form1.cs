@@ -30,7 +30,7 @@ namespace SoftGenConverter
 
         private string path2 = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"PayConverterData.xml");
         private string pathConfig = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"PayConverterConfig.xml");
-        private string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+        private Version localVersion = new Version(Application.ProductVersion);
         private string path = "";
         private string strData = Properties.Resources.PayConverterData;
         private string strConfig = Properties.Resources.PayConverterConfig;
@@ -40,7 +40,7 @@ namespace SoftGenConverter
 
         public Form1()
         {
-            new Update().Download();
+            
 
             InitializeComponent();
             // Bank[] banks = Xml.ReadXml(pathConfig);
@@ -527,6 +527,7 @@ namespace SoftGenConverter
             editAval = !editAval;
             if (editAval)
             {
+                comboEdr.Enabled = false;
                 isEditAval(editAval);
                 button3.Image = saveBtn;
             }
@@ -543,7 +544,7 @@ namespace SoftGenConverter
                 aval.clientBankCode = cliBankCode.Text;
                 aval.id = 0;
                 Xml.EditXml(aval, pathConfig);
-
+                comboEdr.Enabled = true;
 
 
             }
@@ -768,7 +769,8 @@ namespace SoftGenConverter
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            this.Text += " "+  version;
+            this.Text += " "+  localVersion;
+            new Update().Download();
         }
     }
 }

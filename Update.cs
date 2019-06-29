@@ -1,73 +1,82 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
-using System.Reflection;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
 
 namespace SoftGenConverter
 {
-    class Update
+    internal class Update
     {
         private string updater = "updater.exe";
         private string pCUpdate = "PayConverter.update";
-        private int intVersion = Convert.ToInt32(Assembly.GetExecutingAssembly().GetName().Version.ToString().Replace(".", ""));
-        private string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
-        private string path2 = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"version.xml");
-        private string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"update.exe");
-        string url = "https://raw.githubusercontent.com/KAleksandr/testUpdate/master/version.xml";
+        private Version localVersion = new Version(Application.ProductVersion);
+        private Version remoteVersion;
+        private string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"version.xml");
+        private string path2 = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"updater.exe");
+        private string path3 = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"PayConverter.update");
+
+        private string url = "https://raw.githubusercontent.com/KAleksandr/PayConverter2/master/version.xml";
+       // private string url2 = "https://github.com/KAleksandr/PayConverter2/blob/master/updater.exe?raw=true";
         string url2 = "https://github.com/KAleksandr/testUpdate/blob/master/progressbar.exe?raw=true";
-        string url3 = "https://github.com/KAleksandr/testUpdate/blob/master/updater.exe?raw=true";
+        private string url3 = "https://github.com/KAleksandr/PayConverter2/blob/master/PayConverter.exe?raw=true";
+
 
         public void Download()
         {
-        
-            int ver;
-            string versn;
+
             XmlDocument doc = new XmlDocument();
             try
             {
-                DownloadFile(new Uri(url), path2);
-                
+                DownloadFile(new Uri(url), path);
+                Thread.Sleep(300);
 
-                bool exists = System.IO.Directory.Exists(path2);
-                    if (!exists)
-                    {
-                        doc.Load(path2);
-                        versn = doc.GetElementsByTagName("myprogram")[0].InnerText;
-                        ver = Convert.ToInt32(versn.Replace(".", ""));
-                        File.Delete("version.xml");
-                    }
-                    else
-                    {
-                        ver = intVersion;
-                        versn =  version ;
-                    }
-
-
-
-                if (intVersion < ver)
+                bool exists = File.Exists(path);
+               
+                if (exists)
                 {
+                    doc.Load(path);
+                    remoteVersion = new Version(doc.GetElementsByTagName("version")[0].InnerText);
+
+                    File.Delete("version.xml");
+                }
+                else
+                {
+                    remoteVersion = localVersion;
+                }
+
+
+
+               
+                if (localVersion < remoteVersion)
+                {
+                    
                     DownloadFile(new Uri(url2), pCUpdate);
                     DownloadFile(new Uri(url3), updater);
-                   
-                    Thread.Sleep(300);
+                    //while(!File.Exists(pCUpdate) && !File.Exists(updater))
+                    //{
+                    //    Thread.Sleep(300);
+                    //}
 
-                    if (File.Exists(pCUpdate) && File.Exists(updater))
+
+                    if (File.Exists(updater) && File.Exists(pCUpdate) && new Version(FileVersionInfo.GetVersionInfo(pCUpdate).FileVersion) > new Version(Application.ProductVersion))
                     {
                         MessageBox.Show("Виявлено нову версію (" +
                                               doc.GetElementsByTagName("myprogram")[0].InnerText + ")" +
                                               Environment.NewLine +
-                                              "Додаток буде автоматично оновлено і перезапуститься.",
+                                              "Додаток буде автоматично оновлено.",
                             Application.ProductName + " v" + Application.ProductVersion, MessageBoxButtons.OK,
                             MessageBoxIcon.Information);
+                       
+                         checkUpdates();
 
-                        checkUpdates();
-
+                    }
+                    else
+                    {
+                        if (File.Exists(pCUpdate)) { File.Delete(pCUpdate); }
+                        if (File.Exists(updater)) { File.Delete(updater); }
                     }
 
 
@@ -75,7 +84,7 @@ namespace SoftGenConverter
             }
             catch (System.Net.WebException) { }
         }
-    
+
         public void DownloadFile(Uri adress, string fileName)
         {
             using (WebClient wc = new WebClient())
@@ -84,40 +93,36 @@ namespace SoftGenConverter
                 //wc.DownloadProgressChanged += (s, te) => { progressBar1.Value = te.ProgressPercentage; };
 
                 wc.DownloadFile(adress, fileName);
-            }
-        }
-    
-    public void checkUpdates()
-    {
-        try
-        {
-            int newVersion = Convert.ToInt32(new Version(FileVersionInfo.GetVersionInfo("launcher.update").FileVersion)
-                .ToString().Replace(".", ""));
-            int oldVersion =
-                Convert.ToInt32(new Version(Application.ProductVersion)
-                    .ToString().Replace(".", ""));
-
-            MessageBox.Show("" + newVersion + " " + oldVersion);
-
-            //if (File.Exists("launcher.update"))
-            if (File.Exists("launcher.update") && newVersion > oldVersion)
-            {
-                Process.Start("updater.exe", "progressbar.exe  launcher.update");
-                Process.GetCurrentProcess().CloseMainWindow();
                
             }
-            // else
+        }
+
+        public void checkUpdates()
+        {
+            try
             {
-                //if (File.Exists("launcher.update")) { File.Delete("launcher.update"); }
+                
+                
+                if (File.Exists(pCUpdate) && remoteVersion > localVersion)
+                {
+                    Process.Start("updater.exe", "progressbar.exe  launcher.update");
+                    Process.GetCurrentProcess().CloseMainWindow();
+                    Application.Exit();
+
+                }
+                 else
+                {
+                    if (File.Exists(pCUpdate)) { File.Delete(pCUpdate); }
+                    //Download();
+                }
+
+            }
+            catch (Exception)
+            {
+                if (File.Exists(pCUpdate)) { File.Delete(pCUpdate); }
+                if (File.Exists(updater)) { File.Delete(updater); }
                 //Download();
             }
-
         }
-        catch (Exception)
-        {
-            //if (File.Exists("launcher.update")) { File.Delete("launcher.update"); }
-            //Download();
-        }
-    }
     }
 }
