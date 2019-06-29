@@ -30,14 +30,17 @@ namespace SoftGenConverter
 
         private string path2 = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"PayConverterData.xml");
         private string pathConfig = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"PayConverterConfig.xml");
-        private string Version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+        private string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
         private string path = "";
         private string strData = Properties.Resources.PayConverterData;
         private string strConfig = Properties.Resources.PayConverterConfig;
 
+        
+        
+
         public Form1()
         {
-
+            new Update().Download();
 
             InitializeComponent();
             // Bank[] banks = Xml.ReadXml(pathConfig);
@@ -763,7 +766,9 @@ namespace SoftGenConverter
             dr = frm.ShowDialog();
         }
 
-        
-
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            this.Text += " "+  version;
+        }
     }
 }

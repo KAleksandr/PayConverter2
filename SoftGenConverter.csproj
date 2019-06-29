@@ -123,6 +123,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="MyDataGrid.cs" />
+    <Compile Include="Update.cs" />
     <Compile Include="Xml.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
@@ -181,12 +182,11 @@
     <None Include="Resources\save.png" />
   </ItemGroup>
   <ItemGroup>
-
     <None Include="Resources\info_48.png" />
     <None Include="Resources\playVideo_32.png" />
-
     <None Include="PayConverterConfig.xml" />
-
+    <Content Include="PayConverter.exe" />
+    <Content Include="updater.exe" />
     <Content Include="version.xml" />
     <None Include="Resources\icons8_move_node_up_16.png" />
     <None Include="Resources\icons8_edit_node_16.png" />
@@ -216,7 +216,6 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-
   <ItemGroup>
     <Folder Include="bin\Debug\" />
   </ItemGroup>
@@ -239,9 +238,7 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
-
   <ItemGroup />
-
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>
