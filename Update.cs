@@ -15,14 +15,14 @@ namespace SoftGenConverter
         private Version localVersion = new Version(Application.ProductVersion);
         private Version remoteVersion;
         private string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"version.xml");
-        private string path2 = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"updater.exe");
-        private string path3 = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"PayConverter.update");
+        private string path2 = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"PayConverter.update");
+        private string path3 = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"updater.exe");
+        
 
         private string url = "https://raw.githubusercontent.com/KAleksandr/PayConverter2/master/version.xml";
-       // private string url2 = "https://github.com/KAleksandr/PayConverter2/blob/master/updater.exe?raw=true";
-        string url2 = "https://github.com/KAleksandr/testUpdate/blob/master/progressbar.exe?raw=true";
-        private string url3 = "https://github.com/KAleksandr/PayConverter2/blob/master/PayConverter.exe?raw=true";
-
+             
+        private string url2 = "https://github.com/KAleksandr/PayConverter2/blob/master/PayConverter.exe?raw=true";
+        private string url3 = "https://github.com/KAleksandr/PayConverter2/blob/master/updater.exe?raw=true";
 
         public void Download()
         {
