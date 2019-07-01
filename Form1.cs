@@ -753,7 +753,7 @@ namespace SoftGenConverter
             }
             else
             {
-                int[] col = { 4, 10, 11, 12 };
+                int[] col = { 7, 10, 11, 12 };
                 MyDataGrid.Filter(dataGridView2, textBox1.Text, col);
             }
         }
