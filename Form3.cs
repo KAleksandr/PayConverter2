@@ -34,7 +34,8 @@ namespace SoftGenConverter
 
         private void Button1_Click(object sender, EventArgs e)
         {
-            play(url1, nameFile1);
+           play(url1, nameFile1);
+           
 
         }
 
@@ -107,15 +108,25 @@ namespace SoftGenConverter
             }
            
             string name = Path.Combine(directory , nameFile);
-            if (File.Exists(name))
+            if (File.Exists(name)&& new System.IO.FileInfo(name).Length != 0)
             {
                 Process.Start(name);
             }
             else
             {
-                DownloadFile(new Uri(url), name);
-                Thread.Sleep(400);
-                play(url, nameFile);
+                try
+                {
+                    DownloadFile(new Uri(url), name);
+                    Thread.Sleep(400);
+                    play(url, nameFile);
+                }
+                catch (System.Net.WebException)
+                {
+                    MessageBox.Show(
+                        "З´єднання з інтрнетом відсутнє," + Environment.NewLine + "неможливо завантажити файл довідки.",
+                        "Помилка з´єднання", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                
             }
         }
 
