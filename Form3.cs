@@ -9,29 +9,17 @@ using System.Windows.Forms;
 namespace SoftGenConverter
 {
     public partial class Form3 : Form
-    {
+    { 
+        private string url1 = "https://github.com/KAleksandr/PayConverter2/blob/master/manual/openFile.MP4?raw=true";
+        private string nameFile1 = "openFile.MP4";
         public Form3()
         {
             InitializeComponent();
             this.Size = new Size(558, 408);
         }
 
-        public void InfoSettings()
-        {
-            axWindowsMediaPlayer1.Visible = false;
-            this.Size = new Size(558, 408);
-            this.CenterToScreen();
-        }
-        void VplayerSettings()
-        {
-            this.Size = new Size(960, 500);
-            axWindowsMediaPlayer1.Visible = true;
-            axWindowsMediaPlayer1.Dock = DockStyle.Fill;
-            axWindowsMediaPlayer1.Ctlcontrols.play();
-            this.CenterToScreen();
-
-
-        }
+       
+       
 
         private void Form3_Load(object sender, EventArgs e)
         {
@@ -40,10 +28,6 @@ namespace SoftGenConverter
 
         private void Button1_Click(object sender, EventArgs e)
         {
-            string video1 =
-                axWindowsMediaPlayer1.URL = "D:" + @"\" + "Файли для ковертації" + @"\" +
-                                            "openFile.MP4";
-            VplayerSettings();
             
 
 
@@ -51,7 +35,7 @@ namespace SoftGenConverter
 
         private void Button3_Click(object sender, EventArgs e)
         {
-            InfoSettings();
+            
             richTextBox1.Text = "База шаблонів зберігає усю раніше введену інформацію"+
                                 " по платникам та призначенням платежів для автоматичної підстановки цих данних"+
                                 "у файл імпорту для банківських онлайн систем таких як Райфайзен Банк Аваль та УкрГаз Банк"+
@@ -66,14 +50,12 @@ namespace SoftGenConverter
 
         private void Button2_Click(object sender, EventArgs e)
         {
-            InfoSettings();
             richTextBox1.Text = "Файл який містить у собі список платіжних доручень";
 
         }
 
         private void Button4_Click(object sender, EventArgs e)
         {
-            InfoSettings();
             richTextBox1.Text = "Редагування здійснюється подвійним натиском лівої кнопки мишки по необхідній " +
                                 "комірці таблиці, після чого поле стане доступним для зміни," +
                                 "якщо у комірці є запис 'null' це значить що у базі шаблонів платежів" +
@@ -86,7 +68,6 @@ namespace SoftGenConverter
 
         private void Button8_Click(object sender, EventArgs e)
         {
-            InfoSettings();
             richTextBox1.Text = "Программа зберігає файли для імпорту у два етапи, спочатку відкриється вікно збереження файлу" +
                                 " для УкрГаз банку де вам буде необхідно обрати місце збереження файлу і після того як программа запише" +
                                 " файл відкриється вікно збереження файлу для Райфайзен Банку Аваль";
@@ -94,12 +75,13 @@ namespace SoftGenConverter
 
         private void Button5_Click(object sender, EventArgs e)
         {
-            play();
+            play(url1, nameFile1);
             
 
         }
         public void DownloadFile(Uri adress, string fileName)
         {
+            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072; //TLS 1.2 в .net Framework 4.0 додати
             using (WebClient wc = new WebClient())
             {
 
@@ -110,10 +92,17 @@ namespace SoftGenConverter
             }
         }
 
-        public void play()
+        public void play(string url, string nameFile)
         {
-            string url = "";
-            string name = @"manual\openFile.MP4";
+            //string directory = $@"{Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)}" + "\\manual";
+            string directory = $@"{AppDomain.CurrentDomain.BaseDirectory}" + "\\manual";
+            bool exists = System.IO.Directory.Exists(directory);
+            if (!exists)
+            {
+                System.IO.Directory.CreateDirectory(directory);
+            }
+           
+            string name = Path.Combine(directory , nameFile);
             if (File.Exists(name))
             {
                 Process.Start(name);
@@ -122,7 +111,7 @@ namespace SoftGenConverter
             {
                 DownloadFile(new Uri(url), name);
                 Thread.Sleep(400);
-                play();
+                play(url, nameFile);
             }
         }
 
