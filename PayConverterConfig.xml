@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Banks>
   <bank id="0">
-    <NAME>AvalBank</NAME>
-    <RAHUNOK>26003265</RAHUNOK>
-    <MFO>302010</MFO>
+    <NAME>Райффайзен Банк Аваль</NAME>
+    <RAHUNOK>265043345</RAHUNOK>
+    <MFO>380805</MFO>
     <EDRPOU></EDRPOU>
-    <clientBankCode>758785</clientBankCode>
+    <clientBankCode>3069252</clientBankCode>
   </bank>
   <bank id="1">
-    <NAME>UkrBank</NAME>
-    <RAHUNOK>215624897</RAHUNOK>
+    <NAME>УкрГазБанк</NAME>
+    <RAHUNOK>26545743585101.980</RAHUNOK>
     <MFO></MFO>
-    <EDRPOU>562314</EDRPOU>
+    <EDRPOU>40375721</EDRPOU>
     <clientBankCode></clientBankCode>
   </bank>
 </Banks>

@@ -24,6 +24,7 @@ namespace SoftGenConverter
 
         public void Download()
         {
+            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072; //TLS 1.2 в .net Framework 4.0 додати
             if (File.Exists(updater)) { File.Delete(updater); }
             XmlDocument doc = new XmlDocument();
             try
