@@ -1,4 +1,5 @@
-﻿namespace SoftGenConverter
+﻿
+namespace SoftGenConverter
 {
     partial class Form3
     {
@@ -59,7 +60,7 @@
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.LightSeaGreen;
+            this.panel1.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.panel1.Controls.Add(this.button9);
             this.panel1.Controls.Add(this.button8);
             this.panel1.Controls.Add(this.button7);
@@ -173,7 +174,7 @@
             // 
             // panel2
             // 
-            this.panel2.BackColor = System.Drawing.Color.LightSeaGreen;
+            this.panel2.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.panel2.Controls.Add(this.axWindowsMediaPlayer1);
             this.panel2.Controls.Add(this.richTextBox1);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
