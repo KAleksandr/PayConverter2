@@ -10,8 +10,14 @@ namespace SoftGenConverter
 {
     public partial class Form3 : Form
     { 
-        private string url1 = "https://github.com/KAleksandr/PayConverter2/blob/master/manual/openFile.MP4?raw=true";
-        private string nameFile1 = "openFile.MP4";
+        private string url1 = "https://github.com/KAleksandr/PayConverter2/blob/master/manual/openFile.avi?raw=true";
+        private string nameFile1 = "openFile.avi";
+        private string url2 = "https://github.com/KAleksandr/PayConverter2/blob/master/manual/payBase.avi?raw=true";
+        private string nameFile2 = "payBase.avi";
+        private string url3 = "https://github.com/KAleksandr/PayConverter2/blob/master/manual/editBase.MP4?raw=true";
+        private string nameFile3 = "editBase.MP4"; 
+        private string url4 = "https://github.com/KAleksandr/PayConverter2/blob/master/manual/saveFile.MP4?raw=true";
+        private string nameFile4 = "saveFile.MP4";
         public Form3()
         {
             InitializeComponent();
@@ -28,8 +34,7 @@ namespace SoftGenConverter
 
         private void Button1_Click(object sender, EventArgs e)
         {
-            
-
+            play(url1, nameFile1);
 
         }
 
@@ -75,8 +80,7 @@ namespace SoftGenConverter
 
         private void Button5_Click(object sender, EventArgs e)
         {
-            play(url1, nameFile1);
-            
+            play(url2, nameFile2);
 
         }
         public void DownloadFile(Uri adress, string fileName)
@@ -115,5 +119,14 @@ namespace SoftGenConverter
             }
         }
 
+        private void Button6_Click(object sender, EventArgs e)
+        {
+            play(url3, nameFile3);
+        }
+
+        private void Button7_Click(object sender, EventArgs e)
+        {
+            play(url4, nameFile4);
+        }
     }
 }

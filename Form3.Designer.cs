@@ -107,6 +107,7 @@ namespace SoftGenConverter
             this.button7.Size = new System.Drawing.Size(40, 40);
             this.button7.TabIndex = 6;
             this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.Button7_Click);
             // 
             // button6
             // 
@@ -118,6 +119,7 @@ namespace SoftGenConverter
             this.button6.Size = new System.Drawing.Size(40, 40);
             this.button6.TabIndex = 5;
             this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.Button6_Click);
             // 
             // button5
             // 
