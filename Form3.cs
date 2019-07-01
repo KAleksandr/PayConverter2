@@ -1,7 +1,9 @@
 ﻿using System;
-
+using System.Diagnostics;
 using System.Drawing;
-
+using System.IO;
+using System.Net;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace SoftGenConverter
@@ -89,5 +91,40 @@ namespace SoftGenConverter
                                 " для УкрГаз банку де вам буде необхідно обрати місце збереження файлу і після того як программа запише" +
                                 " файл відкриється вікно збереження файлу для Райфайзен Банку Аваль";
         }
+
+        private void Button5_Click(object sender, EventArgs e)
+        {
+            play();
+            
+
+        }
+        public void DownloadFile(Uri adress, string fileName)
+        {
+            using (WebClient wc = new WebClient())
+            {
+
+                //wc.DownloadProgressChanged += (s, te) => { progressBar1.Value = te.ProgressPercentage; };
+
+                wc.DownloadFileAsync(adress, fileName);
+
+            }
+        }
+
+        public void play()
+        {
+            string url = "";
+            string name = @"manual\openFile.MP4";
+            if (File.Exists(name))
+            {
+                Process.Start(name);
+            }
+            else
+            {
+                DownloadFile(new Uri(url), name);
+                Thread.Sleep(400);
+                play();
+            }
+        }
+
     }
 }

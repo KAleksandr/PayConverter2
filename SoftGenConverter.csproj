@@ -189,6 +189,7 @@
     <None Include="Resources\info_48.png" />
     <None Include="Resources\playVideo_32.png" />
     <None Include="PayConverterConfig.xml" />
+    <Content Include="manual\openFile.MP4" />
     <Content Include="PayConverter.exe" />
     <Content Include="updater.exe" />
     <Content Include="version.xml" />
