@@ -14,6 +14,9 @@ namespace SoftGenConverter
 
         public string name { get; set; }
         public int id { get; set; }
+        /// <summary>
+        /// ot
+        /// </summary>
         public string mfo { get; set; }
         public string rahunok { get; set; }
         public string edrpou { get; set; }
@@ -29,17 +32,20 @@ namespace SoftGenConverter
 
         public void piece(string line, DateTime date, bool aval)
         {
-            {
+                
+
                 string[] parts = line.Split(';');  //Разделитель в CSV файле.
                 if (aval)
                 {
                     name = parts[0].ToUpper();
                     mfo = parts[2];
-                    rahunok = "" + Convert.ToInt64(parts[3]);
+                    rahunok = "" + parts[3];
+                     //rahunok = "" + Convert.ToInt64(parts[3]);
                     edrpou = parts[4];
                     dateP = date;
                     summa = parts[8];
                     id = 1;
+                //MessageBox.Show("Name"+ name+" Rahunok"+ rahunok);
                 }
                 else
                 {
@@ -52,7 +58,7 @@ namespace SoftGenConverter
                     dateP = date;
                 }
 
-            }
+            
 
 
         }

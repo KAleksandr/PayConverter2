@@ -63,26 +63,6 @@ namespace SoftGenConverter.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap edit_property_16px {
-            get {
-                object obj = ResourceManager.GetObject("edit_property_16px", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap edit_property_16px1 {
-            get {
-                object obj = ResourceManager.GetObject("edit_property_16px1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap fileView {
             get {
                 object obj = ResourceManager.GetObject("fileView", resourceCulture);
@@ -183,19 +163,9 @@ namespace SoftGenConverter.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap inscription_16px {
+        internal static System.Drawing.Bitmap payConverter {
             get {
-                object obj = ResourceManager.GetObject("inscription_16px", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap inscription_8px {
-            get {
-                object obj = ResourceManager.GetObject("inscription_8px", resourceCulture);
+                object obj = ResourceManager.GetObject("payConverter", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -204,17 +174,17 @@ namespace SoftGenConverter.Properties {
         ///   Ищет локализованную строку, похожую на &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
         ///&lt;Banks&gt;
         ///  &lt;bank id=&quot;0&quot;&gt;
-        ///    &lt;NAME&gt;AvalBank&lt;/NAME&gt;
-        ///    &lt;RAHUNOK&gt;26003265&lt;/RAHUNOK&gt;
-        ///    &lt;MFO&gt;302010&lt;/MFO&gt;
+        ///    &lt;NAME&gt;Райффайзен Банк Аваль&lt;/NAME&gt;
+        ///    &lt;RAHUNOK&gt;265043345&lt;/RAHUNOK&gt;
+        ///    &lt;MFO&gt;380805&lt;/MFO&gt;
         ///    &lt;EDRPOU&gt;&lt;/EDRPOU&gt;
-        ///    &lt;clientBankCode&gt;758785&lt;/clientBankCode&gt;
+        ///    &lt;clientBankCode&gt;3069252&lt;/clientBankCode&gt;
         ///  &lt;/bank&gt;
         ///  &lt;bank id=&quot;1&quot;&gt;
-        ///    &lt;NAME&gt;UkrBank&lt;/NAME&gt;
-        ///    &lt;RAHUNOK&gt;215624897&lt;/RAHUNOK&gt;
+        ///    &lt;NAME&gt;УкрГазБанк&lt;/NAME&gt;
+        ///    &lt;RAHUNOK&gt;26545743585101.980&lt;/RAHUNOK&gt;
         ///    &lt;MFO&gt;&lt;/MFO&gt;
-        ///    &lt;EDRPOU&gt;562314&lt;/EDRPOU&gt;
+        ///    &lt;EDRPOU&gt;40375721&lt;/EDRPOU&gt;
         ///    &lt;clientBankCode&gt;&lt;/clientBankCode&gt;
         ///  &lt;/bank&gt;
         ///&lt;/Banks&gt;.

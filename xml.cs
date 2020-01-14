@@ -10,7 +10,7 @@ using System.Xml.Linq;
 
 namespace SoftGenConverter
 {
-    internal class Xml
+    static class Xml
     {
         public static void loadXml(DataGridView dataGridView1, string path)
         {
@@ -40,7 +40,7 @@ namespace SoftGenConverter
                         }
                     }
                 }
-                catch (Exception) { }
+                catch (NullReferenceException) { }
 
             }
             //else
@@ -108,7 +108,7 @@ namespace SoftGenConverter
 
                     }
                 }
-                catch (Exception) { }
+                catch (NullReferenceException) { }
             }
 
 

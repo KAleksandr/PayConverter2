@@ -29,7 +29,7 @@ namespace SoftGenConverter
             {
                 dataGridView1.Sort(dataGridView1.Columns[3], ListSortDirection.Ascending);
             }
-            catch (Exception) { }
+            catch (NullReferenceException) { }
 
             RemoveDuplicate();
             baseB.DataSource = dataGridView1.DataSource;
@@ -69,7 +69,7 @@ namespace SoftGenConverter
 
                         }
                     }
-                    catch (Exception) { }
+                    catch (NullReferenceException) { }
 
                 }
                 else
@@ -201,7 +201,7 @@ namespace SoftGenConverter
                 textBox1.Text = dataGridView1.CurrentRow.Cells[2].Value.ToString();
                 textBox3.Text = dataGridView1.CurrentRow.Cells[3].Value.ToString();
             }
-            catch (Exception) { }
+            catch (NullReferenceException) { }
 
             button1.Image = editBtn;
             edit = !edit;
@@ -235,7 +235,7 @@ namespace SoftGenConverter
             {
                 fillFieldsD();
             }
-            catch (Exception) { }
+            catch (NullReferenceException) { }
 
             button1.Image = editBtn;
             edit = true;
@@ -248,7 +248,7 @@ namespace SoftGenConverter
             {
                 dataGridView1.CurrentRow.Selected = false;
             }
-            catch (Exception)
+            catch (NullReferenceException)
             {
 
             }

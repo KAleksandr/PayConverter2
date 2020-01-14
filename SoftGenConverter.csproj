@@ -28,8 +28,8 @@
     <TargetCulture>uk-UA</TargetCulture>
     <ProductName>PayConverter</ProductName>
     <PublisherName>Oleksandr Kuzmenko and Illya Baritskiy</PublisherName>
-    <ApplicationRevision>1</ApplicationRevision>
-    <ApplicationVersion>2.0.0.%2a</ApplicationVersion>
+    <ApplicationRevision>6</ApplicationRevision>
+    <ApplicationVersion>2.1.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -66,7 +66,7 @@
     <ManifestKeyFile>SoftGenConverter_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <GenerateManifests>false</GenerateManifests>
+    <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
     <SignManifests>false</SignManifests>
@@ -190,6 +190,9 @@
     <Content Include="manual\payBase.avi" />
     <Content Include="manual\saveFile.MP4" />
     <Content Include="PayConverter.exe" />
+    <None Include="Resources\payConverter.jpg" />
+    <None Include="Resources\payConverter-.jpg" />
+    <None Include="Resources\payConverter1.jpg" />
     <Content Include="updater.exe" />
     <Content Include="version.xml" />
     <None Include="Resources\icons8_move_node_up_16.png" />
@@ -222,6 +225,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="bin\Debug\" />
+    <Folder Include="publish\" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="WMPLib">

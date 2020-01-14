@@ -227,7 +227,7 @@ namespace SoftGenConverter
                         dataGridView2.Rows[n].Cells[4].Value = aval.mfo;
                         dataGridView2.Rows[n].Cells[5].Value = CSV_Struct[i].mfo;
                         dataGridView2.Rows[n].Cells[6].Value = aval.rahunok;
-                        dataGridView2.Rows[n].Cells[7].Value = Convert.ToInt64(CSV_Struct[i].rahunok);
+                        dataGridView2.Rows[n].Cells[7].Value = (CSV_Struct[i].rahunok);
                         dataGridView2.Rows[n].Cells[8].Value = CSV_Struct[i].summa;
                         dataGridView2.Rows[n].Cells[9].Value = "0";
                         dataGridView2.Rows[n].Cells[10].Value = findNameZkpo(CSV_Struct[i].edrpou, CSV_Struct[i].rahunok).Equals("null") ? CSV_Struct[i].name : findNameZkpo(CSV_Struct[i].edrpou, CSV_Struct[i].rahunok);
@@ -383,7 +383,9 @@ namespace SoftGenConverter
         {
             string bcode = cliBankCode.Text.Insert(1, ".");
             string name = "R";
-            name += dateTimePicker1.Value.Day.ToString() + DateTime.Now.Hour + DateTime.Now.Minute + bcode + ".";
+            name += dateTimePicker1.Value.Day.ToString().Length == 1 ? "0" + dateTimePicker1.Value.Day : dateTimePicker1.Value.Day.ToString();
+            name += DateTime.Now.Hour.ToString().Length == 1 ? "0" + DateTime.Now.Hour : DateTime.Now.Hour.ToString();
+            name += DateTime.Now.Minute + bcode + ".";
             return name;
         }
 
@@ -422,7 +424,7 @@ namespace SoftGenConverter
                 int cellRowIndex = 1;
                 int cellColumnIndex = 1;
 
-                for (int i = 0; i < dataGridView1.Rows.Count; i++)
+                for (int i = 0; i <= dataGridView1.Rows.Count; i++)
                 {
                     for (int j = 0; j < dataGridView1.Columns.Count; j++)
                     {
@@ -433,14 +435,14 @@ namespace SoftGenConverter
                         else
                         {
                             worksheet.Cells[cellRowIndex, cellColumnIndex].NumberFormat = "@";
-                            worksheet.Cells[cellRowIndex, cellColumnIndex] = dataGridView1.Rows[i].Cells[j].Value.ToString();
-                            worksheet.Cells[cellRowIndex, cellColumnIndex] = dataGridView1.Rows[i].Cells[j].Value.ToString();
-                            worksheet.Cells[cellRowIndex, cellColumnIndex] = dataGridView1.Rows[i].Cells[j].Value.ToString();
-                            worksheet.Cells[cellRowIndex, cellColumnIndex] = dataGridView1.Rows[i].Cells[j].Value.ToString();
-                            worksheet.Cells[cellRowIndex, cellColumnIndex] = dataGridView1.Rows[i].Cells[j].Value.ToString();
-                            worksheet.Cells[cellRowIndex, cellColumnIndex] = dataGridView1.Rows[i].Cells[j].Value.ToString();
-                            worksheet.Cells[cellRowIndex, cellColumnIndex] = dataGridView1.Rows[i].Cells[j].Value.ToString();
-                            worksheet.Cells[cellRowIndex, cellColumnIndex] = dataGridView1.Rows[i].Cells[j].Value.ToString();
+                            worksheet.Cells[cellRowIndex, cellColumnIndex] = dataGridView1.Rows[i-1].Cells[j].Value.ToString();
+                            worksheet.Cells[cellRowIndex, cellColumnIndex] = dataGridView1.Rows[i-1].Cells[j].Value.ToString();
+                            worksheet.Cells[cellRowIndex, cellColumnIndex] = dataGridView1.Rows[i-1].Cells[j].Value.ToString();
+                            worksheet.Cells[cellRowIndex, cellColumnIndex] = dataGridView1.Rows[i-1].Cells[j].Value.ToString();
+                            worksheet.Cells[cellRowIndex, cellColumnIndex] = dataGridView1.Rows[i-1].Cells[j].Value.ToString();
+                            worksheet.Cells[cellRowIndex, cellColumnIndex] = dataGridView1.Rows[i-1].Cells[j].Value.ToString();
+                            worksheet.Cells[cellRowIndex, cellColumnIndex] = dataGridView1.Rows[i-1].Cells[j].Value.ToString();
+                            worksheet.Cells[cellRowIndex, cellColumnIndex] = dataGridView1.Rows[i-1].Cells[j].Value.ToString();
                         }
 
                         cellColumnIndex++;
@@ -691,7 +693,7 @@ namespace SoftGenConverter
                             {
                                 str = dataGridView1.Rows[selRowNum].Cells[selColNum].Value.ToString();
                             }
-                            catch (Exception) { }
+                            catch (NullReferenceException) { }
                             string newLine = Regex.Replace(str, pattern, "  за ##.##.#### ");
                             dataGridView3.Rows[n].Cells[2].Value = newLine;
                             ; // 
@@ -761,16 +763,21 @@ namespace SoftGenConverter
 
         private void Button1_Click(object sender, EventArgs e)
         {
-            DialogResult dr = new DialogResult();
+            //DialogResult dr = new DialogResult();
             Form frm = new Form3();
             frm.StartPosition = FormStartPosition.CenterScreen;
-            dr = frm.ShowDialog();
+             frm.Show();
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             this.Text += " "+  localVersion;
             new Update().Download();
+        }
+
+        private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }
