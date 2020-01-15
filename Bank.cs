@@ -51,7 +51,8 @@ namespace SoftGenConverter
                 {
                     name = parts[0].ToUpper();
                     mfo = parts[1];
-                    rahunok = "" + Convert.ToInt64(parts[2]);
+                    rahunok = "" + parts[2];
+                    //rahunok = "" + Convert.ToInt64(parts[2]);
                     edrpou = parts[3];
                     summa = parts[5];
                     id = 0;
