@@ -19,6 +19,7 @@ namespace SoftGenConverter
         /// </summary>
         public string mfo { get; set; }
         public string rahunok { get; set; }
+        public string iban { get; set; }
         public string edrpou { get; set; }
         //public string cliBankCode { get; set; }
         public string clientBankCode { get; set; }

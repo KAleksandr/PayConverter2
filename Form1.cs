@@ -139,6 +139,7 @@ namespace SoftGenConverter
         {
             textBox2.Text = ukrGaz.edrpou;
             textBox4.Text = ukrGaz.rahunok;
+            textIban.Text = ukrGaz.iban;
 
             tableLayoutPanel7.RowStyles[0].Height = 100;
             tableLayoutPanel7.RowStyles[1].Height = 0;
@@ -210,6 +211,7 @@ namespace SoftGenConverter
                     dataGridView1.Rows[n].Cells[6].Value = CSV_Struct[i].rahunok;
                     dataGridView1.Rows[n].Cells[7].Value = CSV_Struct[i].edrpou;
                     dataGridView1.Rows[n].Cells[8].Value = findNameZkpo(CSV_Struct[i].edrpou, CSV_Struct[i].rahunok).Equals("null") ? CSV_Struct[i].name : findNameZkpo(CSV_Struct[i].edrpou, CSV_Struct[i].rahunok);
+                    dataGridView1.Rows[n].Cells[9].Value = ukrGaz.iban;
                 }
                 CultureInfo MyCultureInfo = new CultureInfo("de-DE");
                 if (CSV_Struct[i].id == 1)
@@ -496,7 +498,7 @@ namespace SoftGenConverter
 
         public void isEditUkrG(bool edit)
         {
-            textBox2.Visible = label6.Visible = label10.Visible = textBox4.Visible = edit;
+            textBox2.Visible = label6.Visible = label10.Visible = textBox4.Visible = label3.Visible = textIban.Visible = edit;
         }
 
         private void CliBankCode_TextChanged(object sender, EventArgs e)
@@ -572,6 +574,7 @@ namespace SoftGenConverter
 
                 ukrGaz.edrpou = textBox2.Text;
                 ukrGaz.rahunok = textBox4.Text;
+                ukrGaz.iban = textIban.Text;
                 ukrGaz.name = comboEdr2.Text;
                 ukrGaz.id = 1;
                 Xml.EditXml(ukrGaz, pathConfig);
@@ -583,6 +586,7 @@ namespace SoftGenConverter
         {
             textBox2.Text = ukrGaz.edrpou;
             textBox4.Text = ukrGaz.rahunok;
+            textIban.Text = ukrGaz.iban;
         }
         private void comboEdr2_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -776,6 +780,11 @@ namespace SoftGenConverter
         }
 
         private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }
