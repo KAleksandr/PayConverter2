@@ -58,6 +58,7 @@ namespace SoftGenConverter
                     summa = parts[5];
                     id = 0;
                     dateP = date;
+                
                 }
 
             

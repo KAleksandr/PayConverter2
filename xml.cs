@@ -92,7 +92,8 @@ namespace SoftGenConverter
                             mfo = item["MFO"].ToString(),
                             edrpou = item["edrpou"].ToString(),
                             rahunok = item["RRAHUNOK"].ToString(),
-                            clientBankCode = item["clientBankCode"].ToString()
+                            clientBankCode = item["clientBankCode"].ToString(),
+                            iban = item["IBAN"].ToString()
                         };
                         try
                         {
@@ -292,6 +293,11 @@ namespace SoftGenConverter
                 {
                     bank.clientBankCode = element.Value;
                 }
+                else if (element.Name.ToString().Equals("IBAN"))
+                {
+                    bank.iban = element.Value;
+                }
+                                
             }
 
             return bank;
@@ -317,6 +323,7 @@ namespace SoftGenConverter
                     el.SetElementValue("RAHUNOK", bank.rahunok);
                     el.SetElementValue("MFO", bank.mfo);
                     el.SetElementValue("EDRPOU", bank.edrpou);
+                    el.SetElementValue("IBAN", bank.iban);
                     el.SetElementValue("clientBankCode", bank.clientBankCode);
                 }
             }
