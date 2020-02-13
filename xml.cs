@@ -232,6 +232,7 @@ namespace SoftGenConverter
         {
             Bank bank1 = new Bank();
             Bank bank2 = new Bank();
+            Bank bank3 = new Bank();
             
             //MessageBox.Show(fileName);
             
@@ -251,8 +252,12 @@ namespace SoftGenConverter
                     {
                         bank2 = FillBank(el);
                     }
+                     else if (Convert.ToInt32(el.Attribute("id").Value) == 2)
+                    {
+                        bank3 = FillBank(el);
+                    }
                 }
-            Bank[] banks = { bank1, bank2 };
+            Bank[] banks = { bank1, bank2, bank3  };
                 
                 return banks;
            
@@ -324,6 +329,14 @@ namespace SoftGenConverter
                     el.SetElementValue("MFO", bank.mfo);
                     el.SetElementValue("EDRPOU", bank.edrpou);
                     el.SetElementValue("IBAN", bank.iban);
+                    el.SetElementValue("clientBankCode", bank.clientBankCode);
+                }
+                else if (id == 2 && bank.id == 2)
+                {
+                    el.SetElementValue("NAME", bank.name);
+                    el.SetElementValue("RAHUNOK", bank.rahunok);
+                    el.SetElementValue("MFO", bank.mfo);
+                    el.SetElementValue("EDRPOU", bank.edrpou);
                     el.SetElementValue("clientBankCode", bank.clientBankCode);
                 }
             }

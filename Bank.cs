@@ -24,6 +24,7 @@ namespace SoftGenConverter
         //public string cliBankCode { get; set; }
         public string clientBankCode { get; set; }
         public string summa { get; set; }
+        public string pruznach {get; set;}
         public DateTime dateP { get; set; }
 
         public override string ToString()
@@ -31,12 +32,14 @@ namespace SoftGenConverter
             return name + " " + rahunok;
         }
 
-        public void piece(string line, DateTime date, bool aval)
+        public void piece(string line, DateTime date, bool aval, bool anotherPay)
         {
                 
 
                 string[] parts = line.Split(';');  //Разделитель в CSV файле.
                 if (aval)
+                {
+                if (!anotherPay)
                 {
                     name = parts[0].ToUpper();
                     mfo = parts[2];
@@ -45,8 +48,37 @@ namespace SoftGenConverter
                     edrpou = parts[4];
                     dateP = date;
                     summa = parts[8];
+                    pruznach = parts[1];
                     id = 1;
+                }
+                else
+                {
+                    name = parts[0].ToUpper();
+                    mfo = parts[2];
+                    rahunok = "" + parts[3];
+                     //rahunok = "" + Convert.ToInt64(parts[3]);
+                    edrpou = parts[4];
+                    dateP = date;
+                    summa = parts[8];
+                    pruznach = parts[0];
+                    id = 1;
+                }
+
                 //MessageBox.Show("Name"+ name+" Rahunok"+ rahunok);
+                }
+                else
+                {
+                    if (!anotherPay)
+                {
+                    name = parts[0].ToUpper();
+                    pruznach = parts[1];
+                    mfo = parts[2];
+                    rahunok = "" + parts[3];
+                    //rahunok = "" + Convert.ToInt64(parts[2]);
+                    edrpou = parts[4];
+                    summa = parts[6];
+                    id = 0;
+                    dateP = date;
                 }
                 else
                 {
@@ -58,6 +90,9 @@ namespace SoftGenConverter
                     summa = parts[5];
                     id = 0;
                     dateP = date;
+                }
+                    
+                    
                 
                 }
 
@@ -65,7 +100,7 @@ namespace SoftGenConverter
 
 
         }
-        public static List<Bank> ReadFile(string filename)
+        public static List<Bank> ReadFile(string filename, bool anotherPay)
         {
             List<Bank> res = new List<Bank>();
             int date = 0;
@@ -125,7 +160,7 @@ namespace SoftGenConverter
                                     aval = true;
                                 }
                                 Bank p = new Bank();
-                                p.piece(line, datePl, aval);
+                                p.piece(line, datePl, aval, anotherPay);
                                 res.Add(p);
                             }
                             flag = true;

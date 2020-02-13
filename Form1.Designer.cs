@@ -30,9 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
@@ -48,6 +48,7 @@
             this.Column16 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.panel7 = new System.Windows.Forms.Panel();
+            this.anotherPay = new System.Windows.Forms.CheckBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.textIban = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -202,6 +203,7 @@
             // panel7
             // 
             this.panel7.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.panel7.Controls.Add(this.anotherPay);
             this.panel7.Controls.Add(this.panel2);
             this.panel7.Controls.Add(this.gridHeader);
             this.panel7.Controls.Add(this.panel1);
@@ -211,6 +213,13 @@
             this.panel7.Controls.Add(this.label4);
             resources.ApplyResources(this.panel7, "panel7");
             this.panel7.Name = "panel7";
+            // 
+            // anotherPay
+            // 
+            resources.ApplyResources(this.anotherPay, "anotherPay");
+            this.anotherPay.Name = "anotherPay";
+            this.anotherPay.UseVisualStyleBackColor = true;
+            this.anotherPay.CheckedChanged += new System.EventHandler(this.anotherPay_CheckedChanged);
             // 
             // panel2
             // 
@@ -293,6 +302,7 @@
             this.gridHeader.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.gridHeader.ForeColor = System.Drawing.SystemColors.ControlText;
             this.gridHeader.Name = "gridHeader";
+            this.gridHeader.Click += new System.EventHandler(this.gridHeader_Click);
             // 
             // panel1
             // 
@@ -333,7 +343,8 @@
             // 
             this.comboEdr.FormattingEnabled = true;
             this.comboEdr.Items.AddRange(new object[] {
-            resources.GetString("comboEdr.Items")});
+            resources.GetString("comboEdr.Items"),
+            resources.GetString("comboEdr.Items1")});
             resources.ApplyResources(this.comboEdr, "comboEdr");
             this.comboEdr.Name = "comboEdr";
             // 
@@ -509,16 +520,16 @@
             // 
             // dataGridViewTextBoxColumn1
             // 
-            dataGridViewCellStyle1.NullValue = "0";
-            this.dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.NullValue = "0";
+            this.dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle4;
             resources.ApplyResources(this.dataGridViewTextBoxColumn1, "dataGridViewTextBoxColumn1");
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             this.dataGridViewTextBoxColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
             // dataGridViewTextBoxColumn2
             // 
-            dataGridViewCellStyle2.NullValue = "1";
-            this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.NullValue = "1";
+            this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle5;
             resources.ApplyResources(this.dataGridViewTextBoxColumn2, "dataGridViewTextBoxColumn2");
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             // 
@@ -559,8 +570,8 @@
             // 
             // dataGridViewTextBoxColumn10
             // 
-            dataGridViewCellStyle3.NullValue = "0";
-            this.dataGridViewTextBoxColumn10.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.NullValue = "0";
+            this.dataGridViewTextBoxColumn10.DefaultCellStyle = dataGridViewCellStyle6;
             resources.ApplyResources(this.dataGridViewTextBoxColumn10, "dataGridViewTextBoxColumn10");
             this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
             // 
@@ -698,6 +709,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column10;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column16;
+        private System.Windows.Forms.CheckBox anotherPay;
     }
 }
 

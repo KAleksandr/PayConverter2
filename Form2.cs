@@ -15,14 +15,36 @@ namespace SoftGenConverter
     {
         private BindingSource baseB = new BindingSource();
         private bool edit = false;
-        private string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"PayConverterData.xml");
+        public string path{get; set; } //= Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"PayConverterData.xml");
+       
         private Image editBtn = Properties.Resources.Form2EditLine_32; //
         private Image saveBtn = Properties.Resources.form2Add_32;
+        
         public Form2()
         {
             InitializeComponent();
-
+           
             Xml.loadXml(dataGridView1, path);
+
+            MyDataGrid.StyleDataGridView(dataGridView1, false);
+            try
+            {
+                dataGridView1.Sort(dataGridView1.Columns[3], ListSortDirection.Ascending);
+            }
+            catch (NullReferenceException) { }
+
+            RemoveDuplicate();
+            baseB.DataSource = dataGridView1.DataSource;
+            
+            SetDoubleBuffered(dataGridView1, true);
+
+        }
+        public Form2(string paths)
+        {
+          //MessageBox.Show(paths);
+             InitializeComponent();
+           path = paths;
+            Xml.loadXml(dataGridView1, paths);
 
             MyDataGrid.StyleDataGridView(dataGridView1, false);
             try
@@ -346,6 +368,11 @@ namespace SoftGenConverter
 
             dataGridView1.CurrentRow.Cells[3].Value = MyDataGrid.shortText(dataGridView1.CurrentRow.Cells[3].Value.ToString());
             dataGridView1.CurrentRow.Cells[3].Value = MyDataGrid.convertDate(dataGridView1.CurrentRow.Cells[3].Value.ToString());
+        }
+
+        private void Form2_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
