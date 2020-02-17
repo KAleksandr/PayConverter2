@@ -617,6 +617,7 @@ namespace SoftGenConverter
 
         private void Button3_Click(object sender, EventArgs e)
         {
+            
             editAval = !editAval;
             if (editAval)
             {
@@ -628,6 +629,7 @@ namespace SoftGenConverter
             {
                 if (comboEdr.SelectedIndex == 0)
                 {
+                   // MessageBox.Show(""+comboEdr.SelectedItem);
                     button3.Image = editBtn;
                     isEditAval(editAval);
                     aval.name = comboEdr.Text;
@@ -641,10 +643,13 @@ namespace SoftGenConverter
                     aval.id = 0;
                     Xml.EditXml(aval, pathConfig);
                     comboEdr.Enabled = true;
+                    initData();
+                    
 
                 }
                 else if (comboEdr.SelectedIndex == 1)
                 {
+                  //  MessageBox.Show(""+comboEdr.SelectedItem);
                     button3.Image = editBtn;
                     isEditAval(editAval);
                     aval.name = comboEdr.Text;
@@ -658,12 +663,13 @@ namespace SoftGenConverter
                     aval.id = 2;
                     Xml.EditXml(aval, pathConfig);
                     comboEdr.Enabled = true;
-
+                    initData();
                 }
                 
                 
 
             }
+            
 
         }
 

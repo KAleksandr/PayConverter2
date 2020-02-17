@@ -14,4 +14,11 @@
     <EDRPOU>40375721</EDRPOU>
     <clientBankCode></clientBankCode>
   </bank>
+   <bank id="2">
+    <NAME>Iндустрiал</NAME>
+    <RAHUNOK>265043345</RAHUNOK>
+    <MFO>380805</MFO>
+    <EDRPOU></EDRPOU>
+    <clientBankCode>3069252</clientBankCode>
+  </bank>
 </Banks>
