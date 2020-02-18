@@ -154,7 +154,7 @@ namespace SoftGenConverter
                         {
                             if (flag)
                             {
-                                if ((line.IndexOf("з банку \"АВАЛЬ\"")) > 0 || (line.IndexOf("з банку \"Iндустрiал\"")) > 0) //todo: добавил проверку на индустриал при чтении файла
+                                if ((line.IndexOf("з банку \"АВАЛЬ\"")) > 0 || (line.IndexOf("приймальник ФК\"МПС\" EasyPay")) > 0) //todo: добавил проверку на индустриал при чтении файла
                                 {
                                     flag = false;
                                     aval = true;
