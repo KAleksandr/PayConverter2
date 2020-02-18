@@ -98,7 +98,7 @@ namespace SoftGenConverter
 
             
 
-
+                //todo: regex
         }
         public static List<Bank> ReadFile(string filename, bool anotherPay)
         {
@@ -126,6 +126,7 @@ namespace SoftGenConverter
                                 .Replace(".", ""));
                             datePl = DateTime.Parse(matchess[0].ToString().Replace("за", "").Replace("р.", "").Trim(),
                                 MyCultureInfo);
+                            
 
                         }
                     }

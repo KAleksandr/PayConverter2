@@ -302,7 +302,7 @@ namespace SoftGenConverter
                             dataGridView2.Rows[n].Cells[11].Value = addDateToStr(findZkpo(CSV_Struct[i].edrpou, CSV_Struct[i].rahunok),
                             CSV_Struct[i].dateP.ToString("dd.MM.yyyy"));
                         }
-                        else
+                        else  //todo: пофиксить сохранение базы индустриала
                         {
                             dataGridView2.Rows[n].Cells[11].Value = CSV_Struct[i].pruznach;
                         }
@@ -452,7 +452,9 @@ namespace SoftGenConverter
                     try
                     {
                         t = r.Cells[3].Value.ToString();
-                        sum = r.Cells[8].Value.ToString().Replace(".", "");
+                        //string repl = r.Cells[8].Value.ToString().Replace(",", "");
+                       // sum = repl.ToString().Replace(".", "");
+                       sum = r.Cells[8].Value.ToString().Replace(",", "").Replace(".", "");
                     }
                     catch
                     {
