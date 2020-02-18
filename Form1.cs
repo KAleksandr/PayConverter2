@@ -195,6 +195,8 @@ namespace SoftGenConverter
                    
                     dataGridView1.Rows.Clear();
                     dataGridView2.Rows.Clear();
+                    dataGridView3.Rows.Clear();
+
                     numberDocAval = 1;
                 }
 
@@ -203,15 +205,18 @@ namespace SoftGenConverter
 
                 if (isNull)
                 {
-                    if (!anotherPay.Checked)
-                    {
+    
+                    if (!anotherPay.Checked){
+             
                         Xml.saveXml(dataGridView3, path2);
                     }
-                    else
+                    else if (anotherPay.Checked)
                     {
-                        Xml.saveXml(dataGridView3, path3);
+                  
+                        Xml.saveXml(dataGridView3, path3); 
+                         
                     }
-                    
+                   
                 }
             }
         }
@@ -219,13 +224,18 @@ namespace SoftGenConverter
         public void loadFileRoot()
         {
             List<Bank> CSV_Struct = new List<Bank>();
-            CSV_Struct = Bank.ReadFile(path, anotherPay.Checked);
+           
+ CSV_Struct = Bank.ReadFile(path, anotherPay.Checked);
+           
+           
             DateTime dt1 = DateTime.Today;
             for (int i = 0; i <= CSV_Struct.Count - 1; i++)
             {
                 int n;
                 if (CSV_Struct[i].id == 0)
                 {
+                    //todo: remove messagebox 
+                    // MessageBox.Show("СТРУКТУРА АЙДИ 0");
                     n = dataGridView1.Rows.Add();
 
                     dataGridView1.Rows[n].Cells[0].Value = CSV_Struct[i].summa;
@@ -243,7 +253,7 @@ namespace SoftGenConverter
                     //dataGridView1.Rows[n].Cells[2].Value = addDateToStr(findZkpo(CSV_Struct[i].edrpou, CSV_Struct[i].rahunok),
                        //(CSV_Struct[i].dateP == dt1 ? dateTimePicker1.Value.ToString("dd.MM.yyyy") : CSV_Struct[i].dateP.ToString("dd.MM.yyyy")));
 
-                    if (dataGridView1.Rows[n].Cells[2].Value.Equals("null"))
+                    if (dataGridView1.Rows[n].Cells[2].Value.Equals("null") || anotherPay.Checked && dataGridView1.Rows[n].Cells[2].Value.ToString() != "null")
                     {
                         dataGridView1.Rows[n].DefaultCellStyle.BackColor = Color.BurlyWood;
                         int m = dataGridView3.Rows.Add();
@@ -264,8 +274,11 @@ namespace SoftGenConverter
                     dataGridView1.Rows[n].Cells[9].Value = ukrGaz.iban;
                 }
                 CultureInfo MyCultureInfo = new CultureInfo("de-DE");
+                //comboEdr.SelectedIndex
                 if (CSV_Struct[i].id == 1)
                 {
+                    //todo: remove messagebox 
+                   // MessageBox.Show("СТРУКТУРА АЙДИ 1");  
                     try
                     {
                         dateTimePicker1.Value =
@@ -276,9 +289,9 @@ namespace SoftGenConverter
                         dataGridView2.Rows[n].Cells[1].Value = "1";
                         dataGridView2.Rows[n].Cells[2].Value = numberDocAval++;
                         dataGridView2.Rows[n].Cells[3].Value = DateTime.Today.ToString("dd.MM.yyyy");
-                        dataGridView2.Rows[n].Cells[4].Value = aval.mfo;
+                        dataGridView2.Rows[n].Cells[4].Value = comboEdr.SelectedIndex==1 ? industrial.mfo : aval.mfo;
                         dataGridView2.Rows[n].Cells[5].Value = CSV_Struct[i].mfo;
-                        dataGridView2.Rows[n].Cells[6].Value = aval.rahunok;
+                        dataGridView2.Rows[n].Cells[6].Value = comboEdr.SelectedIndex==1 ? industrial.rahunok : aval.rahunok;
                         dataGridView2.Rows[n].Cells[7].Value = (CSV_Struct[i].rahunok);
                         dataGridView2.Rows[n].Cells[8].Value = CSV_Struct[i].summa;
                         dataGridView2.Rows[n].Cells[9].Value = "0";
@@ -296,7 +309,7 @@ namespace SoftGenConverter
 
                         //dataGridView2.Rows[n].Cells[11].Value = addDateToStr(findZkpo(CSV_Struct[i].edrpou, CSV_Struct[i].rahunok),
                            // CSV_Struct[i].dateP.ToString("dd.MM.yyyy"));
-                        if (dataGridView2.Rows[n].Cells[11].Value.Equals("null"))
+                        if (dataGridView2.Rows[n].Cells[11].Value.Equals("null") || anotherPay.Checked && dataGridView2.Rows[n].Cells[11].Value.ToString() != "null")
                         {
                             dataGridView2.Rows[n].DefaultCellStyle.BackColor = Color.BurlyWood;
                             int m = dataGridView3.Rows.Add();
@@ -316,12 +329,16 @@ namespace SoftGenConverter
 
                 if (isNull)
                 {
+                   
                     if (!anotherPay.Checked){
+
                         Xml.saveXml(dataGridView3, path2);
                     }
-                    else
+                    else if (anotherPay.Checked)
                     {
-                         Xml.saveXml(dataGridView3, path3);
+
+                        Xml.saveXml(dataGridView3, path3); 
+                         
                     }
                    
                 }
@@ -334,6 +351,7 @@ namespace SoftGenConverter
             {
                 dataGridView1.Rows.Clear();
                 dataGridView2.Rows.Clear();
+               
             }
             dataGridView3.Rows.Clear();
             Xml.loadXml(dataGridView3, path);
@@ -599,7 +617,7 @@ namespace SoftGenConverter
            
             dr = frm.ShowDialog();
 
-            if (dr == DialogResult.OK && !string.IsNullOrEmpty(path))
+            if (dr == DialogResult.OK )
             {
                 if (anotherPay.Checked)
                 {
@@ -916,6 +934,8 @@ namespace SoftGenConverter
         {
             dataGridView1.Rows.Clear();
             dataGridView2.Rows.Clear();
+            dataGridView3.Rows.Clear();
+             this.path = string.Empty;
         }
 
     }

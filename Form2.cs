@@ -16,7 +16,7 @@ namespace SoftGenConverter
         private BindingSource baseB = new BindingSource();
         private bool edit = false;
         public string path{get; set; } //= Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"PayConverterData.xml");
-       
+        public string paths {get; set; }
         private Image editBtn = Properties.Resources.Form2EditLine_32; //
         private Image saveBtn = Properties.Resources.form2Add_32;
         
@@ -39,11 +39,13 @@ namespace SoftGenConverter
             SetDoubleBuffered(dataGridView1, true);
 
         }
+
+
         public Form2(string paths)
         {
           //MessageBox.Show(paths);
              InitializeComponent();
-           path = paths;
+           this.paths = paths;
             Xml.loadXml(dataGridView1, paths);
 
             MyDataGrid.StyleDataGridView(dataGridView1, false);
@@ -106,7 +108,7 @@ namespace SoftGenConverter
 
         private void Form2_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Xml.saveXml(dataGridView1, path);
+            Xml.saveXml(dataGridView1, paths);
             this.DialogResult = DialogResult.OK;
         }
 

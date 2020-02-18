@@ -39,58 +39,58 @@ namespace SoftGenConverter
                 string[] parts = line.Split(';');  //Разделитель в CSV файле.
                 if (aval)
                 {
-                if (!anotherPay)
-                {
-                    name = parts[0].ToUpper();
-                    mfo = parts[2];
-                    rahunok = "" + parts[3];
-                     //rahunok = "" + Convert.ToInt64(parts[3]);
-                    edrpou = parts[4];
-                    dateP = date;
-                    summa = parts[8];
-                    pruznach = parts[1];
-                    id = 1;
-                }
-                else
-                {
-                    name = parts[0].ToUpper();
-                    mfo = parts[2];
-                    rahunok = "" + parts[3];
-                     //rahunok = "" + Convert.ToInt64(parts[3]);
-                    edrpou = parts[4];
-                    dateP = date;
-                    summa = parts[8];
-                    pruznach = parts[0];
-                    id = 1;
-                }
+                    if (!anotherPay)
+                    {
+                        name = parts[0].ToUpper();
+                        mfo = parts[2];
+                        rahunok = "" + parts[3];
+                         //rahunok = "" + Convert.ToInt64(parts[3]);
+                        edrpou = parts[4];
+                        dateP = date;
+                        summa = parts[8];
+                        pruznach = parts[1];
+                        id = 1;
+                    }
+                    else
+                    {
+                        name = parts[0].ToUpper();
+                        mfo = parts[2];
+                        rahunok = "" + parts[3];
+                            //rahunok = "" + Convert.ToInt64(parts[3]);
+                        edrpou = parts[4];
+                        dateP = date;
+                        summa = parts[8];
+                        pruznach = parts[0] + " " + parts[1];
+                        id = 1;
+                    }
 
                 //MessageBox.Show("Name"+ name+" Rahunok"+ rahunok);
                 }
                 else
                 {
                     if (!anotherPay)
-                {
-                    name = parts[0].ToUpper();
-                    pruznach = parts[1];
-                    mfo = parts[2];
-                    rahunok = "" + parts[3];
-                    //rahunok = "" + Convert.ToInt64(parts[2]);
-                    edrpou = parts[4];
-                    summa = parts[6];
-                    id = 0;
-                    dateP = date;
-                }
-                else
-                {
-                    name = parts[0].ToUpper();
-                    mfo = parts[1];
-                    rahunok = "" + parts[2];
-                    //rahunok = "" + Convert.ToInt64(parts[2]);
-                    edrpou = parts[3];
-                    summa = parts[5];
-                    id = 0;
-                    dateP = date;
-                }
+                    {
+                        name = parts[0].ToUpper();
+                        pruznach = parts[1];
+                        mfo = parts[2];
+                        rahunok = "" + parts[3];
+                        //rahunok = "" + Convert.ToInt64(parts[2]);
+                        edrpou = parts[4];
+                        summa = parts[6];
+                        id = 0;
+                        dateP = date;
+                    }
+                    else
+                    {
+                        name = parts[0].ToUpper();
+                        mfo = parts[1];
+                        rahunok = "" + parts[2];
+                        //rahunok = "" + Convert.ToInt64(parts[2]);
+                        edrpou = parts[3];
+                        summa = parts[5];
+                        id = 0;
+                        dateP = date;
+                    }
                     
                     
                 
@@ -154,7 +154,7 @@ namespace SoftGenConverter
                         {
                             if (flag)
                             {
-                                if ((line.IndexOf("з банку \"АВАЛЬ\"")) > 0)
+                                if ((line.IndexOf("з банку \"АВАЛЬ\"")) > 0 || (line.IndexOf("з банку \"Iндустрiал\"")) > 0) //todo: добавил проверку на индустриал при чтении файла
                                 {
                                     flag = false;
                                     aval = true;
