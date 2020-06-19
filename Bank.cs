@@ -104,11 +104,16 @@ namespace SoftGenConverter
         {
             List<Bank> res = new List<Bank>();
             int date = 0;
-            Regex regexDate = new Regex(@"\w*[0-9]{2}[.][0-9]{2}[.][0-9]{2}р.");
+            Regex regexDate = new Regex(@"\w*([0-9]{2}[.][0-9]{2}[.][0-9]{2}р.)");
             Regex regexLine = new Regex(@".+;.*;.+;.+;.+;.+;.*;.*;.+;.*");
             bool flag = false;
             bool aval = false;
             DateTime datePl = DateTime.Today;
+
+           // string pattern = @"\w*([0-9]{2}[.][0-9]{2}[.][0-9]{2}р.)";
+
+           // File.WriteAllText(filename, Regex.Replace(File.ReadAllText(filename, Encoding.GetEncoding(1251)), pattern, " "), Encoding.GetEncoding(1251));
+
             try
             {
                 using (StreamReader sr = new StreamReader(filename, Encoding.GetEncoding(1251)))
@@ -140,16 +145,16 @@ namespace SoftGenConverter
                 {
                     string line;
                     while ((line = sr.ReadLine()) != null)
-                    {
+                    {   MatchCollection lineMatch = regexLine.Matches(line);
                         MatchCollection dateMatch = regexDate.Matches(line);
-                        if (dateMatch.Count > 0)
+                        if (dateMatch.Count > 0 && line.Length == 24)
                         {
                             flag = false;
                             aval = true;
                         }
 
 
-                        MatchCollection lineMatch = regexLine.Matches(line);
+                       // MatchCollection lineMatch = regexLine.Matches(line);
                         //MessageBox.Show(lines2);
                         if (lineMatch.Count > 0)
                         {
@@ -163,6 +168,7 @@ namespace SoftGenConverter
                                 Bank p = new Bank();
                                 p.piece(line, datePl, aval, anotherPay);
                                 res.Add(p);
+                               // MessageBox.Show(string.Join(Environment.NewLine, p));  
                             }
                             flag = true;
                         }
