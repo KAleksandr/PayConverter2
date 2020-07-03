@@ -106,7 +106,12 @@ namespace SoftGenConverter
             List<Bank> res = new List<Bank>();
             int date = 0;
             Regex regexDate = new Regex(@"\w*([0-9]{2}[.][0-9]{2}[.][0-9]{2}р.)");
-            Regex regexLine = new Regex(@".+;.*;.+;.+;.+;.+;.*;.*;.+;.*;*");
+            Regex regexLine = new Regex(@".+;.*;.+;.+;.+;.+;.*;.*;.+;.*");
+            if (anotherPay)
+            {
+                regexDate = new Regex(@"\w*([0-9]{2}[.][0-9]{2}[.][0-9]{2}р.)");
+                regexLine = new Regex(@".+;.*;.+;.+;.+;.+;.*;.*;.+;.*;*");
+            }
             bool flag = false;
             bool aval = false;
             DateTime datePl = DateTime.Today;
