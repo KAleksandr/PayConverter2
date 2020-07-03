@@ -247,7 +247,7 @@ namespace SoftGenConverter
                     }
                     else
                     {
-                        dataGridView1.Rows[n].Cells[2].Value = CSV_Struct[i].name;
+                        dataGridView1.Rows[n].Cells[2].Value = CSV_Struct[i].pruznach;
                     }
                     
                     //dataGridView1.Rows[n].Cells[2].Value = addDateToStr(findZkpo(CSV_Struct[i].edrpou, CSV_Struct[i].rahunok),
@@ -304,7 +304,7 @@ namespace SoftGenConverter
                         }
                         else  //todo: пофиксить сохранение базы индустриала
                         {
-                            dataGridView2.Rows[n].Cells[11].Value = CSV_Struct[i].pruznach;
+                            dataGridView2.Rows[n].Cells[11].Value = CSV_Struct[i].name;
                         }
 
                         //dataGridView2.Rows[n].Cells[11].Value = addDateToStr(findZkpo(CSV_Struct[i].edrpou, CSV_Struct[i].rahunok),
