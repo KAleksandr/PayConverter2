@@ -53,7 +53,7 @@ namespace SoftGenConverter
                     }
                     else
                     {
-                        name = parts[10].ToUpper();
+                        name = parts[0].ToUpper();
                         mfo = parts[2];
                         rahunok = "" + parts[3];
                             //rahunok = "" + Convert.ToInt64(parts[3]);
@@ -70,7 +70,7 @@ namespace SoftGenConverter
                 {
                     if (!anotherPay)
                     {
-                        name = parts[10].ToUpper();
+                        name = parts[0].ToUpper();
                         pruznach = parts[1];
                         mfo = parts[2];
                         rahunok = "" + parts[3];
@@ -82,8 +82,7 @@ namespace SoftGenConverter
                     }
                     else
                     {
-                        name = parts[10].ToUpper();
-                        pruznach = parts[0];
+                        name = parts[0].ToUpper();
                         mfo = parts[1];
                         rahunok = "" + parts[2];
                         //rahunok = "" + Convert.ToInt64(parts[2]);
@@ -106,7 +105,7 @@ namespace SoftGenConverter
             List<Bank> res = new List<Bank>();
             int date = 0;
             Regex regexDate = new Regex(@"\w*([0-9]{2}[.][0-9]{2}[.][0-9]{2}р.)");
-            Regex regexLine = new Regex(@".+;.*;.+;.+;.+;.+;.*;.*;.+;.*;*");
+            Regex regexLine = new Regex(@".+;.*;.+;.+;.+;.+;.*;.*;.+;.*");
             bool flag = false;
             bool aval = false;
             DateTime datePl = DateTime.Today;
