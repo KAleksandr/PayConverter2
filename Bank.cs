@@ -53,7 +53,7 @@ namespace SoftGenConverter
                     }
                     else
                     {
-                        name = parts[0].ToUpper();
+                        name = parts[10].ToUpper();
                         mfo = parts[2];
                         rahunok = "" + parts[3];
                             //rahunok = "" + Convert.ToInt64(parts[3]);
@@ -64,7 +64,7 @@ namespace SoftGenConverter
                         id = 1;
                     }
 
-                //MessageBox.Show("Name"+ name+" Rahunok"+ rahunok);
+                    //MessageBox.Show("Name"+ name+" Rahunok"+ rahunok);
                 }
                 else
                 {
@@ -83,6 +83,7 @@ namespace SoftGenConverter
                     else
                     {
                         name = parts[0].ToUpper();
+                        pruznach = parts[10];
                         mfo = parts[1];
                         rahunok = "" + parts[2];
                         //rahunok = "" + Convert.ToInt64(parts[2]);

@@ -244,10 +244,12 @@ namespace SoftGenConverter
                     {
                         dataGridView1.Rows[n].Cells[2].Value = addDateToStr(findZkpo(CSV_Struct[i].edrpou, CSV_Struct[i].rahunok),
                        (CSV_Struct[i].dateP == dt1 ? dateTimePicker1.Value.ToString("dd.MM.yyyy") : CSV_Struct[i].dateP.ToString("dd.MM.yyyy")));
+                        dataGridView1.Rows[n].Cells[8].Value = findNameZkpo(CSV_Struct[i].edrpou, CSV_Struct[i].rahunok).Equals("null") ? CSV_Struct[i].name : findNameZkpo(CSV_Struct[i].edrpou, CSV_Struct[i].rahunok);
                     }
                     else
                     {
                         dataGridView1.Rows[n].Cells[2].Value = CSV_Struct[i].name;
+                        dataGridView1.Rows[n].Cells[8].Value = CSV_Struct[i].pruznach;
                     }
                     
                     //dataGridView1.Rows[n].Cells[2].Value = addDateToStr(findZkpo(CSV_Struct[i].edrpou, CSV_Struct[i].rahunok),
@@ -270,7 +272,7 @@ namespace SoftGenConverter
                     dataGridView1.Rows[n].Cells[5].Value = CSV_Struct[i].mfo;
                     dataGridView1.Rows[n].Cells[6].Value = CSV_Struct[i].rahunok;
                     dataGridView1.Rows[n].Cells[7].Value = CSV_Struct[i].edrpou;
-                    dataGridView1.Rows[n].Cells[8].Value = findNameZkpo(CSV_Struct[i].edrpou, CSV_Struct[i].rahunok).Equals("null") ? CSV_Struct[i].name : findNameZkpo(CSV_Struct[i].edrpou, CSV_Struct[i].rahunok);
+                   
                     dataGridView1.Rows[n].Cells[9].Value = ukrGaz.iban;
                 }
                 CultureInfo MyCultureInfo = new CultureInfo("de-DE");
@@ -281,9 +283,7 @@ namespace SoftGenConverter
                    // MessageBox.Show("СТРУКТУРА АЙДИ 1");  
                     try
                     {
-                        dateTimePicker1.Value =
-                            DateTime.Parse(CSV_Struct[i].dateP.ToString("dd.MM.yyyy"), MyCultureInfo);
-
+                        dateTimePicker1.Value = DateTime.Parse(CSV_Struct[i].dateP.ToString("dd.MM.yyyy"), MyCultureInfo);
                         n = dataGridView2.Rows.Add();
                         dataGridView2.Rows[n].Cells[0].Value = "0";
                         dataGridView2.Rows[n].Cells[1].Value = "1";
@@ -292,24 +292,27 @@ namespace SoftGenConverter
                         dataGridView2.Rows[n].Cells[4].Value = comboEdr.SelectedIndex==1 ? industrial.mfo : aval.mfo;
                         dataGridView2.Rows[n].Cells[5].Value = CSV_Struct[i].mfo;
                         dataGridView2.Rows[n].Cells[6].Value = comboEdr.SelectedIndex==1 ? industrial.rahunok : aval.rahunok;
-                        dataGridView2.Rows[n].Cells[7].Value = (CSV_Struct[i].rahunok);
+                        dataGridView2.Rows[n].Cells[7].Value = CSV_Struct[i].rahunok;
                         dataGridView2.Rows[n].Cells[8].Value = CSV_Struct[i].summa;
                         dataGridView2.Rows[n].Cells[9].Value = "0";
-                        dataGridView2.Rows[n].Cells[10].Value = findNameZkpo(CSV_Struct[i].edrpou, CSV_Struct[i].rahunok).Equals("null") ? CSV_Struct[i].name : findNameZkpo(CSV_Struct[i].edrpou, CSV_Struct[i].rahunok);
                         dataGridView2.Rows[n].Cells[12].Value = CSV_Struct[i].edrpou;
-                        if (!anotherPay.Checked || comboEdr.SelectedIndex.ToString() == "0")
+                        
+                        if (!anotherPay.Checked && comboEdr.SelectedIndex.ToString() == "0")
                         {
+                            dataGridView2.Rows[n].Cells[10].Value = findNameZkpo(CSV_Struct[i].edrpou, CSV_Struct[i].rahunok).Equals("null") ? CSV_Struct[i].name : findNameZkpo(CSV_Struct[i].edrpou, CSV_Struct[i].rahunok);
                             dataGridView2.Rows[n].Cells[11].Value = addDateToStr(findZkpo(CSV_Struct[i].edrpou, CSV_Struct[i].rahunok),
                             CSV_Struct[i].dateP.ToString("dd.MM.yyyy"));
                         }
                         else  //todo: пофиксить сохранение базы индустриала
                         {
+                            dataGridView2.Rows[n].Cells[10].Value = CSV_Struct[i].name;
                             dataGridView2.Rows[n].Cells[11].Value = CSV_Struct[i].pruznach;
                         }
 
                         //dataGridView2.Rows[n].Cells[11].Value = addDateToStr(findZkpo(CSV_Struct[i].edrpou, CSV_Struct[i].rahunok),
                            // CSV_Struct[i].dateP.ToString("dd.MM.yyyy"));
-                        if (dataGridView2.Rows[n].Cells[11].Value.Equals("null") || anotherPay.Checked && dataGridView2.Rows[n].Cells[11].Value.ToString() != "null")
+                        //if (dataGridView2.Rows[n].Cells[11].Value.Equals("null") || !anotherPay.Checked && dataGridView2.Rows[n].Cells[11].Value.ToString() != "null")
+                        if (dataGridView2.Rows[n].Cells[11].Value.Equals("null") || dataGridView2.Rows[n].Cells[11].Value.ToString() != "null")
                         {
                             dataGridView2.Rows[n].DefaultCellStyle.BackColor = Color.BurlyWood;
                             int m = dataGridView3.Rows.Add();
@@ -611,7 +614,9 @@ namespace SoftGenConverter
             DialogResult dr = new DialogResult();
             Form frm;
             if (anotherPay.Checked)
-                {frm = new Form2(path3); }
+            {
+                frm = new Form2(path3);
+            }
             else
             {
                 frm = new Form2(path2);
