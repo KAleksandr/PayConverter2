@@ -74,6 +74,19 @@ namespace SoftGenConverter
 
 
         }
+        public static void ReWriteFile(string path)
+        {
+            string file = path = path.Remove(0, path.LastIndexOf("\\") + 1);
+
+            if (!File.Exists(path)) //
+            {
+                File.Delete(path);
+                
+                
+            }
+
+
+        }
         public static List<Bank> loadXml(string path)
         {
 
@@ -147,7 +160,7 @@ namespace SoftGenConverter
                 }
 
                 ds.WriteXml(path);
-                // MessageBox.Show("XML файл успішно збережений.", "Виконано.");
+               // MessageBox.Show("XML файл успішно збережений.", "Виконано.");
             }
             catch //(System.Exception ex)
             {

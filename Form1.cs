@@ -63,38 +63,47 @@ namespace SoftGenConverter
         }
         public void initData()
         {
+            initPData();
+            Properties.Settings.Default.count++;
+            Properties.Settings.Default.Save();
+            backUpData();
+
+        }
+        public void initPData()
+        {
             this.comboEdr.SelectedIndexChanged += new System.EventHandler(comboEdr_SelectedIndexChanged);
             if (!anotherPay.Checked)
             {
-             Xml.isExistsFile(path2, strData);
-             Xml.loadXml(dataGridView3, path2);
-            }else
-            {
-                 Xml.isExistsFile(path3, strData);
-             Xml.loadXml(dataGridView3, path3);
+                Xml.isExistsFile(path2, strData);
+                Xml.loadXml(dataGridView3, path2);
             }
-           
+            else
+            {
+                Xml.isExistsFile(path3, strData);
+                Xml.loadXml(dataGridView3, path3);
+            }
+
 
             Xml.isExistsFile(pathConfig, strConfig);
 
-           
+
             try
             {
 
-            Bank[] banks = Xml.ReadXml(pathConfig);
-            
-            aval = banks[0];
+                Bank[] banks = Xml.ReadXml(pathConfig);
 
-            
-            ukrGaz = banks[1];
-            industrial = banks[2];
+                aval = banks[0];
+
+
+                ukrGaz = banks[1];
+                industrial = banks[2];
             }
             catch
             {
 
             }
 
-            
+
             setFieldsP(aval);
             setFieldsP2();
             //comboEdr.Items.Add(aval.name);
@@ -107,16 +116,11 @@ namespace SoftGenConverter
 
             comboEdr2.SelectedIndex = 0;
             comboEdr.SelectedIndex = 0;
-            
+
             SetDoubleBuffered(dataGridView1, true);
             SetDoubleBuffered(dataGridView2, true);
             SetDoubleBuffered(dataGridView3, true);
-            Properties.Settings.Default.count++;
-            Properties.Settings.Default.Save();
-            backUpData();
-
         }
-
         private void comboEdr_SelectedIndexChanged(object sender, System.EventArgs e)
         {
             //initData();
@@ -179,6 +183,11 @@ namespace SoftGenConverter
 
         private void OpenFile_Click(object sender, EventArgs e)
         {
+            dataGridView1.Rows.Clear();
+            dataGridView2.Rows.Clear();
+            dataGridView3.Rows.Clear();
+            this.path = string.Empty;
+            initPData();
             openCsv();
             dataGridView1.Sort(dataGridView1.Columns[2], ListSortDirection.Ascending);
         }
@@ -244,7 +253,8 @@ namespace SoftGenConverter
                     {
                         dataGridView1.Rows[n].Cells[2].Value = addDateToStr(findZkpo(CSV_Struct[i].edrpou, CSV_Struct[i].rahunok),
                        (CSV_Struct[i].dateP == dt1 ? dateTimePicker1.Value.ToString("dd.MM.yyyy") : CSV_Struct[i].dateP.ToString("dd.MM.yyyy")));
-                        dataGridView1.Rows[n].Cells[8].Value = findNameZkpo(CSV_Struct[i].edrpou, CSV_Struct[i].rahunok).Equals("null") ? CSV_Struct[i].name : findNameZkpo(CSV_Struct[i].edrpou, CSV_Struct[i].rahunok);
+                       
+                        dataGridView1.Rows[n].Cells[8].Value = findNameZkpo(CSV_Struct[i].name, CSV_Struct[i].edrpou, CSV_Struct[i].rahunok).Equals("null") ? CSV_Struct[i].name : findNameZkpo(CSV_Struct[i].name, CSV_Struct[i].edrpou, CSV_Struct[i].rahunok);
                     }
                     else
                     {
@@ -299,7 +309,7 @@ namespace SoftGenConverter
                         
                         if (!anotherPay.Checked && comboEdr.SelectedIndex.ToString() == "0")
                         {
-                            dataGridView2.Rows[n].Cells[10].Value = findNameZkpo(CSV_Struct[i].edrpou, CSV_Struct[i].rahunok).Equals("null") ? CSV_Struct[i].name : findNameZkpo(CSV_Struct[i].edrpou, CSV_Struct[i].rahunok);
+                            dataGridView2.Rows[n].Cells[10].Value = findNameZkpo(CSV_Struct[i].name, CSV_Struct[i].edrpou, CSV_Struct[i].rahunok).Equals("null") ? CSV_Struct[i].name : findNameZkpo(CSV_Struct[i].name, CSV_Struct[i].edrpou, CSV_Struct[i].rahunok);
                             dataGridView2.Rows[n].Cells[11].Value = addDateToStr(findZkpo(CSV_Struct[i].edrpou, CSV_Struct[i].rahunok),
                             CSV_Struct[i].dateP.ToString("dd.MM.yyyy"));
                         }
@@ -330,21 +340,23 @@ namespace SoftGenConverter
                     }
                 }
 
-                if (isNull)
+               
+            }
+            if (isNull)
+            {
+
+                if (!anotherPay.Checked)
                 {
-                   
-                    if (!anotherPay.Checked){
 
-                        Xml.saveXml(dataGridView3, path2);
-                    }
-                    else if (anotherPay.Checked)
-                    {
-
-                        Xml.saveXml(dataGridView3, path3); 
-                         
-                    }
-                   
+                    Xml.saveXml(dataGridView3, path2);
                 }
+                else if (anotherPay.Checked)
+                {
+
+                    Xml.saveXml(dataGridView3, path3);
+
+                }
+
             }
         }
         public void autoOpenCsv(string path)
@@ -416,7 +428,32 @@ namespace SoftGenConverter
             }
             return "null";
         }
-
+        public string findNameZkpo(string name, string zkpo, string rrahunok)
+        {
+            
+            foreach (DataGridViewRow r in dataGridView3.Rows)
+            {
+                if (r.Cells != null)
+                {
+                    
+                    try
+                    {
+                        if (r.Cells[0].Value.Equals(name) && r.Cells[1].Value.Equals(zkpo) && r.Cells[2].Value.Equals(rrahunok))
+                        {
+                            
+                            //MessageBox.Show(" " + name  + " summa " + r.Cells[0].Value);
+                            return r.Cells[0].Value.ToString().ToUpper();
+                        }
+                        
+                    }
+                    catch
+                    {
+                        return "null";
+                    }
+                }
+            }
+            return "null";
+        }
         public string converterDate(string dateS)
         {
             if (!string.IsNullOrEmpty(dateS))
@@ -943,7 +980,12 @@ namespace SoftGenConverter
             dataGridView2.Rows.Clear();
             dataGridView3.Rows.Clear();
              this.path = string.Empty;
+            initPData();
         }
 
+        private void anotherPay_CheckStateChanged(object sender, EventArgs e)
+        {
+            
+        }
     }
 }

@@ -34,6 +34,8 @@ namespace SoftGenConverter
             catch (NullReferenceException) { }
 
             RemoveDuplicate();
+            Xml.ReWriteFile(path);
+            Xml.saveXml(dataGridView1, path);
             baseB.DataSource = dataGridView1.DataSource;
             
             SetDoubleBuffered(dataGridView1, true);
