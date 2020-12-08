@@ -196,12 +196,27 @@ namespace SoftGenConverter
 
                     for (int cellIndex = 0; cellIndex < row.Cells.Count; cellIndex++)
                     {
+                        // if (!rowToCompare.Cells[2].Value.Equals(row.Cells[2].Value) & row.Cells[3].Value.ToString().Length > 51)
+                        // if (!rowToCompare.Cells[0].Value.Equals(row.Cells[0].Value))
+                        // {
+                        //     if (!rowToCompare.Cells[1].Value.Equals(row.Cells[1].Value))
+                        //     {
+                        //         if (!rowToCompare.Cells[2].Value.Equals(row.Cells[2].Value))
+                        //         {
+                        //           
+                        //             if (!rowToCompare.Cells[3].Value.Equals(row.Cells[3].Value))
+                        //             {
+                        //                 duplicateRow = false;
+                        //                 break;
+                        //             }
+                        //         }
+                        //     }
+                        // }
                         if (!rowToCompare.Cells[2].Value.Equals(row.Cells[2].Value))
                         {
                             duplicateRow = false;
                             break;
                         }
-
                     }
 
                     if (duplicateRow)

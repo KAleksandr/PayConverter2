@@ -322,15 +322,15 @@ namespace SoftGenConverter
                         //dataGridView2.Rows[n].Cells[11].Value = addDateToStr(findZkpo(CSV_Struct[i].edrpou, CSV_Struct[i].rahunok),
                            // CSV_Struct[i].dateP.ToString("dd.MM.yyyy"));
                         //if (dataGridView2.Rows[n].Cells[11].Value.Equals("null") || !anotherPay.Checked && dataGridView2.Rows[n].Cells[11].Value.ToString() != "null")
-                        if (dataGridView2.Rows[n].Cells[11].Value.Equals("null") || dataGridView2.Rows[n].Cells[11].Value.ToString() != "null")
+                        if (dataGridView2.Rows[n].Cells[11].Value.Equals("null") || anotherPay.Checked && dataGridView2.Rows[n].Cells[11].Value.ToString() != "null")
                         {
                             dataGridView2.Rows[n].DefaultCellStyle.BackColor = Color.BurlyWood;
                             int m = dataGridView3.Rows.Add();
                             dataGridView3.Rows[m].Cells[0].Value = CSV_Struct[i].name;
                             dataGridView3.Rows[m].Cells[1].Value = CSV_Struct[i].edrpou;
                             dataGridView3.Rows[m].Cells[2].Value = CSV_Struct[i].rahunok;
-                            dataGridView3.Rows[m].Cells[3].Value = CSV_Struct[i].pruznach;
-                            //dataGridView3.Rows[m].Cells[3].Value = dataGridView2.Rows[n].Cells[11].Value;
+                           // dataGridView3.Rows[m].Cells[3].Value = CSV_Struct[i].pruznach;
+                            dataGridView3.Rows[m].Cells[3].Value = dataGridView2.Rows[n].Cells[11].Value;
                             isNull = true;
                         }
                     }
