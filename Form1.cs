@@ -8,6 +8,9 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using System;
+using System.Text;
+using System.Xml;
 
 
 namespace SoftGenConverter
@@ -483,7 +486,7 @@ namespace SoftGenConverter
 
         public void createBox()
         {
-            foreach (DataGridViewRow r in dataGridView2.Rows) // пока в dataGridView1 есть строки
+            foreach (DataGridViewRow r in dataGridView2.Rows) // пока в dataGridView2 есть строки
             {
                 if (r.Cells != null)
                 {
@@ -519,6 +522,58 @@ namespace SoftGenConverter
             return name;
         }
 
+        public void saveXml()
+        {
+            
+            string time = DateTime.Now.ToString("ddMMyyyy");
+            // time += dateTimePicker1.Value.Day.ToString().Length == 1 ? "0" + dateTimePicker1.Value.Day : dateTimePicker1.Value.Day.ToString();
+            // time += DateTime.Now.Hour.ToString().Length == 1 ? "0" + DateTime.Now.Hour : DateTime.Now.Hour.ToString();
+            // time += DateTime.Now.Minute;
+            
+            
+            XmlWriterSettings settings = new XmlWriterSettings();
+            settings.Indent = true;
+            settings.Encoding = Encoding.GetEncoding(1251);
+            string path = AppDomain.CurrentDomain.BaseDirectory;
+            if (!Directory.Exists(path + "//AlfaBankPays"))
+            {
+                Directory.CreateDirectory(path + "//AlfaBankPays");
+            }
+            XmlWriter xmlWriter = XmlWriter.Create(path+"//AlfaBankPays//"+"AlfaBankPay"+time+".xml", settings);
+            xmlWriter.WriteStartDocument();
+            xmlWriter.WriteStartElement("ROWDATA");
+            foreach (DataGridViewRow r in dataGridView2.Rows) // пока в dataGridView2 есть строки
+            {
+                if (r.Cells != null)
+                {
+                    string t = "";
+                    string sum = "";
+                    try
+                    {
+                        t = r.Cells[3].Value.ToString();
+                        //string repl = r.Cells[8].Value.ToString().Replace(",", "");
+                        // sum = repl.ToString().Replace(".", "");
+                        sum = r.Cells[8].Value.ToString().Replace(",", "").Replace(".", "");
+                    }catch { }
+                    xmlWriter.WriteStartElement("ROW");
+                    xmlWriter.WriteAttributeString("DOCUMENTDATE", converterDate(t));
+                    xmlWriter.WriteAttributeString("BANKID", "300346");
+                    xmlWriter.WriteAttributeString("IBAN", "UA633003460000026507069842401");
+                    xmlWriter.WriteAttributeString("CORRBANKID", r.Cells[5].Value.ToString());
+                    xmlWriter.WriteAttributeString("CORRIBAN", r.Cells[7].Value.ToString());
+                    xmlWriter.WriteAttributeString("AMOUNT", sum);
+                    xmlWriter.WriteAttributeString("CORRSNAME", r.Cells[10].Value.ToString());
+                    xmlWriter.WriteAttributeString("DETAILSOFPAYMENT", r.Cells[11].Value.ToString());
+                    xmlWriter.WriteAttributeString("CORRIDENTIFYCODE", r.Cells[12].Value.ToString());
+                    xmlWriter.WriteEndElement();
+                }
+            }
+            xmlWriter.WriteEndDocument();
+            xmlWriter.Close();
+        }
+        
+        
+        
         public void saveExcel()
         {
             SaveFileDialog saveDialog = new SaveFileDialog
@@ -615,6 +670,7 @@ namespace SoftGenConverter
             if (comboEdr.SelectedIndex == 0)
             {
                 saveExcel();
+                saveXml();
             }
             
             Save();
