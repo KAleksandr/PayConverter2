@@ -524,13 +524,7 @@ namespace SoftGenConverter
 
         public void saveXml()
         {
-            
             string time = DateTime.Now.ToString("ddMMyyyy");
-            // time += dateTimePicker1.Value.Day.ToString().Length == 1 ? "0" + dateTimePicker1.Value.Day : dateTimePicker1.Value.Day.ToString();
-            // time += DateTime.Now.Hour.ToString().Length == 1 ? "0" + DateTime.Now.Hour : DateTime.Now.Hour.ToString();
-            // time += DateTime.Now.Minute;
-            
-            
             XmlWriterSettings settings = new XmlWriterSettings();
             settings.Indent = true;
             settings.Encoding = Encoding.GetEncoding(1251);
@@ -551,10 +545,8 @@ namespace SoftGenConverter
                     try
                     {
                         t = r.Cells[3].Value.ToString();
-                        //string repl = r.Cells[8].Value.ToString().Replace(",", "");
-                        // sum = repl.ToString().Replace(".", "");
                         sum = r.Cells[8].Value.ToString().Replace(",", "").Replace(".", "");
-                    }catch { }
+                    }catch {}
                     xmlWriter.WriteStartElement("ROW");
                     xmlWriter.WriteAttributeString("DOCUMENTDATE", converterDate(t));
                     xmlWriter.WriteAttributeString("BANKID", "300346");
