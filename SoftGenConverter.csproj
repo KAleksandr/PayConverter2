@@ -29,7 +29,7 @@
     <ProductName>PayConverter</ProductName>
     <PublisherName>Oleksandr Kuzmenko and Illya Baritskiy</PublisherName>
     <ApplicationRevision>55</ApplicationRevision>
-    <ApplicationVersion>2.1.0.56</ApplicationVersion>
+    <ApplicationVersion>2.1.0.55</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -78,14 +78,6 @@
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DotNetDBF, Version=6.0.0.3, Culture=neutral, PublicKeyToken=9c071727b589770e">
-      <HintPath>packages\DotNetDBF.6.0.0.3\lib\net35\DotNetDBF.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Dynamitey, Version=2.0.10.189, Culture=neutral, PublicKeyToken=cbf53ea3aeb972c6">
-      <HintPath>packages\Dynamitey.2.0.10.189\lib\net40\Dynamitey.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <EmbedInteropTypes>True</EmbedInteropTypes>
