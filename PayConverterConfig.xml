@@ -21,4 +21,11 @@
     <EDRPOU></EDRPOU>
     <clientBankCode>3069252999</clientBankCode>
   </bank>
+  <bank id="3">
+    <NAME>Ощадбанк</NAME>
+    <RAHUNOK>UA243020760000026501300388426</RAHUNOK>
+    <MFO>302076</MFO>
+    <EDRPOU></EDRPOU>
+    <clientBankCode>3069252999</clientBankCode>
+  </bank>
 </Banks>
