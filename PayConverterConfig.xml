@@ -2,10 +2,10 @@
 <Banks>
   <bank id="0">
     <NAME>Райффайзен Банк Аваль</NAME>
-    <RAHUNOK>265043345</RAHUNOK>
-    <MFO>380805</MFO>
+    <RAHUNOK>UA643808050000000000265043345</RAHUNOK>
+    <MFO>313849</MFO>
     <EDRPOU></EDRPOU>
-    <clientBankCode>3069252</clientBankCode>
+    <clientBankCode>40375721</clientBankCode>
   </bank>
   <bank id="1">
     <NAME>УкрГазБанк</NAME>
@@ -13,12 +13,20 @@
     <MFO></MFO>
     <EDRPOU>40375721</EDRPOU>
     <clientBankCode></clientBankCode>
+    <IBAN>UA383204780000026545743585101</IBAN>
   </bank>
   <bank id="2">
     <NAME>Індустріал</NAME>
-    <RAHUNOK>265043345999</RAHUNOK>
-    <MFO>380805999</MFO>
+    <RAHUNOK>UA173138490000026503010000233</RAHUNOK>
+    <MFO>313849</MFO>
     <EDRPOU></EDRPOU>
+    <clientBankCode>40375721</clientBankCode>
+  </bank>
+    <bank id="3">
+    <NAME>Ощадбанк</NAME>
+    <RAHUNOK>UA243020760000026501300388426</RAHUNOK>
+    <MFO>302076</MFO>
+    <EDRPOU>40375721</EDRPOU>
     <clientBankCode>3069252999</clientBankCode>
   </bank>
 </Banks>

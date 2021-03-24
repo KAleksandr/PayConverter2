@@ -10,38 +10,33 @@ using System.Xml.Linq;
 
 namespace SoftGenConverter
 {
-    static class Xml
+    internal static class Xml
     {
         public static void loadXml(DataGridView dataGridView1, string path)
         {
-
-            if (dataGridView1.Rows.Count > 0)
-            {
-                dataGridView1.Rows.Clear();
-            }
+            if (dataGridView1.Rows.Count > 0) dataGridView1.Rows.Clear();
 
             if (File.Exists(path)) //
             {
-                DataSet ds = new DataSet();
+                var ds = new DataSet();
                 ds.ReadXml(path);
                 try
                 {
                     foreach (DataRow item in ds.Tables["Employee"].Rows)
                     {
-                        int n = dataGridView1.Rows.Add();
+                        var n = dataGridView1.Rows.Add();
                         dataGridView1.Rows[n].Cells[0].Value = item["NAME"];
                         dataGridView1.Rows[n].Cells[1].Value = item["ERDPO"];
 
                         dataGridView1.Rows[n].Cells[2].Value = item["RRahunok"];
                         dataGridView1.Rows[n].Cells[3].Value = MyDataGrid.shortText(item["Comment"].ToString());
                         if (dataGridView1.Rows[n].Cells[3].Value.Equals("null"))
-                        {
                             dataGridView1.Rows[n].DefaultCellStyle.BackColor = Color.BurlyWood;
-                        }
                     }
                 }
-                catch (NullReferenceException) { }
-
+                catch (NullReferenceException)
+                {
+                }
             }
             //else
             //{
@@ -52,54 +47,49 @@ namespace SoftGenConverter
             //    doc.LoadXml(path2);
             //    doc.Save("PayConverterData.xml");
             //}
-
         }
 
         public static void isExistsFile(string path, string text)
         {
-            string file = path = path.Remove(0, path.LastIndexOf("\\") + 1);
+            var file = path = path.Remove(0, path.LastIndexOf("\\") + 1);
 
             if (!File.Exists(path)) //
             {
-                XmlDocument doc = new XmlDocument();
+                var doc = new XmlDocument();
                 doc.LoadXml(text);
                 // MessageBox.Show(file);
-                StreamWriter outStream = System.IO.File.CreateText(file);
+                var outStream = File.CreateText(file);
                 doc.Save(outStream);
                 outStream.Close();
                 Thread.Sleep(300);
-                MessageBox.Show(file + " файл не знайдений!" + Environment.NewLine + " Файл створено з конфігурації програми.", "Помилка.", MessageBoxButtons.OK,
+                MessageBox.Show(
+                    file + " файл не знайдений!" + Environment.NewLine + " Файл створено з конфігурації програми.",
+                    "Помилка.", MessageBoxButtons.OK,
                     MessageBoxIcon.Warning);
             }
-
-
         }
+
         public static void ReWriteFile(string path)
         {
-            string file = path = path.Remove(0, path.LastIndexOf("\\") + 1);
+            var file = path = path.Remove(0, path.LastIndexOf("\\") + 1);
 
             if (!File.Exists(path)) //
-            {
                 File.Delete(path);
-                
-                
-            }
-
-
         }
+
         public static List<Bank> loadXml(string path)
         {
-
-            DataSet ds = new DataSet();
-            List<Bank> config = new List<Bank>();
+            var ds = new DataSet();
+            var config = new List<Bank>();
 
             if (File.Exists(path)) //
             {
-                ds.ReadXml(path); try
+                ds.ReadXml(path);
+                try
                 {
                     foreach (DataRow item in ds.Tables["Bank"].Rows)
                     {
-                        Bank bank = new Bank
+                        var bank = new Bank
                         {
                             name = item["NAME"].ToString(),
                             mfo = item["MFO"].ToString(),
@@ -119,10 +109,11 @@ namespace SoftGenConverter
                         {
                             config.Add(bank);
                         }
-
                     }
                 }
-                catch (NullReferenceException) { }
+                catch (NullReferenceException)
+                {
+                }
             }
 
 
@@ -133,8 +124,8 @@ namespace SoftGenConverter
         {
             try
             {
-                DataSet ds = new DataSet(); // создаем пока что пустой кэш данных
-                DataTable dt = new DataTable
+                var ds = new DataSet(); // создаем пока что пустой кэш данных
+                var dt = new DataTable
                 {
                     TableName = "Employee" // название таблицы
                 }; // создаем пока что пустую таблицу данных
@@ -146,34 +137,31 @@ namespace SoftGenConverter
                 ds.Tables.Add(dt); //в ds создается таблица, с названием и колонками, созданными выше
 
                 foreach (DataGridViewRow r in dataGridView.Rows) // пока в dataGridView1 есть строки
-                {
                     if (r.Cells != null)
                     {
-                        DataRow row = ds.Tables["Employee"].NewRow(); // создаем новую строку в таблице, занесенной в ds
+                        var row = ds.Tables["Employee"].NewRow(); // создаем новую строку в таблице, занесенной в ds
                         row["Name"] = r.Cells[0].Value;
-                        row["ERDPO"] = r.Cells[1].Value;  //в столбец этой строки заносим данные из первого столбца dataGridView1
+                        row["ERDPO"] =
+                            r.Cells[1].Value; //в столбец этой строки заносим данные из первого столбца dataGridView1
                         row["Comment"] = r.Cells[3].Value; // то же самое со вторыми столбцами
                         row["RRahunok"] = r.Cells[2].Value;
 
                         ds.Tables["Employee"].Rows.Add(row); //добавление всей этой строки в таблицу ds.
                     }
-                }
 
                 ds.WriteXml(path);
-               // MessageBox.Show("XML файл успішно збережений.", "Виконано.");
+                // MessageBox.Show("XML файл успішно збережений.", "Виконано.");
             }
             catch //(System.Exception ex)
             {
                 // MessageBox.Show("Неможливо зберегти дані в XML файл.", "Помилка.", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 // MessageBox.Show(ex.Message);
             }
-
-
-
         }
+
         public static void saveXml(string path)
         {
-            XElement contacts =
+            var contacts =
                 new XElement("Contacts",
                     new XElement("Contact",
                         new XElement("Name", "Patrick Hines"),
@@ -237,95 +225,64 @@ namespace SoftGenConverter
             //    MessageBox.Show("Неможливо зберегти дані в XML файл.", "Помилка.", MessageBoxButtons.OK, MessageBoxIcon.Error);
             //    MessageBox.Show(ex.Message);
             //}
-
-
-
         }
+
         public static Bank[] ReadXml(string fileName)
         {
-            Bank bank1 = new Bank();
-            Bank bank2 = new Bank();
-            Bank bank3 = new Bank();
-            
+            var bank1 = new Bank();
+            var bank2 = new Bank();
+            var bank3 = new Bank();
+            var bank4 = new Bank();
+
             //MessageBox.Show(fileName);
-            
+
             //читаем данные из файла
-            
-                XDocument doc = XDocument.Load(fileName);
 
-                //(этот элемент сразу доступен через свойство doc.Root)
-                foreach (XElement el in doc.Root.Elements())
-                {
-                    if (Convert.ToInt32(el.Attribute("id").Value) == 0)
-                    {
-                        bank1 = FillBank(el);
+            var doc = XDocument.Load(fileName);
 
-                    }
-                    else if (Convert.ToInt32(el.Attribute("id").Value) == 1)
-                    {
-                        bank2 = FillBank(el);
-                    }
-                     else if (Convert.ToInt32(el.Attribute("id").Value) == 2)
-                    {
-                        bank3 = FillBank(el);
-                    }
-                }
-            Bank[] banks = { bank1, bank2, bank3  };
-                
-                return banks;
-           
-            
+            //(этот элемент сразу доступен через свойство doc.Root)
+            foreach (var el in doc.Root.Elements())
+                if (Convert.ToInt32(el.Attribute("id").Value) == 0)
+                    bank1 = FillBank(el);
+                else if (Convert.ToInt32(el.Attribute("id").Value) == 1)
+                    bank2 = FillBank(el);
+                else if (Convert.ToInt32(el.Attribute("id").Value) == 2)
+                    bank3 = FillBank(el);
+                else if (Convert.ToInt32(el.Attribute("id").Value) == 3) bank4 = FillBank(el);
+            Bank[] banks = {bank1, bank2, bank3, bank4};
 
-
-           
+            return banks;
         }
+
         public static Bank FillBank(XElement el)
         {
-            Bank bank = new Bank();
+            var bank = new Bank();
 
-            foreach (XElement element in el.Elements())
+            foreach (var element in el.Elements())
             {
-                
-
-                if (element.Name.ToString().Equals("NAME"))
-                {
-                    bank.name = element.Value;
-                }
+                if (element.Name.ToString().Equals("NAME")) bank.name = element.Value;
                 if (element.Name.ToString().Equals("RAHUNOK"))
-                {
                     bank.rahunok = element.Value;
-                }
                 else if (element.Name.ToString().Equals("MFO"))
-                {
                     bank.mfo = element.Value;
-                }
                 else if (element.Name.ToString().Equals("EDRPOU"))
-                {
                     bank.edrpou = element.Value;
-                }
                 else if (element.Name.ToString().Equals("EDRPOU"))
-                {
                     bank.edrpou = element.Value;
-                }
                 else if (element.Name.ToString().Equals("clientBankCode"))
-                {
                     bank.clientBankCode = element.Value;
-                }
-                else if (element.Name.ToString().Equals("IBAN"))
-                {
-                    bank.iban = element.Value;
-                }
-                                
+                else if (element.Name.ToString().Equals("IBAN")) bank.iban = element.Value;
             }
 
             return bank;
         }
+
         public static void EditXml(Bank bank, string fileName)
         {
-            XDocument doc = XDocument.Load(fileName);
-            foreach (XElement el in doc.Root.Elements("bank"))
+            var doc = XDocument.Load(fileName);
+            foreach (var el in doc.Root.Elements("bank"))
             {
-                int id = Int32.Parse(el.Attribute("id").Value);
+                var id = int.Parse(el.Attribute("id").Value);
                 if (id == 0 && bank.id == 0)
                 {
                     el.SetElementValue("NAME", bank.name);
@@ -352,11 +309,21 @@ namespace SoftGenConverter
                     el.SetElementValue("EDRPOU", bank.edrpou);
                     el.SetElementValue("clientBankCode", bank.clientBankCode);
                 }
+                else if (id == 3 && bank.id == 3)
+                {
+                    el.SetElementValue("NAME", bank.name);
+                    el.SetElementValue("RAHUNOK", bank.rahunok);
+                    el.SetElementValue("MFO", bank.mfo);
+                    el.SetElementValue("EDRPOU", bank.edrpou);
+                    el.SetElementValue("clientBankCode", bank.clientBankCode);
+                }
             }
+
             doc.Save(fileName);
         }
 
         #region MyRegion
+
         //public static void createConfig(string Path)
         //{
 
@@ -498,6 +465,7 @@ namespace SoftGenConverter
         //    xRoot.RemoveChild(firstNode);
         //    xDoc.Save(Path);
         //}
+
         #endregion
     }
 }

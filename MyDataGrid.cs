@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace SoftGenConverter
 {
-    class MyDataGrid
+    internal class MyDataGrid
     {
         public static void StyleDataGridView(DataGridView dgv, bool isReadonly = true)
         {
@@ -26,7 +23,7 @@ namespace SoftGenConverter
                 dgv.AllowUserToAddRows = false;
                 dgv.ReadOnly = isReadonly;
                 //dgv.SelectionMode = DataGridViewSelectionMode.CellSelect;
-                System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle
+                var dataGridViewCellStyle1 = new DataGridViewCellStyle
                 {
                     BackColor = Color.LightBlue
                 };
@@ -36,13 +33,14 @@ namespace SoftGenConverter
             {
             }
         }
+
         public static string shortText(string str)
         {
-            string pattern = @"будин\S+";
-            string pattern2 = @"комунал\S+";
-            string pattern3 = @"послуг\S+";
-            string pattern4 = @"утриман\S+";
-            string pattern5 = @"управл\S+";
+            var pattern = @"будин\S+";
+            var pattern2 = @"комунал\S+";
+            var pattern3 = @"послуг\S+";
+            var pattern4 = @"утриман\S+";
+            var pattern5 = @"управл\S+";
 
             str = Regex.Replace(str.Trim(), @"[^\S\r\n]+", " ");
             str = Regex.Replace(str, pattern, "буд. ");
@@ -53,17 +51,16 @@ namespace SoftGenConverter
 
             return str;
         }
+
         public static void Filter(DataGridView dataGridView1, string foundText, int[] col)
         {
-            string textF = foundText.Trim().ToLower();
+            var textF = foundText.Trim().ToLower();
 
-            for (int i = 0; i < dataGridView1.RowCount; i++)
-            {
-                if (dataGridView1[col[0], i].FormattedValue.ToString().ToLower().
-                        Contains(textF) || dataGridView1[col[1], i].FormattedValue.ToString().ToLower().
-                        Contains(textF) || dataGridView1[col[2], i].FormattedValue.ToString().ToLower().
-                        Contains(textF) || dataGridView1[col[3], i].FormattedValue.ToString().ToLower().
-                        Contains(textF))
+            for (var i = 0; i < dataGridView1.RowCount; i++)
+                if (dataGridView1[col[0], i].FormattedValue.ToString().ToLower().Contains(textF) ||
+                    dataGridView1[col[1], i].FormattedValue.ToString().ToLower().Contains(textF) ||
+                    dataGridView1[col[2], i].FormattedValue.ToString().ToLower().Contains(textF) ||
+                    dataGridView1[col[3], i].FormattedValue.ToString().ToLower().Contains(textF))
                 {
                     //MessageBox.Show(dataGridView1[1, i].FormattedValue.ToString());
                     dataGridView1.Rows[i].Selected = true;
@@ -73,18 +70,14 @@ namespace SoftGenConverter
                 {
                     dataGridView1.Rows[i].Visible = false;
                     dataGridView1.Rows[i].Selected = false;
-
                 }
-            }
 
-            if (string.IsNullOrEmpty(foundText))
-            {
-                dataGridView1.ClearSelection();
-            }
+            if (string.IsNullOrEmpty(foundText)) dataGridView1.ClearSelection();
         }
+
         public static string convertDate(string text)
         {
-            string pattern = @"за\s?[0-9]{2}[.][0-9]{2}[.][0-9]{4}\s*р?.?";
+            var pattern = @"за\s?[0-9]{2}[.][0-9]{2}[.][0-9]{4}\s*р?.?";
 
             return Regex.Replace(text, pattern, "  за ##.##.#### ");
         }
