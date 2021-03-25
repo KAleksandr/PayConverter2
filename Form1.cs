@@ -317,7 +317,7 @@ namespace SoftGenConverter
                         dataGridView2.Rows[n].Cells[9].Value = "0";
                         dataGridView2.Rows[n].Cells[12].Value = CSV_Struct[i].edrpou;
 
-                        if (!anotherPay.Checked && comboEdr.SelectedIndex.ToString() == "0")
+                        if (!anotherPay.Checked && (comboEdr.SelectedIndex.ToString() == "0" || comboEdr.SelectedIndex.ToString() == "2"))
                         {
                             dataGridView2.Rows[n].Cells[10].Value =
                                 FindNameZkpo(CSV_Struct[i].name, CSV_Struct[i].edrpou, CSV_Struct[i].rahunok)
