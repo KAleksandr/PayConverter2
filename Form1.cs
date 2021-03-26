@@ -564,7 +564,9 @@ namespace SoftGenConverter
 
                 foreach (DataGridViewRow row in dataGridView2.Rows)
                 {
-                    var summa = Convert.ToInt32(row.Cells[5].Value);
+                   // MessageBox.Show("type " + int.Parse(row.Cells[8].Value.ToString(), NumberStyles.AllowThousands, new CultureInfo("en-au")));
+
+                    int summa = Convert.ToInt32(row.Cells[8].Value.ToString().Replace("." , ""));
                     writer.AddRecord(
                         // добавляем поля в набор
                         docNum.ToString(), //1
@@ -580,7 +582,7 @@ namespace SoftGenConverter
                         row.Cells[10].Value.ToString(), //11
                         bankKorespond, //12
                         debCred, //13
-                        summa * 100, //14
+                        summa, //14
                         row.Cells[11].Value, //15
                         codeVal //16
                     );
