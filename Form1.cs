@@ -113,6 +113,8 @@ namespace SoftGenConverter
             MyDataGrid.StyleDataGridView(dataGridView1, false);
             MyDataGrid.StyleDataGridView(dataGridView2, false);
 
+            docNumOschad.Visible = false;
+
             comboEdr2.SelectedIndex = 0;
 
             if (comboEdr.SelectedItem == null)
@@ -128,6 +130,7 @@ namespace SoftGenConverter
                         break;
                     case 2:
                         SetFieldsP(oschad);
+                        docNumOschad.Visible = true;
                         break;
                 }
 
@@ -554,7 +557,7 @@ namespace SoftGenConverter
                     field13, field14, field15, field16
                 };
 
-                var docNum = 1;
+                var docNum = Convert.ToInt32(docNumOschad.Text);
                 var zkpo = "40375721";
                 var cliName = "ТОВ \"ФК\"МПС\"";
                 var cliBankName = "Вінницьке обласне управління АТ \"Ощадбанк\"";

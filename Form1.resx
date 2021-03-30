@@ -553,6 +553,27 @@
   <data name="&gt;&gt;gridHeader.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+  <data name="docNumOschad.Location" type="System.Drawing.Point, System.Drawing">
+    <value>133, 11</value>
+  </data>
+  <data name="docNumOschad.Size" type="System.Drawing.Size, System.Drawing">
+    <value>47, 20</value>
+  </data>
+  <data name="docNumOschad.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;docNumOschad.Name" xml:space="preserve">
+    <value>docNumOschad</value>
+  </data>
+  <data name="&gt;&gt;docNumOschad.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;docNumOschad.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;docNumOschad.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="label8.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -581,10 +602,10 @@
     <value>panel1</value>
   </data>
   <data name="&gt;&gt;label8.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="rahunok.Location" type="System.Drawing.Point, System.Drawing">
-    <value>158, 37</value>
+    <value>186, 37</value>
   </data>
   <data name="rahunok.Size" type="System.Drawing.Size, System.Drawing">
     <value>166, 20</value>
@@ -602,7 +623,7 @@
     <value>panel1</value>
   </data>
   <data name="&gt;&gt;rahunok.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="label1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -611,7 +632,7 @@
     <value>NoControl</value>
   </data>
   <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>50, 40</value>
+    <value>78, 40</value>
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
     <value>98, 13</value>
@@ -632,7 +653,7 @@
     <value>panel1</value>
   </data>
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="comboEdr.Items" xml:space="preserve">
     <value>Райффайзен Банк Аваль</value>
@@ -644,7 +665,7 @@
     <value>Ощадбанк</value>
   </data>
   <data name="comboEdr.Location" type="System.Drawing.Point, System.Drawing">
-    <value>158, 11</value>
+    <value>198, 11</value>
   </data>
   <data name="comboEdr.Size" type="System.Drawing.Size, System.Drawing">
     <value>134, 21</value>
@@ -662,7 +683,7 @@
     <value>panel1</value>
   </data>
   <data name="&gt;&gt;comboEdr.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="button3.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -671,7 +692,7 @@
     <value>NoControl</value>
   </data>
   <data name="button3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>293, 9</value>
+    <value>333, 9</value>
   </data>
   <data name="button3.Size" type="System.Drawing.Size, System.Drawing">
     <value>22, 22</value>
@@ -693,10 +714,10 @@
     <value>panel1</value>
   </data>
   <data name="&gt;&gt;button3.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="cliBankCode.Location" type="System.Drawing.Point, System.Drawing">
-    <value>158, 88</value>
+    <value>186, 88</value>
   </data>
   <data name="cliBankCode.Size" type="System.Drawing.Size, System.Drawing">
     <value>169, 20</value>
@@ -714,7 +735,7 @@
     <value>panel1</value>
   </data>
   <data name="&gt;&gt;cliBankCode.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="label5.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -723,7 +744,7 @@
     <value>NoControl</value>
   </data>
   <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>36, 92</value>
+    <value>64, 92</value>
   </data>
   <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
     <value>116, 13</value>
@@ -744,10 +765,10 @@
     <value>panel1</value>
   </data>
   <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="mfo.Location" type="System.Drawing.Point, System.Drawing">
-    <value>158, 62</value>
+    <value>186, 62</value>
   </data>
   <data name="mfo.MaxLength" type="System.Int32, mscorlib">
     <value>16</value>
@@ -768,7 +789,7 @@
     <value>panel1</value>
   </data>
   <data name="&gt;&gt;mfo.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>8</value>
   </data>
   <data name="label2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -777,7 +798,7 @@
     <value>NoControl</value>
   </data>
   <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>62, 65</value>
+    <value>90, 65</value>
   </data>
   <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
     <value>90, 13</value>
@@ -798,7 +819,7 @@
     <value>panel1</value>
   </data>
   <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>9</value>
   </data>
   <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
     <value>44, 0</value>

@@ -101,6 +101,7 @@
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.docNumOschad = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
             this.panel7.SuspendLayout();
@@ -308,6 +309,7 @@
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.docNumOschad);
             this.panel1.Controls.Add(this.label8);
             this.panel1.Controls.Add(this.rahunok);
             this.panel1.Controls.Add(this.label1);
@@ -613,6 +615,11 @@
             this.toolTip1.SetToolTip(this.textBox1, resources.GetString("textBox1.ToolTip"));
             this.textBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox1_KeyPress);
             // 
+            // docNumOschad
+            // 
+            resources.ApplyResources(this.docNumOschad, "docNumOschad");
+            this.docNumOschad.Name = "docNumOschad";
+            // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
@@ -712,6 +719,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column10;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column16;
         private System.Windows.Forms.CheckBox anotherPay;
+        private System.Windows.Forms.TextBox docNumOschad;
     }
 }
 
