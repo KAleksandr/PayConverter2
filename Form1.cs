@@ -567,9 +567,9 @@ namespace SoftGenConverter
 
                 foreach (DataGridViewRow row in dataGridView2.Rows)
                 {
-                   // MessageBox.Show("type " + int.Parse(row.Cells[8].Value.ToString(), NumberStyles.AllowThousands, new CultureInfo("en-au")));
+                    // MessageBox.Show("type " + int.Parse(row.Cells[8].Value.ToString(), NumberStyles.AllowThousands, new CultureInfo("en-au")));
 
-                    int summa = Convert.ToInt32(row.Cells[8].Value.ToString().Replace("." , ""));
+                    int summa = Convert.ToInt32(row.Cells[8].Value.ToString().Replace(".", ""));
                     writer.AddRecord(
                         // добавляем поля в набор
                         docNum.ToString(), //1
@@ -653,7 +653,7 @@ namespace SoftGenConverter
         }
 
         public void
-            SaveExcel(SaveFileDialog saveDialog, DataGridView dataGridView1) //создаем файл импорта для укргаз банка
+    SaveExcel(SaveFileDialog saveDialog, DataGridView dataGridView1) //создаем файл импорта для укргаз банка
         {
             // Creating a Excel object.
             _Application excel = new Microsoft.Office.Interop.Excel.Application();
@@ -676,84 +676,87 @@ namespace SoftGenConverter
                 var cellRowIndex = 1;
                 var cellColumnIndex = 1;
 
-                // for (int i = 0; i <= dataGridView1.Rows.Count; i++) // todo: готовый код Для нового укргазбанка выгрузка
-                // {
-                //     
-                //         if (cellRowIndex == 1)
-                //         {
-                //            // worksheet.Cells[cellRowIndex, cellColumnIndex] = dataGridView1.Columns[j].HeaderText;
-                //             // worksheet.Cells[1, 1].Value = "Campus";
-                //             worksheet.Cells[1, 1].Value = "FIELD_CUST_BANK_CODE";
-                //             worksheet.Cells[1, 2].Value = "FIELD_CUST_ACCOUNT";
-                //             worksheet.Cells[1, 3].Value = "FIELD_CUST_IBAN";
-                //             worksheet.Cells[1, 4].Value = "FIELD_BENEF_BANK_CODE";
-                //             worksheet.Cells[1, 5].Value = "FIELD_BENEF_ACCOUNT";
-                //             worksheet.Cells[1, 6].Value = "FIELD_BENEF_IBAN";
-                //             worksheet.Cells[1, 7].Value = "FIELD_OPERATION_TYPE";
-                //             worksheet.Cells[1, 8].Value = "FIELD_AMOUNT";
-                //             worksheet.Cells[1, 9].Value = "FIELD_DOCUMENT_TYPE";
-                //             worksheet.Cells[1, 10].Value = "FIELD_NUMBER";
-                //             worksheet.Cells[1, 11].Value = "FIELD_CURRENCY_NUMBER";
-                //             worksheet.Cells[1, 12].Value = "FIELD_DOCUMENT_DATE";
-                //             worksheet.Cells[1, 13].Value = "FIELD_VALUE_DATE";
-                //             worksheet.Cells[1, 14].Value = "FIELD_CUST_NAME";
-                //             worksheet.Cells[1, 15].Value = "FIELD_BENEF_NAME";
-                //             worksheet.Cells[1, 16].Value = "FIELD_PURPOSE";
-                //             worksheet.Cells[1, 17].Value = "FIELD_ADDITIONAL_DATA";
-                //             worksheet.Cells[1, 18].Value = "FIELD_PURPOSE_CODE";
-                //             worksheet.Cells[1, 19].Value = "FIELD_EMPTY_COLUMN";
-                //             worksheet.Cells[1, 20].Value = "FIELD_CUST_TAX_CODE";
-                //             worksheet.Cells[1, 21].Value = "FIELD_BENEF_TAX_CODE";
-                //             worksheet.Cells[1, 22].Value = "FIELD_EXT_DOCUMENT_NUMBER";
-                //             worksheet.Cells[1, 23].Value = "FIELD_VAT_TYPE";
-                //         }
-                //         else
-                //         {
-                //             // for (int t = 1; t < dataGridView1.Columns.Count; t++)
-                //             // {
-                //             //     worksheet.Cells[cellRowIndex, t].NumberFormat = "@";
-                //             // }
-                //
-                //             worksheet.Cells[cellRowIndex, 8] = dataGridView1.Rows[i-1].Cells[0].Value.ToString();
-                //             worksheet.Cells[cellRowIndex, 11] = dataGridView1.Rows[i-1].Cells[1].Value.ToString();
-                //             worksheet.Cells[cellRowIndex, 16] = dataGridView1.Rows[i-1].Cells[2].Value.ToString();
-                //             worksheet.Cells[cellRowIndex, 2] = dataGridView1.Rows[i-1].Cells[3].Value.ToString();
-                //             worksheet.Cells[cellRowIndex, 20] = dataGridView1.Rows[i-1].Cells[4].Value.ToString();
-                //             worksheet.Cells[cellRowIndex, 4] = dataGridView1.Rows[i-1].Cells[5].Value.ToString();
-                //             worksheet.Cells[cellRowIndex, 6] = dataGridView1.Rows[i-1].Cells[6].Value.ToString();
-                //             worksheet.Cells[cellRowIndex, 15] = dataGridView1.Rows[i-1].Cells[7].Value.ToString();
-                //             worksheet.Cells[cellRowIndex, 3] = dataGridView1.Rows[i-1].Cells[8].Value.ToString();
-                //         }
-                //
-                //         
-                //     
-                //     cellRowIndex++;
-                //     progressBar1.PerformStep();
-                // } 
-
-
-                for (var i = 0; i <= dataGridView1.Rows.Count; i++)
+                for (int i = 0; i <= dataGridView1.Rows.Count; i++) // todo: готовый код Для нового укргазбанка выгрузка
                 {
-                    for (var j = 0; j < dataGridView1.Columns.Count; j++)
-                    {
-                        if (cellRowIndex == 1)
-                        {
-                            worksheet.Cells[cellRowIndex, cellColumnIndex] = dataGridView1.Columns[j].HeaderText;
-                        }
-                        else
-                        {
-                            worksheet.Cells[cellRowIndex, cellColumnIndex].NumberFormat = "@";
-                            worksheet.Cells[cellRowIndex, cellColumnIndex] =
-                                dataGridView1.Rows[i - 1].Cells[j].Value.ToString();
-                        }
 
-                        cellColumnIndex++;
+                    if (cellRowIndex == 1)
+                    {
+                        // worksheet.Cells[cellRowIndex, cellColumnIndex] = dataGridView1.Columns[j].HeaderText;
+                        // worksheet.Cells[1, 1].Value = "Campus";
+                        worksheet.Cells[1, 1].Value = "FIELD_CUST_BANK_CODE";
+                        worksheet.Cells[1, 2].Value = "FIELD_CUST_ACCOUNT";
+                        worksheet.Cells[1, 3].Value = "FIELD_CUST_IBAN";
+                        worksheet.Cells[1, 4].Value = "FIELD_BENEF_BANK_CODE";
+                        worksheet.Cells[1, 5].Value = "FIELD_BENEF_ACCOUNT";
+                        worksheet.Cells[1, 6].Value = "FIELD_BENEF_IBAN";
+                        worksheet.Cells[1, 7].Value = "FIELD_OPERATION_TYPE";
+                        worksheet.Cells[1, 8].Value = "FIELD_AMOUNT";
+                        worksheet.Cells[1, 9].Value = "FIELD_DOCUMENT_TYPE";
+                        worksheet.Cells[1, 10].Value = "FIELD_NUMBER";
+                        worksheet.Cells[1, 11].Value = "FIELD_CURRENCY_NUMBER";
+                        worksheet.Cells[1, 12].Value = "FIELD_DOCUMENT_DATE";
+                        worksheet.Cells[1, 13].Value = "FIELD_VALUE_DATE";
+                        worksheet.Cells[1, 14].Value = "FIELD_CUST_NAME";
+                        worksheet.Cells[1, 15].Value = "FIELD_BENEF_NAME";
+                        worksheet.Cells[1, 16].Value = "FIELD_PURPOSE";
+                        worksheet.Cells[1, 17].Value = "FIELD_ADDITIONAL_DATA";
+                        worksheet.Cells[1, 18].Value = "FIELD_PURPOSE_CODE";
+                        worksheet.Cells[1, 19].Value = "FIELD_EMPTY_COLUMN";
+                        worksheet.Cells[1, 20].Value = "FIELD_CUST_TAX_CODE";
+                        worksheet.Cells[1, 21].Value = "FIELD_BENEF_TAX_CODE";
+                        worksheet.Cells[1, 22].Value = "FIELD_EXT_DOCUMENT_NUMBER";
+                        worksheet.Cells[1, 23].Value = "FIELD_VAT_TYPE";
+                    }
+                    else
+                    {
+                        // for (int t = 1; t < dataGridView1.Columns.Count; t++)
+                        // {
+                        //     worksheet.Cells[cellRowIndex, t].NumberFormat = "@";
+                        // }
+                        worksheet.Cells[cellRowIndex, 1] = 320478;
+                        worksheet.Cells[cellRowIndex, 8] = dataGridView1.Rows[i - 1].Cells[0].Value.ToString();
+                        worksheet.Cells[cellRowIndex, 11] = dataGridView1.Rows[i - 1].Cells[1].Value.ToString();
+                        worksheet.Cells[cellRowIndex, 16] = dataGridView1.Rows[i - 1].Cells[2].Value.ToString();
+                        worksheet.Cells[cellRowIndex, 2] = dataGridView1.Rows[i - 1].Cells[3].Value.ToString();
+                        worksheet.Cells[cellRowIndex, 20] = dataGridView1.Rows[i - 1].Cells[4].Value.ToString();
+                        worksheet.Cells[cellRowIndex, 4] = dataGridView1.Rows[i - 1].Cells[5].Value.ToString();
+                        worksheet.Cells[cellRowIndex, 6] = dataGridView1.Rows[i - 1].Cells[6].Value.ToString();
+                        worksheet.Cells[cellRowIndex, 21] = dataGridView1.Rows[i - 1].Cells[7].Value.ToString();
+                        worksheet.Cells[cellRowIndex, 3] = textIban.Text;
+                        worksheet.Cells[cellRowIndex, 15] = dataGridView1.Rows[i - 1].Cells[8].Value.ToString();
+
+
                     }
 
-                    cellColumnIndex = 1;
+
+
                     cellRowIndex++;
                     progressBar1.PerformStep();
                 }
+
+
+                //for (var i = 0; i <= dataGridView1.Rows.Count; i++)
+                //{
+                //    for (var j = 0; j < dataGridView1.Columns.Count; j++)
+                //    {
+                //        if (cellRowIndex == 1)
+                //        {
+                //            worksheet.Cells[cellRowIndex, cellColumnIndex] = dataGridView1.Columns[j].HeaderText;
+                //        }
+                //        else
+                //        {
+                //            worksheet.Cells[cellRowIndex, cellColumnIndex].NumberFormat = "@";
+                //            worksheet.Cells[cellRowIndex, cellColumnIndex] =
+                //                dataGridView1.Rows[i - 1].Cells[j].Value.ToString();
+                //        }
+
+                //        cellColumnIndex++;
+                //    }
+
+                //    cellColumnIndex = 1;
+                //    cellRowIndex++;
+                //    progressBar1.PerformStep();
+                //}
 
                 {
                     workbook.SaveAs(saveDialog.FileName);
@@ -1157,12 +1160,12 @@ namespace SoftGenConverter
         {
             if (dataGridView1.Visible)
             {
-                int[] col = {2, 6, 7, 8};
+                int[] col = { 2, 6, 7, 8 };
                 MyDataGrid.Filter(dataGridView1, textBox1.Text, col);
             }
             else
             {
-                int[] col = {7, 10, 11, 12};
+                int[] col = { 7, 10, 11, 12 };
                 MyDataGrid.Filter(dataGridView2, textBox1.Text, col);
             }
         }
