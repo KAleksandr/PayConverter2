@@ -61,7 +61,8 @@
             this.label10 = new System.Windows.Forms.Label();
             this.gridHeader = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label8 = new System.Windows.Forms.Label();
+            this.docNumOschad = new System.Windows.Forms.TextBox();
+            this.NameBank1 = new System.Windows.Forms.Label();
             this.rahunok = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.comboEdr = new System.Windows.Forms.ComboBox();
@@ -101,7 +102,6 @@
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.docNumOschad = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
             this.panel7.SuspendLayout();
@@ -237,6 +237,7 @@
             this.panel2.Controls.Add(this.label10);
             resources.ApplyResources(this.panel2, "panel2");
             this.panel2.Name = "panel2";
+            this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
             this.panel2.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Panel2_MouseClick);
             // 
             // textIban
@@ -310,7 +311,7 @@
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.docNumOschad);
-            this.panel1.Controls.Add(this.label8);
+            this.panel1.Controls.Add(this.NameBank1);
             this.panel1.Controls.Add(this.rahunok);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.comboEdr);
@@ -323,13 +324,18 @@
             this.panel1.Name = "panel1";
             this.panel1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Panel1_MouseClick);
             // 
-            // label8
+            // docNumOschad
             // 
-            resources.ApplyResources(this.label8, "label8");
-            this.label8.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.label8.ForeColor = System.Drawing.Color.SteelBlue;
-            this.label8.Name = "label8";
-            this.label8.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Label8_MouseClick);
+            resources.ApplyResources(this.docNumOschad, "docNumOschad");
+            this.docNumOschad.Name = "docNumOschad";
+            // 
+            // NameBank1
+            // 
+            resources.ApplyResources(this.NameBank1, "NameBank1");
+            this.NameBank1.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.NameBank1.ForeColor = System.Drawing.Color.SteelBlue;
+            this.NameBank1.Name = "NameBank1";
+            this.NameBank1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Label8_MouseClick);
             // 
             // rahunok
             // 
@@ -348,9 +354,11 @@
             this.comboEdr.Items.AddRange(new object[] {
             resources.GetString("comboEdr.Items"),
             resources.GetString("comboEdr.Items1"),
-            resources.GetString("comboEdr.Items2")});
+            resources.GetString("comboEdr.Items2"),
+            resources.GetString("comboEdr.Items3")});
             resources.ApplyResources(this.comboEdr, "comboEdr");
             this.comboEdr.Name = "comboEdr";
+            this.comboEdr.SelectedIndexChanged += new System.EventHandler(this.comboEdr_SelectedIndexChanged_1);
             // 
             // button3
             // 
@@ -615,11 +623,6 @@
             this.toolTip1.SetToolTip(this.textBox1, resources.GetString("textBox1.ToolTip"));
             this.textBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox1_KeyPress);
             // 
-            // docNumOschad
-            // 
-            resources.ApplyResources(this.docNumOschad, "docNumOschad");
-            this.docNumOschad.Name = "docNumOschad";
-            // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
@@ -682,7 +685,7 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label NameBank1;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.Label gridHeader;

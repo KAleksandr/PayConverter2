@@ -233,6 +233,7 @@ namespace SoftGenConverter
             var bank2 = new Bank();
             var bank3 = new Bank();
             var bank4 = new Bank();
+            var bank5 = new Bank();
 
             //MessageBox.Show(fileName);
 
@@ -249,7 +250,8 @@ namespace SoftGenConverter
                 else if (Convert.ToInt32(el.Attribute("id").Value) == 2)
                     bank3 = FillBank(el);
                 else if (Convert.ToInt32(el.Attribute("id").Value) == 3) bank4 = FillBank(el);
-            Bank[] banks = {bank1, bank2, bank3, bank4};
+                else if (Convert.ToInt32(el.Attribute("id").Value) == 4) bank5 = FillBank(el);
+            Bank[] banks = {bank1, bank2, bank3, bank4, bank5};
 
             return banks;
         }
@@ -280,9 +282,11 @@ namespace SoftGenConverter
         public static void EditXml(Bank bank, string fileName)
         {
             var doc = XDocument.Load(fileName);
+            
             foreach (var el in doc.Root.Elements("bank"))
             {
                 var id = int.Parse(el.Attribute("id").Value);
+               
                 if (id == 0 && bank.id == 0)
                 {
                     el.SetElementValue("NAME", bank.name);
@@ -311,6 +315,16 @@ namespace SoftGenConverter
                 }
                 else if (id == 3 && bank.id == 3)
                 {
+                    
+                    el.SetElementValue("NAME", bank.name);
+                    el.SetElementValue("RAHUNOK", bank.rahunok);
+                    el.SetElementValue("MFO", bank.mfo);
+                    el.SetElementValue("EDRPOU", bank.edrpou);
+                    el.SetElementValue("clientBankCode", bank.clientBankCode);
+                }
+                else if (id == 4 && bank.id == 4)
+                {
+                    
                     el.SetElementValue("NAME", bank.name);
                     el.SetElementValue("RAHUNOK", bank.rahunok);
                     el.SetElementValue("MFO", bank.mfo);

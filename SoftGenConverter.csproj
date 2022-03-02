@@ -192,7 +192,9 @@
   <ItemGroup>
     <None Include="Resources\info_48.png" />
     <None Include="Resources\playVideo_32.png" />
-    <None Include="PayConverterConfig.xml" />
+    <None Include="PayConverterConfig.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <Content Include="manual\editBase.MP4" />
     <Content Include="manual\openFile.avi" />
     <Content Include="manual\payBase.avi" />
@@ -202,7 +204,9 @@
     <None Include="Resources\payConverter-.jpg" />
     <None Include="Resources\payConverter1.jpg" />
     <Content Include="updater.exe" />
-    <Content Include="version.xml" />
+    <Content Include="version.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Resources\icons8_move_node_up_16.png" />
     <None Include="Resources\icons8_edit_node_16.png" />
     <None Include="Resources\Form2EditLine_32.png" />
