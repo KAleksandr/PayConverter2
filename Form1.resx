@@ -553,6 +553,81 @@
   <data name="&gt;&gt;gridHeader.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+  <data name="FIOL.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="FIOL.Location" type="System.Drawing.Point, System.Drawing">
+    <value>90, 44</value>
+  </data>
+  <data name="FIOL.Size" type="System.Drawing.Size, System.Drawing">
+    <value>84, 13</value>
+  </data>
+  <data name="FIOL.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="FIOL.Text" xml:space="preserve">
+    <value>Відповідальний</value>
+  </data>
+  <data name="&gt;&gt;FIOL.Name" xml:space="preserve">
+    <value>FIOL</value>
+  </data>
+  <data name="&gt;&gt;FIOL.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;FIOL.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;FIOL.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="FIO.Location" type="System.Drawing.Point, System.Drawing">
+    <value>186, 38</value>
+  </data>
+  <data name="FIO.Size" type="System.Drawing.Size, System.Drawing">
+    <value>166, 20</value>
+  </data>
+  <data name="FIO.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;FIO.Name" xml:space="preserve">
+    <value>FIO</value>
+  </data>
+  <data name="&gt;&gt;FIO.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;FIO.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;FIO.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="docNumOschadL.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="docNumOschadL.Location" type="System.Drawing.Point, System.Drawing">
+    <value>78, 14</value>
+  </data>
+  <data name="docNumOschadL.Size" type="System.Drawing.Size, System.Drawing">
+    <value>55, 13</value>
+  </data>
+  <data name="docNumOschadL.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="docNumOschadL.Text" xml:space="preserve">
+    <value>№ докум.</value>
+  </data>
+  <data name="&gt;&gt;docNumOschadL.Name" xml:space="preserve">
+    <value>docNumOschadL</value>
+  </data>
+  <data name="&gt;&gt;docNumOschadL.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;docNumOschadL.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;docNumOschadL.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
   <data name="docNumOschad.Location" type="System.Drawing.Point, System.Drawing">
     <value>133, 11</value>
   </data>
@@ -572,7 +647,7 @@
     <value>panel1</value>
   </data>
   <data name="&gt;&gt;docNumOschad.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>3</value>
   </data>
   <data name="NameBank1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -581,7 +656,7 @@
     <value>Corbel, 15pt, style=Bold</value>
   </data>
   <data name="NameBank1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>1, 1</value>
+    <value>1, 8</value>
   </data>
   <data name="NameBank1.Size" type="System.Drawing.Size, System.Drawing">
     <value>73, 24</value>
@@ -602,7 +677,7 @@
     <value>panel1</value>
   </data>
   <data name="&gt;&gt;NameBank1.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>4</value>
   </data>
   <data name="rahunok.Location" type="System.Drawing.Point, System.Drawing">
     <value>186, 37</value>
@@ -623,7 +698,7 @@
     <value>panel1</value>
   </data>
   <data name="&gt;&gt;rahunok.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>5</value>
   </data>
   <data name="label1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -653,7 +728,7 @@
     <value>panel1</value>
   </data>
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>6</value>
   </data>
   <data name="comboEdr.Items" xml:space="preserve">
     <value>Райффайзен Банк Аваль</value>
@@ -686,7 +761,7 @@
     <value>panel1</value>
   </data>
   <data name="&gt;&gt;comboEdr.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>7</value>
   </data>
   <data name="button3.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -717,7 +792,7 @@
     <value>panel1</value>
   </data>
   <data name="&gt;&gt;button3.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>8</value>
   </data>
   <data name="cliBankCode.Location" type="System.Drawing.Point, System.Drawing">
     <value>186, 88</value>
@@ -738,7 +813,7 @@
     <value>panel1</value>
   </data>
   <data name="&gt;&gt;cliBankCode.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>9</value>
   </data>
   <data name="label5.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -768,7 +843,7 @@
     <value>panel1</value>
   </data>
   <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>10</value>
   </data>
   <data name="mfo.Location" type="System.Drawing.Point, System.Drawing">
     <value>186, 62</value>
@@ -792,7 +867,7 @@
     <value>panel1</value>
   </data>
   <data name="&gt;&gt;mfo.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>11</value>
   </data>
   <data name="label2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -822,7 +897,7 @@
     <value>panel1</value>
   </data>
   <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>12</value>
   </data>
   <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
     <value>44, 0</value>

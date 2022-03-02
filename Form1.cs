@@ -29,7 +29,7 @@ namespace SoftGenConverter
         private bool editUkrG;
 
         private Bank industrial = new Bank();
-        private bool PanelBank1 = true;
+      
         private bool isNull;
         private Version localVersion = new Version(Application.ProductVersion);
         private string name;
@@ -57,7 +57,7 @@ namespace SoftGenConverter
             // Bank[] banks = Xml.ReadXml(pathConfig);
             //MessageBox.Show(banks[0].ToString());
             InitData();
-            PanelBank1 = true;
+           
         }
 
         //Двойная буферизация для таблиц
@@ -124,8 +124,8 @@ namespace SoftGenConverter
             MyDataGrid.StyleDataGridView(dataGridView1, false);
             MyDataGrid.StyleDataGridView(dataGridView2, false);
 
-            docNumOschad.Visible = false;
-
+            docNumOschadL.Visible = docNumOschad.Visible = false;
+            docNumOschad.Text = "1";
             comboEdr2.SelectedIndex = 0;
 
             if (comboEdr.SelectedItem == null)
@@ -144,10 +144,11 @@ namespace SoftGenConverter
                         break;
                     case 2:
                         SetFieldsP(oschad);
-                        docNumOschad.Visible = true;
+                        docNumOschadL.Visible = docNumOschad.Visible = true;
                         break;
                     case 3:
                         SetFieldsP(pumb);
+                        docNumOschadL.Visible = docNumOschad.Visible = true;
                         break;
                 }
             }
@@ -155,6 +156,7 @@ namespace SoftGenConverter
             SetDoubleBuffered(dataGridView1, true);
             SetDoubleBuffered(dataGridView2, true);
             SetDoubleBuffered(dataGridView3, true);
+            FIOL.Visible = FIO.Visible = !editAval && comboEdr.SelectedIndex == 3;
         }
 
         private void comboEdr_SelectedIndexChanged(object sender, EventArgs e)
@@ -529,7 +531,11 @@ namespace SoftGenConverter
                 CreateBox();
                 string texts = textImport.Text.Replace("і", "i").Replace("І", "I");
                 File.WriteAllText(name, texts, Encoding.GetEncoding(866));
-                MessageBox.Show("Збережено!");
+               // MessageBox.Show("Збережено!");
+                MessageBox.Show(this, "Збережено!",
+                                   "Збережено", MessageBoxButtons.OK,
+                                   MessageBoxIcon.Information,
+                                   MessageBoxDefaultButton.Button1);
             }
         }
 
@@ -623,8 +629,12 @@ namespace SoftGenConverter
                     field1, field2, field3, field4, field5, field6, field7, field8, field9, field10, field11, field12,
                     field13, field14, field15, field16
                 };
-
-                int docNum = Convert.ToInt32(docNumOschad.Text);
+                if (string.IsNullOrEmpty(docNumOschad.Text))
+                {
+                    docNumOschad.Text = "1";
+                }
+                Int32.TryParse(docNumOschad.Text, out int docNum);
+               
                 string zkpo = "40375721";
                 string cliName = "ТОВ \"ФК\"МПС\"";
                 string cliBankName = "Вінницьке обласне управління АТ \"Ощадбанк\"";
@@ -641,9 +651,9 @@ namespace SoftGenConverter
                         // добавляем поля в набор
                         docNum.ToString(), //1
                         DateTime.Now, //2
-                        row.Cells[4].Value, //3
+                        row.Cells[4].Value.ToString(), //3
                         zkpo, //4
-                        row.Cells[6].Value, //5
+                        row.Cells[6].Value.ToString(), //5
                         cliName, //6
                         cliBankName, //7
                         row.Cells[5].Value.ToString(), //8
@@ -653,7 +663,7 @@ namespace SoftGenConverter
                         bankKorespond, //12
                         debCred, //13
                         summa, //14
-                        row.Cells[11].Value, //15
+                        row.Cells[11].Value.ToString(), //15
                         codeVal //16
                     );
                     docNum++;
@@ -665,7 +675,7 @@ namespace SoftGenConverter
         /// <summary>
         /// Pumb
         /// </summary>
-        public void SavePumbDbf()
+        public bool SavePumbDbf(out string pathT)
         {
             // System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
 
@@ -676,80 +686,96 @@ namespace SoftGenConverter
                 Directory.CreateDirectory(pathDbf);
             }
 
-            string dateTime = DateTime.Now.ToString("dd/MM/yy");
+            string dateTime = DateTime.Now.ToString("dd_MM_yyyy");
+            string path = $"{pathDbf}" + $"{dateTime}" + ".dbf";
 
-
-            using (Stream fos = File.Open($"{pathDbf}" + $"{dateTime}" + ".dbf", FileMode.OpenOrCreate,
+            using (Stream pumb = File.Open(path, FileMode.OpenOrCreate,
                 FileAccess.ReadWrite))
             using (DBFWriter writer = new DBFWriter())
             {
                 writer.CharEncoding = Encoding.GetEncoding(866);
                 writer.Signature = DBase3WithMemo;
                 writer.LanguageDriver = 0x26; // кодировка 866
-                DBFField ST_NUMB  = new DBFField("ST_NUMB", NativeDbType.Char, 5); //номер банковской выписки
-                DBFField ST_DATE  = new DBFField("ST_DATE", NativeDbType.Char, 10); //дата банковской выписки (yyyy.mm.dd) 
-                DBFField ACC_NUMB = new DBFField("ACC_NUMB", NativeDbType.Char, 29); // номер счета UA993348510000026002962506643 
-                DBFField DOC_DATE = new DBFField("DOC_DATE", NativeDbType.Char, 10); //дата документа (yyyy.mm.dd) 
-                DBFField CUR_NUMB = new DBFField("CUR_NUMB", NativeDbType.Char, 6); //числовой код валюты (например, 980, 840) 840
-                DBFField DB       = new DBFField("DB", NativeDbType.Char, 18); //дебет счета 0.00 
-                DBFField CR       = new DBFField("CR", NativeDbType.Char, 18); //кредит счета 1.00 
-                DBFField DOC_NO   = new DBFField("DOC_NO", NativeDbType.Char, 20); //номер документа 
-                DBFField KOR_MFO  = new DBFField("KOR_MFO", NativeDbType.Char, 32); //код МФО банка корреспондента 334851 
-                DBFField KOR_BANK = new DBFField("KOR_BANK", NativeDbType.Char, 80); //наименование банка корреспондента ПАT "ПУМБ" 
-                DBFField KOR_ACC  = new DBFField("KOR_ACC", NativeDbType.Char, 32); //счет корреспондента UA993348510000000000002650038 
-                DBFField KOR_NAME = new DBFField("KOR_NAME", NativeDbType.Char, 80); //наименование корреспондента ТОВ `СК Эдельвейс`
-                DBFField KOR_OKPO = new DBFField("KOR_OKPO", NativeDbType.Char, 14); //код ОКПО корреспондента 35457194 
-                DBFField DESCRIPT = new DBFField("DESCRIPT", NativeDbType.Numeric, 160); // описание документа Оплата согласно договора №1 
-                DBFField UDB      = new DBFField("nazn", NativeDbType.Char, 18); //дебет счета в гривне по текущему курсу                
-                DBFField UCR      = new DBFField("UCR", NativeDbType.Char, 18); //кредит счета в гривне по текущему курсу 
-                DBFField RATE     = new DBFField("RATE", NativeDbType.Char, 33); //курс НБУ на момент проведения операции 
+                DBFField field1 =  new DBFField("DAY", NativeDbType.Char, 10); //Дата документа 
+                DBFField field2 =  new DBFField("NUMBER", NativeDbType.Char, 10); //Номер документа  
+                DBFField field3 =  new DBFField("A", NativeDbType.Char, 38); // Наименование плательщика 
+                DBFField field4 =  new DBFField("B", NativeDbType.Char, 38); //Наименование получателя
+                DBFField field5 =  new DBFField("OKPO_A", NativeDbType.Char, 14); //Код плательщика 
+                DBFField field6 =  new DBFField("OKPO_B", NativeDbType.Char, 14); //Код получателя  
+                DBFField field7 =  new DBFField("ACCOUNT_A", NativeDbType.Char, 29); //Номер счета плательщика 
+                DBFField field8 =  new DBFField("ACCOUNT_B", NativeDbType.Char, 29); //Номер счета получателя  
+                DBFField field9 =  new DBFField("BANK_A", NativeDbType.Char, 38); //Наименование банка плательщика 
+                DBFField field10 = new DBFField("BANK_B", NativeDbType.Char, 38); //Наименование банка получателя 
+                DBFField field11 = new DBFField("MFO_A", NativeDbType.Char, 9); //Код МФО банка плательщика  
+                DBFField field12 = new DBFField("MFO_B", NativeDbType.Char, 9); //Код МФО банка получателя 
+                DBFField field13 = new DBFField("CITY_A", NativeDbType.Char, 3); //код страны плательщика (для нерезидентов)  804 
+                DBFField field14 = new DBFField("CITY_B", NativeDbType.Char, 3); // код страны получателя (для нерезидентов) 804 
+                DBFField field15 = new DBFField("AMOUNT", NativeDbType.Char, 18); //(максимум 15 знаков + 2 знака после десятичного разделителя)    
+                DBFField field16 = new DBFField("DETAILS", NativeDbType.Char, 160); //Назначение платежа 
+                DBFField field17 = new DBFField("GUILTY", NativeDbType.Char, 50); //Ответственный  
+                DBFField field18 = new DBFField("DETAILS_T", NativeDbType.Char, 50); //Доп. Характеристика  
 
 
                 writer.Fields = new[]
                 {
-                    ST_NUMB, ST_DATE, ACC_NUMB, DOC_DATE, CUR_NUMB, DB , CR , DOC_NO, KOR_MFO, KOR_BANK, KOR_ACC, KOR_NAME, KOR_OKPO, DESCRIPT, UDB, UCR, RATE
+                    field1, field2, field3, field4, field5, field6, field7, field8, field9, field10, field11, field12,
+                    field13, field14, field15, field16, field17, field18
                 };
 
-                int docNum = Convert.ToInt32(docNumOschad.Text);
+                if (string.IsNullOrEmpty(docNumOschad.Text))
+                {
+                    docNumOschad.Text = "1";
+                }
+                Int32.TryParse(docNumOschad.Text, out int docNum);
                 string zkpo = "40375721";
                 string cliName = "ТОВ \"ФК\"МПС\"";
-                string cliBankName = "Вінницьке обласне управління АТ \"Ощадбанк\"";
-                int debCred = 1;
-                string bankKorespond = "";
-                int codeVal = 980;
-
+                string cliBankName = "Відділення ПУМБ у Вінницькій області";
+                
+                
+                int codeVal = 804;
+                List<Dbf> dbfs = new List<Dbf>();
                 foreach (DataGridViewRow row in dataGridView2.Rows)
                 {
-                    // MessageBox.Show("type " + int.Parse(row.Cells[8].Value.ToString(), NumberStyles.AllowThousands, new CultureInfo("en-au")));
 
-                    int summa = Convert.ToInt32(row.Cells[8].Value.ToString().Replace(".", ""));
-                    writer.AddRecord(
-                        // добавляем поля в набор
-                        docNum.ToString(), //1
-                        DateTime.Now, //2
-                        row.Cells[4].Value, //3
-                        zkpo, //4
-                        row.Cells[6].Value, //5
-                        cliName, //6
-                        cliBankName, //7
-                        row.Cells[5].Value.ToString(), //8
-                        row.Cells[7].Value.ToString(), //9
-                        row.Cells[12].Value.ToString(), //10
-                        row.Cells[10].Value.ToString(), //11
-                        bankKorespond, //12
-                        debCred, //13
-                        summa, //14
-                        row.Cells[11].Value, //15
-                        codeVal //16
-                    );
+                    Dbf dbf = new Dbf()
+                    {
+                        DAY = row.Cells[3].Value.ToString(),
+                        NUMBER = docNum.ToString(),
+                        A = ChangeI(cliName),
+                        B = ChangeI(row.Cells[10].Value.ToString()),
+                        OKPO_A = zkpo,
+                        OKPO_B = ChangeI(row.Cells[12].Value.ToString()),
+                        ACCOUNT_A = ChangeI(row.Cells[6].Value.ToString()),
+                        ACCOUNT_B = ChangeI(row.Cells[7].Value.ToString()),
+                        BANK_A = ChangeI(cliBankName),
+                        BANK_B = "ПАT \"ПУМБ\"",
+                        MFO_A = ChangeI(row.Cells[4].Value.ToString()),
+                        MFO_B = ChangeI(row.Cells[5].Value.ToString()),
+                        CITY_A = codeVal.ToString(),
+                        CITY_B = codeVal.ToString(),
+                        AMOUNT = ChangeI(row.Cells[8].Value.ToString()),
+                        DETAILS = ChangeI(row.Cells[11].Value.ToString()),                        
+                        GUILTY = FIO.Text,
+                        DETAILS_T = ""
+                    };
+
+                    dbfs.Add(dbf);
+                   
                     docNum++;
                 }
-
-                writer.Write(fos);
+                dbfs.ForEach(db => {
+                    writer.AddRecord(db.DAY,db.NUMBER, db.A, db.B, db.OKPO_A,db.OKPO_B,db.ACCOUNT_A, db.ACCOUNT_B, db.BANK_A,db.BANK_B, db.MFO_A, db.MFO_B, db.CITY_A,db.CITY_B, db.AMOUNT, db.DETAILS, db.GUILTY, db.DETAILS_T);
+                });
+                writer.Write(pumb);
             }
+            pathT = path;
+          return  File.Exists(path);
         }
-
-
+        public string ChangeI(string text)
+        {
+            return text.Replace("і","i").Replace("І","I");
+        }
+        
         public void SaveXml()
         {
             string time = DateTime.Now.ToString("ddMMyyyy");
@@ -991,7 +1017,7 @@ namespace SoftGenConverter
 
                 {
                     workbook.SaveAs(saveDialog.FileName);
-                    MessageBox.Show("Експорт завершено ", "Інформація", MessageBoxButtons.OK,
+                    MessageBox.Show("Експорт завершено", "Інформація", MessageBoxButtons.OK,
                         MessageBoxIcon.Information);
 
                     progressBar1.Value = 1;
@@ -1038,14 +1064,24 @@ namespace SoftGenConverter
                 }
                 else if (comboEdr.SelectedIndex == 3)//пумб
                 {
-                    MessageBox.Show("Збереження Пумб ще в розробці!");
+                    try
+                    {
+                        if (SavePumbDbf(out string path))
+                        {
+                            MessageBox.Show(($"Файл збережено!{Environment.NewLine}{path}"),"Інформація", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            
+                        }
+                    }
+                    catch(Exception ex) { MessageBox.Show(($"Файл не збережено!"), "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error); MessageBox.Show("Файл не збережено!" + Environment.NewLine + ex.Message); }
+                   
                 }
 
                 Save();
             }
             else
             {
-                MessageBox.Show("Дані відсутні!");
+                MessageBox.Show(($"Дані відсутні!"), "Інформація", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                
             }
             
         }
@@ -1105,6 +1141,7 @@ namespace SoftGenConverter
         private void Button3_Click(object sender, EventArgs e)
         {
             editAval = !editAval;
+            FIOL.Visible = FIO.Visible = !editAval;
             if (editAval)
             {
                 comboEdr.Enabled = false;
@@ -1257,7 +1294,7 @@ namespace SoftGenConverter
             gridHeader.Text = NameBank1.Text;
             dataGridView2.Sort(dataGridView2.Columns[11], ListSortDirection.Ascending);
             textBox1.Text = string.Empty;
-            PanelBank1 = true;
+           
         }
 
         private void Panel2_MouseClick(object sender, MouseEventArgs e)
@@ -1269,7 +1306,7 @@ namespace SoftGenConverter
             gridHeader.Text = label9.Text;
             dataGridView1.Sort(dataGridView1.Columns[2], ListSortDirection.Ascending);
             textBox1.Text = string.Empty;
-            PanelBank1 = false;
+            
         }
 
 
@@ -1448,20 +1485,27 @@ namespace SoftGenConverter
             {
                 case 0:
                     gridHeader.Text = NameBank1.Text = "АВАЛЬ";
+                    docNumOschadL.Visible = docNumOschad.Visible = false;
                     break;
                 case 1:
                     gridHeader.Text = NameBank1.Text = "ІНДУСТРІАЛ";
+                    docNumOschadL.Visible = docNumOschad.Visible = false;
                     break;
                 case 2:
                     gridHeader.Text = NameBank1.Text = "ОЩАДБАНК";
+                    docNumOschadL.Visible = docNumOschad.Visible = true;
+                    docNumOschad.Text = "1";
                     break;
                 case 3:
                     gridHeader.Text = NameBank1.Text = "ПУМБ";
+                    docNumOschadL.Visible = docNumOschad.Visible = true;
+                    docNumOschad.Text = "1";
+                   
                     break;
             }
-            
-                
-            
+
+            FIOL.Visible = FIO.Visible = !editAval && comboEdr.SelectedIndex == 3;
+
         }
 
         private void panel2_Paint(object sender, PaintEventArgs e)

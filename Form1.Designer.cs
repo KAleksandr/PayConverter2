@@ -61,6 +61,7 @@
             this.label10 = new System.Windows.Forms.Label();
             this.gridHeader = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.docNumOschadL = new System.Windows.Forms.Label();
             this.docNumOschad = new System.Windows.Forms.TextBox();
             this.NameBank1 = new System.Windows.Forms.Label();
             this.rahunok = new System.Windows.Forms.TextBox();
@@ -102,6 +103,8 @@
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.FIO = new System.Windows.Forms.TextBox();
+            this.FIOL = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
             this.panel7.SuspendLayout();
@@ -310,6 +313,9 @@
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.FIOL);
+            this.panel1.Controls.Add(this.FIO);
+            this.panel1.Controls.Add(this.docNumOschadL);
             this.panel1.Controls.Add(this.docNumOschad);
             this.panel1.Controls.Add(this.NameBank1);
             this.panel1.Controls.Add(this.rahunok);
@@ -323,6 +329,11 @@
             resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             this.panel1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Panel1_MouseClick);
+            // 
+            // docNumOschadL
+            // 
+            resources.ApplyResources(this.docNumOschadL, "docNumOschadL");
+            this.docNumOschadL.Name = "docNumOschadL";
             // 
             // docNumOschad
             // 
@@ -623,6 +634,16 @@
             this.toolTip1.SetToolTip(this.textBox1, resources.GetString("textBox1.ToolTip"));
             this.textBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox1_KeyPress);
             // 
+            // FIO
+            // 
+            resources.ApplyResources(this.FIO, "FIO");
+            this.FIO.Name = "FIO";
+            // 
+            // FIOL
+            // 
+            resources.ApplyResources(this.FIOL, "FIOL");
+            this.FIOL.Name = "FIOL";
+            // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
@@ -723,6 +744,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column16;
         private System.Windows.Forms.CheckBox anotherPay;
         private System.Windows.Forms.TextBox docNumOschad;
+        private System.Windows.Forms.Label docNumOschadL;
+        private System.Windows.Forms.TextBox FIO;
+        private System.Windows.Forms.Label FIOL;
     }
 }
 
