@@ -205,9 +205,7 @@
     <None Include="Resources\payConverter-.jpg" />
     <None Include="Resources\payConverter1.jpg" />
     <Content Include="updater.exe" />
-    <Content Include="version.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Content Include="version.xml" />
     <None Include="Resources\icons8_move_node_up_16.png" />
     <None Include="Resources\icons8_edit_node_16.png" />
     <None Include="Resources\Form2EditLine_32.png" />
