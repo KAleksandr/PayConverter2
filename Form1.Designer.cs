@@ -61,6 +61,8 @@
             this.label10 = new System.Windows.Forms.Label();
             this.gridHeader = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.FIOL = new System.Windows.Forms.Label();
+            this.FIO = new System.Windows.Forms.TextBox();
             this.docNumOschadL = new System.Windows.Forms.Label();
             this.docNumOschad = new System.Windows.Forms.TextBox();
             this.NameBank1 = new System.Windows.Forms.Label();
@@ -103,8 +105,8 @@
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.FIO = new System.Windows.Forms.TextBox();
-            this.FIOL = new System.Windows.Forms.Label();
+            this.erdpo1l = new System.Windows.Forms.Label();
+            this.erdpo1 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
             this.panel7.SuspendLayout();
@@ -224,7 +226,6 @@
             this.anotherPay.Name = "anotherPay";
             this.anotherPay.UseVisualStyleBackColor = true;
             this.anotherPay.CheckedChanged += new System.EventHandler(this.anotherPay_CheckedChanged);
-            this.anotherPay.CheckStateChanged += new System.EventHandler(this.anotherPay_CheckStateChanged);
             // 
             // panel2
             // 
@@ -313,6 +314,8 @@
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.erdpo1);
+            this.panel1.Controls.Add(this.erdpo1l);
             this.panel1.Controls.Add(this.FIOL);
             this.panel1.Controls.Add(this.FIO);
             this.panel1.Controls.Add(this.docNumOschadL);
@@ -329,6 +332,16 @@
             resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             this.panel1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Panel1_MouseClick);
+            // 
+            // FIOL
+            // 
+            resources.ApplyResources(this.FIOL, "FIOL");
+            this.FIOL.Name = "FIOL";
+            // 
+            // FIO
+            // 
+            resources.ApplyResources(this.FIO, "FIO");
+            this.FIO.Name = "FIO";
             // 
             // docNumOschadL
             // 
@@ -634,15 +647,15 @@
             this.toolTip1.SetToolTip(this.textBox1, resources.GetString("textBox1.ToolTip"));
             this.textBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox1_KeyPress);
             // 
-            // FIO
+            // erdpo1l
             // 
-            resources.ApplyResources(this.FIO, "FIO");
-            this.FIO.Name = "FIO";
+            resources.ApplyResources(this.erdpo1l, "erdpo1l");
+            this.erdpo1l.Name = "erdpo1l";
             // 
-            // FIOL
+            // erdpo1
             // 
-            resources.ApplyResources(this.FIOL, "FIOL");
-            this.FIOL.Name = "FIOL";
+            resources.ApplyResources(this.erdpo1, "erdpo1");
+            this.erdpo1.Name = "erdpo1";
             // 
             // Form1
             // 
@@ -747,6 +760,8 @@
         private System.Windows.Forms.Label docNumOschadL;
         private System.Windows.Forms.TextBox FIO;
         private System.Windows.Forms.Label FIOL;
+        private System.Windows.Forms.TextBox erdpo1;
+        private System.Windows.Forms.Label erdpo1l;
     }
 }
 

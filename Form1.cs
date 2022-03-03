@@ -56,7 +56,8 @@ namespace SoftGenConverter
             InitializeComponent();
             // Bank[] banks = Xml.ReadXml(pathConfig);
             //MessageBox.Show(banks[0].ToString());
-            InitData();
+            erdpo1l.Visible = erdpo1.Visible = false;
+           InitData();
            
         }
 
@@ -144,11 +145,11 @@ namespace SoftGenConverter
                         break;
                     case 2:
                         SetFieldsP(oschad);
-                        docNumOschadL.Visible = docNumOschad.Visible = true;
+                        docNumOschadL.Visible = docNumOschad.Visible = false;
                         break;
                     case 3:
                         SetFieldsP(pumb);
-                        docNumOschadL.Visible = docNumOschad.Visible = true;
+                        docNumOschadL.Visible = docNumOschad.Visible = false;
                         break;
                 }
             }
@@ -201,6 +202,7 @@ namespace SoftGenConverter
             mfo.Text = bank.mfo;
             rahunok.Text = bank.rahunok;
             cliBankCode.Text = bank.clientBankCode;
+            erdpo1.Text = bank.edrpou;
             dateTimePicker1.Value = DateTime.Now;
             tableLayoutPanel7.RowStyles[1].Height = 100;
             tableLayoutPanel7.RowStyles[0].Height = 0;
@@ -634,8 +636,8 @@ namespace SoftGenConverter
                     docNumOschad.Text = "1";
                 }
                 Int32.TryParse(docNumOschad.Text, out int docNum);
-               
-                string zkpo = "40375721";
+
+                string zkpo = string.IsNullOrEmpty(erdpo1.Text) ? "40375721" : erdpo1.Text;
                 string cliName = "ТОВ \"ФК\"МПС\"";
                 string cliBankName = "Вінницьке обласне управління АТ \"Ощадбанк\"";
                 int debCred = 1;
@@ -649,7 +651,7 @@ namespace SoftGenConverter
                     int summa = Convert.ToInt32(row.Cells[8].Value.ToString().Replace(".", ""));
                     writer.AddRecord(
                         // добавляем поля в набор
-                        docNum.ToString(), //1
+                        "", //docNum.ToString(), //1
                         DateTime.Now, //2
                         row.Cells[4].Value.ToString(), //3
                         zkpo, //4
@@ -727,7 +729,7 @@ namespace SoftGenConverter
                     docNumOschad.Text = "1";
                 }
                 Int32.TryParse(docNumOschad.Text, out int docNum);
-                string zkpo = "40375721";
+                string zkpo = string.IsNullOrEmpty(erdpo1.Text) ? "40375721" : erdpo1.Text;
                 string cliName = "ТОВ \"ФК\"МПС\"";
                 string cliBankName = "Відділення ПУМБ у Вінницькій області";
                 
@@ -740,7 +742,7 @@ namespace SoftGenConverter
                     Dbf dbf = new Dbf()
                     {
                         DAY = row.Cells[3].Value.ToString(),
-                        NUMBER = docNum.ToString(),
+                        NUMBER = "",//docNum.ToString(),
                         A = ChangeI(cliName),
                         B = ChangeI(row.Cells[10].Value.ToString()),
                         OKPO_A = zkpo,
@@ -748,7 +750,7 @@ namespace SoftGenConverter
                         ACCOUNT_A = ChangeI(row.Cells[6].Value.ToString()),
                         ACCOUNT_B = ChangeI(row.Cells[7].Value.ToString()),
                         BANK_A = ChangeI(cliBankName),
-                        BANK_B = "ПАT \"ПУМБ\"",
+                        BANK_B = "",//"ПАT \"ПУМБ\"",
                         MFO_A = ChangeI(row.Cells[4].Value.ToString()),
                         MFO_B = ChangeI(row.Cells[5].Value.ToString()),
                         CITY_A = codeVal.ToString(),
@@ -1089,7 +1091,7 @@ namespace SoftGenConverter
 
         public void IsEditAval(bool edit)
         {
-            cliBankCode.Visible = rahunok.Visible = mfo.Visible =
+          erdpo1l.Visible = erdpo1.Visible =  cliBankCode.Visible = rahunok.Visible = mfo.Visible =
                 rahunok.Visible = label1.Visible = label2.Visible = label5.Visible = edit;
         }
 
@@ -1165,6 +1167,7 @@ namespace SoftGenConverter
                         aval.mfo = mfo.Text;
                         aval.rahunok = rahunok.Text;
                         aval.clientBankCode = cliBankCode.Text;
+                        aval.edrpou = erdpo1.Text;
                         aval.id = 0;
                         Xml.EditXml(aval, pathConfig);
                         comboEdr.Enabled = true;
@@ -1177,9 +1180,11 @@ namespace SoftGenConverter
                         comboEdr.Items.Clear();
                         comboEdr.Items.Add("Райффайзен Банк Аваль");
                         comboEdr.Items.Add("Індустріал");
+                        comboEdr.Items.Add("Ощадбанк");
                         comboEdr.Items.Add("Пумб");
                         aval.name = comboEdr.Text;
                         aval.mfo = mfo.Text;
+                        aval.edrpou = erdpo1.Text;
                         aval.rahunok = rahunok.Text;
                         aval.clientBankCode = cliBankCode.Text;
                         aval.id = 2;
@@ -1198,6 +1203,7 @@ namespace SoftGenConverter
                         comboEdr.Items.Add("Пумб");
                         aval.name = comboEdr.Text;
                         aval.mfo = mfo.Text;
+                        aval.edrpou = erdpo1.Text;
                         aval.rahunok = rahunok.Text;
                         aval.clientBankCode = cliBankCode.Text;
                         aval.id = 3;
@@ -1216,6 +1222,7 @@ namespace SoftGenConverter
                         comboEdr.Items.Add("Пумб");
                         aval.name = comboEdr.Text;
                         aval.mfo = mfo.Text;
+                        aval.edrpou = erdpo1.Text;
                         aval.rahunok = rahunok.Text;
                         aval.clientBankCode = cliBankCode.Text;
                         aval.id = 4;
@@ -1475,10 +1482,6 @@ namespace SoftGenConverter
             InitPData();
         }
 
-        private void anotherPay_CheckStateChanged(object sender, EventArgs e)
-        {
-        }
-
         private void comboEdr_SelectedIndexChanged_1(object sender, EventArgs e)
         {
             switch (comboEdr.SelectedIndex)
@@ -1493,12 +1496,12 @@ namespace SoftGenConverter
                     break;
                 case 2:
                     gridHeader.Text = NameBank1.Text = "ОЩАДБАНК";
-                    docNumOschadL.Visible = docNumOschad.Visible = true;
+                    docNumOschadL.Visible = docNumOschad.Visible = false;
                     docNumOschad.Text = "1";
                     break;
                 case 3:
                     gridHeader.Text = NameBank1.Text = "ПУМБ";
-                    docNumOschadL.Visible = docNumOschad.Visible = true;
+                    docNumOschadL.Visible = docNumOschad.Visible = false;
                     docNumOschad.Text = "1";
                    
                     break;

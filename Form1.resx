@@ -553,11 +553,59 @@
   <data name="&gt;&gt;gridHeader.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+  <data name="erdpo1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>187, 10</value>
+  </data>
+  <data name="erdpo1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>145, 20</value>
+  </data>
+  <data name="erdpo1.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
+  </data>
+  <data name="&gt;&gt;erdpo1.Name" xml:space="preserve">
+    <value>erdpo1</value>
+  </data>
+  <data name="&gt;&gt;erdpo1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;erdpo1.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;erdpo1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="erdpo1l.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="erdpo1l.Location" type="System.Drawing.Point, System.Drawing">
+    <value>126, 16</value>
+  </data>
+  <data name="erdpo1l.Size" type="System.Drawing.Size, System.Drawing">
+    <value>54, 13</value>
+  </data>
+  <data name="erdpo1l.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="erdpo1l.Text" xml:space="preserve">
+    <value>ЕДРПОУ</value>
+  </data>
+  <data name="&gt;&gt;erdpo1l.Name" xml:space="preserve">
+    <value>erdpo1l</value>
+  </data>
+  <data name="&gt;&gt;erdpo1l.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;erdpo1l.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;erdpo1l.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
   <data name="FIOL.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="FIOL.Location" type="System.Drawing.Point, System.Drawing">
-    <value>90, 44</value>
+    <value>94, 44</value>
   </data>
   <data name="FIOL.Size" type="System.Drawing.Size, System.Drawing">
     <value>84, 13</value>
@@ -578,7 +626,7 @@
     <value>panel1</value>
   </data>
   <data name="&gt;&gt;FIOL.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>2</value>
   </data>
   <data name="FIO.Location" type="System.Drawing.Point, System.Drawing">
     <value>186, 38</value>
@@ -599,7 +647,7 @@
     <value>panel1</value>
   </data>
   <data name="&gt;&gt;FIO.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>3</value>
   </data>
   <data name="docNumOschadL.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -626,7 +674,7 @@
     <value>panel1</value>
   </data>
   <data name="&gt;&gt;docNumOschadL.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>4</value>
   </data>
   <data name="docNumOschad.Location" type="System.Drawing.Point, System.Drawing">
     <value>133, 11</value>
@@ -647,7 +695,7 @@
     <value>panel1</value>
   </data>
   <data name="&gt;&gt;docNumOschad.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>5</value>
   </data>
   <data name="NameBank1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -677,7 +725,7 @@
     <value>panel1</value>
   </data>
   <data name="&gt;&gt;NameBank1.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>6</value>
   </data>
   <data name="rahunok.Location" type="System.Drawing.Point, System.Drawing">
     <value>186, 37</value>
@@ -698,7 +746,7 @@
     <value>panel1</value>
   </data>
   <data name="&gt;&gt;rahunok.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>7</value>
   </data>
   <data name="label1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -728,7 +776,7 @@
     <value>panel1</value>
   </data>
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>8</value>
   </data>
   <data name="comboEdr.Items" xml:space="preserve">
     <value>Райффайзен Банк Аваль</value>
@@ -761,7 +809,7 @@
     <value>panel1</value>
   </data>
   <data name="&gt;&gt;comboEdr.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>9</value>
   </data>
   <data name="button3.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -792,7 +840,7 @@
     <value>panel1</value>
   </data>
   <data name="&gt;&gt;button3.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>10</value>
   </data>
   <data name="cliBankCode.Location" type="System.Drawing.Point, System.Drawing">
     <value>186, 88</value>
@@ -813,7 +861,7 @@
     <value>panel1</value>
   </data>
   <data name="&gt;&gt;cliBankCode.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>11</value>
   </data>
   <data name="label5.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -843,7 +891,7 @@
     <value>panel1</value>
   </data>
   <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>12</value>
   </data>
   <data name="mfo.Location" type="System.Drawing.Point, System.Drawing">
     <value>186, 62</value>
@@ -867,7 +915,7 @@
     <value>panel1</value>
   </data>
   <data name="&gt;&gt;mfo.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>13</value>
   </data>
   <data name="label2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -897,7 +945,7 @@
     <value>panel1</value>
   </data>
   <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>14</value>
   </data>
   <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
     <value>44, 0</value>
@@ -1483,6 +1531,9 @@
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
+  </metadata>
+  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>47</value>
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
     <value>6, 13</value>
