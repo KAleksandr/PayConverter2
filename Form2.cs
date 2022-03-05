@@ -7,6 +7,7 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
+using SoftGenConverter.Entity;
 using SoftGenConverter.Properties;
 
 namespace SoftGenConverter
@@ -17,13 +18,13 @@ namespace SoftGenConverter
         private bool edit;
         private Image editBtn = Resources.Form2EditLine_32; //
         private Image saveBtn = Resources.form2Add_32;
-
+        private  string tableName { get; set; }
         public Form2()
         {
             InitializeComponent();
 
             Xml.loadXml(dataGridView1, path);
-
+           // dataGridView1.DataSource = Db.SelectTable<AnotherPay>(tableName);
             MyDataGrid.StyleDataGridView(dataGridView1, false);
             try
             {
@@ -33,35 +34,49 @@ namespace SoftGenConverter
             {
             }
 
-            RemoveDuplicate();
+            //RemoveDuplicate();
             Xml.ReWriteFile(path);
             Xml.saveXml(dataGridView1, path);
             baseB.DataSource = dataGridView1.DataSource;
 
-            SetDoubleBuffered(dataGridView1, true);
+            //SetDoubleBuffered(dataGridView1, true);
         }
 
 
-        public Form2(string paths)
+        public Form2(string paths, int type=0)
         {
             //MessageBox.Show(paths);
+            tableName = type == 2 ? "PayConverterData" : "AnotherPayConverterData";
+
+           // textBox4.Visible = label5.Visible = tableName.Equals("PayConverterData");
             InitializeComponent();
             this.paths = paths;
-            Xml.loadXml(dataGridView1, paths);
-
+            Delete.Visible = false;
+            // Xml.loadXml(dataGridView1, paths);
+            dataGridView1.DataSource = Db.SelectTable<AnotherPay>(tableName);
             MyDataGrid.StyleDataGridView(dataGridView1, false);
+            dataGridView1.Columns["ID"].HeaderText = "ІД";
+            dataGridView1.Columns["ID"].Visible = false;
+            dataGridView1.Columns["NAME"].HeaderText = "Назва";
+            dataGridView1.Columns["NAME"].MinimumWidth = 250;
+            dataGridView1.Columns["ERDPO"].HeaderText = "ЗКПО";
+            dataGridView1.Columns["ERDPO"].MinimumWidth = 100;
+            dataGridView1.Columns["RRahunok"].HeaderText = "Розрахунковий рахунок";
+            dataGridView1.Columns["RRahunok"].MinimumWidth = 230;
+            dataGridView1.Columns["Comment"].HeaderText = "Призначення платежу";
+            dataGridView1.Columns["Comment"].MinimumWidth = 500;
             try
             {
-                dataGridView1.Sort(dataGridView1.Columns[3], ListSortDirection.Ascending);
+               // dataGridView1.Sort(dataGridView1.Columns[3], ListSortDirection.Ascending);
             }
             catch (NullReferenceException)
             {
             }
 
-            RemoveDuplicate();
+            //RemoveDuplicate();
             baseB.DataSource = dataGridView1.DataSource;
 
-            SetDoubleBuffered(dataGridView1, true);
+           SetDoubleBuffered(dataGridView1, true);
         }
 
         public string
@@ -75,7 +90,7 @@ namespace SoftGenConverter
                 BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic);
             if (pi != null) pi.SetValue(c, value, null);
         }
-
+        #region loadxmltemp
         public void loadXml()
         {
             if (dataGridView1.Rows.Count > 0) dataGridView1.Rows.Clear();
@@ -90,9 +105,9 @@ namespace SoftGenConverter
                         foreach (DataRow item in ds.Tables["Employee"].Rows)
                         {
                             var n = dataGridView1.Rows.Add();
-                            dataGridView1.Rows[n].Cells[0].Value = item["NAME"];
-                            dataGridView1.Rows[n].Cells[1].Value = item["ERDPO"];
-                            dataGridView1.Rows[n].Cells[2].Value = item["Comment"];
+                            dataGridView1.Rows[n].Cells[1].Value = item["NAME"];
+                            dataGridView1.Rows[n].Cells[2].Value = item["ERDPO"];
+                            dataGridView1.Rows[n].Cells[3].Value = item["Comment"];
                         }
                     }
                     catch (NullReferenceException)
@@ -105,7 +120,7 @@ namespace SoftGenConverter
                 }
             }
         }
-
+        #endregion
 
         private void Form2_FormClosed(object sender, FormClosedEventArgs e)
         {
@@ -124,10 +139,11 @@ namespace SoftGenConverter
                 if (i != 0)
                 {
                     var n = dataGridView1.Rows.Add();
-                    dataGridView1.Rows[n].Cells[0].Value = CSV_Struct[i].Name.Replace("@", "\"");
-                    dataGridView1.Rows[n].Cells[1].Value = CSV_Struct[i].List_price;
-                    dataGridView1.Rows[n].Cells[2].Value = CSV_Struct[i].RRahunok;
-                    dataGridView1.Rows[n].Cells[3].Value = CSV_Struct[i].MyPrice;
+                   
+                    dataGridView1.Rows[n].Cells[1].Value = CSV_Struct[i].Name.Replace("@", "\"");
+                    dataGridView1.Rows[n].Cells[2].Value = CSV_Struct[i].List_price;
+                    dataGridView1.Rows[n].Cells[3].Value = CSV_Struct[i].RRahunok;
+                    dataGridView1.Rows[n].Cells[4].Value = CSV_Struct[i].MyPrice;
                 }
         }
 
@@ -160,7 +176,7 @@ namespace SoftGenConverter
                         //         }
                         //     }
                         // }
-                        if (!rowToCompare.Cells[2].Value.Equals(row.Cells[2].Value))
+                        if (!rowToCompare.Cells[3].Value.Equals(row.Cells[3].Value))
                         {
                             duplicateRow = false;
                             break;
@@ -179,41 +195,43 @@ namespace SoftGenConverter
         {
             try
             {
-                if (string.IsNullOrEmpty(dataGridView1.CurrentRow.Cells[3].Value.ToString()))
-                    dataGridView1.CurrentRow.Cells[3].Value = "null";
-                dataGridView1.CurrentRow.Cells[3].Value =
-                    MyDataGrid.shortText(dataGridView1.CurrentRow.Cells[3].Value.ToString());
-                textBox2.Text = dataGridView1.CurrentRow.Cells[0].Value.ToString();
-                ederpo.Text = dataGridView1.CurrentRow.Cells[1].Value.ToString();
-                textBox1.Text = dataGridView1.CurrentRow.Cells[2].Value.ToString();
-                textBox3.Text = dataGridView1.CurrentRow.Cells[3].Value.ToString();
+                if (string.IsNullOrEmpty(dataGridView1.CurrentRow.Cells[4].Value.ToString()))
+                    dataGridView1.CurrentRow.Cells[4].Value = "null";
+                dataGridView1.CurrentRow.Cells[4].Value =
+                    MyDataGrid.shortText(dataGridView1.CurrentRow.Cells[4].Value.ToString());
+                id.Text = dataGridView1.CurrentRow.Cells[0].Value.ToString();
+                textBox2.Text = dataGridView1.CurrentRow.Cells[1].Value.ToString();
+                ederpo.Text = dataGridView1.CurrentRow.Cells[2].Value.ToString();
+                textBox1.Text = dataGridView1.CurrentRow.Cells[3].Value.ToString();
+                textBox3.Text = dataGridView1.CurrentRow.Cells[4].Value.ToString();
             }
             catch (NullReferenceException)
             {
             }
-
+            Delete.Visible = true;
             button1.Image = editBtn;
             edit = !edit;
         }
 
         public void fillFieldsD()
         {
-            textBox2.Text = dataGridView1.CurrentRow.Cells[0].Value.ToString();
-            ederpo.Text = dataGridView1.CurrentRow.Cells[1].Value.ToString();
+            id.Text = dataGridView1.CurrentRow.Cells[0].Value.ToString();
+            textBox2.Text = dataGridView1.CurrentRow.Cells[1].Value.ToString();
+            ederpo.Text = dataGridView1.CurrentRow.Cells[2].Value.ToString();
 
-            textBox1.Text = dataGridView1.CurrentRow.Cells[2].Value.ToString();
-            textBox3.Text = dataGridView1.CurrentRow.Cells[3].Value.ToString();
+            textBox1.Text = dataGridView1.CurrentRow.Cells[3].Value.ToString();
+            textBox3.Text = dataGridView1.CurrentRow.Cells[4].Value.ToString();
         }
 
         public void fillFieldsDg()
         {
-            var id = dataGridView1.CurrentRow.Index - 1;
-            if (id < 0) id = 0;
-
-            textBox2.Text = dataGridView1.Rows[id].Cells[0].Value.ToString();
-            ederpo.Text = dataGridView1.CurrentRow.Cells[1].Value.ToString();
-            textBox1.Text = dataGridView1.CurrentRow.Cells[2].Value.ToString();
-            textBox3.Text = dataGridView1.CurrentRow.Cells[3].Value.ToString();
+            var id_ = dataGridView1.CurrentRow.Index - 1;
+            if (id_ < 0) id_ = 0;
+            id.Text = dataGridView1.CurrentRow.Cells[0].Value.ToString();
+            textBox2.Text = dataGridView1.Rows[id_].Cells[1].Value.ToString();
+            ederpo.Text = dataGridView1.CurrentRow.Cells[2].Value.ToString();
+            textBox1.Text = dataGridView1.CurrentRow.Cells[3].Value.ToString();
+            textBox3.Text = dataGridView1.CurrentRow.Cells[4].Value.ToString();
         }
 
         private void dataGridView1_MouseClick(object sender, MouseEventArgs e)
@@ -225,7 +243,7 @@ namespace SoftGenConverter
             catch (NullReferenceException)
             {
             }
-
+            Delete.Visible = true;
             button1.Image = editBtn;
             edit = true;
         }
@@ -239,8 +257,7 @@ namespace SoftGenConverter
             catch (NullReferenceException)
             {
             }
-
-            edit = false;
+            Delete.Visible = edit = false;
 
             button1.Image = saveBtn;
             ederpo.Text = string.Empty;
@@ -285,25 +302,50 @@ namespace SoftGenConverter
 
                 if (!edit)
                 {
-                    var n = dataGridView1.Rows.Add();
-                    dataGridView1.Rows[n].Cells[0].Value = textBox2.Text; // 
-                    dataGridView1.Rows[n].Cells[1].Value = ederpo.Text; // 
-                    dataGridView1.Rows[n].Cells[2].Value = textBox1.Text;
-                    dataGridView1.Rows[n].Cells[3].Value = newLine; // 
+                    //var n = dataGridView1.Rows.Add();
+                   
+                  
+                    //dataGridView1.Rows[n].Cells[1].Value = textBox2.Text; // 
+                    //dataGridView1.Rows[n].Cells[2].Value = ederpo.Text; // 
+                    //dataGridView1.Rows[n].Cells[3].Value = textBox1.Text;
+                    //dataGridView1.Rows[n].Cells[4].Value = newLine; // 
+                    AnotherPay pay = new AnotherPay()
+                    {
+                        NAME = textBox2.Text,
+                        ERDPO = ederpo.Text,
+                        RRahunok= textBox1.Text,
+                        Comment = newLine
+                    };
+                    AnotherPay_.InsertData(tableName, pay, out long idIn);
+                    dataGridView1.DataSource = Db.SelectTable<AnotherPay>(tableName);
                 }
                 else
                 {
-                    dataGridView1.CurrentRow.Cells[0].Value = textBox2.Text; // 
-                    dataGridView1.CurrentRow.Cells[1].Value = ederpo.Text; // 
-                    dataGridView1.CurrentRow.Cells[2].Value = textBox1.Text; // 
-                    dataGridView1.CurrentRow.Cells[3].Value = newLine; // 
+                    
+                    dataGridView1.CurrentRow.Cells[0].Value = id.Text; // 
+                    dataGridView1.CurrentRow.Cells[1].Value = textBox2.Text; // 
+                    dataGridView1.CurrentRow.Cells[2].Value = ederpo.Text; // 
+                    dataGridView1.CurrentRow.Cells[3].Value = textBox1.Text; // 
+                    dataGridView1.CurrentRow.Cells[4].Value = newLine; // 
                     edit = !edit;
+                    Int32.TryParse(id.Text, out int IdN);
+                    AnotherPay pay = new AnotherPay()
+                    {
+                        ID = IdN,
+                        NAME = textBox2.Text,
+                        ERDPO = ederpo.Text,
+                        RRahunok = textBox1.Text,
+                        Comment = newLine
+                    };
+                    AnotherPay_.UpdateAnother(tableName,pay);
+                    Delete.Visible = false;
                 }
             }
 
             if (textBox1.Text.Length <= 160)
             {
                 button1.Image = saveBtn;
+                id.Text = string.Empty;
                 ederpo.Text = string.Empty;
                 textBox1.Text = string.Empty;
                 textBox2.Text = string.Empty;
@@ -314,28 +356,29 @@ namespace SoftGenConverter
 
         private void textBox4_KeyPress(object sender, KeyPressEventArgs e)
         {
-            int[] col = {0, 1, 2, 3};
+            
+            int[] col = {1,2,3,4};
             MyDataGrid.Filter(dataGridView1, textBox4.Text, col);
         }
 
 
         private void dataGridView1_CurrentCellDirtyStateChanged(object sender, EventArgs e)
         {
-            if (dataGridView1.CurrentRow.Cells[3].Value.ToString() == "")
+            if (dataGridView1.CurrentRow.Cells[4].Value.ToString() == "")
             {
                 MessageBox.Show("Заповніть всі поля.", "Помилка.", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                dataGridView1.CurrentRow.Cells[3].Value = "null";
+                dataGridView1.CurrentRow.Cells[4].Value = "null";
             }
-            else if (dataGridView1.CurrentRow.Cells[3].ToString().Length > 160)
+            else if (dataGridView1.CurrentRow.Cells[4].ToString().Length > 160)
             {
                 MessageBox.Show("Перевищено мінімальну кількість символів (160) - " + textBox1.Text.Length, "Помилка.",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 
-            dataGridView1.CurrentRow.Cells[3].Value =
-                MyDataGrid.shortText(dataGridView1.CurrentRow.Cells[3].Value.ToString());
-            dataGridView1.CurrentRow.Cells[3].Value =
-                MyDataGrid.convertDate(dataGridView1.CurrentRow.Cells[3].Value.ToString());
+            dataGridView1.CurrentRow.Cells[4].Value =
+                MyDataGrid.shortText(dataGridView1.CurrentRow.Cells[4].Value.ToString());
+            dataGridView1.CurrentRow.Cells[4].Value =
+                MyDataGrid.convertDate(dataGridView1.CurrentRow.Cells[4].Value.ToString());
         }
 
         private void Form2_Load(object sender, EventArgs e)
@@ -388,6 +431,20 @@ namespace SoftGenConverter
 
                 return res;
             }
+        }
+
+        private void Delete_Click(object sender, EventArgs e)
+        {
+            Int32.TryParse(id.Text,out int idN);
+            Db.DeleteById(tableName,idN);
+            dataGridView1.DataSource = Db.SelectTable<AnotherPay>(tableName);
+            id.Text = string.Empty;
+            ederpo.Text = string.Empty;
+            textBox1.Text = string.Empty;
+            textBox2.Text = string.Empty;
+            textBox3.Text = string.Empty;
+            edit = false;
+            button1.Image = saveBtn;
         }
     }
 }

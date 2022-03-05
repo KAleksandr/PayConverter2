@@ -629,7 +629,7 @@
     <value>2</value>
   </data>
   <data name="FIO.Location" type="System.Drawing.Point, System.Drawing">
-    <value>186, 38</value>
+    <value>187, 39</value>
   </data>
   <data name="FIO.Size" type="System.Drawing.Size, System.Drawing">
     <value>166, 20</value>
@@ -894,7 +894,7 @@
     <value>12</value>
   </data>
   <data name="mfo.Location" type="System.Drawing.Point, System.Drawing">
-    <value>186, 62</value>
+    <value>186, 63</value>
   </data>
   <data name="mfo.MaxLength" type="System.Int32, mscorlib">
     <value>16</value>
@@ -967,39 +967,6 @@
   </data>
   <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
     <value>3</value>
-  </data>
-  <metadata name="Column11.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="Column11.HeaderText" xml:space="preserve">
-    <value>Column11</value>
-  </data>
-  <data name="Column11.Width" type="System.Int32, mscorlib">
-    <value>10</value>
-  </data>
-  <metadata name="Column12.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="Column12.HeaderText" xml:space="preserve">
-    <value>Column12</value>
-  </data>
-  <data name="Column12.Width" type="System.Int32, mscorlib">
-    <value>10</value>
-  </data>
-  <metadata name="Column14.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="Column14.HeaderText" xml:space="preserve">
-    <value>Column14</value>
-  </data>
-  <data name="Column14.Width" type="System.Int32, mscorlib">
-    <value>10</value>
-  </data>
-  <metadata name="Column15.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="Column15.HeaderText" xml:space="preserve">
-    <value>Column15</value>
   </data>
   <data name="dataGridView3.Location" type="System.Drawing.Point, System.Drawing">
     <value>1016, 72</value>
@@ -3173,30 +3140,6 @@
     <value>Column16</value>
   </data>
   <data name="&gt;&gt;Column16.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;Column11.Name" xml:space="preserve">
-    <value>Column11</value>
-  </data>
-  <data name="&gt;&gt;Column11.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;Column12.Name" xml:space="preserve">
-    <value>Column12</value>
-  </data>
-  <data name="&gt;&gt;Column12.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;Column14.Name" xml:space="preserve">
-    <value>Column14</value>
-  </data>
-  <data name="&gt;&gt;Column14.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;Column15.Name" xml:space="preserve">
-    <value>Column15</value>
-  </data>
-  <data name="&gt;&gt;Column15.Type" xml:space="preserve">
     <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;dataGridViewTextBoxColumn1.Name" xml:space="preserve">

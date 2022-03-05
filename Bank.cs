@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SoftGenConverter.Entity;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -27,7 +28,18 @@ namespace SoftGenConverter
         public string summa { get; set; }
         public string pruznach { get; set; }
         public DateTime dateP { get; set; }
-
+        public Bank() { }
+        public Bank(PayConverterConfig config) {
+            this.id = config.bankid;
+            this.name = config.NAME;
+            this.rahunok = config.RAHUNOK;
+            this.mfo = config.MFO;
+            this.edrpou = config.EDRPOU;
+            this.clientBankCode = config.clientBankCode;
+            this.iban = config.IBAN;
+            
+        }
+        
         public override string ToString()
         {
             return name + " " + rahunok;

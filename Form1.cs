@@ -1,5 +1,6 @@
 ﻿using DotNetDBF;
 using Microsoft.Office.Interop.Excel;
+using SoftGenConverter.Entity;
 using SoftGenConverter.Properties;
 using System;
 using System.Collections.Generic;
@@ -82,32 +83,54 @@ namespace SoftGenConverter
 
         public void InitPData()
         {
+            if (!File.Exists(Db.runningPath))
+            {
+                MessageBox.Show("Ok");
+                //Thread.Sleep(300);
+                MessageBox.Show(
+                    Db.runningPath + " файл не знайдений!" + Environment.NewLine + " Файл створено з конфігурації програми.",
+                    "Помилка.", MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+                Db.CreateDb();
+
+            }
             comboEdr.SelectedIndexChanged += comboEdr_SelectedIndexChanged;
             if (!anotherPay.Checked)
             {
-                Xml.isExistsFile(path2, strData);
-                Xml.loadXml(dataGridView3, path2);
+                //Xml.isExistsFile(path2, strData);
+                //Xml.loadXml(dataGridView3, path2);
+               // ImportData(dataGridView3, "PayConverterData");
+                var dell = AnotherPay_.DeleteDublicate("PayConverterData");
+                dataGridView3.DataSource = Db.SelectTable<AnotherPay>("PayConverterData");
             }
             else
             {
-                Xml.isExistsFile(path3, strData);
-                Xml.loadXml(dataGridView3, path3);
+                //Xml.isExistsFile(path3, strData);
+               // Xml.loadXml(dataGridView3, path3);
+               // ImportData(dataGridView3, "AnotherPayConverterData");
+
+                var dell = AnotherPay_.DeleteDublicate("AnotherPayConverterData");
+                dataGridView3.DataSource = Db.SelectTable<AnotherPay>("AnotherPayConverterData");
+                
+                
+               
             }
 
 
-            Xml.isExistsFile(pathConfig, strConfig);
+            //Xml.isExistsFile(pathConfig, strConfig);
 
 
             try
             {
-                Bank[] banks = Xml.ReadXml(pathConfig);
-                
-                aval = banks[0];
-                ukrGaz = banks[1];
-                industrial = banks[2];
-                oschad = banks[3];
-                pumb = banks[4];
+               var configB = Db.SelectTable<PayConverterConfig>("PayConverterConfig");
+               // Bank[] banks = Xml.ReadXml(pathConfig);
                
+                aval = new Bank(configB.Where(b => b.bankid == 0).First());// banks[0]; 
+                ukrGaz = new Bank(configB.Where(b => b.bankid == 1).First());//banks[1];
+                industrial = new Bank(configB.Where(b => b.bankid == 2).First());//banks[2];
+                oschad = new Bank(configB.Where(b => b.bankid == 3).First());//banks[3];
+                pumb = new Bank(configB.Where(b => b.bankid == 4).First());//banks[4];
+
             }
             catch
             {
@@ -159,6 +182,27 @@ namespace SoftGenConverter
             SetDoubleBuffered(dataGridView3, true);
             FIOL.Visible = FIO.Visible = !editAval && comboEdr.SelectedIndex == 3;
         }
+        public static void ImportData(DataGridView dataGridView, string tableName)
+        {
+            List<AnotherPay> aPays = new List<AnotherPay>();
+            foreach (DataGridViewRow row in dataGridView.Rows)
+            {
+
+                AnotherPay aPay = new AnotherPay()
+                {
+                    NAME = row.Cells[0].Value.ToString(),
+                    ERDPO = row.Cells[1].Value.ToString(),
+                    RRahunok = row.Cells[2].Value.ToString(),
+                    Comment = row.Cells[3].Value.ToString()
+
+                };
+                aPays.Add(aPay);
+            }
+            var count = AnotherPay_.InsertTableFromList(tableName, aPays);
+            var dell = AnotherPay_.DeleteDublicate(tableName);
+           // MessageBox.Show("Кількість " + (count - dell));
+        }
+
 
         private void comboEdr_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -224,13 +268,18 @@ namespace SoftGenConverter
 
         private void OpenFile_Click(object sender, EventArgs e)
         {
+
             dataGridView1.Rows.Clear();
             dataGridView2.Rows.Clear();
-            dataGridView3.Rows.Clear();
+            //dataGridView3.Rows.Clear();
+            //dataGridView1.DataSource ="";
+           // dataGridView1.DataSource ="";
+            dataGridView3.DataSource ="";
+
             path = string.Empty;
             InitPData();
             OpenCsv();
-            dataGridView1.Sort(dataGridView1.Columns[2], ListSortDirection.Ascending);
+           // dataGridView1.Sort(dataGridView1.Columns[2], ListSortDirection.Ascending);
         }
 
         public void OpenCsv()
@@ -241,9 +290,12 @@ namespace SoftGenConverter
                 //MessageBox.Show("row "+dataGridView1.Rows.Count);
                 if (dataGridView1.Rows.Count > 0 || dataGridView2.Rows.Count > 0)
                 {
+                    //dataGridView1.Rows.Clear();
+                    // dataGridView2.Rows.Clear();
+                    //dataGridView3.Rows.Clear();
                     dataGridView1.Rows.Clear();
                     dataGridView2.Rows.Clear();
-                    dataGridView3.Rows.Clear();
+                    dataGridView3.DataSource ="";
 
                     numberDocAval = 1;
                 }
@@ -255,11 +307,15 @@ namespace SoftGenConverter
                 {
                     if (!anotherPay.Checked)
                     {
-                        Xml.saveXml(dataGridView3, path2);
+                        //Xml.saveXml(dataGridView3, path2);
+                        var dell = AnotherPay_.DeleteDublicate("PayConverterData");
+                        dataGridView3.DataSource = Db.SelectTable<AnotherPay>("PayConverterData");
                     }
                     else if (anotherPay.Checked)
                     {
-                        Xml.saveXml(dataGridView3, path3);
+                        var dell = AnotherPay_.DeleteDublicate("AnotherPayConverterData");
+                        dataGridView3.DataSource = Db.SelectTable<AnotherPay>("AnotherPayConverterData");
+                        //Xml.saveXml(dataGridView3, path3);
                     }
                 }
             }
@@ -275,7 +331,8 @@ namespace SoftGenConverter
             DateTime dt1 = DateTime.Today;
             for (int i = 0; i <= CSV_Struct.Count - 1; i++)
             {
-                int n;
+                int n=0;
+                CultureInfo myCultureInfo = new CultureInfo("uk-UA");
                 if (CSV_Struct[i].id == 0)
                 {
                     //todo: remove messagebox 
@@ -310,11 +367,23 @@ namespace SoftGenConverter
                         dataGridView1.Rows[n].Cells[2].Value.ToString() != "null")
                     {
                         dataGridView1.Rows[n].DefaultCellStyle.BackColor = Color.BurlyWood;
-                        int m = dataGridView3.Rows.Add();
-                        dataGridView3.Rows[m].Cells[0].Value = CSV_Struct[i].name;
-                        dataGridView3.Rows[m].Cells[1].Value = CSV_Struct[i].edrpou;
-                        dataGridView3.Rows[m].Cells[2].Value = CSV_Struct[i].rahunok;
-                        dataGridView3.Rows[m].Cells[3].Value = dataGridView1.Rows[n].Cells[2].Value;
+                        //int m = dataGridView3.Rows.Add();
+                        //dataGridView3.Rows[m].Cells[0].Value = CSV_Struct[i].name;
+                        //dataGridView3.Rows[m].Cells[1].Value = CSV_Struct[i].edrpou;
+                        //dataGridView3.Rows[m].Cells[2].Value = CSV_Struct[i].rahunok;
+                        //dataGridView3.Rows[m].Cells[3].Value = dataGridView1.Rows[n].Cells[2].Value;
+                        try
+                        {
+                            AnotherPay pay = new AnotherPay()
+                            {
+                                NAME = CSV_Struct[i].name,
+                                ERDPO = CSV_Struct[i].edrpou,
+                                RRahunok = CSV_Struct[i].pruznach,
+                                Comment = dataGridView2.Rows[n].Cells[2].Value.ToString()
+                            };
+                            AnotherPay_.InsertData("AnotherPayConverterData", pay, out long idN);
+                        }
+                        catch { }
                         isNull = true;
                     }
 
@@ -328,22 +397,26 @@ namespace SoftGenConverter
                     dataGridView1.Rows[n].Cells[9].Value = ukrGaz.iban;
                 }
 
-                CultureInfo myCultureInfo = new CultureInfo("uk-UA");
+                
                 //comboEdr.SelectedIndex
-                if (CSV_Struct[i].id == 1)
+               else if (CSV_Struct[i].id == 1)
                 {
                     //todo: remove messagebox 
-                    // MessageBox.Show("СТРУКТУРА АЙДИ 1");  
-                    try
-                    {
+                    //MessageBox.Show("СТРУКТУРА АЙДИ 1");  
+                   // try
+                   // {
                         
                         dateTimePicker1.Value =
                             DateTime.Parse(CSV_Struct[i].dateP.ToString("dd.MM.yyyy"), myCultureInfo);
+
                         n = dataGridView2.Rows.Add();
-                        dataGridView2.Rows[n].Cells[0].Value = "0";
+                    
+                    dataGridView2.Rows[n].Cells[0].Value = "0";
+
                         dataGridView2.Rows[n].Cells[1].Value = "1";
                         dataGridView2.Rows[n].Cells[2].Value = numberDocAval++;
-                        dataGridView2.Rows[n].Cells[3].Value = DateTime.Today.ToString("dd.MM.yyyy");
+                   // MessageBox.Show(dataGridView2.Rows[n].Cells[2].Value.ToString());
+                    dataGridView2.Rows[n].Cells[3].Value = DateTime.Today.ToString("dd.MM.yyyy");
                         dataGridView2.Rows[n].Cells[4].Value = comboEdr.SelectedIndex == 1 ? industrial.mfo :
                             comboEdr.SelectedIndex == 2 ? oschad.mfo : comboEdr.SelectedIndex == 3 ? pumb.mfo : aval.mfo;
                         dataGridView2.Rows[n].Cells[5].Value = CSV_Struct[i].mfo;
@@ -355,7 +428,7 @@ namespace SoftGenConverter
                         dataGridView2.Rows[n].Cells[9].Value = "0";
                         dataGridView2.Rows[n].Cells[12].Value = CSV_Struct[i].edrpou;
 
-                        if (!anotherPay.Checked && (comboEdr.SelectedIndex.ToString() == "0" || comboEdr.SelectedIndex.ToString() == "2"))
+                        if (!anotherPay.Checked && (comboEdr.SelectedIndex.ToString() == "0" || comboEdr.SelectedIndex.ToString() == "2" || comboEdr.SelectedIndex.ToString() == "3"))
                         {
                             dataGridView2.Rows[n].Cells[10].Value =
                                 FindNameZkpo(CSV_Struct[i].name, CSV_Struct[i].edrpou, CSV_Struct[i].rahunok)
@@ -369,8 +442,7 @@ namespace SoftGenConverter
                         else //todo: пофиксить сохранение базы индустриала
                         {
                             string cells10 = CSV_Struct[i].name;
-                     
-                           
+                                               
                             dataGridView2.Rows[n].Cells[10].Value = AlphaBeta(cells10);
                             dataGridView2.Rows[n].Cells[11].Value = AlphaBeta(CSV_Struct[i].pruznach);
                         }
@@ -380,18 +452,31 @@ namespace SoftGenConverter
                             dataGridView2.Rows[n].Cells[11].Value.ToString() != "null")
                         {
                             dataGridView2.Rows[n].DefaultCellStyle.BackColor = Color.BurlyWood;
-                            int m = dataGridView3.Rows.Add();
-                            dataGridView3.Rows[m].Cells[0].Value = CSV_Struct[i].name;
-                            dataGridView3.Rows[m].Cells[1].Value = CSV_Struct[i].edrpou;
-                            dataGridView3.Rows[m].Cells[2].Value = CSV_Struct[i].rahunok;
-                            // dataGridView3.Rows[m].Cells[3].Value = CSV_Struct[i].pruznach;
-                            dataGridView3.Rows[m].Cells[3].Value = dataGridView2.Rows[n].Cells[11].Value;
+                        // int m = dataGridView3.Rows.Add();
+                        // dataGridView3.Rows[m].Cells[0].Value = CSV_Struct[i].name;
+                        // dataGridView3.Rows[m].Cells[1].Value = CSV_Struct[i].edrpou;
+                        //dataGridView3.Rows[m].Cells[2].Value = CSV_Struct[i].rahunok;
+                        // dataGridView3.Rows[m].Cells[3].Value = CSV_Struct[i].pruznach;
+                        //dataGridView3.Rows[m].Cells[3].Value = dataGridView2.Rows[n].Cells[11].Value;
+                        try
+                        {
+
+                        
+                            AnotherPay pay = new AnotherPay() {
+                                NAME = CSV_Struct[i].name,
+                                ERDPO = CSV_Struct[i].edrpou,
+                                RRahunok = CSV_Struct[i].pruznach,
+                                Comment = dataGridView2.Rows[n].Cells[11].Value.ToString()
+                            };
+                            AnotherPay_.InsertData("AnotherPayConverterData",pay, out long idN);
+                        }catch { }
                             isNull = true;
                         }
-                    }
-                    catch
-                    {
-                    }
+                    //}
+                   // catch(Exception ex)
+                    //{
+                   //     MessageBox.Show(ex.Message);
+                   // }
                 }
             }
 
@@ -399,11 +484,15 @@ namespace SoftGenConverter
             {
                 if (!anotherPay.Checked)
                 {
-                    Xml.saveXml(dataGridView3, path2);
+                    //Xml.saveXml(dataGridView3, path2);
+                    var dell = AnotherPay_.DeleteDublicate("PayConverterData");
+                    dataGridView3.DataSource = Db.SelectTable<AnotherPay>("PayConverterData");
                 }
                 else if (anotherPay.Checked)
                 {
-                    Xml.saveXml(dataGridView3, path3);
+                    var dell = AnotherPay_.DeleteDublicate("AnotherPayConverterData");
+                    dataGridView3.DataSource = Db.SelectTable<AnotherPay>("AnotherPayConverterData");
+                    //Xml.saveXml(dataGridView3, path3);
                 }
             }
         }
@@ -412,7 +501,7 @@ namespace SoftGenConverter
                             text.ToList().ForEach(x => { if (!(alfabet.Contains(x))) {  text=text.Replace(x,'_').Replace("_","").Replace("undefined",""); }; });
             return text;
 }
-        public void AutoOpenCsv(string path)
+        public void AutoOpenCsv(string path, int type)
         {
             isNull = false;
             if (dataGridView1.Rows.Count > 0 || dataGridView2.Rows.Count > 0)
@@ -421,12 +510,14 @@ namespace SoftGenConverter
                 dataGridView2.Rows.Clear();
             }
 
-            dataGridView3.Rows.Clear();
-            Xml.loadXml(dataGridView3, path);
+            dataGridView3.DataSource = ""; 
+            //Xml.loadXml(dataGridView3, path);
+            string tableName = type == 2 ? "PayConverterData" : "AnotherPayConverterData";
+            dataGridView3.DataSource = Db.SelectTable<AnotherPay>(tableName);
             loadFileRoot();
 
-            dataGridView1.Sort(dataGridView1.Columns[2], ListSortDirection.Ascending);
-            dataGridView2.Sort(dataGridView2.Columns[11], ListSortDirection.Ascending);
+            //dataGridView1.Sort(dataGridView1.Columns[2], ListSortDirection.Ascending);
+           // dataGridView2.Sort(dataGridView2.Columns[11], ListSortDirection.Ascending);
         }
 
         public string AddDateToStr(string str, string date)
@@ -448,9 +539,9 @@ namespace SoftGenConverter
                 {
                     try
                     {
-                        if (r.Cells[1].Value.Equals(zkpo) && r.Cells[2].Value.Equals(rrahunok))
+                        if (r.Cells[2].Value.Equals(zkpo) && r.Cells[3].Value.Equals(rrahunok))
                         {
-                            return r.Cells[3].Value.ToString();
+                            return r.Cells[4].Value.ToString();
                         }
                     }
                     catch
@@ -471,9 +562,9 @@ namespace SoftGenConverter
                 {
                     try
                     {
-                        if (r.Cells[1].Value.Equals(zkpo) && r.Cells[2].Value.Equals(rrahunok))
+                        if (r.Cells[2].Value.Equals(zkpo) && r.Cells[3].Value.Equals(rrahunok))
                         {
-                            return r.Cells[0].Value.ToString().ToUpper();
+                            return r.Cells[1].Value.ToString().ToUpper();
                         }
                     }
                     catch
@@ -494,11 +585,11 @@ namespace SoftGenConverter
                 {
                     try
                     {
-                        if (r.Cells[0].Value.Equals(name) && r.Cells[1].Value.Equals(zkpo) &&
-                            r.Cells[2].Value.Equals(rrahunok))
+                        if (r.Cells[1].Value.Equals(name) && r.Cells[2].Value.Equals(zkpo) &&
+                            r.Cells[3].Value.Equals(rrahunok))
                         {
                             //MessageBox.Show(" " + name  + " summa " + r.Cells[0].Value);
-                            return r.Cells[0].Value.ToString().ToUpper();
+                            return r.Cells[1].Value.ToString().ToUpper();
                         }
                     }
                     catch
@@ -742,12 +833,12 @@ namespace SoftGenConverter
                     Dbf dbf = new Dbf()
                     {
                         DAY = row.Cells[3].Value.ToString(),
-                        NUMBER = "",//docNum.ToString(),
+                        NUMBER = docNum.ToString(),
                         A = ChangeI(cliName),
                         B = ChangeI(row.Cells[10].Value.ToString()),
                         OKPO_A = zkpo,
                         OKPO_B = ChangeI(row.Cells[12].Value.ToString()),
-                        ACCOUNT_A = ChangeI(row.Cells[6].Value.ToString()),
+                        ACCOUNT_A = rahunok.Text,
                         ACCOUNT_B = ChangeI(row.Cells[7].Value.ToString()),
                         BANK_A = ChangeI(cliBankName),
                         BANK_B = "",//"ПАT \"ПУМБ\"",
@@ -781,6 +872,8 @@ namespace SoftGenConverter
         public void SaveXml()
         {
             string time = DateTime.Now.ToString("ddMMyyyy");
+            
+
             XmlWriterSettings settings = new XmlWriterSettings
             {
                 Indent = true,
@@ -869,8 +962,7 @@ namespace SoftGenConverter
                     }
         }
 
-        public void
-    SaveExcel(SaveFileDialog saveDialog, DataGridView dataGridView1N) //создаем файл импорта для укргаз банка
+        public void  SaveExcel(SaveFileDialog saveDialog, DataGridView dataGridView1N) //создаем файл импорта для укргаз банка
         {
             // Creating a Excel object.
             _Application excel = new Microsoft.Office.Interop.Excel.Application();
@@ -941,6 +1033,11 @@ namespace SoftGenConverter
                         {
 
                         }
+                        try
+                        {
+                            worksheet.Cells[cellRowIndex, 8] = dataGridView1N.Rows[i - 1].Cells[0].Value.ToString();
+                        }
+                        catch { }
                         try
                         {
                             worksheet.Cells[cellRowIndex, 16] = dataGridView1N.Rows[i - 1].Cells[2].Value.ToString();
@@ -1117,11 +1214,11 @@ namespace SoftGenConverter
             Form frm;
             if (anotherPay.Checked)
             {
-                frm = new Form2(path3);
+                frm = new Form2(path3,3);
             }
             else
             {
-                frm = new Form2(path2);
+                frm = new Form2(path2, 2);
             }
 
             dr = frm.ShowDialog();
@@ -1130,11 +1227,11 @@ namespace SoftGenConverter
             {
                 if (anotherPay.Checked)
                 {
-                    AutoOpenCsv(path3);
+                    AutoOpenCsv(path3,3);
                 }
                 else
                 {
-                    AutoOpenCsv(path2);
+                    AutoOpenCsv(path2,2);
                 }
             }
         }
@@ -1169,7 +1266,8 @@ namespace SoftGenConverter
                         aval.clientBankCode = cliBankCode.Text;
                         aval.edrpou = erdpo1.Text;
                         aval.id = 0;
-                        Xml.EditXml(aval, pathConfig);
+                       // Xml.EditXml(aval, pathConfig);
+                        PayConverterConfig_.UpdateByBankId(new PayConverterConfig(aval));
                         comboEdr.Enabled = true;
                         InitData();
                         break;
@@ -1188,7 +1286,8 @@ namespace SoftGenConverter
                         aval.rahunok = rahunok.Text;
                         aval.clientBankCode = cliBankCode.Text;
                         aval.id = 2;
-                        Xml.EditXml(aval, pathConfig);
+                       // Xml.EditXml(aval, pathConfig);
+                        PayConverterConfig_.UpdateByBankId(new PayConverterConfig(aval));
                         comboEdr.Enabled = true;
                         InitData();
                         break;
@@ -1207,7 +1306,8 @@ namespace SoftGenConverter
                         aval.rahunok = rahunok.Text;
                         aval.clientBankCode = cliBankCode.Text;
                         aval.id = 3;
-                        Xml.EditXml(aval, pathConfig);
+                       // Xml.EditXml(aval, pathConfig);
+                        PayConverterConfig_.UpdateByBankId(new PayConverterConfig(aval));
                         comboEdr.Enabled = true;
                         InitData();
                         break;
@@ -1226,7 +1326,8 @@ namespace SoftGenConverter
                         aval.rahunok = rahunok.Text;
                         aval.clientBankCode = cliBankCode.Text;
                         aval.id = 4;
-                        Xml.EditXml(aval, pathConfig);
+                        //Xml.EditXml(aval, pathConfig);
+                        PayConverterConfig_.UpdateByBankId(new PayConverterConfig(aval));
                         comboEdr.Enabled = true;
                         InitData();
                         break;
@@ -1258,7 +1359,8 @@ namespace SoftGenConverter
                 ukrGaz.iban = textIban.Text;
                 ukrGaz.name = comboEdr2.Text;
                 ukrGaz.id = 1;
-                Xml.EditXml(ukrGaz, pathConfig);
+                //Xml.EditXml(ukrGaz, pathConfig);
+                PayConverterConfig_.UpdateByBankId(new PayConverterConfig(ukrGaz));
             }
         }
 
@@ -1477,7 +1579,7 @@ namespace SoftGenConverter
         {
             dataGridView1.Rows.Clear();
             dataGridView2.Rows.Clear();
-            dataGridView3.Rows.Clear();
+            dataGridView3.DataSource = "";
             path = string.Empty;
             InitPData();
         }

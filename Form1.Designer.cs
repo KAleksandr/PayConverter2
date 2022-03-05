@@ -61,6 +61,8 @@
             this.label10 = new System.Windows.Forms.Label();
             this.gridHeader = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.erdpo1 = new System.Windows.Forms.TextBox();
+            this.erdpo1l = new System.Windows.Forms.Label();
             this.FIOL = new System.Windows.Forms.Label();
             this.FIO = new System.Windows.Forms.TextBox();
             this.docNumOschadL = new System.Windows.Forms.Label();
@@ -75,10 +77,6 @@
             this.mfo = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
-            this.Column11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel8 = new System.Windows.Forms.Panel();
             this.saveFile = new System.Windows.Forms.Button();
             this.openFile = new System.Windows.Forms.Button();
@@ -105,8 +103,6 @@
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.erdpo1l = new System.Windows.Forms.Label();
-            this.erdpo1 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
             this.panel7.SuspendLayout();
@@ -333,6 +329,16 @@
             this.panel1.Name = "panel1";
             this.panel1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Panel1_MouseClick);
             // 
+            // erdpo1
+            // 
+            resources.ApplyResources(this.erdpo1, "erdpo1");
+            this.erdpo1.Name = "erdpo1";
+            // 
+            // erdpo1l
+            // 
+            resources.ApplyResources(this.erdpo1l, "erdpo1l");
+            this.erdpo1l.Name = "erdpo1l";
+            // 
             // FIOL
             // 
             resources.ApplyResources(this.FIOL, "FIOL");
@@ -423,33 +429,8 @@
             // 
             this.dataGridView3.AllowUserToAddRows = false;
             this.dataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView3.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column11,
-            this.Column12,
-            this.Column14,
-            this.Column15});
             resources.ApplyResources(this.dataGridView3, "dataGridView3");
             this.dataGridView3.Name = "dataGridView3";
-            // 
-            // Column11
-            // 
-            resources.ApplyResources(this.Column11, "Column11");
-            this.Column11.Name = "Column11";
-            // 
-            // Column12
-            // 
-            resources.ApplyResources(this.Column12, "Column12");
-            this.Column12.Name = "Column12";
-            // 
-            // Column14
-            // 
-            resources.ApplyResources(this.Column14, "Column14");
-            this.Column14.Name = "Column14";
-            // 
-            // Column15
-            // 
-            resources.ApplyResources(this.Column15, "Column15");
-            this.Column15.Name = "Column15";
             // 
             // panel8
             // 
@@ -647,16 +628,6 @@
             this.toolTip1.SetToolTip(this.textBox1, resources.GetString("textBox1.ToolTip"));
             this.textBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox1_KeyPress);
             // 
-            // erdpo1l
-            // 
-            resources.ApplyResources(this.erdpo1l, "erdpo1l");
-            this.erdpo1l.Name = "erdpo1l";
-            // 
-            // erdpo1
-            // 
-            resources.ApplyResources(this.erdpo1, "erdpo1");
-            this.erdpo1.Name = "erdpo1";
-            // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
@@ -723,10 +694,6 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.Label gridHeader;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column11;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column12;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column14;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column15;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
