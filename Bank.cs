@@ -5,6 +5,7 @@ using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Windows.Forms;
 
 namespace SoftGenConverter
 {
@@ -27,6 +28,7 @@ namespace SoftGenConverter
         public string clientBankCode { get; set; }
         public string summa { get; set; }
         public string pruznach { get; set; }
+        public string Appointment { get; set; }
         public DateTime dateP { get; set; }
         public Bank() { }
         public Bank(PayConverterConfig config) {
@@ -60,6 +62,7 @@ namespace SoftGenConverter
                     dateP = date;
                     summa = parts[8];
                     pruznach = parts[1];
+                    Appointment = parts[1];
                     id = 1;
                 }
                 else
@@ -72,6 +75,7 @@ namespace SoftGenConverter
                     dateP = date;
                     summa = parts[8];
                     pruznach = parts[0] + " " + parts[1];
+                    Appointment = parts[1];
                     id = 1;
                 }
 
@@ -83,6 +87,7 @@ namespace SoftGenConverter
                 {
                     name = parts[0].ToUpper();
                     pruznach = parts[1];
+                    Appointment = parts[1];
                     mfo = parts[2];
                     rahunok = "" + parts[3];
                     //rahunok = "" + Convert.ToInt64(parts[2]);
@@ -90,10 +95,12 @@ namespace SoftGenConverter
                     summa = parts[6];
                     id = 0;
                     dateP = date;
+
                 }
                 else
                 {
                     name = parts[0].ToUpper();
+                   
                     pruznach = parts[10];
                     mfo = parts[1];
                     rahunok = "" + parts[2];
@@ -102,6 +109,7 @@ namespace SoftGenConverter
                     summa = parts[5];
                     id = 0;
                     dateP = date;
+                    Appointment = parts[1];
                 }
             }
 

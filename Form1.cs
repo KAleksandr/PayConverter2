@@ -343,11 +343,12 @@ namespace SoftGenConverter
                     dataGridView1.Rows[n].Cells[1].Value = "UAH";
                     if (!anotherPay.Checked)
                     {
+                        //Призначення платежу
                         dataGridView1.Rows[n].Cells[2].Value = AddDateToStr(
                             FindZkpo(CSV_Struct[i].edrpou, CSV_Struct[i].rahunok),
                             CSV_Struct[i].dateP == dt1
-                                ? dateTimePicker1.Value.ToString("dd.MM.yyyy")
-                                : CSV_Struct[i].dateP.ToString("dd.MM.yyyy"));
+                                ? dateTimePicker1.Value.ToString("dd.MM.yyyy").Replace("null", "") + " " + CSV_Struct[i].Appointment 
+                                : CSV_Struct[i].dateP.ToString("dd.MM.yyyy")).Replace("null","") + " " + CSV_Struct[i].Appointment; 
 
                         dataGridView1.Rows[n].Cells[8].Value =
                             FindNameZkpo(CSV_Struct[i].name, CSV_Struct[i].edrpou, CSV_Struct[i].rahunok).Equals("null")
@@ -430,14 +431,15 @@ namespace SoftGenConverter
 
                         if (!anotherPay.Checked && (comboEdr.SelectedIndex.ToString() == "0" || comboEdr.SelectedIndex.ToString() == "2" || comboEdr.SelectedIndex.ToString() == "3"))
                         {
-                            dataGridView2.Rows[n].Cells[10].Value =
-                                FindNameZkpo(CSV_Struct[i].name, CSV_Struct[i].edrpou, CSV_Struct[i].rahunok)
-                                    .Equals("null")
-                                    ? CSV_Struct[i].name
-                                    : FindNameZkpo(CSV_Struct[i].name, CSV_Struct[i].edrpou, CSV_Struct[i].rahunok);
-                            dataGridView2.Rows[n].Cells[11].Value = AddDateToStr(
+                        dataGridView2.Rows[n].Cells[10].Value =
+                            FindNameZkpo(CSV_Struct[i].name, CSV_Struct[i].edrpou, CSV_Struct[i].rahunok)
+                                .Equals("null")
+                                ? CSV_Struct[i].name
+                                : FindNameZkpo(CSV_Struct[i].name, CSV_Struct[i].edrpou, CSV_Struct[i].rahunok);
+                        //Призначення платежу
+                        dataGridView2.Rows[n].Cells[11].Value = AddDateToStr(
                                 FindZkpo(CSV_Struct[i].edrpou, CSV_Struct[i].rahunok),
-                                CSV_Struct[i].dateP.ToString("dd.MM.yyyy"));
+                                CSV_Struct[i].dateP.ToString("dd.MM.yyyy")).Replace("null", "") + " " + CSV_Struct[i].Appointment; 
                         }
                         else //todo: пофиксить сохранение базы индустриала
                         {
