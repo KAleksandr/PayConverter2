@@ -85,7 +85,7 @@ namespace SoftGenConverter
         {
             if (!File.Exists(Db.runningPath))
             {
-                MessageBox.Show("Ok");
+                //MessageBox.Show("Ok");
                 //Thread.Sleep(300);
                 MessageBox.Show(
                     Db.runningPath + " файл не знайдений!" + Environment.NewLine + " Файл створено з конфігурації програми.",
