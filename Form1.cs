@@ -953,7 +953,7 @@ namespace SoftGenConverter
         }
 
 
-        public void SaveExcel(DataGridView dataGridViewn)
+        public void SaveExcel(DataGridView dataGridViewn, int type)
         {
             SaveFileDialog saveDialog = new SaveFileDialog
             {
@@ -962,8 +962,102 @@ namespace SoftGenConverter
                 FileName = DateTime.Now.ToString().Replace(":", "_")
             };
             if (saveDialog.ShowDialog() == DialogResult.OK) {
-                SaveExcel(saveDialog, dataGridViewn);
+                if (type == 0)
+                {
+                    SaveExcel(saveDialog, dataGridViewn);
+                }
+                else if(type == 2)
+                {
+                    SaveExcelOschad(saveDialog);
+                }
+                
+
                     }
+        }
+        public void SaveExcelOschad(SaveFileDialog saveDialog) //ощад банк
+        {
+            // Creating a Excel object.
+            _Application excel = new Microsoft.Office.Interop.Excel.Application();
+            _Workbook workbook = excel.Workbooks.Add(Type.Missing);
+            _Worksheet worksheet = null;
+            try
+            {
+                progressBar1.Visible = true;
+                ModifyProgressBarColor.SetState(progressBar1, 3);
+                progressBar1.Minimum = 1;
+                progressBar1.Maximum = dataGridView2.Rows.Count + 1;
+                progressBar1.Value = 1;
+                progressBar1.Step = 1;
+
+                worksheet = workbook.ActiveSheet;
+                worksheet.Rows.NumberFormatLocal = "@";
+                worksheet.Columns.NumberFormatLocal = "@";
+                worksheet.Name = "ExportedFromBank";
+
+                int cellRowIndex = 2;
+
+                int codeVal = 980;
+                worksheet.Cells[1, 1].Value = "ndoc";
+                worksheet.Cells[1, 2].Value = "dt";
+                worksheet.Cells[1, 3].Value = "dv";
+                worksheet.Cells[1, 4].Value = "acccli";
+                worksheet.Cells[1, 5].Value = "acccor";
+                worksheet.Cells[1, 6].Value = "okpocor";
+                worksheet.Cells[1, 7].Value = "namecor";
+                worksheet.Cells[1, 8].Value = "summa";
+                worksheet.Cells[1, 9].Value = "val";
+                worksheet.Cells[1, 10].Value = "nazn";
+                worksheet.Cells[1, 11].Value = "cod_cor";
+                worksheet.Cells[1, 12].Value = "add_req";
+               
+                foreach (DataGridViewRow row in dataGridView2.Rows)
+                {
+                    // MessageBox.Show("type " + int.Parse(row.Cells[8].Value.ToString(), NumberStyles.AllowThousands, new CultureInfo("en-au")));
+
+                    int summa = Convert.ToInt32(row.Cells[8].Value.ToString().Replace(".", ""));
+
+                    worksheet.Cells[cellRowIndex, 1] = "";//1 ndoc
+                    worksheet.Cells[cellRowIndex, 2].NumberFormat = "DD.MM.YYYY";
+                    worksheet.Cells[cellRowIndex, 2] = DateTime.Now.Date; //2 dt                   
+                    worksheet.Cells[cellRowIndex, 3].NumberFormat = "DD.MM.YYYY";
+                    worksheet.Cells[cellRowIndex, 3] = DateTime.Now.Date; //3 dv
+                    worksheet.Cells[cellRowIndex, 4] = row.Cells[6].Value; //4 acccli
+                    worksheet.Cells[cellRowIndex, 5] = row.Cells[7].Value.ToString(); //5 acccor
+                    worksheet.Cells[cellRowIndex, 6] = row.Cells[12].Value.ToString(); //6 okpocor
+                    worksheet.Cells[cellRowIndex, 7] = row.Cells[10].Value.ToString(); //7 namecor
+                    worksheet.Cells[cellRowIndex, 8].NumberFormat = "0"; //8 summa ThisRange.NumberFormat = "0.00%";
+                    worksheet.Cells[cellRowIndex, 8] = summa; //8 summa
+                    worksheet.Cells[cellRowIndex, 9].NumberFormat = "0";  //9 val
+                    worksheet.Cells[cellRowIndex, 9] = codeVal; //9 val
+                    worksheet.Cells[cellRowIndex, 10] = row.Cells[11].Value.ToString().Trim(); //10 nazn
+                    
+                    worksheet.Cells[cellRowIndex, 11].NumberFormat = "0";  //cod_cor 11 
+                    worksheet.Cells[cellRowIndex, 11] = 804; //cod_cor 11
+                    worksheet.Cells[cellRowIndex, 12] = ""; //add_req 12
+                    cellRowIndex++;
+                    progressBar1.PerformStep();
+                }
+
+                 
+                    workbook.SaveAs(saveDialog.FileName);
+                    MessageBox.Show("Експорт завершено", "Інформація", MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+
+                    progressBar1.Value = 1;
+                    progressBar1.Visible = false;
+                
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Помилка", MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+            finally
+            {
+                excel.Quit();
+                workbook = null;
+                excel = null;
+            }
         }
 
         public void  SaveExcel(SaveFileDialog saveDialog, DataGridView dataGridView1N) //создаем файл импорта для укргаз банка
@@ -1153,7 +1247,7 @@ namespace SoftGenConverter
             {
                 if (comboEdr.SelectedIndex == 0)// Аваль
                 {
-                    SaveExcel(dataGrid);
+                    SaveExcel(dataGrid, comboEdr.SelectedIndex);
                     try
                     {
                         SaveXml();
@@ -1163,8 +1257,8 @@ namespace SoftGenConverter
                 }
                 else if (comboEdr.SelectedIndex == 2)//ощад
                 {
-                    
-                    SaveOschadDbf();
+                    SaveExcel(dataGrid, comboEdr.SelectedIndex);
+                    //SaveOschadDbf();
                 }
                 else if (comboEdr.SelectedIndex == 3)//пумб
                 {
