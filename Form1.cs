@@ -94,7 +94,7 @@ namespace SoftGenConverter
                 Db.CreateDb();
 
             }
-            comboEdr.SelectedIndexChanged += comboEdr_SelectedIndexChanged;
+            comboEdr.SelectedIndexChanged += ComboEdr_SelectedIndexChanged;
             if (!anotherPay.Checked)
             {
                 //Xml.isExistsFile(path2, strData);
@@ -204,7 +204,7 @@ namespace SoftGenConverter
         }
 
 
-        private void comboEdr_SelectedIndexChanged(object sender, EventArgs e)
+        private void ComboEdr_SelectedIndexChanged(object sender, EventArgs e)
         {
             switch (comboEdr.SelectedIndex)
             {
@@ -301,7 +301,7 @@ namespace SoftGenConverter
                 }
 
                 path = name = openFileDialog1.FileName;
-                loadFileRoot();
+                LoadFileRoot();
 
                 if (isNull)
                 {
@@ -321,7 +321,7 @@ namespace SoftGenConverter
             }
         }
 
-        public void loadFileRoot()
+        public void LoadFileRoot()
         {
             List<Bank> CSV_Struct = new List<Bank>();
 
@@ -516,7 +516,7 @@ namespace SoftGenConverter
             //Xml.loadXml(dataGridView3, path);
             string tableName = type == 2 ? "PayConverterData" : "AnotherPayConverterData";
             dataGridView3.DataSource = Db.SelectTable<AnotherPay>(tableName);
-            loadFileRoot();
+            LoadFileRoot();
 
             //dataGridView1.Sort(dataGridView1.Columns[2], ListSortDirection.Ascending);
            // dataGridView2.Sort(dataGridView2.Columns[11], ListSortDirection.Ascending);
@@ -685,44 +685,41 @@ namespace SoftGenConverter
             {
                 Directory.CreateDirectory(pathDbf);
             }
-
+           
             string dateTime = DateTime.Now.ToString("dd/MM/yy");
+            string fileName = $"{pathDbf}{dateTime}.dbf";
+            if (File.Exists(fileName))
+            {
+                File.Delete(fileName);
+            }
 
-
-            using (Stream fos = File.Open($"{pathDbf}" + $"{dateTime}" + ".dbf", FileMode.OpenOrCreate,
+            using (Stream fos = File.Open(fileName, FileMode.OpenOrCreate,
                 FileAccess.ReadWrite))
             using (DBFWriter writer = new DBFWriter())
             {
-                writer.CharEncoding = Encoding.GetEncoding(866);
+                writer.CharEncoding = Encoding.GetEncoding(1251);//866
                 writer.Signature = DBase3WithMemo;
-                writer.LanguageDriver = 0x26; // кодировка 866
+                //writer.LanguageDriver = 0x26; // кодировка 866
                 DBFField field1 = new DBFField("ndoc", NativeDbType.Char, 10); //номер документа
                 DBFField field2 = new DBFField("dt", NativeDbType.Date); //дата документа
-                DBFField field3 = new DBFField("mfocli", NativeDbType.Char, 12); //МФО клієнта    302076
-                DBFField field4 = new DBFField("okpocli", NativeDbType.Char, 14); //ЗКПО клієнта    40375721
-                DBFField field5 =
-                    new DBFField("acccli", NativeDbType.Char, 29); //рахунок клієнта   UA243020760000026501300388426
-                DBFField field6 = new DBFField("namecli", NativeDbType.Char, 38); //ім’я клієнта     ТОВ "ФК"МПС"
-                DBFField field7 =
-                    new DBFField("bankcli", NativeDbType.Char,
-                        254); //назва банку клієнта    Вінницьке обласне управління АТ "Ощадбанк"
-                DBFField field8 = new DBFField("mfocor", NativeDbType.Char, 12); //МФО кореспондента
-                DBFField field9 = new DBFField("acccor", NativeDbType.Char, 29); //рахунок кореспондента
-                DBFField field10 = new DBFField("okpocor", NativeDbType.Char, 14); //ЗКПО кореспондента
-                DBFField field11 = new DBFField("namecor", NativeDbType.Char, 38); //ім’я кореспондента
-                DBFField field12 = new DBFField("bankcor", NativeDbType.Char, 254); //назва банку кореспондента
-                DBFField field13 = new DBFField("dk", NativeDbType.Numeric, 1); //ознака «дебет – 1; кредит – 0;»
-                DBFField field14 = new DBFField("summa", NativeDbType.Numeric, 20); //сума платежу «в копійках»
-                DBFField field15 = new DBFField("nazn", NativeDbType.Char, 160); //призначення платежу
-                DBFField field16 = new DBFField("val", NativeDbType.Numeric, 4); //код валюти платежу
-                // var field17 = new DBFField("tp", NativeDbType.Char, 4); //час проведення платежу в банку
-                // var field18 = new DBFField("dtpro", NativeDbType.Char, 8); //дата проведення платежу банком
+                DBFField field3 = new DBFField("dv", NativeDbType.Date); //Дата валютування
+                DBFField field4 =
+                    new DBFField("acccli", NativeDbType.Char, 29); //рахунок клієнта   UA243020760000026501300388426 //Рахунок (IBAN )відправника
+                DBFField field5 = new DBFField("acccor", NativeDbType.Char, 29); //рахунок кореспондента Рахунок (IBAN )отримувача
+                DBFField field6 = new DBFField("okpocor", NativeDbType.Char, 14); //ЗКПО кореспондента //Податковий код отримувача (ІПН, ЄДРПОУ, ЗКПО)
+                DBFField field7 = new DBFField("namecor", NativeDbType.Char, 38); //Назва отримувача
+                DBFField field8 = new DBFField("summa", NativeDbType.Numeric, 20); //сума платежу «в копійках»
+                DBFField field9 = new DBFField("val", NativeDbType.Numeric, 4); //код валюти платежу
+                DBFField field10 = new DBFField("nazn", NativeDbType.Char, 160); //призначення платежу
+                DBFField field11 = new DBFField("cod_cor", NativeDbType.Numeric,4);//Код країни-нерезидента отримувача (ISO 3166-1 numeric)**
+                DBFField field12 = new DBFField("add_req", NativeDbType.Char, 38);//Додаткові реквізити*
 
+               
 
                 writer.Fields = new[]
                 {
                     field1, field2, field3, field4, field5, field6, field7, field8, field9, field10, field11, field12,
-                    field13, field14, field15, field16
+                    
                 };
                 if (string.IsNullOrEmpty(docNumOschad.Text))
                 {
@@ -731,10 +728,10 @@ namespace SoftGenConverter
                 Int32.TryParse(docNumOschad.Text, out int docNum);
 
                 string zkpo = string.IsNullOrEmpty(erdpo1.Text) ? "40375721" : erdpo1.Text;
-                string cliName = "ТОВ \"ФК\"МПС\"";
-                string cliBankName = "Вінницьке обласне управління АТ \"Ощадбанк\"";
-                int debCred = 1;
-                string bankKorespond = "";
+               // string cliName = "ТОВ \"ФК\"МПС\"";
+               // string cliBankName = "Вінницьке обласне управління АТ \"Ощадбанк\"";
+               // int debCred = 1;
+              //  string bankKorespond = "";
                 int codeVal = 980;
 
                 foreach (DataGridViewRow row in dataGridView2.Rows)
@@ -745,27 +742,32 @@ namespace SoftGenConverter
                     writer.AddRecord(
                         // добавляем поля в набор
                         "", //docNum.ToString(), //1
-                        DateTime.Now, //2
-                        row.Cells[4].Value.ToString(), //3
-                        zkpo, //4
-                        row.Cells[6].Value.ToString(), //5
-                        cliName, //6
-                        cliBankName, //7
-                        row.Cells[5].Value.ToString(), //8
-                        row.Cells[7].Value.ToString(), //9
-                        row.Cells[12].Value.ToString(), //10
-                        row.Cells[10].Value.ToString(), //11
-                        bankKorespond, //12
-                        debCred, //13
-                        summa, //14
-                        row.Cells[11].Value.ToString(), //15
-                        codeVal //16
+                        DateTime.Now, //2 dt
+                         DateTime.Now, //3 dv
+                         row.Cells[6].Value, //4 acccli
+                         row.Cells[7].Value.ToString(), //5 acccor
+                         row.Cells[12].Value.ToString(), //6 okpocor
+                         row.Cells[10].Value.ToString(), //7 namecor
+                         summa, //8 summa
+                         codeVal, //9 val
+                         row.Cells[11].Value.ToString().Trim(), //10 nazn
+                         804,//cod_cor 11
+                         "" //add_req 12
+                        
+                        
+                       
+                      
                     );
                     docNum++;
                 }
 
                 writer.Write(fos);
             }
+            if (File.Exists(fileName))
+            {
+                MessageBox.Show($"Файл збережено: {fileName}" );
+            }
+            
         }
         /// <summary>
         /// Pumb
@@ -1161,6 +1163,7 @@ namespace SoftGenConverter
                 }
                 else if (comboEdr.SelectedIndex == 2)//ощад
                 {
+                    
                     SaveOschadDbf();
                 }
                 else if (comboEdr.SelectedIndex == 3)//пумб
@@ -1176,7 +1179,7 @@ namespace SoftGenConverter
                     catch(Exception ex) { MessageBox.Show(($"Файл не збережено!"), "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error); MessageBox.Show("Файл не збережено!" + Environment.NewLine + ex.Message); }
                    
                 }
-
+               
                 Save();
             }
             else
@@ -1210,7 +1213,7 @@ namespace SoftGenConverter
             Settings.Default.Save();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void Button2_Click(object sender, EventArgs e)
         {
             DialogResult dr = new DialogResult();
             Form frm;
@@ -1339,7 +1342,7 @@ namespace SoftGenConverter
             }
         }
 
-        private void button5_Click_2(object sender, EventArgs e)
+        private void Button5_Click_2(object sender, EventArgs e)
         {
             editUkrG = !editUkrG;
 
@@ -1373,7 +1376,7 @@ namespace SoftGenConverter
             textIban.Text = ukrGaz.iban;
         }
 
-        private void comboEdr2_SelectedIndexChanged(object sender, EventArgs e)
+        private void ComboEdr2_SelectedIndexChanged(object sender, EventArgs e)
         {
             SetFieldsUkrGaz();
         }
@@ -1421,7 +1424,7 @@ namespace SoftGenConverter
         }
 
 
-        private void dataGridView2_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        private void DataGridView2_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             int selRowNum = dataGridView2.SelectedCells[0].RowIndex;
             int selColNum = dataGridView2.SelectedCells[0].ColumnIndex;
@@ -1454,7 +1457,7 @@ namespace SoftGenConverter
             }
         }
 
-        private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        private void DataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             int selRowNum = dataGridView1.SelectedCells[0].RowIndex;
             int selColNum = dataGridView1.SelectedCells[0].ColumnIndex;
@@ -1491,17 +1494,17 @@ namespace SoftGenConverter
             }
         }
 
-        private void dataGridView1_MouseDoubleClick(object sender, MouseEventArgs e)
+        private void DataGridView1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             currentCellValue = dataGridView1.CurrentRow.Cells[2].Value.ToString();
         }
 
-        private void dataGridView2_MouseDoubleClick(object sender, MouseEventArgs e)
+        private void DataGridView2_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             currentCellValue = dataGridView2.CurrentRow.Cells[11].Value.ToString();
         }
 
-        private void dataGridView1_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        private void DataGridView1_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
         {
             DataGridView grid = sender as DataGridView;
             string rowIdx = (e.RowIndex + 1).ToString();
@@ -1518,7 +1521,7 @@ namespace SoftGenConverter
             e.Graphics.DrawString(rowIdx, Font, SystemBrushes.ControlText, headerBounds, centerFormat);
         }
 
-        private void dataGridView2_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        private void DataGridView2_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
         {
             DataGridView grid = sender as DataGridView;
             string rowIdx = (e.RowIndex + 1).ToString();
@@ -1534,7 +1537,7 @@ namespace SoftGenConverter
             e.Graphics.DrawString(rowIdx, Font, SystemBrushes.ControlText, headerBounds, centerFormat);
         }
 
-        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
+        private void TextBox1_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (dataGridView1.Visible)
             {
@@ -1565,19 +1568,19 @@ namespace SoftGenConverter
             new Update().Download();
         }
 
-        private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void DataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void DataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
         }
 
-        private void gridHeader_Click(object sender, EventArgs e)
+        private void GridHeader_Click(object sender, EventArgs e)
         {
         }
 
-        private void anotherPay_CheckedChanged(object sender, EventArgs e)
+        private void AnotherPay_CheckedChanged(object sender, EventArgs e)
         {
             dataGridView1.Rows.Clear();
             dataGridView2.Rows.Clear();
@@ -1586,7 +1589,7 @@ namespace SoftGenConverter
             InitPData();
         }
 
-        private void comboEdr_SelectedIndexChanged_1(object sender, EventArgs e)
+        private void ComboEdr_SelectedIndexChanged_1(object sender, EventArgs e)
         {
             switch (comboEdr.SelectedIndex)
             {
@@ -1615,9 +1618,6 @@ namespace SoftGenConverter
 
         }
 
-        private void panel2_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
+       
     }
 }

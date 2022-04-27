@@ -137,10 +137,10 @@
             this.Column16});
             resources.ApplyResources(this.dataGridView1, "dataGridView1");
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
-            this.dataGridView1.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellEndEdit);
-            this.dataGridView1.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridView1_RowPostPaint);
-            this.dataGridView1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.dataGridView1_MouseDoubleClick);
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView1_CellContentClick);
+            this.dataGridView1.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView1_CellEndEdit);
+            this.dataGridView1.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.DataGridView1_RowPostPaint);
+            this.dataGridView1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.DataGridView1_MouseDoubleClick);
             // 
             // Column1
             // 
@@ -221,7 +221,7 @@
             resources.ApplyResources(this.anotherPay, "anotherPay");
             this.anotherPay.Name = "anotherPay";
             this.anotherPay.UseVisualStyleBackColor = true;
-            this.anotherPay.CheckedChanged += new System.EventHandler(this.anotherPay_CheckedChanged);
+            this.anotherPay.CheckedChanged += new System.EventHandler(this.AnotherPay_CheckedChanged);
             // 
             // panel2
             // 
@@ -237,7 +237,7 @@
             this.panel2.Controls.Add(this.label10);
             resources.ApplyResources(this.panel2, "panel2");
             this.panel2.Name = "panel2";
-            this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
+           //this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
             this.panel2.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Panel2_MouseClick);
             // 
             // textIban
@@ -283,7 +283,7 @@
             this.button5.Name = "button5";
             this.toolTip1.SetToolTip(this.button5, resources.GetString("button5.ToolTip"));
             this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click_2);
+            this.button5.Click += new System.EventHandler(this.Button5_Click_2);
             // 
             // comboEdr2
             // 
@@ -292,7 +292,7 @@
             this.comboEdr2.Items.AddRange(new object[] {
             resources.GetString("comboEdr2.Items")});
             this.comboEdr2.Name = "comboEdr2";
-            this.comboEdr2.SelectedIndexChanged += new System.EventHandler(this.comboEdr2_SelectedIndexChanged);
+            this.comboEdr2.SelectedIndexChanged += new System.EventHandler(this.ComboEdr2_SelectedIndexChanged);
             // 
             // label10
             // 
@@ -305,7 +305,7 @@
             this.gridHeader.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.gridHeader.ForeColor = System.Drawing.SystemColors.ControlText;
             this.gridHeader.Name = "gridHeader";
-            this.gridHeader.Click += new System.EventHandler(this.gridHeader_Click);
+            this.gridHeader.Click += new System.EventHandler(this.GridHeader_Click);
             // 
             // panel1
             // 
@@ -388,7 +388,7 @@
             resources.GetString("comboEdr.Items3")});
             resources.ApplyResources(this.comboEdr, "comboEdr");
             this.comboEdr.Name = "comboEdr";
-            this.comboEdr.SelectedIndexChanged += new System.EventHandler(this.comboEdr_SelectedIndexChanged_1);
+            this.comboEdr.SelectedIndexChanged += new System.EventHandler(this.ComboEdr_SelectedIndexChanged_1);
             // 
             // button3
             // 
@@ -473,7 +473,7 @@
             this.button2.Name = "button2";
             this.toolTip1.SetToolTip(this.button2, resources.GetString("button2.ToolTip"));
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.button2.Click += new System.EventHandler(this.Button2_Click);
             // 
             // dateTimePicker1
             // 
@@ -530,10 +530,10 @@
             this.Column13});
             resources.ApplyResources(this.dataGridView2, "dataGridView2");
             this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentClick);
-            this.dataGridView2.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellEndEdit);
-            this.dataGridView2.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridView2_RowPostPaint);
-            this.dataGridView2.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.dataGridView2_MouseDoubleClick);
+            this.dataGridView2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView2_CellContentClick);
+            this.dataGridView2.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView2_CellEndEdit);
+            this.dataGridView2.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.DataGridView2_RowPostPaint);
+            this.dataGridView2.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.DataGridView2_MouseDoubleClick);
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -626,7 +626,7 @@
             resources.ApplyResources(this.textBox1, "textBox1");
             this.textBox1.Name = "textBox1";
             this.toolTip1.SetToolTip(this.textBox1, resources.GetString("textBox1.ToolTip"));
-            this.textBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox1_KeyPress);
+            this.textBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBox1_KeyPress);
             // 
             // Form1
             // 
