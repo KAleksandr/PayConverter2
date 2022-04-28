@@ -957,7 +957,7 @@ namespace SoftGenConverter
         {
             SaveFileDialog saveDialog = new SaveFileDialog
             {
-                Filter = "Excel files(2007+)| *.xlsx|Excel Files(2003)|*.xls",
+                Filter = "Excel Files(2003)|*.xls|Excel files(2007+)| *.xlsx",
                 FilterIndex = 2,
                 FileName = DateTime.Now.ToString().Replace(":", "_")
             };
@@ -968,7 +968,13 @@ namespace SoftGenConverter
                 }
                 else if(type == 2)
                 {
-                    SaveExcelOschad(saveDialog);
+                    Int32.TryParse(docNumOschad.Text, out int docnum);
+                    if (docnum == 0)
+                    {
+                        docnum = 1;
+                    }
+                    Service.Template.GetExcel(Service.Template.ConvertTableToOschad(dataGridView2, docnum), saveDialog.FileName, progressBar1);
+                    //SaveExcelOschad(saveDialog);
                 }
                 
 
@@ -992,31 +998,49 @@ namespace SoftGenConverter
                 worksheet = workbook.ActiveSheet;
                 worksheet.Rows.NumberFormatLocal = "@";
                 worksheet.Columns.NumberFormatLocal = "@";
-                worksheet.Name = "ExportedFromBank";
+                worksheet.Name = "Data";
 
-                int cellRowIndex = 2;
+                int cellRowIndex = 3;
 
                 int codeVal = 980;
-                worksheet.Cells[1, 1].Value = "ndoc";
-                worksheet.Cells[1, 2].Value = "dt";
-                worksheet.Cells[1, 3].Value = "dv";
-                worksheet.Cells[1, 4].Value = "acccli";
-                worksheet.Cells[1, 5].Value = "acccor";
-                worksheet.Cells[1, 6].Value = "okpocor";
-                worksheet.Cells[1, 7].Value = "namecor";
-                worksheet.Cells[1, 8].Value = "summa";
-                worksheet.Cells[1, 9].Value = "val";
-                worksheet.Cells[1, 10].Value = "nazn";
-                worksheet.Cells[1, 11].Value = "cod_cor";
-                worksheet.Cells[1, 12].Value = "add_req";
-               
+                int countryCode = 804;
+                worksheet.Cells[1, 1].Value =  "обов'язкове";
+                worksheet.Cells[1, 2].Value =  "обов'язкове";
+                worksheet.Cells[1, 3].Value =  "необов'язкове";
+                worksheet.Cells[1, 4].Value =  "обов'язкове";
+                worksheet.Cells[1, 5].Value =  "обов'язкове";
+                worksheet.Cells[1, 6].Value =  "обов'язкове";
+                worksheet.Cells[1, 7].Value =  "обов'язкове";
+                worksheet.Cells[1, 8].Value =  "обов'язкове";
+                worksheet.Cells[1, 9].Value =  "обов'язкове";
+                worksheet.Cells[1, 10].Value = "обов'язкове";
+                worksheet.Cells[1, 11].Value = "* якщо податковий код дорівнює 00000000 це поле обов'язкове";
+                worksheet.Cells[1, 12].Value = "** якщо податковий код дорівнює 0000000000 це поле обов'язкове";
+
+                worksheet.Cells[2, 1].Value = "Номер платіжного документу (ndoc)";
+                worksheet.Cells[2, 2].Value = "Дата документу, дд.мм.рррр (dt)";
+                worksheet.Cells[2, 3].Value = "Дата валютування, дд.мм.рррр (dv)";
+                worksheet.Cells[2, 4].Value = "Рахунок відправника (acccli)";
+                worksheet.Cells[2, 5].Value = "Рахунок отримувача (acccor)";
+                worksheet.Cells[2, 6].Value = "Податковий код отримувача (ІПН, ЄДРПОУ, ЗКПО)** (okpocor)";
+                worksheet.Cells[2, 7].Value = "Назва отримувача (namecor)";
+                worksheet.Cells[2, 8].Value = "Сума платежу    (у копійках) (summa)";
+                worksheet.Cells[2, 9].Value = "Валюта, ISO 4217 (val)";
+                worksheet.Cells[2, 10].Value = "Призначення платежу (nazn)";
+                worksheet.Cells[2, 11].Value = "Код країни-нерезидента отримувача (ISO 3166-1 numeric) (cod_cor)";
+                worksheet.Cells[2, 12].Value = "Додаткові реквізити (add_req)";
+                Int32.TryParse(docNumOschad.Text, out int docnum);
+                if (docnum == 0)
+                {
+                    docnum = 1;
+                }
                 foreach (DataGridViewRow row in dataGridView2.Rows)
                 {
                     // MessageBox.Show("type " + int.Parse(row.Cells[8].Value.ToString(), NumberStyles.AllowThousands, new CultureInfo("en-au")));
 
                     int summa = Convert.ToInt32(row.Cells[8].Value.ToString().Replace(".", ""));
 
-                    worksheet.Cells[cellRowIndex, 1] = "";//1 ndoc
+                    worksheet.Cells[cellRowIndex, 1] = docnum.ToString();//1 ndoc
                     worksheet.Cells[cellRowIndex, 2].NumberFormat = "DD.MM.YYYY";
                     worksheet.Cells[cellRowIndex, 2] = DateTime.Now.Date; //2 dt                   
                     worksheet.Cells[cellRowIndex, 3].NumberFormat = "DD.MM.YYYY";
@@ -1032,9 +1056,10 @@ namespace SoftGenConverter
                     worksheet.Cells[cellRowIndex, 10] = row.Cells[11].Value.ToString().Trim(); //10 nazn
                     
                     worksheet.Cells[cellRowIndex, 11].NumberFormat = "0";  //cod_cor 11 
-                    worksheet.Cells[cellRowIndex, 11] = 804; //cod_cor 11
+                    worksheet.Cells[cellRowIndex, 11] = countryCode; //cod_cor 11
                     worksheet.Cells[cellRowIndex, 12] = ""; //add_req 12
                     cellRowIndex++;
+                    docnum++;
                     progressBar1.PerformStep();
                 }
 
@@ -1697,7 +1722,7 @@ namespace SoftGenConverter
                     break;
                 case 2:
                     gridHeader.Text = NameBank1.Text = "ОЩАДБАНК";
-                    docNumOschadL.Visible = docNumOschad.Visible = false;
+                    docNumOschadL.Visible = docNumOschad.Visible = true;
                     docNumOschad.Text = "1";
                     break;
                 case 3:

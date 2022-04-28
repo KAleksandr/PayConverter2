@@ -237,7 +237,6 @@
             this.panel2.Controls.Add(this.label10);
             resources.ApplyResources(this.panel2, "panel2");
             this.panel2.Name = "panel2";
-           //this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
             this.panel2.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Panel2_MouseClick);
             // 
             // textIban

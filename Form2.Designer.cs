@@ -41,13 +41,13 @@
             this.label4 = new System.Windows.Forms.Label();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.Delete = new System.Windows.Forms.Button();
+            this.id = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.button2 = new System.Windows.Forms.Button();
-            this.id = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
-            this.Delete = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
@@ -196,6 +196,24 @@
             this.panel1.Size = new System.Drawing.Size(802, 38);
             this.panel1.TabIndex = 12;
             // 
+            // Delete
+            // 
+            this.Delete.Location = new System.Drawing.Point(686, 5);
+            this.Delete.Name = "Delete";
+            this.Delete.Size = new System.Drawing.Size(95, 25);
+            this.Delete.TabIndex = 3;
+            this.Delete.Text = "Видалити";
+            this.Delete.UseVisualStyleBackColor = true;
+            this.Delete.Click += new System.EventHandler(this.Delete_Click);
+            // 
+            // id
+            // 
+            this.id.Location = new System.Drawing.Point(662, 8);
+            this.id.Name = "id";
+            this.id.Size = new System.Drawing.Size(18, 20);
+            this.id.TabIndex = 2;
+            this.id.Visible = false;
+            // 
             // label5
             // 
             this.label5.AutoSize = true;
@@ -224,26 +242,6 @@
             this.panel2.Size = new System.Drawing.Size(139, 38);
             this.panel2.TabIndex = 13;
             // 
-            // button2
-            // 
-            this.button2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.button2.Location = new System.Drawing.Point(91, 0);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(48, 38);
-            this.button2.TabIndex = 6;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Visible = false;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // id
-            // 
-            this.id.Location = new System.Drawing.Point(662, 8);
-            this.id.Name = "id";
-            this.id.Size = new System.Drawing.Size(18, 20);
-            this.id.TabIndex = 2;
-            this.id.Visible = false;
-            // 
             // button1
             // 
             this.button1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
@@ -258,15 +256,17 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
-            // Delete
+            // button2
             // 
-            this.Delete.Location = new System.Drawing.Point(686, 5);
-            this.Delete.Name = "Delete";
-            this.Delete.Size = new System.Drawing.Size(95, 25);
-            this.Delete.TabIndex = 3;
-            this.Delete.Text = "Видалити";
-            this.Delete.UseVisualStyleBackColor = true;
-            this.Delete.Click += new System.EventHandler(this.Delete_Click);
+            this.button2.Dock = System.Windows.Forms.DockStyle.Right;
+            this.button2.Location = new System.Drawing.Point(91, 0);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(48, 38);
+            this.button2.TabIndex = 6;
+            this.button2.Text = "button2";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Visible = false;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // Form2
             // 
