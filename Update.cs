@@ -14,6 +14,7 @@ namespace SoftGenConverter
         private string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"version.xml");
         private string path2 = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"PayConverter.update");
         private string path3 = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"updater.exe");
+        private string path4 = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\Template.xlsx");
         private string pCUpdate = "PayConverter.update";
         private Version remoteVersion;
         private string updater = "updater.exe";
@@ -21,7 +22,19 @@ namespace SoftGenConverter
         private string url = "https://raw.githubusercontent.com/KAleksandr/PayConverter2/master/version.xml";
         private string url2 = "https://github.com/KAleksandr/PayConverter2/blob/master/PayConverter.exe?raw=true";
         private string url3 = "https://github.com/KAleksandr/PayConverter2/blob/master/updater.exe?raw=true";
+        private string url4 = "https://github.com/KAleksandr/PayConverter2/blob/master/Resources/Template.xlsx?raw=true";
 
+
+        public void DownloadTemplate() {
+            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072; //TLS 1.2 в .net Framework 4.0 додати
+            if (!File.Exists(path4))
+            {
+                DownloadFile(new Uri(url4), path4);
+                Thread.Sleep(300);
+            
+                //MessageBox.Show("Шаблон завантажено!");
+            }
+        }
         public void Download()
         {
             ServicePointManager.SecurityProtocol = (SecurityProtocolType) 3072; //TLS 1.2 в .net Framework 4.0 додати

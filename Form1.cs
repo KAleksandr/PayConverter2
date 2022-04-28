@@ -1685,6 +1685,8 @@ namespace SoftGenConverter
         {
             Text += " " + localVersion;
             new Update().Download();
+            new Update().DownloadTemplate();
+
         }
 
         private void DataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
