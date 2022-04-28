@@ -15,6 +15,8 @@ namespace SoftGenConverter
         private string path2 = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"PayConverter.update");
         private string path3 = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"updater.exe");
         private string path4 = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\Template.xlsx");
+        private string path5 = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"EPPlus.xml");
+        private string path6 = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"EPPlus.dll");
         private string pCUpdate = "PayConverter.update";
         private Version remoteVersion;
         private string updater = "updater.exe";
@@ -23,6 +25,8 @@ namespace SoftGenConverter
         private string url2 = "https://github.com/KAleksandr/PayConverter2/blob/master/PayConverter.exe?raw=true";
         private string url3 = "https://github.com/KAleksandr/PayConverter2/blob/master/updater.exe?raw=true";
         private string url4 = "https://github.com/KAleksandr/PayConverter2/blob/master/Resources/Template.xlsx?raw=true";
+        private string url5 = "https://github.com/KAleksandr/PayConverter2/blob/master/lib/EPPlus.xml?raw=true";
+        private string url6 = "https://github.com/KAleksandr/PayConverter2/blob/master/lib/EPPlus.dll?raw=true";
 
 
         public void DownloadTemplate() {
@@ -32,6 +36,20 @@ namespace SoftGenConverter
                 DownloadFile(new Uri(url4), path4);
                 Thread.Sleep(300);
             
+                //MessageBox.Show("Шаблон завантажено!");
+            }
+            if (!File.Exists(path5))
+            {
+                DownloadFile(new Uri(url5), path5);
+                Thread.Sleep(300);
+
+                //MessageBox.Show("Шаблон завантажено!");
+            }
+            if (!File.Exists(path6))
+            {
+                DownloadFile(new Uri(url6), path6);
+                Thread.Sleep(300);
+
                 //MessageBox.Show("Шаблон завантажено!");
             }
         }
