@@ -953,7 +953,7 @@ namespace SoftGenConverter
         }
 
 
-        public void SaveExcel(DataGridView dataGridViewn, int type)
+        public void SaveExcel(DataGridView dataGridViewn, int type, string rahunok="")
         {
             SaveFileDialog saveDialog = new SaveFileDialog
             {
@@ -973,7 +973,7 @@ namespace SoftGenConverter
                     {
                         docnum = 1;
                     }
-                    Service.Template.GetExcel(Service.Template.ConvertTableToOschad(dataGridView2, docnum), saveDialog.FileName, progressBar1);
+                    Service.Template.GetExcel(Service.Template.ConvertTableToOschad(dataGridView2, docnum, rahunok), saveDialog.FileName, progressBar1);
                     //SaveExcelOschad(saveDialog);
                 }
                 
@@ -1282,7 +1282,7 @@ namespace SoftGenConverter
                 }
                 else if (comboEdr.SelectedIndex == 2)//ощад
                 {
-                    SaveExcel(dataGrid, comboEdr.SelectedIndex);
+                    SaveExcel(dataGrid, comboEdr.SelectedIndex, oschad.rahunok);
                     //SaveOschadDbf();
                 }
                 else if (comboEdr.SelectedIndex == 3)//пумб

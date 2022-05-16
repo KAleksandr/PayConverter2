@@ -118,7 +118,7 @@ namespace SoftGenConverter.Service
         }
 
    
-        public static List<Entity.Oschad> ConvertTableToOschad(DataGridView dataGridView2, int docnum)
+        public static List<Entity.Oschad> ConvertTableToOschad(DataGridView dataGridView2, int docnum,string rahunok)
         {
             int codeVal = 980;
             int countryCode = 804;
@@ -131,7 +131,7 @@ namespace SoftGenConverter.Service
                     Ndoc    = docnum.ToString(),//1 ndoc
                     Dt      = DateTime.Now.Date, //2 dt  
                     Dv      = DateTime.Now.Date, //3 dv
-                    Acccli  = row.Cells[6].Value.ToString(), //4 acccli
+                    Acccli  = rahunok,//row.Cells[6].Value.ToString(), //4 acccli!!!!!
                     Acccor  = row.Cells[7].Value.ToString(), //5 acccor
                     Okpocor = row.Cells[12].Value.ToString(), //6 okpocor
                     Namecor = row.Cells[10].Value.ToString(),  //7 namecor
