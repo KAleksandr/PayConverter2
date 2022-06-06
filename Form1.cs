@@ -172,7 +172,7 @@ namespace SoftGenConverter
                         break;
                     case 3:
                         SetFieldsP(pumb);
-                        docNumOschadL.Visible = docNumOschad.Visible = false;
+                        docNumOschadL.Visible = docNumOschad.Visible = true;
                         break;
                 }
             }
@@ -1729,7 +1729,7 @@ namespace SoftGenConverter
                     break;
                 case 3:
                     gridHeader.Text = NameBank1.Text = "ПУМБ";
-                    docNumOschadL.Visible = docNumOschad.Visible = false;
+                    docNumOschadL.Visible = docNumOschad.Visible = true;
                     docNumOschad.Text = "1";
                    
                     break;
