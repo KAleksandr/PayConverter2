@@ -35,11 +35,13 @@ namespace SoftGenConverter.Entity
             {
                 CommandText = @"DROP TABLE IF EXISTS AnotherPayConverterData;
                                 DROP TABLE IF EXISTS PayConverterData;
+                                DROP TABLE IF EXISTS PurposeOfPayment;
                                 DROP TABLE IF EXISTS PayConverterConfig; "
             };
             cmd.ExecuteNonQuery();
             cmd.CommandText = @"CREATE TABLE AnotherPayConverterData ( ID INTEGER, NAME TEXT, ERDPO TEXT, RRahunok TEXT, Comment TEXT, PRIMARY KEY(ID AUTOINCREMENT));
                 CREATE TABLE PayConverterData ( ID INTEGER, NAME TEXT, ERDPO TEXT, RRahunok TEXT, Comment TEXT, PRIMARY KEY(ID AUTOINCREMENT));
+                CREATE TABLE PurposeOfPayment ( ID INTEGER, NAME TEXT, PURPOSE TEXT, PRIMARY KEY(ID AUTOINCREMENT));
                 CREATE TABLE PayConverterConfig (
 	                                            ID	INTEGER,
 	                                            NAME	TEXT NOT NULL,
@@ -62,7 +64,28 @@ namespace SoftGenConverter.Entity
             con.Close();
             
         }
-       
+       public static void CreateNewTablePurposeOfPayment()
+        {
+            SQLiteConnection con = new SQLiteConnection(Cs);
+            con.Open();
+
+            SQLiteCommand cmd = new SQLiteCommand(con)
+            {
+                CommandText = @" CREATE TABLE IF NOT EXISTS PurposeOfPayment ( ID INTEGER, NAME TEXT, PURPOSE TEXT, PRIMARY KEY(ID AUTOINCREMENT));
+                            insert into PurposeOfPayment (NAME,PURPOSE) 
+                            VALUES('ВФ ПАТ ""УКРТЕЛЕКОМ""','Переказ коштів за телекомунікаційні посл.'),
+                            ('ДНЗ  3','Батьківська плата за харчування'),
+                            ('ДНЗ  13','Батьківська плата за харчування'),
+                            ('ДНЗ  7','Батьківська плата за харчування'),
+                            ('ДНЗ-39','Батьківська плата за харчування'),
+                            ('ДНЗ 50', 'Батьківська плата за харчування')
+"
+            };
+            cmd.ExecuteNonQuery();
+          
+          
+            con.Close();
+        }
         public static int DeleteById(string tableName,int id)
         {
             SQLiteConnection con = new SQLiteConnection(Cs);
@@ -76,10 +99,20 @@ namespace SoftGenConverter.Entity
             con.Close();
             return delItem;
         }
-       
+        public static int DeleteById(string tableName, List<int> ids)
+        {
+            SQLiteConnection con = new SQLiteConnection(Cs);
+            SQLiteCommand cmd = new SQLiteCommand(con);
+            con.Open();            
+            cmd.CommandText = $"DELETE FROM {tableName} where id in ({string.Join(",", ids)})";        
+             int delItem = cmd.ExecuteNonQuery();
+
+            con.Close();
+            return delItem;
+        }
         //
-       
-        
+
+
         public static List<T> SelectTable<T>(string tableName) where T : new()
         {
             string TableName = tableName;// AnotherPayConverterData";
@@ -89,6 +122,33 @@ namespace SoftGenConverter.Entity
             SQLiteCommand cmd = new SQLiteCommand(con);
             string stm =  $"SELECT * FROM {TableName}";
             
+            cmd.CommandText = stm;
+
+            using (SQLiteDataReader reader = cmd.ExecuteReader())
+            {
+                DataTable dataTable = new DataTable(TableName);
+                dataTable.Load(reader);
+                selectT = DataTableToList<T>(dataTable);
+            }
+            con.Close();
+            return selectT;
+        }
+        public static List<T> SelectTable<T>(string tableName, string filter="", string sort="") where T : new()
+        {
+            string TableName = tableName;
+            SQLiteConnection con = new SQLiteConnection(Cs);
+            con.Open();
+            List<T> selectT = new List<T>();
+            SQLiteCommand cmd = new SQLiteCommand(con);
+            string stm = $"SELECT * FROM {TableName}";
+            if (!string.IsNullOrEmpty(filter))
+            {
+                stm += " where " + filter;
+            }
+            if (!string.IsNullOrEmpty(sort))
+            {
+                stm += " Order by " + sort;
+            }
             cmd.CommandText = stm;
 
             using (SQLiteDataReader reader = cmd.ExecuteReader())

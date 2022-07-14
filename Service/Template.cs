@@ -137,7 +137,7 @@ namespace SoftGenConverter.Service
                     Namecor = row.Cells[10].Value.ToString(),  //7 namecor
                     Summa   = summa, //8 summa
                     Val     = codeVal, //9 val
-                    Nazn    = row.Cells[11].Value.ToString().Trim(), //10 nazn
+                    Nazn    = string.Join(" ", row.Cells[13].Value.ToString().Trim(), row.Cells[11].Value.ToString().Trim()), //10 nazn
                     Cod_cor = countryCode, //cod_cor 11
                     Add_req = "" //add_req 12
                 };

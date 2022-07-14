@@ -94,6 +94,10 @@ namespace SoftGenConverter
                 Db.CreateDb();
 
             }
+            else
+            {
+                Db.CreateNewTablePurposeOfPayment();
+            }
             comboEdr.SelectedIndexChanged += ComboEdr_SelectedIndexChanged;
             if (!anotherPay.Checked)
             {
@@ -396,6 +400,7 @@ namespace SoftGenConverter
                     dataGridView1.Rows[n].Cells[7].Value = CSV_Struct[i].edrpou;
 
                     dataGridView1.Rows[n].Cells[9].Value = ukrGaz.iban;
+                    dataGridView1.Rows[n].Cells[10].Value = PurposeOfPayment_.GetPurpose(dataGridView1.Rows[n].Cells[8].Value.ToString());
                 }
 
                 
@@ -431,22 +436,25 @@ namespace SoftGenConverter
 
                         if (!anotherPay.Checked && (comboEdr.SelectedIndex.ToString() == "0" || comboEdr.SelectedIndex.ToString() == "2" || comboEdr.SelectedIndex.ToString() == "3"))
                         {
-                        dataGridView2.Rows[n].Cells[10].Value =
+                            dataGridView2.Rows[n].Cells[10].Value =
                             FindNameZkpo(CSV_Struct[i].name, CSV_Struct[i].edrpou, CSV_Struct[i].rahunok)
                                 .Equals("null")
                                 ? CSV_Struct[i].name
                                 : FindNameZkpo(CSV_Struct[i].name, CSV_Struct[i].edrpou, CSV_Struct[i].rahunok);
-                        //Призначення платежу
-                        dataGridView2.Rows[n].Cells[11].Value = AddDateToStr(
+                            //Призначення платежу
+                            dataGridView2.Rows[n].Cells[11].Value = AddDateToStr(
                                 FindZkpo(CSV_Struct[i].edrpou, CSV_Struct[i].rahunok),
                                 CSV_Struct[i].dateP.ToString("dd.MM.yyyy")).Replace("null", "") + " " + CSV_Struct[i].Appointment; 
                         }
                         else //todo: пофиксить сохранение базы индустриала
                         {
                             string cells10 = CSV_Struct[i].name;
-                                               
-                            dataGridView2.Rows[n].Cells[10].Value = AlphaBeta(cells10);
-                            dataGridView2.Rows[n].Cells[11].Value = AlphaBeta(CSV_Struct[i].pruznach);
+                        string nameRecipient = AlphaBeta(cells10);
+                        dataGridView2.Rows[n].Cells[10].Value = nameRecipient;
+                        
+                        dataGridView2.Rows[n].Cells[11].Value = AlphaBeta(CSV_Struct[i].pruznach);
+                        dataGridView2.Rows[n].Cells[13].Value =  PurposeOfPayment_.GetPurpose(nameRecipient.Trim());
+                       // MessageBox.Show(nameRecipient);
                         }
 
                         
@@ -851,7 +859,7 @@ namespace SoftGenConverter
                         CITY_A = codeVal.ToString(),
                         CITY_B = codeVal.ToString(),
                         AMOUNT = ChangeI(row.Cells[8].Value.ToString()),
-                        DETAILS = ChangeI(row.Cells[11].Value.ToString()),                        
+                        DETAILS = ChangeI(string.Join(" ", row.Cells[13].Value.ToString(), row.Cells[11].Value.ToString())),                        
                         GUILTY = FIO.Text,
                         DETAILS_T = ""
                     };
@@ -1108,13 +1116,12 @@ namespace SoftGenConverter
                 int cellRowIndex = 1;
                
 
-                for (int i = 0; i <= dataGridView1N.Rows.Count; i++) // todo: готовый код Для нового укргазбанка выгрузка
+                for (int i = 0; i <= dataGridView1N.Rows.Count; i++) // todo: 
                 {
 
                     if (cellRowIndex == 1)
                     {
-                        // worksheet.Cells[cellRowIndex, cellColumnIndex] = dataGridView1.Columns[j].HeaderText;
-                        // worksheet.Cells[1, 1].Value = "Campus";
+                        
                         worksheet.Cells[1, 1].Value = "FIELD_CUST_BANK_CODE";
                         worksheet.Cells[1, 2].Value = "FIELD_CUST_ACCOUNT";
                         worksheet.Cells[1, 3].Value = "FIELD_CUST_IBAN";
@@ -1141,10 +1148,7 @@ namespace SoftGenConverter
                     }
                     else
                     {
-                        // for (int t = 1; t < dataGridView1.Columns.Count; t++)
-                        // {
-                        //     worksheet.Cells[cellRowIndex, t].NumberFormat = "@";
-                        // 
+                        
                         worksheet.Cells[cellRowIndex, 1] = 320478;
                         worksheet.Cells[cellRowIndex, 2] = dataGridView1N.Rows[i - 1].Cells[3].Value.ToString();
                         try
@@ -1163,7 +1167,7 @@ namespace SoftGenConverter
                         catch { }
                         try
                         {
-                            worksheet.Cells[cellRowIndex, 16] = dataGridView1N.Rows[i - 1].Cells[2].Value.ToString();
+                            worksheet.Cells[cellRowIndex, 16] = string.Join(" ", dataGridView1N.Rows[i - 1].Cells[10].Value.ToString(),dataGridView1N.Rows[i - 1].Cells[2].Value.ToString());
                            
                         }
                         catch{}
@@ -1214,28 +1218,7 @@ namespace SoftGenConverter
                 }
 
 
-                //for (var i = 0; i <= dataGridView1.Rows.Count; i++)
-                //{
-                //    for (var j = 0; j < dataGridView1.Columns.Count; j++)
-                //    {
-                //        if (cellRowIndex == 1)
-                //        {
-                //            worksheet.Cells[cellRowIndex, cellColumnIndex] = dataGridView1.Columns[j].HeaderText;
-                //        }
-                //        else
-                //        {
-                //            worksheet.Cells[cellRowIndex, cellColumnIndex].NumberFormat = "@";
-                //            worksheet.Cells[cellRowIndex, cellColumnIndex] =
-                //                dataGridView1.Rows[i - 1].Cells[j].Value.ToString();
-                //        }
-
-                //        cellColumnIndex++;
-                //    }
-
-                //    cellColumnIndex = 1;
-                //    cellRowIndex++;
-                //    progressBar1.PerformStep();
-                //}
+           
 
                 {
                     workbook.SaveAs(saveDialog.FileName);
@@ -1268,9 +1251,10 @@ namespace SoftGenConverter
         {
             
             DataGridView dataGrid = dataGridView2.Visible ? dataGridView2 : dataGridView1;
+            
             if (dataGrid.Rows.Count > 0)
             {
-                if (comboEdr.SelectedIndex == 0)// Аваль
+                if (comboEdr.SelectedIndex == 0 || (comboEdr2.SelectedIndex == 0 && dataGridView1.Visible))// Аваль || УКрГаз
                 {
                     SaveExcel(dataGrid, comboEdr.SelectedIndex);
                     try
@@ -1278,7 +1262,7 @@ namespace SoftGenConverter
                         SaveXml();
                     }
                     catch { }
-
+                    
                 }
                 else if (comboEdr.SelectedIndex == 2)//ощад
                 {
@@ -1299,7 +1283,7 @@ namespace SoftGenConverter
                    
                 }
                
-                Save();
+               // Save();
             }
             else
             {
@@ -1572,6 +1556,28 @@ namespace SoftGenConverter
                     //        Xml.SaveXml(dataGridView3, path2);
                     //    }
                     //}
+                }if(selColNum == 13)
+                {
+                    string OrgName = dataGridView2.CurrentRow.Cells[10].Value.ToString();
+                    dataGridView2.CurrentRow.Cells[13].Value =
+                       MyDataGrid.shortText(dataGridView2.CurrentRow.Cells[13].Value.ToString());
+                    string purpose = dataGridView2.CurrentRow.Cells[13].Value.ToString().Replace("  ", @" ").Trim();
+                    dataGridView2.CurrentRow.Cells[13].Value = purpose;
+
+                    var dialogResult = MessageBox.Show("Оновити довідник?","Додати/Оновити довідник Призначення за умовчанням", MessageBoxButtons.YesNo);
+                    if(dialogResult == DialogResult.Yes)
+                    {
+                        PurposeOfPayment_.InsertOrUpdatePurpose(OrgName, purpose);
+                    }
+                    
+                    foreach(DataGridViewRow row in dataGridView2.Rows)
+                    {
+                        
+                        if (row.Cells[10].Value.ToString().Equals(OrgName))
+                        {
+                            row.Cells[13].Value = purpose;
+                        }
+                    }
                 }
             }
         }
@@ -1609,6 +1615,29 @@ namespace SoftGenConverter
                     //        Xml.SaveXml(dataGridView3, path2);
                     //    }
                     //}
+                }
+                if (selColNum == 10)
+                {
+                    string OrgName = dataGridView1.CurrentRow.Cells[8].Value.ToString();
+                    string purpose =
+                       MyDataGrid.shortText(dataGridView1.CurrentRow.Cells[10].Value.ToString());
+                   purpose = purpose.Replace("  ", @" ").Trim();
+                    dataGridView2.CurrentRow.Cells[10].Value = purpose;
+
+                    var dialogResult = MessageBox.Show("Оновити довідник?", "Додати/Оновити довідник Призначення за умовчанням", MessageBoxButtons.YesNo);
+                    if (dialogResult == DialogResult.Yes)
+                    {
+                        PurposeOfPayment_.InsertOrUpdatePurpose(OrgName, purpose);
+                    }
+
+                    foreach (DataGridViewRow row in dataGridView1.Rows)
+                    {
+
+                        if (row.Cells[8].Value.ToString().Equals(OrgName))
+                        {
+                            row.Cells[10].Value = purpose;
+                        }
+                    }
                 }
             }
         }
@@ -1740,5 +1769,14 @@ namespace SoftGenConverter
         }
 
        
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            
+            DialogResult dr = new DialogResult();
+            Form frm;    
+            frm = new Form4();
+            dr = frm.ShowDialog();
+        }
     }
 }

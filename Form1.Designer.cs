@@ -29,25 +29,16 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column16 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.panel7 = new System.Windows.Forms.Panel();
+            this.button6 = new System.Windows.Forms.Button();
             this.anotherPay = new System.Windows.Forms.CheckBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.textIban = new System.Windows.Forms.TextBox();
@@ -100,9 +91,21 @@
             this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PURPOSE = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column16 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
             this.panel7.SuspendLayout();
@@ -134,67 +137,14 @@
             this.Column7,
             this.Column8,
             this.Column10,
-            this.Column16});
+            this.Column16,
+            this.Column11});
             resources.ApplyResources(this.dataGridView1, "dataGridView1");
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView1_CellContentClick);
             this.dataGridView1.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView1_CellEndEdit);
             this.dataGridView1.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.DataGridView1_RowPostPaint);
             this.dataGridView1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.DataGridView1_MouseDoubleClick);
-            // 
-            // Column1
-            // 
-            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            resources.ApplyResources(this.Column1, "Column1");
-            this.Column1.Name = "Column1";
-            this.Column1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            // 
-            // Column2
-            // 
-            this.Column2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            resources.ApplyResources(this.Column2, "Column2");
-            this.Column2.Name = "Column2";
-            // 
-            // Column3
-            // 
-            this.Column3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            resources.ApplyResources(this.Column3, "Column3");
-            this.Column3.Name = "Column3";
-            // 
-            // Column4
-            // 
-            resources.ApplyResources(this.Column4, "Column4");
-            this.Column4.Name = "Column4";
-            // 
-            // Column5
-            // 
-            resources.ApplyResources(this.Column5, "Column5");
-            this.Column5.Name = "Column5";
-            // 
-            // Column6
-            // 
-            resources.ApplyResources(this.Column6, "Column6");
-            this.Column6.Name = "Column6";
-            // 
-            // Column7
-            // 
-            resources.ApplyResources(this.Column7, "Column7");
-            this.Column7.Name = "Column7";
-            // 
-            // Column8
-            // 
-            resources.ApplyResources(this.Column8, "Column8");
-            this.Column8.Name = "Column8";
-            // 
-            // Column10
-            // 
-            resources.ApplyResources(this.Column10, "Column10");
-            this.Column10.Name = "Column10";
-            // 
-            // Column16
-            // 
-            resources.ApplyResources(this.Column16, "Column16");
-            this.Column16.Name = "Column16";
             // 
             // tableLayoutPanel2
             // 
@@ -205,6 +155,7 @@
             // panel7
             // 
             this.panel7.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.panel7.Controls.Add(this.button6);
             this.panel7.Controls.Add(this.anotherPay);
             this.panel7.Controls.Add(this.panel2);
             this.panel7.Controls.Add(this.gridHeader);
@@ -215,6 +166,17 @@
             this.panel7.Controls.Add(this.label4);
             resources.ApplyResources(this.panel7, "panel7");
             this.panel7.Name = "panel7";
+            // 
+            // button6
+            // 
+            this.button6.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button6.FlatAppearance.BorderSize = 0;
+            resources.ApplyResources(this.button6, "button6");
+            this.button6.Image = global::SoftGenConverter.Properties.Resources.PRP_32;
+            this.button6.Name = "button6";
+            this.toolTip1.SetToolTip(this.button6, resources.GetString("button6.ToolTip"));
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // anotherPay
             // 
@@ -526,7 +488,8 @@
             this.dataGridViewTextBoxColumn10,
             this.dataGridViewTextBoxColumn11,
             this.Column9,
-            this.Column13});
+            this.Column13,
+            this.PURPOSE});
             resources.ApplyResources(this.dataGridView2, "dataGridView2");
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView2_CellContentClick);
@@ -608,6 +571,12 @@
             resources.ApplyResources(this.Column13, "Column13");
             this.Column13.Name = "Column13";
             // 
+            // PURPOSE
+            // 
+            this.PURPOSE.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            resources.ApplyResources(this.PURPOSE, "PURPOSE");
+            this.PURPOSE.Name = "PURPOSE";
+            // 
             // progressBar1
             // 
             this.progressBar1.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
@@ -626,6 +595,65 @@
             this.textBox1.Name = "textBox1";
             this.toolTip1.SetToolTip(this.textBox1, resources.GetString("textBox1.ToolTip"));
             this.textBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBox1_KeyPress);
+            // 
+            // Column1
+            // 
+            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            resources.ApplyResources(this.Column1, "Column1");
+            this.Column1.Name = "Column1";
+            this.Column1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // Column2
+            // 
+            this.Column2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            resources.ApplyResources(this.Column2, "Column2");
+            this.Column2.Name = "Column2";
+            // 
+            // Column3
+            // 
+            this.Column3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            resources.ApplyResources(this.Column3, "Column3");
+            this.Column3.Name = "Column3";
+            // 
+            // Column4
+            // 
+            resources.ApplyResources(this.Column4, "Column4");
+            this.Column4.Name = "Column4";
+            // 
+            // Column5
+            // 
+            resources.ApplyResources(this.Column5, "Column5");
+            this.Column5.Name = "Column5";
+            // 
+            // Column6
+            // 
+            resources.ApplyResources(this.Column6, "Column6");
+            this.Column6.Name = "Column6";
+            // 
+            // Column7
+            // 
+            resources.ApplyResources(this.Column7, "Column7");
+            this.Column7.Name = "Column7";
+            // 
+            // Column8
+            // 
+            resources.ApplyResources(this.Column8, "Column8");
+            this.Column8.Name = "Column8";
+            // 
+            // Column10
+            // 
+            resources.ApplyResources(this.Column10, "Column10");
+            this.Column10.Name = "Column10";
+            // 
+            // Column16
+            // 
+            resources.ApplyResources(this.Column16, "Column16");
+            this.Column16.Name = "Column16";
+            // 
+            // Column11
+            // 
+            resources.ApplyResources(this.Column11, "Column11");
+            this.Column11.Name = "Column11";
             // 
             // Form1
             // 
@@ -694,6 +722,18 @@
         private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.Label gridHeader;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox textIban;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.CheckBox anotherPay;
+        private System.Windows.Forms.TextBox docNumOschad;
+        private System.Windows.Forms.Label docNumOschadL;
+        private System.Windows.Forms.TextBox FIO;
+        private System.Windows.Forms.Label FIOL;
+        private System.Windows.Forms.TextBox erdpo1;
+        private System.Windows.Forms.Label erdpo1l;
+        private System.Windows.Forms.Button button6;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
@@ -707,10 +747,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column9;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column13;
-        private System.Windows.Forms.ProgressBar progressBar1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox textIban;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PURPOSE;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
@@ -721,13 +758,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column10;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column16;
-        private System.Windows.Forms.CheckBox anotherPay;
-        private System.Windows.Forms.TextBox docNumOschad;
-        private System.Windows.Forms.Label docNumOschadL;
-        private System.Windows.Forms.TextBox FIO;
-        private System.Windows.Forms.Label FIOL;
-        private System.Windows.Forms.TextBox erdpo1;
-        private System.Windows.Forms.Label erdpo1l;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column11;
     }
 }
 
