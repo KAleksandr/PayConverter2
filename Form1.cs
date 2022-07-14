@@ -780,7 +780,7 @@ namespace SoftGenConverter
         /// <summary>
         /// Pumb
         /// </summary>
-        public bool SavePumbDbf(out string pathT, bool an0therPayCh)
+        public bool SavePumbDbf(out string pathT, bool anotherPayCh)
         {
             // System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
 
@@ -843,7 +843,7 @@ namespace SoftGenConverter
                 List<Dbf> dbfs = new List<Dbf>();
                 foreach (DataGridViewRow row in dataGridView2.Rows)
                 {
-                    string details = an0therPayCh ? ChangeI(string.Join(" ", row.Cells[13].Value.ToString(), row.Cells[11].Value.ToString())) : ChangeI(row.Cells[11].Value.ToString()); 
+                    string details = anotherPayCh ? ChangeI(string.Join(" ", row.Cells[13].Value.ToString(), row.Cells[11].Value.ToString())) : ChangeI(row.Cells[11].Value.ToString()); 
                     if(details.Length > 160)
                     {
                         details = ChangeI(row.Cells[11].Value.ToString());
@@ -988,7 +988,7 @@ namespace SoftGenConverter
                     {
                         docnum = 1;
                     }
-                    Service.Template.GetExcel(Service.Template.ConvertTableToOschad(dataGridView2, docnum, rahunok), saveDialog.FileName, progressBar1);
+                    Service.Template.GetExcel(Service.Template.ConvertTableToOschad(dataGridView2, docnum, rahunok, anotherPay.Checked), saveDialog.FileName, progressBar1);
                     //SaveExcelOschad(saveDialog);
                 }
                 

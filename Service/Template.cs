@@ -118,7 +118,7 @@ namespace SoftGenConverter.Service
         }
 
    
-        public static List<Entity.Oschad> ConvertTableToOschad(DataGridView dataGridView2, int docnum,string rahunok)
+        public static List<Entity.Oschad> ConvertTableToOschad(DataGridView dataGridView2, int docnum,string rahunok, bool anotherPayCh)
         {
             int codeVal = 980;
             int countryCode = 804;
@@ -126,6 +126,7 @@ namespace SoftGenConverter.Service
             foreach (DataGridViewRow row in dataGridView2.Rows)
             {
                 int summa = Convert.ToInt32(row.Cells[8].Value.ToString().Replace(".", ""));
+                string naznPl = anotherPayCh ? string.Join(" ", row.Cells[13].Value.ToString().Trim(), row.Cells[11].Value.ToString().Trim()) : row.Cells[11].Value.ToString().Trim();
                 Entity.Oschad oschad = new Entity.Oschad()
                 {
                     Ndoc    = docnum.ToString(),//1 ndoc
@@ -137,7 +138,7 @@ namespace SoftGenConverter.Service
                     Namecor = row.Cells[10].Value.ToString(),  //7 namecor
                     Summa   = summa, //8 summa
                     Val     = codeVal, //9 val
-                    Nazn    = string.Join(" ", row.Cells[13].Value.ToString().Trim(), row.Cells[11].Value.ToString().Trim()), //10 nazn
+                    Nazn    = naznPl, //10 nazn
                     Cod_cor = countryCode, //cod_cor 11
                     Add_req = "" //add_req 12
                 };
