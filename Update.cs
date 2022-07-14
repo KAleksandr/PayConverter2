@@ -17,6 +17,7 @@ namespace SoftGenConverter
         private string path4 = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\Template.xlsx");
         private string path5 = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"EPPlus.xml");
         private string path6 = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"EPPlus.dll");
+        private string path7 = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"AdvancedDataGridView.dll");
         private string pCUpdate = "PayConverter.update";
         private Version remoteVersion;
         private string updater = "updater.exe";
@@ -27,6 +28,7 @@ namespace SoftGenConverter
         private string url4 = "https://github.com/KAleksandr/PayConverter2/blob/master/Resources/Template.xlsx?raw=true";
         private string url5 = "https://github.com/KAleksandr/PayConverter2/blob/master/lib/EPPlus.xml?raw=true";
         private string url6 = "https://github.com/KAleksandr/PayConverter2/blob/master/lib/EPPlus.dll?raw=true";
+        private string url7 = "https://github.com/KAleksandr/PayConverter2/blob/master/lib/AdvancedDataGridView.dll?raw=true";
 
 
         public void DownloadTemplate() {
@@ -48,6 +50,13 @@ namespace SoftGenConverter
             if (!File.Exists(path6))
             {
                 DownloadFile(new Uri(url6), path6);
+                Thread.Sleep(300);
+
+                //MessageBox.Show("Шаблон завантажено!");
+            }
+            if (!File.Exists(path7))
+            {
+                DownloadFile(new Uri(url7), path7);
                 Thread.Sleep(300);
 
                 //MessageBox.Show("Шаблон завантажено!");
