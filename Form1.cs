@@ -780,7 +780,7 @@ namespace SoftGenConverter
         /// <summary>
         /// Pumb
         /// </summary>
-        public bool SavePumbDbf(out string pathT)
+        public bool SavePumbDbf(out string pathT, bool an0therPayCh)
         {
             // System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
 
@@ -791,7 +791,9 @@ namespace SoftGenConverter
                 Directory.CreateDirectory(pathDbf);
             }
 
-            string dateTime = DateTime.Now.ToString("dd_MM_yyyy");
+            string dateTime = DateTime.Now.ToString().Replace(":", "_");
+
+
             string path = $"{pathDbf}" + $"{dateTime}" + ".dbf";
 
             using (Stream pumb = File.Open(path, FileMode.OpenOrCreate,
@@ -841,7 +843,11 @@ namespace SoftGenConverter
                 List<Dbf> dbfs = new List<Dbf>();
                 foreach (DataGridViewRow row in dataGridView2.Rows)
                 {
-
+                    string details = an0therPayCh ? ChangeI(string.Join(" ", row.Cells[13].Value.ToString(), row.Cells[11].Value.ToString())) : ChangeI(row.Cells[11].Value.ToString()); 
+                    if(details.Length > 160)
+                    {
+                        details = ChangeI(row.Cells[11].Value.ToString());
+                    }
                     Dbf dbf = new Dbf()
                     {
                         DAY = row.Cells[3].Value.ToString(),
@@ -859,7 +865,8 @@ namespace SoftGenConverter
                         CITY_A = codeVal.ToString(),
                         CITY_B = codeVal.ToString(),
                         AMOUNT = ChangeI(row.Cells[8].Value.ToString()),
-                        DETAILS = ChangeI(string.Join(" ", row.Cells[13].Value.ToString(), row.Cells[11].Value.ToString())),                        
+                       // DETAILS = ChangeI(string.Join(" ", row.Cells[13].Value.ToString(), row.Cells[11].Value.ToString())),                        
+                        DETAILS = details,                        
                         GUILTY = FIO.Text,
                         DETAILS_T = ""
                     };
@@ -1273,7 +1280,7 @@ namespace SoftGenConverter
                 {
                     try
                     {
-                        if (SavePumbDbf(out string path))
+                        if (SavePumbDbf(out string path, anotherPay.Checked))
                         {
                             MessageBox.Show(($"Файл збережено!{Environment.NewLine}{path}"),"Інформація", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             
