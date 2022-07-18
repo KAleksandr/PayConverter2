@@ -400,7 +400,7 @@ namespace SoftGenConverter
                     dataGridView1.Rows[n].Cells[7].Value = CSV_Struct[i].edrpou;
 
                     dataGridView1.Rows[n].Cells[9].Value = ukrGaz.iban;
-                    dataGridView1.Rows[n].Cells[10].Value = PurposeOfPayment_.GetPurpose(dataGridView1.Rows[n].Cells[8].Value.ToString());
+                    dataGridView1.Rows[n].Cells[10].Value = anotherPay.Checked ? PurposeOfPayment_.GetPurpose(dataGridView1.Rows[n].Cells[8].Value.ToString()) : "";
                 }
 
                 
@@ -453,7 +453,7 @@ namespace SoftGenConverter
                         dataGridView2.Rows[n].Cells[10].Value = nameRecipient;
                         
                         dataGridView2.Rows[n].Cells[11].Value = AlphaBeta(CSV_Struct[i].pruznach);
-                        dataGridView2.Rows[n].Cells[13].Value =  PurposeOfPayment_.GetPurpose(nameRecipient.Trim());
+                        dataGridView2.Rows[n].Cells[13].Value = anotherPay.Checked ? PurposeOfPayment_.GetPurpose(nameRecipient.Trim()) : "";
                        // MessageBox.Show(nameRecipient);
                         }
 
