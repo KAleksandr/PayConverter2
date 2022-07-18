@@ -979,7 +979,7 @@ namespace SoftGenConverter
             if (saveDialog.ShowDialog() == DialogResult.OK) {
                 if (type == 0)
                 {
-                    SaveExcel(saveDialog, dataGridViewn);
+                    SaveExcel(saveDialog, dataGridViewn, anotherPay.Checked);
                 }
                 else if(type == 2)
                 {
@@ -1100,7 +1100,7 @@ namespace SoftGenConverter
             }
         }
 
-        public void  SaveExcel(SaveFileDialog saveDialog, DataGridView dataGridView1N) //создаем файл импорта для укргаз банка
+        public void  SaveExcel(SaveFileDialog saveDialog, DataGridView dataGridView1N, bool anotherPay) //создаем файл импорта для укргаз банка
         {
             // Creating a Excel object.
             _Application excel = new Microsoft.Office.Interop.Excel.Application();
@@ -1174,7 +1174,8 @@ namespace SoftGenConverter
                         catch { }
                         try
                         {
-                            worksheet.Cells[cellRowIndex, 16] = string.Join(" ", dataGridView1N.Rows[i - 1].Cells[10].Value.ToString(),dataGridView1N.Rows[i - 1].Cells[2].Value.ToString());
+                           
+                            worksheet.Cells[cellRowIndex, 16] = anotherPay ? string.Join(" ", dataGridView1N.Rows[i - 1].Cells[10].Value.ToString(),dataGridView1N.Rows[i - 1].Cells[2].Value.ToString()) : dataGridView1N.Rows[i - 1].Cells[2].Value.ToString();
                            
                         }
                         catch{}
