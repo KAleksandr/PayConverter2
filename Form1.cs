@@ -401,6 +401,10 @@ namespace SoftGenConverter
 
                     dataGridView1.Rows[n].Cells[9].Value = ukrGaz.iban;
                     dataGridView1.Rows[n].Cells[10].Value = anotherPay.Checked ? PurposeOfPayment_.GetPurpose(dataGridView1.Rows[n].Cells[8].Value.ToString()) : "";
+                //if (dataGridView1.Rows[n].Cells[10].Value.ToString().Length > 10)
+                //    {
+                //        dataGridView1.Rows[n].Cells[10].Style.BackColor = Color.Red;
+                //    }
                 }
 
                 
@@ -843,6 +847,13 @@ namespace SoftGenConverter
                 List<Dbf> dbfs = new List<Dbf>();
                 foreach (DataGridViewRow row in dataGridView2.Rows)
                 {
+                    if (row.Cells[13].Value == null)
+                    {
+                        row.Cells[13].Value = string.Empty;
+                    }if(row.Cells[11].Value == null)
+                    {
+                        row.Cells[11].Value = string.Empty;
+                    }
                     string details = anotherPayCh ? ChangeI(string.Join(" ", row.Cells[13].Value.ToString(), row.Cells[11].Value.ToString())) : ChangeI(row.Cells[11].Value.ToString()); 
                     if(details.Length > 160)
                     {
@@ -1588,6 +1599,10 @@ namespace SoftGenConverter
                     }
                 }
             }
+            else
+            {
+                dataGridView2[e.ColumnIndex, e.RowIndex].Value = string.Empty;
+            }
         }
 
         private void DataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
@@ -1647,6 +1662,10 @@ namespace SoftGenConverter
                         }
                     }
                 }
+            }
+            else
+            {
+                dataGridView1[e.ColumnIndex, e.RowIndex].Value = string.Empty;
             }
         }
 
