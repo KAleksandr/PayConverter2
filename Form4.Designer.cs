@@ -36,9 +36,9 @@ namespace SoftGenConverter
             this.NAME = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.ADD = new System.Windows.Forms.Button();
             this.DELETE = new System.Windows.Forms.Button();
             this.ID = new System.Windows.Forms.TextBox();
+            this.ADD = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.advancedDataGridView1)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -75,8 +75,8 @@ namespace SoftGenConverter
             this.tableLayoutPanel1.Controls.Add(this.label2, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.label1, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.advancedDataGridView1, 1, 4);
-            this.tableLayoutPanel1.Controls.Add(this.ADD, 3, 3);
-            this.tableLayoutPanel1.Controls.Add(this.DELETE, 2, 3);
+            this.tableLayoutPanel1.Controls.Add(this.ADD, 1, 3);
+            this.tableLayoutPanel1.Controls.Add(this.DELETE, 3, 3);
             this.tableLayoutPanel1.Controls.Add(this.ID, 2, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
@@ -135,21 +135,10 @@ namespace SoftGenConverter
             this.label1.Text = "Найменування отримувача";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // ADD
-            // 
-            this.ADD.Dock = System.Windows.Forms.DockStyle.Right;
-            this.ADD.Image = global::SoftGenConverter.Properties.Resources.form2Add_32;
-            this.ADD.Location = new System.Drawing.Point(621, 73);
-            this.ADD.Name = "ADD";
-            this.ADD.Size = new System.Drawing.Size(63, 39);
-            this.ADD.TabIndex = 5;
-            this.ADD.UseVisualStyleBackColor = true;
-            this.ADD.Click += new System.EventHandler(this.ADD_Click);
-            // 
             // DELETE
             // 
             this.DELETE.Dock = System.Windows.Forms.DockStyle.Right;
-            this.DELETE.Location = new System.Drawing.Point(429, 73);
+            this.DELETE.Location = new System.Drawing.Point(610, 73);
             this.DELETE.Name = "DELETE";
             this.DELETE.Size = new System.Drawing.Size(74, 39);
             this.DELETE.TabIndex = 6;
@@ -164,6 +153,17 @@ namespace SoftGenConverter
             this.ID.Size = new System.Drawing.Size(30, 20);
             this.ID.TabIndex = 7;
             this.ID.Visible = false;
+            // 
+            // ADD
+            // 
+            this.ADD.Dock = System.Windows.Forms.DockStyle.Right;
+            this.ADD.Image = global::SoftGenConverter.Properties.Resources.form2Add_32;
+            this.ADD.Location = new System.Drawing.Point(104, 73);
+            this.ADD.Name = "ADD";
+            this.ADD.Size = new System.Drawing.Size(63, 39);
+            this.ADD.TabIndex = 5;
+            this.ADD.UseVisualStyleBackColor = true;
+            this.ADD.Click += new System.EventHandler(this.ADD_Click);
             // 
             // Form4
             // 
@@ -191,8 +191,8 @@ namespace SoftGenConverter
         private System.Windows.Forms.TextBox PURPOSE;
         private System.Windows.Forms.TextBox NAME;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button ADD;
         private System.Windows.Forms.Button DELETE;
         private System.Windows.Forms.TextBox ID;
+        private System.Windows.Forms.Button ADD;
     }
 }

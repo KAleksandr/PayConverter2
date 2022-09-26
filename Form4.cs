@@ -25,6 +25,7 @@ namespace SoftGenConverter
         {
             InitializeComponent();
             InitDataSource();
+            MyDataGrid.StyleDataGridView(advancedDataGridView1, false);
             advancedDataGridView1.Columns["ID"].HeaderText = "ІД";
             advancedDataGridView1.Columns["NAME"].HeaderText = "Найменування отримувача";
             advancedDataGridView1.Columns["NAME"].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
@@ -37,7 +38,7 @@ namespace SoftGenConverter
 
             InitializeComponent();
             advancedDataGridView1.DataSource = data;
-
+            MyDataGrid.StyleDataGridView(advancedDataGridView1, false);
             advancedDataGridView1.Columns["ID"].HeaderText = "ІД";
             advancedDataGridView1.Columns["NAME"].HeaderText = "Найменування отримувача";
             advancedDataGridView1.Columns["NAME"].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
