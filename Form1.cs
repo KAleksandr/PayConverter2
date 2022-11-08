@@ -908,7 +908,7 @@ namespace SoftGenConverter
             string dateTime = DateTime.Now.ToString().Replace(":", "_");
 
 
-            string path = $"{pathDbf}" + $"{dateTime}" + "2.dbf";
+            string path = $"{pathDbf}" + $"{dateTime}" + ".dbf";
 
             using (Stream pumb = File.Open(path, FileMode.OpenOrCreate,
                 FileAccess.ReadWrite)) ;
@@ -1424,11 +1424,11 @@ namespace SoftGenConverter
                 {
                     try
                     {
-                        if (SavePumbDbf(out string path, anotherPay.Checked))
-                        {
-                            MessageBox.Show(($"Файл збережено!{Environment.NewLine}{path}"),"Інформація", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        //if (SavePumbDbf(out string path, anotherPay.Checked))
+                        //{
+                        //    MessageBox.Show(($"Файл збережено!{Environment.NewLine}{path}"),"Інформація", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             
-                        }
+                        //}
                         if (SavePumbDbf2(out string path2, anotherPay.Checked))
                         {
                             MessageBox.Show(($"Файл збережено!{Environment.NewLine}{path2}"), "Інформація", MessageBoxButtons.OK, MessageBoxIcon.Information);
