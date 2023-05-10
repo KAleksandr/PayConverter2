@@ -931,7 +931,7 @@ namespace SoftGenConverter
             string path = $"{pathDbf}" + $"{dateTime}" + ".dbf";
 
             using (Stream pumb = File.Open(path, FileMode.OpenOrCreate,
-                FileAccess.ReadWrite)) ;
+                FileAccess.ReadWrite));
 
             //dBASE.NET.Dbf writer = new dBASE.NET.Dbf(Encoding.GetEncoding(866));
             dBASE.NET.Dbf writer = new dBASE.NET.Dbf(Encoding.GetEncoding(1251));
@@ -1355,7 +1355,17 @@ namespace SoftGenConverter
                         catch { }
                         try
                             {
-                                worksheet.Cells[cellRowIndex, 16] = isUkrGaz ? dataGridView1N.Rows[i - 1].Cells[11].Value.ToString() : (anotherPay ? string.Join(" ", dataGridView1N.Rows[i - 1].Cells[10].Value.ToString(), dataGridView1N.Rows[i - 1].Cells[2].Value.ToString()) : dataGridView1N.Rows[i - 1].Cells[2].Value.ToString());//FIELD_PURPOSE
+                            string addPaym = dataGridView1N.Rows[i - 1].Cells[11].Value.ToString();
+
+                            if (dataGridView1N.Rows[i - 1].Cells[13].Value == null)
+                            {
+
+                                dataGridView1N.Rows[i - 1].Cells[13].Value = string.Empty;
+
+                            }
+                            addPaym = string.Join(" ", addPaym, dataGridView1N.Rows[i - 1].Cells[13].Value.ToString());
+
+                            worksheet.Cells[cellRowIndex, 16] = isUkrGaz ?  addPaym : (anotherPay ? string.Join(" ", dataGridView1N.Rows[i - 1].Cells[10].Value.ToString(), dataGridView1N.Rows[i - 1].Cells[2].Value.ToString()) : dataGridView1N.Rows[i - 1].Cells[2].Value.ToString());//FIELD_PURPOSE
                         }
                             catch { }
                           
