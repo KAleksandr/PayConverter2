@@ -1353,9 +1353,10 @@ namespace SoftGenConverter
                             worksheet.Cells[cellRowIndex, 15] = isUkrGaz ? dataGridView1N.Rows[i - 1].Cells[10].Value.ToString():  dataGridView1N.Rows[i - 1].Cells[8].Value.ToString();//FIELD_BENEF_NAME
                         }
                         catch { }
+                        //FIELD_PURPOSE
                         try
-                            {
-                            if (isUkrGaz)
+                        {
+                            if (isUkrGaz && !anotherPay)
                             {
                                 string addPaym = dataGridView1N.Rows[i - 1].Cells[11].Value.ToString();
 
@@ -1367,6 +1368,16 @@ namespace SoftGenConverter
                                 }
                                 addPaym = string.Join(" ", addPaym, dataGridView1N.Rows[i - 1].Cells[13].Value.ToString());
                                 worksheet.Cells[cellRowIndex, 16] = addPaym;
+                            }else if (isUkrGaz && anotherPay)
+                            {
+                                if (dataGridView1N.Rows[i - 1].Cells[13].Value == null)
+                                {
+
+                                    dataGridView1N.Rows[i - 1].Cells[13].Value = string.Empty;
+
+                                }
+                                
+                                worksheet.Cells[cellRowIndex, 16] = string.Join(" ", dataGridView1N.Rows[i - 1].Cells[13].Value.ToString(), dataGridView1N.Rows[i - 1].Cells[11].Value.ToString());
                             }
                             else
                             {
