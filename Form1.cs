@@ -703,18 +703,23 @@ namespace SoftGenConverter
         }
 
 
-        public void SaveOschadDbf()
+        public void SaveOschadDbf(string path)
         {
             // System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
-
             string pathDbf = Directory.GetCurrentDirectory() + "\\ОщадБанк\\";
+            if (!string.IsNullOrEmpty(path))
+            {
+               pathDbf = Path.Combine(Path.GetDirectoryName(path), Path.GetFileName(path).Replace(Path.GetExtension(path), ""));
+            }
+
+            
 
             if (!Directory.Exists(pathDbf))
             {
                 Directory.CreateDirectory(pathDbf);
             }
 
-            string dateTime = DateTime.Now.ToString("dd/MM/yy");
+            string dateTime = DateTime.Now.ToString("ddMMyy");
             string fileName = $"{pathDbf}{dateTime}.dbf";
             if (File.Exists(fileName))
             {
@@ -1122,8 +1127,9 @@ namespace SoftGenConverter
         }
 
 
-        public void SaveExcel(DataGridView dataGridViewn, int type, string rahunok = "", bool isUkrGaz = false)
+        public string SaveExcel(DataGridView dataGridViewn, int type, string rahunok = "", bool isUkrGaz = false)
         {
+            string filePath = "";
             SaveFileDialog saveDialog = new SaveFileDialog
             {
                 Filter = "Excel Files(2003)|*.xls|Excel files(2007+)| *.xlsx",
@@ -1144,11 +1150,11 @@ namespace SoftGenConverter
                         docnum = 1;
                     }
                     Service.Template.GetExcel(Service.Template.ConvertTableToOschad(dataGridView2, docnum, rahunok, anotherPay.Checked), saveDialog.FileName, progressBar1);
+                    filePath = saveDialog.FileName;
                     //SaveExcelOschad(saveDialog);
                 }
-
-
             }
+            return filePath;
         }
         public void SaveExcelOschad(SaveFileDialog saveDialog) //ощад банк
         {
@@ -1450,8 +1456,8 @@ namespace SoftGenConverter
                 }
                 else if (comboEdr.SelectedIndex == 2)//ощад
                 {
-                    SaveExcel(dataGrid, comboEdr.SelectedIndex, oschad.rahunok);
-                    //SaveOschadDbf();
+                   var path = SaveExcel(dataGrid, comboEdr.SelectedIndex, oschad.rahunok);
+                   SaveOschadDbf(path);
                 }
                 else if (comboEdr.SelectedIndex == 3)//пумб
                 {

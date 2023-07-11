@@ -12,9 +12,6 @@ namespace SoftGenConverter.Service
         public static void GetExcel(List<Entity.Oschad> oschads, string nameFile, ProgressBar progressBar)
         {
 
-            //progBar.Maximum = 2;
-
-
             string RunningPath = AppDomain.CurrentDomain.BaseDirectory + "Resources";
             byte[] fl = Properties.Resources.Template;
             string fileName = "Template.xlsx";
@@ -28,19 +25,15 @@ namespace SoftGenConverter.Service
             {  //Делаем проверку - если Template.xlsx отсутствует - выходим по красной ветке
 
                 MessageBox.Show("Упс! Файл Excel-шаблона {0} відсутній в каталозі проєкту", fileName);
-
             }
             else
-            {
-
-               
+            {               
                 CreateNewFile(template, nameFile, oschads, progressBar);
 
                 if (File.Exists(nameFile))
                 {
                     MessageBox.Show($"Файл сформовано! {nameFile}");
-                }
-                
+                }                
                 progressBar.Value = 1;
                 progressBar.Visible = false;
             }
@@ -50,7 +43,6 @@ namespace SoftGenConverter.Service
         {
             using (ExcelPackage exPack = new ExcelPackage(template, true))
             {
-
                 ExcelWorksheet ws0 = exPack.Workbook.Worksheets[0];
                 SetTemplate(ws0, oschads, progressBar);
 
@@ -62,9 +54,6 @@ namespace SoftGenConverter.Service
                     saveName += DateTime.Now.ToLongDateString();
                 }
                 File.WriteAllBytes(saveName, bin);
-
-
-
             }
         }
 
@@ -77,7 +66,6 @@ namespace SoftGenConverter.Service
             progressBar1.Value = 1;
             progressBar1.Step = 1;
             int start = 3;
-
 
             oschads.ForEach(dr => {
                 ws.Cells[start, 1].Value = dr.Ndoc;
@@ -92,8 +80,7 @@ namespace SoftGenConverter.Service
                 ws.Cells[start, 10].Value = dr.Nazn;
                 ws.Cells[start, 11].Value = dr.Cod_cor;
                 ws.Cells[start, 12].Value = dr.Add_req;
-
-
+                ws.Cells[start, 13].Value = dr.Uetr;
 
                 //ws.Cells[start, 1].Style.Fill.PatternType = ExcelFillStyle.Solid;
                
@@ -109,14 +96,12 @@ namespace SoftGenConverter.Service
                 ws.Cells[start, 10].Style.Border.BorderAround(ExcelBorderStyle.Thin);
                 ws.Cells[start, 11].Style.Border.BorderAround(ExcelBorderStyle.Thin);
                 ws.Cells[start, 12].Style.Border.BorderAround(ExcelBorderStyle.Thin);
+                ws.Cells[start, 13].Style.Border.BorderAround(ExcelBorderStyle.Thin);
                
                 start++;
                 progressBar1.PerformStep();
-            });
-
-            
+            });            
         }
-
    
         public static List<Entity.Oschad> ConvertTableToOschad(DataGridView dataGridView2, int docnum,string rahunok, bool anotherPayCh)
         {
@@ -140,7 +125,8 @@ namespace SoftGenConverter.Service
                     Val     = codeVal, //9 val
                     Nazn    = naznPl, //10 nazn
                     Cod_cor = countryCode, //cod_cor 11
-                    Add_req = "" //add_req 12
+                    Add_req = "", //add_req 12
+                    Uetr = "" //uetr 13
                 };
                 oschads.Add(oschad);
                 docnum++;

@@ -54,7 +54,11 @@ namespace SoftGenConverter.Entity
         /// <summary>
         /// "Додаткові реквізити (add_req)";
         /// </summary>
-        public string Add_req { get; set; }           
+        public string Add_req { get; set; }
+        /// <summary>
+        /// універсальний ідентифікатор *** поле «uetr» - універсальний ідентифікатор, що присвоюється АБС банку за допомогою якого можливо здійснити розшук/статус документу в СЕП4.За умови імпорту має бути пустим (null), при експорті (виписка) приймає символьне значення(приклад заповнення: afe790bb-bf3a-4292-b4d5-a28ed2300ec4)
+        /// </summary>
+        public string Uetr { get; set; } = "";          
         
     }
 }
