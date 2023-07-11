@@ -703,7 +703,7 @@ namespace SoftGenConverter
         }
 
 
-        public void SaveOschadDbf(string path)
+        public void SaveOschadDbf(string path, string rahunok)
         {
             // System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
             string pathDbf = Directory.GetCurrentDirectory() + "\\ОщадБанк\\";
@@ -774,7 +774,7 @@ namespace SoftGenConverter
                          "", //docNum.ToString(), //1
                          DateTime.Now, //2 dt
                          DateTime.Now, //3 dv
-                         row.Cells[6].Value, //4 acccli
+                         rahunok, //4 acccli
                          row.Cells[7].Value.ToString(), //5 acccor
                          row.Cells[12].Value.ToString(), //6 okpocor
                          row.Cells[10].Value.ToString(), //7 namecor
@@ -1458,7 +1458,7 @@ namespace SoftGenConverter
                 else if (comboEdr.SelectedIndex == 2)//ощад
                 {
                    var path = SaveExcel(dataGrid, comboEdr.SelectedIndex, oschad.rahunok);
-                   SaveOschadDbf(path);
+                   SaveOschadDbf(path, oschad.rahunok);
                 }
                 else if (comboEdr.SelectedIndex == 3)//пумб
                 {
