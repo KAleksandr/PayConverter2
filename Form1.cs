@@ -707,6 +707,10 @@ namespace SoftGenConverter
         {
             // System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
             string pathDbf = Directory.GetCurrentDirectory() + "\\ОщадБанк\\";
+            if (string.IsNullOrEmpty(path) && !Directory.Exists(pathDbf))
+            {
+                Directory.CreateDirectory(pathDbf);
+            }
             if (!string.IsNullOrEmpty(path))
             {
                pathDbf = Path.Combine(Path.GetDirectoryName(path), Path.GetFileName(path).Replace(Path.GetExtension(path), ""));
@@ -714,10 +718,7 @@ namespace SoftGenConverter
 
             
 
-            if (!Directory.Exists(pathDbf))
-            {
-                Directory.CreateDirectory(pathDbf);
-            }
+           
 
             string dateTime = DateTime.Now.ToString("ddMMyy");
             string fileName = $"{pathDbf}{dateTime}.dbf";
