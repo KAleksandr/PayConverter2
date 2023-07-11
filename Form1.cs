@@ -417,10 +417,7 @@ namespace SoftGenConverter
 
                     dataGridView1.Rows[n].Cells[9].Value = ukrGaz.iban;
                     dataGridView1.Rows[n].Cells[10].Value = anotherPay.Checked ? PurposeOfPayment_.GetPurpose(dataGridView1.Rows[n].Cells[8].Value.ToString()) : "";
-                    //if (dataGridView1.Rows[n].Cells[10].Value.ToString().Length > 10)
-                    //    {
-                    //        dataGridView1.Rows[n].Cells[10].Style.BackColor = Color.Red;
-                    //    }
+                    
                 }
 
 
@@ -735,22 +732,20 @@ namespace SoftGenConverter
                 DBFField field2 = new DBFField("dt", NativeDbType.Date); //дата документа
                 DBFField field3 = new DBFField("dv", NativeDbType.Date); //Дата валютування
                 DBFField field4 =
-                    new DBFField("acccli", NativeDbType.Char, 29); //рахунок клієнта   UA243020760000026501300388426 //Рахунок (IBAN )відправника
-                DBFField field5 = new DBFField("acccor", NativeDbType.Char, 29); //рахунок кореспондента Рахунок (IBAN )отримувача
-                DBFField field6 = new DBFField("okpocor", NativeDbType.Char, 14); //ЗКПО кореспондента //Податковий код отримувача (ІПН, ЄДРПОУ, ЗКПО)
-                DBFField field7 = new DBFField("namecor", NativeDbType.Char, 38); //Назва отримувача
+                    new DBFField("acccli", NativeDbType.Char, 29); //Рахунок (IBAN )відправника
+                DBFField field5 = new DBFField("acccor", NativeDbType.Char, 29); //Рахунок (IBAN )отримувача
+                DBFField field6 = new DBFField("okpocor", NativeDbType.Char, 29); //Податковий код отримувача (ІПН, ЄДРПОУ)
+                DBFField field7 = new DBFField("namecor", NativeDbType.Char, 140); //ім’я отримувача
                 DBFField field8 = new DBFField("summa", NativeDbType.Numeric, 20); //сума платежу «в копійках»
                 DBFField field9 = new DBFField("val", NativeDbType.Numeric, 4); //код валюти платежу
-                DBFField field10 = new DBFField("nazn", NativeDbType.Char, 160); //призначення платежу
-                DBFField field11 = new DBFField("cod_cor", NativeDbType.Numeric, 4);//Код країни-нерезидента отримувача (ISO 3166-1 numeric)**
-                DBFField field12 = new DBFField("add_req", NativeDbType.Char, 38);//Додаткові реквізити*
-
-
+                DBFField field10 = new DBFField("nazn", NativeDbType.Char, 420); //призначення платежу
+                DBFField field11 = new DBFField("cod_cor", NativeDbType.Numeric, 20);//Код країни-нерезидента отримувача (ISO 3166-1 numeric)**
+                DBFField field12 = new DBFField("add_req", NativeDbType.Char, 160);//Додаткові реквізити*
+                DBFField field13 = new DBFField("uetr", NativeDbType.Char, 36);// універсальний ідентифікатор ***
 
                 writer.Fields = new[]
                 {
-                    field1, field2, field3, field4, field5, field6, field7, field8, field9, field10, field11, field12,
-
+                    field1, field2, field3, field4, field5, field6, field7, field8, field9, field10, field11, field12, field13
                 };
                 if (string.IsNullOrEmpty(docNumOschad.Text))
                 {
@@ -767,13 +762,11 @@ namespace SoftGenConverter
 
                 foreach (DataGridViewRow row in dataGridView2.Rows)
                 {
-                    // MessageBox.Show("type " + int.Parse(row.Cells[8].Value.ToString(), NumberStyles.AllowThousands, new CultureInfo("en-au")));
-
                     int summa = Convert.ToInt32(row.Cells[8].Value.ToString().Replace(".", ""));
                     writer.AddRecord(
-                        // добавляем поля в набор
-                        "", //docNum.ToString(), //1
-                        DateTime.Now, //2 dt
+                         // добавляем поля в набор
+                         "", //docNum.ToString(), //1
+                         DateTime.Now, //2 dt
                          DateTime.Now, //3 dv
                          row.Cells[6].Value, //4 acccli
                          row.Cells[7].Value.ToString(), //5 acccor
@@ -783,11 +776,8 @@ namespace SoftGenConverter
                          codeVal, //9 val
                          row.Cells[11].Value.ToString().Trim(), //10 nazn
                          804,//cod_cor 11
-                         "" //add_req 12
-
-
-
-
+                         "", //add_req 12
+                         ""//uetr
                     );
                     docNum++;
                 }
