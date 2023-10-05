@@ -1,4 +1,5 @@
-﻿using SoftGenConverter.Entity;
+﻿using Microsoft.VisualBasic.FileIO;
+using SoftGenConverter.Entity;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -47,7 +48,7 @@ namespace SoftGenConverter
             return name + " " + rahunok;
         }
 
-        public void piece(string line, DateTime date, bool aval, bool anotherPay)
+        public void Piece(string line, DateTime date, bool aval, bool anotherPay)
         {
             var parts = line.Split(';'); //Разделитель в CSV файле.
             if (aval)
@@ -117,6 +118,62 @@ namespace SoftGenConverter
             //todo: regex
         }
 
+       
+      
+    public static List<Bank> ReadCsv(string filePath)
+    {
+        
+            List<string[]> csvData = ReadCSVFile(filePath);
+        List<Bank> banks = new List<Bank>();
+        int count = 0;
+        foreach (string[] row in csvData)
+        {
+            if(count != 0)
+            // Отримуємо дані з кожного стовпця
+            banks.Add(new Bank
+            {
+                name = row[0].ToUpper(),
+                Appointment = row[1].ToUpper(),
+                pruznach = row[1],
+                mfo = row[2],
+                rahunok = row[3],
+                edrpou = row[4],
+                summa = row[5],
+                id = 1,
+                dateP = DateTime.Now
+                
+            });
+            count++;
+        }
+
+        return banks;
+    }
+    static List<string[]> ReadCSVFile(string filePath)
+        {
+            List<string[]> csvData = new List<string[]>();
+           
+            try
+            {
+                using (TextFieldParser parser = new TextFieldParser(filePath, Encoding.GetEncoding(1251)))
+                {
+                    parser.TextFieldType = FieldType.Delimited;
+                    parser.SetDelimiters(";");
+                    parser.HasFieldsEnclosedInQuotes = true;
+
+                    while (!parser.EndOfData)
+                    {
+                        string[] fields = parser.ReadFields();
+                        csvData.Add(fields);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Помилка: " + e.Message);
+            }
+
+            return csvData;
+        }
         public static List<Bank> ReadFile(string filename, bool anotherPay)
         {
             var res = new List<Bank>();
@@ -161,6 +218,7 @@ namespace SoftGenConverter
                 using (var sr = new StreamReader(filename, Encoding.GetEncoding(1251)))
                 {
                     string line;
+                    int count = 0;
                     while ((line = sr.ReadLine()) != null)
                     {
                         var lineMatch = regexLine.Matches(line);
@@ -186,13 +244,21 @@ namespace SoftGenConverter
                                 }
 
                                 var p = new Bank();
-                                p.piece(line, datePl, aval, anotherPay);
+                                p.Piece(line, datePl, aval, anotherPay);
                                 res.Add(p);
                                 // MessageBox.Show(string.Join(Environment.NewLine, p));  
                             }
 
                             flag = true;
                         }
+                        else if(count != 0)
+                        {
+                            
+                           res = Bank.ReadCsv(filename);
+                            
+                        }
+
+                        count++;
                     }
                 }
             }
