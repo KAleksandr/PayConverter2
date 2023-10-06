@@ -347,7 +347,10 @@ namespace SoftGenConverter
 
             CSV_Struct = Bank.ReadFile(path, anotherPay.Checked);
 
-
+            if (CSV_Struct == null || CSV_Struct.Count==0)
+            {
+               CSV_Struct = Bank.ReadFile(path, anotherPay.Checked, TypeFile.standart);
+            }
             DateTime dt1 = DateTime.Today;
             for (int i = 0; i <= CSV_Struct.Count - 1; i++)
             {

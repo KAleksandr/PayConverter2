@@ -10,6 +10,12 @@ using System.Windows.Forms;
 
 namespace SoftGenConverter
 {
+    public enum TypeFile
+    {
+        defaultType,
+        standart
+        
+    }
     public class Bank
     {
         public string name { get; set; }
@@ -174,7 +180,7 @@ namespace SoftGenConverter
 
             return csvData;
         }
-        public static List<Bank> ReadFile(string filename, bool anotherPay)
+        public static List<Bank> ReadFile(string filename, bool anotherPay, TypeFile type = TypeFile.defaultType)
         {
             var res = new List<Bank>();
             var date = 0;
@@ -251,10 +257,10 @@ namespace SoftGenConverter
 
                             flag = true;
                         }
-                        //else if(count != 0)
+                        else if(count != 0 && type == TypeFile.standart)
                         {
                             
-                            //res = Bank.ReadCsv(filename);
+                            res = Bank.ReadCsv(filename);
                             
                         }
 
