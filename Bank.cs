@@ -251,10 +251,10 @@ namespace SoftGenConverter
 
                             flag = true;
                         }
-                        else if(count != 0)
+                        //else if(count != 0)
                         {
                             
-                           res = Bank.ReadCsv(filename);
+                            //res = Bank.ReadCsv(filename);
                             
                         }
 
