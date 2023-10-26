@@ -714,11 +714,11 @@ namespace SoftGenConverter
             {
                 Directory.CreateDirectory(pathDbf);
             }
-            if (!string.IsNullOrEmpty(path) && !panel2)
-            {
+            //if (!string.IsNullOrEmpty(path) && !panel2)
+            //{
                
-               pathDbf = Path.Combine(Path.GetDirectoryName(path), Path.GetFileName(path).Replace(Path.GetExtension(path), ""));
-            }
+            //   pathDbf = Path.Combine(Path.GetDirectoryName(path), Path.GetFileName(path).Replace(Path.GetExtension(path), ""));
+            //}
 
 
 
