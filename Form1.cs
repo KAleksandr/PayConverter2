@@ -347,9 +347,9 @@ namespace SoftGenConverter
 
             CSV_Struct = Bank.ReadFile(path, anotherPay.Checked);
 
-            if (CSV_Struct == null || CSV_Struct.Count==0)
+            if (CSV_Struct == null || CSV_Struct.Count == 0)
             {
-               CSV_Struct = Bank.ReadFile(path, anotherPay.Checked, TypeFile.standart);
+                CSV_Struct = Bank.ReadFile(path, anotherPay.Checked, TypeFile.standart);
             }
             DateTime dt1 = DateTime.Today;
             for (int i = 0; i <= CSV_Struct.Count - 1; i++)
@@ -420,7 +420,7 @@ namespace SoftGenConverter
 
                     dataGridView1.Rows[n].Cells[9].Value = ukrGaz.iban;
                     dataGridView1.Rows[n].Cells[10].Value = anotherPay.Checked ? PurposeOfPayment_.GetPurpose(dataGridView1.Rows[n].Cells[8].Value.ToString()) : "";
-                    
+
                 }
 
 
@@ -706,7 +706,7 @@ namespace SoftGenConverter
         }
 
 
-        public void SaveOschadDbf(string path, string rahunok)
+        public void SaveOschadDbf(string path, string rahunok, bool panel2 = false)
         {
             // System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
             string pathDbf = Directory.GetCurrentDirectory() + "\\ОщадБанк\\";
@@ -714,17 +714,19 @@ namespace SoftGenConverter
             {
                 Directory.CreateDirectory(pathDbf);
             }
-            if (!string.IsNullOrEmpty(path))
+            if (!string.IsNullOrEmpty(path) && !panel2)
             {
+               
                pathDbf = Path.Combine(Path.GetDirectoryName(path), Path.GetFileName(path).Replace(Path.GetExtension(path), ""));
             }
 
-            
 
-           
+
+
 
             string dateTime = DateTime.Now.ToString("ddMMyy");
-            string fileName = $"{pathDbf}{dateTime}.dbf";
+            //string fileName = $"{pathDbf}{dateTime}.dbf";
+            string fileName = Path.Combine(pathDbf, $"{dateTime}.dbf"); 
             if (File.Exists(fileName))
             {
                 File.Delete(fileName);
@@ -768,29 +770,66 @@ namespace SoftGenConverter
                 // int debCred = 1;
                 //  string bankKorespond = "";
                 int codeVal = 980;
-
-                foreach (DataGridViewRow row in dataGridView2.Rows)
+                if (!panel2)
                 {
-                    int summa = Convert.ToInt32(row.Cells[8].Value.ToString().Replace(".", ""));
-                    writer.AddRecord(
-                         // добавляем поля в набор
-                         "", //docNum.ToString(), //1
-                         DateTime.Now, //2 dt
-                         DateTime.Now, //3 dv
-                         rahunok, //4 acccli
-                         row.Cells[7].Value.ToString(), //5 acccor
-                         row.Cells[12].Value.ToString(), //6 okpocor
-                         row.Cells[10].Value.ToString(), //7 namecor
-                         summa, //8 summa
-                         codeVal, //9 val
-                         row.Cells[11].Value.ToString().Trim(), //10 nazn
-                         804,//cod_cor 11
-                         "", //add_req 12
-                         ""//uetr
-                    );
-                    docNum++;
+                    foreach (DataGridViewRow row in dataGridView2.Rows)
+                    {
+                        int summa = Convert.ToInt32(row.Cells[8].Value.ToString().Replace(".", ""));
+                        writer.AddRecord(
+                             // добавляем поля в набор
+                             "", //docNum.ToString(), //1
+                             DateTime.Now, //2 dt
+                             DateTime.Now, //3 dv
+                             rahunok, //4 acccli
+                             row.Cells[7].Value.ToString(), //5 acccor
+                             row.Cells[12].Value.ToString(), //6 okpocor
+                             row.Cells[10].Value.ToString(), //7 namecor
+                             summa, //8 summa
+                             codeVal, //9 val
+                             row.Cells[11].Value.ToString().Trim(), //10 nazn
+                             804,//cod_cor 11
+                             "", //add_req 12
+                             ""//uetr
+                        );
+                        docNum++;
+                    }
                 }
+                else
+                {
+                    foreach (DataGridViewRow row in dataGridView1.Rows)
+                    {
+                       
+                        int summa = 0;
+                        try
+                        {
+                            var sumt = row.Cells[0].Value.ToString();
+                            sumt = sumt.Contains(".") ? sumt.Replace(".", "") : sumt.Contains(",") ? sumt.Replace(",", "") : sumt;
+                            summa = Convert.ToInt32(sumt);
+                        }
+                        catch
+                        {
 
+                        }
+                        
+                        writer.AddRecord(
+                             // добавляем поля в набор
+                             "", //docNum.ToString(), //1
+                             DateTime.Now, //2 dt
+                             DateTime.Now, //3 dv
+                             rahunok, //4 acccli
+                             row.Cells[6].Value.ToString(), //5 acccor
+                             row.Cells[7].Value.ToString(), //6 okpocor
+                             row.Cells[8].Value.ToString(), //7 namecor
+                             summa, //8 summa
+                             codeVal, //9 val
+                             row.Cells[2].Value.ToString().Trim(), //10 nazn
+                             804,//cod_cor 11
+                             "", //add_req 12
+                             ""//uetr
+                        );
+                        docNum++;
+                    }
+                }
                 writer.Write(fos);
             }
             if (File.Exists(fileName))
@@ -930,7 +969,7 @@ namespace SoftGenConverter
             string path = $"{pathDbf}" + $"{dateTime}" + ".dbf";
 
             using (Stream pumb = File.Open(path, FileMode.OpenOrCreate,
-                FileAccess.ReadWrite));
+                FileAccess.ReadWrite)) ;
 
             //dBASE.NET.Dbf writer = new dBASE.NET.Dbf(Encoding.GetEncoding(866));
             dBASE.NET.Dbf writer = new dBASE.NET.Dbf(Encoding.GetEncoding(1251));
@@ -1320,37 +1359,37 @@ namespace SoftGenConverter
                     }
                     else
                     {
-                        
-                            worksheet.Cells[cellRowIndex, 1] = 320478;//FIELD_CUST_BANK_CODE
+
+                        worksheet.Cells[cellRowIndex, 1] = 320478;//FIELD_CUST_BANK_CODE
                         worksheet.Cells[cellRowIndex, 2] = isUkrGaz ? ukrGaz.rahunok : dataGridView1N.Rows[i - 1].Cells[3].Value.ToString();//FIELD_CUST_ACCOUNT
                         worksheet.Cells[cellRowIndex, 3] = textIban.Text;//FIELD_CUST_IBAN
                         try
-                            {
-                                worksheet.Cells[cellRowIndex, 4] = dataGridView1N.Rows[i - 1].Cells[5].Value.ToString();//FIELD_BENEF_BANK_CODE
+                        {
+                            worksheet.Cells[cellRowIndex, 4] = dataGridView1N.Rows[i - 1].Cells[5].Value.ToString();//FIELD_BENEF_BANK_CODE
 
 
                         }
-                            catch { }
-                            try
-                            {
-                                worksheet.Cells[cellRowIndex, 6] = isUkrGaz ? dataGridView1N.Rows[i - 1].Cells[7].Value.ToString() : dataGridView1N.Rows[i - 1].Cells[6].Value.ToString();//FIELD_BENEF_IBAN
-
-                        }
-                            catch { }
-                            try
-                            {
-                                worksheet.Cells[cellRowIndex, 8] = isUkrGaz ? dataGridView1N.Rows[i - 1].Cells[8].Value.ToString().Replace(".",",") : dataGridView1N.Rows[i - 1].Cells[0].Value.ToString();//FIELD_AMOUNT
-                        }
-                            catch { }
-
-                            try
-                            {
-                                worksheet.Cells[cellRowIndex, 11] = isUkrGaz ? "UAH" : dataGridView1N.Rows[i - 1].Cells[1].Value.ToString();//FIELD_CURRENCY_NUMBER
-                        }
-                            catch { }
+                        catch { }
                         try
                         {
-                            worksheet.Cells[cellRowIndex, 15] = isUkrGaz ? dataGridView1N.Rows[i - 1].Cells[10].Value.ToString():  dataGridView1N.Rows[i - 1].Cells[8].Value.ToString();//FIELD_BENEF_NAME
+                            worksheet.Cells[cellRowIndex, 6] = isUkrGaz ? dataGridView1N.Rows[i - 1].Cells[7].Value.ToString() : dataGridView1N.Rows[i - 1].Cells[6].Value.ToString();//FIELD_BENEF_IBAN
+
+                        }
+                        catch { }
+                        try
+                        {
+                            worksheet.Cells[cellRowIndex, 8] = isUkrGaz ? dataGridView1N.Rows[i - 1].Cells[8].Value.ToString().Replace(".", ",") : dataGridView1N.Rows[i - 1].Cells[0].Value.ToString();//FIELD_AMOUNT
+                        }
+                        catch { }
+
+                        try
+                        {
+                            worksheet.Cells[cellRowIndex, 11] = isUkrGaz ? "UAH" : dataGridView1N.Rows[i - 1].Cells[1].Value.ToString();//FIELD_CURRENCY_NUMBER
+                        }
+                        catch { }
+                        try
+                        {
+                            worksheet.Cells[cellRowIndex, 15] = isUkrGaz ? dataGridView1N.Rows[i - 1].Cells[10].Value.ToString() : dataGridView1N.Rows[i - 1].Cells[8].Value.ToString();//FIELD_BENEF_NAME
                         }
                         catch { }
                         //FIELD_PURPOSE
@@ -1368,7 +1407,8 @@ namespace SoftGenConverter
                                 }
                                 addPaym = string.Join(" ", addPaym, dataGridView1N.Rows[i - 1].Cells[13].Value.ToString());
                                 worksheet.Cells[cellRowIndex, 16] = addPaym;
-                            }else if (isUkrGaz && anotherPay)
+                            }
+                            else if (isUkrGaz && anotherPay)
                             {
                                 if (dataGridView1N.Rows[i - 1].Cells[13].Value == null)
                                 {
@@ -1376,32 +1416,32 @@ namespace SoftGenConverter
                                     dataGridView1N.Rows[i - 1].Cells[13].Value = string.Empty;
 
                                 }
-                                
+
                                 worksheet.Cells[cellRowIndex, 16] = string.Join(" ", dataGridView1N.Rows[i - 1].Cells[13].Value.ToString(), dataGridView1N.Rows[i - 1].Cells[11].Value.ToString());
                             }
                             else
                             {
                                 worksheet.Cells[cellRowIndex, 16] = anotherPay ? string.Join(" ", dataGridView1N.Rows[i - 1].Cells[10].Value.ToString(), dataGridView1N.Rows[i - 1].Cells[2].Value.ToString()) : dataGridView1N.Rows[i - 1].Cells[2].Value.ToString();
                             }
-                            
 
-                            
-                        }
-                            catch { }
-                          
-                            try
-                            {
-                                worksheet.Cells[cellRowIndex, 20] = isUkrGaz ? ukrGaz.edrpou : dataGridView1N.Rows[i - 1].Cells[4].Value.ToString();//FIELD_CUST_TAX_CODE
-                        }
-                            catch { }
 
-                            try
-                            {
-                                worksheet.Cells[cellRowIndex, 21] = isUkrGaz ?  dataGridView1N.Rows[i - 1].Cells[12].Value.ToString() : dataGridView1N.Rows[i - 1].Cells[7].Value.ToString();//FIELD_BENEF_TAX_CODE
 
                         }
-                            catch { }
-                       
+                        catch { }
+
+                        try
+                        {
+                            worksheet.Cells[cellRowIndex, 20] = isUkrGaz ? ukrGaz.edrpou : dataGridView1N.Rows[i - 1].Cells[4].Value.ToString();//FIELD_CUST_TAX_CODE
+                        }
+                        catch { }
+
+                        try
+                        {
+                            worksheet.Cells[cellRowIndex, 21] = isUkrGaz ? dataGridView1N.Rows[i - 1].Cells[12].Value.ToString() : dataGridView1N.Rows[i - 1].Cells[7].Value.ToString();//FIELD_BENEF_TAX_CODE
+
+                        }
+                        catch { }
+
 
                     }
 
@@ -1450,18 +1490,23 @@ namespace SoftGenConverter
             {
                 if (comboEdr.SelectedIndex == 0 || (comboEdr2.SelectedIndex == 0 && dataGridView1.Visible))// Аваль || УКрГаз
                 {
-                    SaveExcel(dataGrid, comboEdr.SelectedIndex);
+                   string path = SaveExcel(dataGrid, comboEdr.SelectedIndex);
                     try
                     {
                         SaveXml();
                     }
                     catch { }
+                    if (comboEdr2.SelectedIndex == 0 && dataGridView1.Visible)
+                    {
+                       //
+                        SaveOschadDbf(Directory.GetCurrentDirectory() + "\\ОщадБанк\\", oschad.rahunok, dataGridView1.Visible);
+                    }
 
                 }
                 else if (comboEdr.SelectedIndex == 2)//ощад
                 {
-                   var path = SaveExcel(dataGrid, comboEdr.SelectedIndex, oschad.rahunok);
-                   SaveOschadDbf(path, oschad.rahunok);
+                    var path = SaveExcel(dataGrid, comboEdr.SelectedIndex, oschad.rahunok);
+                    SaveOschadDbf(path, oschad.rahunok);
                 }
                 else if (comboEdr.SelectedIndex == 3)//пумб
                 {
