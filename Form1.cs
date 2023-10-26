@@ -726,11 +726,16 @@ namespace SoftGenConverter
 
             string dateTime = DateTime.Now.ToString("ddMMyy");
             //string fileName = $"{pathDbf}{dateTime}.dbf";
-            string fileName = Path.Combine(pathDbf, $"{dateTime}.dbf"); 
+            string fileName = Path.Combine(pathDbf, $"{dateTime}.dbf");
+            if (!Directory.Exists(pathDbf))
+            {
+                Directory.CreateDirectory(pathDbf);
+            }
             if (File.Exists(fileName))
             {
                 File.Delete(fileName);
             }
+           
 
             using (Stream fos = File.Open(fileName, FileMode.OpenOrCreate,
                 FileAccess.ReadWrite))
