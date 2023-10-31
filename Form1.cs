@@ -53,6 +53,7 @@ namespace SoftGenConverter
         private TextBox textImport = new TextBox();
         private Bank ukrGaz = new Bank();
         private Bank ukrGaz2 = new Bank();
+        private Bank aBank = new Bank();
 
 
         public Form1()
@@ -60,6 +61,7 @@ namespace SoftGenConverter
             InitializeComponent();
             // Bank[] banks = Xml.ReadXml(pathConfig);
             //MessageBox.Show(banks[0].ToString());
+            Db.TempInsert();
             erdpo1l.Visible = erdpo1.Visible = false;
             InitData();
 
@@ -138,7 +140,8 @@ namespace SoftGenConverter
                 oschad = new Bank(configB.Where(b => b.bankid == 3).First());//banks[3];
                 pumb = new Bank(configB.Where(b => b.bankid == 4).First());//banks[4];
                 ukrGaz2 = new Bank(configB.Where(b => b.bankid == 1).First());//banks[5];
-
+                aBank = new Bank(configB.Where(b => b.bankid == 5).First());//banks[6];
+                int c = 0;
             }
             catch
             {
@@ -186,6 +189,10 @@ namespace SoftGenConverter
                         SetFieldsP(ukrGaz2);
                         docNumOschadL.Visible = docNumOschad.Visible = false;
                         break;
+                    case 5:
+                        SetFieldsP(aBank);
+                        docNumOschadL.Visible = docNumOschad.Visible = false;
+                        break;
                 }
             }
 
@@ -218,6 +225,7 @@ namespace SoftGenConverter
 
         private void ComboEdr_SelectedIndexChanged(object sender, EventArgs e)
         {
+           
             switch (comboEdr.SelectedIndex)
             {
                 case 0:
@@ -239,6 +247,10 @@ namespace SoftGenConverter
                 case 4:
                     SetFieldsP(ukrGaz2);
                     button3.Enabled = false;
+                    break;
+                case 5:
+                    SetFieldsP(aBank);
+                    button3.Enabled = true;
                     break;
             }
         }
@@ -1186,10 +1198,11 @@ namespace SoftGenConverter
             };
             if (saveDialog.ShowDialog() == DialogResult.OK)
             {
-                if (type == 0)
+                if (type == 0 )
                 {
                     SaveExcel(saveDialog, dataGridViewn, anotherPay.Checked, isUkrGaz);
                 }
+                
                 else if (type == 2)
                 {
                     Int32.TryParse(docNumOschad.Text, out int docnum);
@@ -1200,6 +1213,10 @@ namespace SoftGenConverter
                     Service.Template.GetExcel(Service.Template.ConvertTableToOschad(dataGridView2, docnum, rahunok, anotherPay.Checked), saveDialog.FileName, progressBar1);
                     filePath = saveDialog.FileName;
                     //SaveExcelOschad(saveDialog);
+                }
+                else if (type == 5)
+                {
+                    SaveExcel(saveDialog, dataGridViewn, anotherPay.Checked, type);
                 }
             }
             return filePath;
@@ -1481,6 +1498,122 @@ namespace SoftGenConverter
             }
         }
 
+        public void SaveExcel(SaveFileDialog saveDialog, DataGridView dataGridView1N, bool anotherPay, int type = 0) //створюємо файл імпорту для а-банка
+        {
+            // Creating a Excel object.
+            _Application excel = new Microsoft.Office.Interop.Excel.Application();
+            _Workbook workbook = excel.Workbooks.Add(Type.Missing);
+            _Worksheet worksheet = null;
+            try
+            {
+                progressBar1.Visible = true;
+                ModifyProgressBarColor.SetState(progressBar1, 3);
+                progressBar1.Minimum = 1;
+                progressBar1.Maximum = dataGridView1N.Rows.Count + 1;
+                progressBar1.Value = 1;
+                progressBar1.Step = 1;
+
+                worksheet = workbook.ActiveSheet;
+                worksheet.Rows.NumberFormatLocal = "@";
+                worksheet.Columns.NumberFormatLocal = "@";
+                worksheet.Name = "ExportedFromDatGrid";
+
+                int cellRowIndex = 1;
+
+
+                for (int i = 0; i <= dataGridView1N.Rows.Count; i++) // todo: 
+                {
+
+                    if (cellRowIndex == 1)
+                    {
+                        worksheet.Cells[1, 1].Value = "FIELD_AMOUNT";
+                        worksheet.Cells[1, 2].Value = "FIELD_CURRENCY_NUMBER";
+                        worksheet.Cells[1, 3].Value = "FIELD_PURPOSE_CODE";
+                        worksheet.Cells[1, 4].Value = "FIELD_CUST_TAX_CODE";
+                        worksheet.Cells[1, 5].Value = "FIELD_BENEF_TAX_CODE";
+                        worksheet.Cells[1, 6].Value = "FIELD_BENEF_NAME";
+                        worksheet.Cells[1, 7].Value = "FIELD_CUST_ACCOUNT";
+                        worksheet.Cells[1, 8].Value = "FIELD_BENEF_IBAN";
+                        
+                    }
+                    else
+                    {
+                        try
+                        {
+                            decimal.TryParse(dataGridView1N.Rows[i - 1].Cells[8].Value.ToString().Replace(".", ","), out decimal amount);
+                            worksheet.Cells[cellRowIndex, 1] = amount;// dataGridView1N.Rows[i - 1].Cells[8].Value.ToString().Replace(".",",");//FIELD_AMOUNT
+                        }
+                        catch { }
+                        try
+                        {
+                            worksheet.Cells[cellRowIndex, 2] = "UAH";//FIELD_CURRENCY_NUMBER
+                        }
+                        catch { }
+                        try
+                        {
+                            worksheet.Cells[cellRowIndex, 3] = dataGridView1N.Rows[i - 1].Cells[11].Value.ToString();//FIELD_PURPOSE_CODE
+                        }
+                        catch { }
+                        try
+                        {
+                            worksheet.Cells[cellRowIndex, 4] = aBank.edrpou;//FIELD_CUST_TAX_CODE
+                        }
+                        catch { }
+                        try
+                        {
+                            worksheet.Cells[cellRowIndex, 5] = dataGridView1N.Rows[i - 1].Cells[12].Value.ToString();//FIELD_BENEF_TAX_CODE
+
+                        }
+                        catch { }
+                        try
+                        {
+                            worksheet.Cells[cellRowIndex, 6] = dataGridView1N.Rows[i - 1].Cells[10].Value.ToString();//FIELD_BENEF_NAME
+                        }
+                        catch { }
+                        worksheet.Cells[cellRowIndex, 7] = aBank.rahunok;//FIELD_CUST_ACCOUNT                       
+                        
+                        try
+                        {
+                            worksheet.Cells[cellRowIndex, 8] =  dataGridView1N.Rows[i - 1].Cells[7].Value.ToString();//FIELD_BENEF_IBAN
+
+                        }
+                        catch { }
+                        
+
+
+                    }
+
+
+
+                    cellRowIndex++;
+                    progressBar1.PerformStep();
+                }
+
+
+
+
+                {
+                    workbook.SaveAs(saveDialog.FileName);
+                    MessageBox.Show("Експорт завершено", "Інформація", MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+
+                    progressBar1.Value = 1;
+                    progressBar1.Visible = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Помилка", MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+            finally
+            {
+                excel.Quit();
+                workbook = null;
+                excel = null;
+            }
+        }
+
         private void Mfo_TextChanged(object sender, EventArgs e)
         {
             aval.mfo = string.IsNullOrEmpty(mfo.Text) ? "0" : mfo.Text;
@@ -1536,6 +1669,9 @@ namespace SoftGenConverter
                 {
                     SaveExcel(dataGrid, 0, "", true);
 
+                }else if (comboEdr.SelectedIndex == 5)//А-Банк
+                {
+                    SaveExcel(dataGrid, comboEdr.SelectedIndex);
                 }
                 // Save();
             }
@@ -1550,8 +1686,8 @@ namespace SoftGenConverter
 
         public void IsEditAval(bool edit)
         {
-            erdpo1l.Visible = erdpo1.Visible = cliBankCode.Visible = rahunok.Visible = mfo.Visible =
-                  rahunok.Visible = label1.Visible = label2.Visible = label5.Visible = edit;
+            rahunok.Visible = label1.Visible = erdpo1l.Visible = erdpo1.Visible = cliBankCode.Visible = rahunok.Visible = mfo.Visible = 
+                   label2.Visible = label5.Visible = edit;
         }
 
         public void IsEditUkrG(bool edit)
@@ -1602,7 +1738,7 @@ namespace SoftGenConverter
         private void Button3_Click(object sender, EventArgs e)
         {
             editAval = !editAval;
-            FIOL.Visible = FIO.Visible = !editAval;
+            docNumOschadL.Visible = docNumOschad.Visible = FIOL.Visible = FIO.Visible = !editAval;
             if (editAval)
             {
                 comboEdr.Enabled = false;
@@ -1611,95 +1747,144 @@ namespace SoftGenConverter
             }
             else
             {
-                switch (comboEdr.SelectedIndex)
+                button3.Image = editBtn;
+                docNumOschadL.Visible = docNumOschad.Visible =  FIOL.Visible = FIO.Visible = editAval;
+                IsEditAval(editAval);
+                var item = comboEdr.SelectedIndex;
+                aval.name = comboEdr.Text;
+                comboEdr.Items.Clear();
+                comboEdr.Items.Add("Райффайзен Банк Аваль");
+                comboEdr.Items.Add("Індустріал");
+                comboEdr.Items.Add("Ощадбанк");
+                comboEdr.Items.Add("Пумб");
+                comboEdr.Items.Add("УкрГаз");
+                comboEdr.Items.Add("А-Банк");               
+                aval.mfo = mfo.Text;
+                aval.rahunok = rahunok.Text;
+                aval.clientBankCode = cliBankCode.Text;
+                aval.edrpou = erdpo1.Text;
+
+               
+                switch (item)
                 {
                     case 0:
-                        button3.Image = editBtn;
-                        IsEditAval(editAval);
-                        aval.name = comboEdr.Text;
-                        comboEdr.Items.Clear();
-                        comboEdr.Items.Add("Райффайзен Банк Аваль");
-                        comboEdr.Items.Add("Індустріал");
-                        comboEdr.Items.Add("Ощадбанк");
-                        comboEdr.Items.Add("Пумб");
-                        comboEdr.Items.Add("УкрГаз");
-                        aval.name = comboEdr.Text;
-                        aval.mfo = mfo.Text;
-                        aval.rahunok = rahunok.Text;
-                        aval.clientBankCode = cliBankCode.Text;
-                        aval.edrpou = erdpo1.Text;
+                        //button3.Image = editBtn;
+                        //IsEditAval(editAval);
+                        //aval.name = comboEdr.Text;
+                        //comboEdr.Items.Clear();
+                        //comboEdr.Items.Add("Райффайзен Банк Аваль");
+                        //comboEdr.Items.Add("Індустріал");
+                        //comboEdr.Items.Add("Ощадбанк");
+                        //comboEdr.Items.Add("Пумб");
+                        //comboEdr.Items.Add("УкрГаз");
+                        //comboEdr.Items.Add("А-Банк");
+                        //aval.name = comboEdr.Text;
+                        //aval.mfo = mfo.Text;
+                        //aval.rahunok = rahunok.Text;
+                        //aval.clientBankCode = cliBankCode.Text;
+                        //aval.edrpou = erdpo1.Text;
                         aval.id = 0;
                         // Xml.EditXml(aval, pathConfig);
-                        PayConverterConfig_.UpdateByBankId(new PayConverterConfig(aval));
-                        comboEdr.Enabled = true;
-                        InitData();
+                        //PayConverterConfig_.UpdateByBankId(new PayConverterConfig(aval));
+                        //comboEdr.Enabled = true;
+                        //InitData();
                         break;
                     case 1:
-                        button3.Image = editBtn;
-                        IsEditAval(editAval);
-                        aval.name = comboEdr.Text;
-                        comboEdr.Items.Clear();
-                        comboEdr.Items.Add("Райффайзен Банк Аваль");
-                        comboEdr.Items.Add("Індустріал");
-                        comboEdr.Items.Add("Ощадбанк");
-                        comboEdr.Items.Add("Пумб");
-                        comboEdr.Items.Add("УкрГаз");
-                        aval.name = comboEdr.Text;
-                        aval.mfo = mfo.Text;
-                        aval.edrpou = erdpo1.Text;
-                        aval.rahunok = rahunok.Text;
-                        aval.clientBankCode = cliBankCode.Text;
+                        //button3.Image = editBtn;
+                        //IsEditAval(editAval);
+                        //aval.name = comboEdr.Text;
+                        //comboEdr.Items.Clear();
+                        //comboEdr.Items.Add("Райффайзен Банк Аваль");
+                        //comboEdr.Items.Add("Індустріал");
+                        //comboEdr.Items.Add("Ощадбанк");
+                        //comboEdr.Items.Add("Пумб");
+                        //comboEdr.Items.Add("УкрГаз");
+                        //comboEdr.Items.Add("А-Банк");
+                        //aval.name = comboEdr.Text;
+                        //aval.mfo = mfo.Text;
+                        //aval.edrpou = erdpo1.Text;
+                        //aval.rahunok = rahunok.Text;
+                        //aval.clientBankCode = cliBankCode.Text;
                         aval.id = 2;
                         // Xml.EditXml(aval, pathConfig);
-                        PayConverterConfig_.UpdateByBankId(new PayConverterConfig(aval));
-                        comboEdr.Enabled = true;
-                        InitData();
+                        //PayConverterConfig_.UpdateByBankId(new PayConverterConfig(aval));
+                        //comboEdr.Enabled = true;
+                        //InitData();
                         break;
-                    case 2:
-                        button3.Image = editBtn;
-                        IsEditAval(editAval);
-                        aval.name = comboEdr.Text;
-                        comboEdr.Items.Clear();
-                        comboEdr.Items.Add("Райффайзен Банк Аваль");
-                        comboEdr.Items.Add("Індустріал");
-                        comboEdr.Items.Add("Ощадбанк");
-                        comboEdr.Items.Add("Пумб");
-                        comboEdr.Items.Add("УкрГаз");
-                        aval.name = comboEdr.Text;
-                        aval.mfo = mfo.Text;
-                        aval.edrpou = erdpo1.Text;
-                        aval.rahunok = rahunok.Text;
-                        aval.clientBankCode = cliBankCode.Text;
+                     case 2:
+                        //button3.Image = editBtn;
+                        //IsEditAval(editAval);
+                        //aval.name = comboEdr.Text;
+                        //comboEdr.Items.Clear();
+                        //comboEdr.Items.Add("Райффайзен Банк Аваль");
+                        //comboEdr.Items.Add("Індустріал");
+                        //comboEdr.Items.Add("Ощадбанк");
+                        //comboEdr.Items.Add("Пумб");
+                        //comboEdr.Items.Add("УкрГаз");
+                        //comboEdr.Items.Add("А-Банк");
+                        //aval.name = comboEdr.Text;
+                        //aval.mfo = mfo.Text;
+                        //aval.edrpou = erdpo1.Text;
+                        //aval.rahunok = rahunok.Text;
+                        //aval.clientBankCode = cliBankCode.Text;
+                       
                         aval.id = 3;
                         // Xml.EditXml(aval, pathConfig);
-                        PayConverterConfig_.UpdateByBankId(new PayConverterConfig(aval));
-                        comboEdr.Enabled = true;
-                        InitData();
+                        //PayConverterConfig_.UpdateByBankId(new PayConverterConfig(aval));
+                        //comboEdr.Enabled = true;
+                        //InitData();
                         break;
                     case 3:
-                        button3.Image = editBtn;
-                        IsEditAval(editAval);
-                        aval.name = comboEdr.Text;
-                        comboEdr.Items.Clear();
-                        comboEdr.Items.Add("Райффайзен Банк Аваль");
-                        comboEdr.Items.Add("Індустріал");
-                        comboEdr.Items.Add("Ощадбанк");
-                        comboEdr.Items.Add("Пумб");
-                        comboEdr.Items.Add("УкрГаз");
-                        aval.name = comboEdr.Text;
-                        aval.mfo = mfo.Text;
-                        aval.edrpou = erdpo1.Text;
-                        aval.rahunok = rahunok.Text;
-                        aval.clientBankCode = cliBankCode.Text;
+                        //button3.Image = editBtn;
+                        //IsEditAval(editAval);
+                        //aval.name = comboEdr.Text;
+                        //comboEdr.Items.Clear();
+                        //comboEdr.Items.Add("Райффайзен Банк Аваль");
+                        //comboEdr.Items.Add("Індустріал");
+                        //comboEdr.Items.Add("Ощадбанк");
+                        //comboEdr.Items.Add("Пумб");
+                        //comboEdr.Items.Add("УкрГаз");
+                        //comboEdr.Items.Add("А-Банк");
+                        //aval.name = comboEdr.Text;
+                        //aval.mfo = mfo.Text;
+                        //aval.edrpou = erdpo1.Text;
+                        //aval.rahunok = rahunok.Text;
+                        //aval.clientBankCode = cliBankCode.Text;
                         aval.id = 4;
                         //Xml.EditXml(aval, pathConfig);
-                        PayConverterConfig_.UpdateByBankId(new PayConverterConfig(aval));
-                        comboEdr.Enabled = true;
-                        InitData();
+                        //PayConverterConfig_.UpdateByBankId(new PayConverterConfig(aval));
+                        //comboEdr.Enabled = true;
+                        //InitData();
+                        break;
+                    case 5:
+                        //button3.Image = editBtn;
+                        //IsEditAval(editAval);
+                        //aval.name = comboEdr.Text;
+                        //comboEdr.Items.Clear();
+                        //comboEdr.Items.Add("Райффайзен Банк Аваль");
+                        //comboEdr.Items.Add("Індустріал");
+                        //comboEdr.Items.Add("Ощадбанк");
+                        //comboEdr.Items.Add("Пумб");
+                        //comboEdr.Items.Add("УкрГаз");
+                        //comboEdr.Items.Add("А-Банк");
+                        //aval.name = comboEdr.Text;
+                        //aval.mfo = mfo.Text;
+                        //aval.edrpou = erdpo1.Text;
+                        //aval.rahunok = rahunok.Text;
+                        //aval.clientBankCode = cliBankCode.Text;
+                        aval.id = 5;
+                        
+                        //Xml.EditXml(aval, pathConfig);
+                        //PayConverterConfig_.UpdateByBankId(new PayConverterConfig(aval));
+                        //comboEdr.Enabled = true;
+                        //InitData();
                         break;
                 }
-
-
+                
+                comboEdr.Enabled = true;
+                PayConverterConfig_.UpdateByBankId(new PayConverterConfig(aval));
+                
+                InitData();
             }
         }
 
@@ -2032,7 +2217,11 @@ namespace SoftGenConverter
                     gridHeader.Text = NameBank1.Text = "УКРГАЗ";
                     docNumOschadL.Visible = docNumOschad.Visible = false;
                     docNumOschad.Text = "1";
-
+                    break;
+                case 5:
+                    gridHeader.Text = NameBank1.Text = "А-Банк";
+                    docNumOschadL.Visible = docNumOschad.Visible = false;
+                    docNumOschad.Text = "1";
                     break;
             }
 

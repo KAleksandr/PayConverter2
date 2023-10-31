@@ -590,7 +590,7 @@
     <value>3</value>
   </data>
   <data name="erdpo1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>186, 11</value>
+    <value>187, 11</value>
   </data>
   <data name="erdpo1.Size" type="System.Drawing.Size, System.Drawing">
     <value>145, 20</value>
@@ -641,7 +641,7 @@
     <value>True</value>
   </data>
   <data name="FIOL.Location" type="System.Drawing.Point, System.Drawing">
-    <value>94, 43</value>
+    <value>94, 42</value>
   </data>
   <data name="FIOL.Size" type="System.Drawing.Size, System.Drawing">
     <value>84, 13</value>
@@ -665,7 +665,7 @@
     <value>2</value>
   </data>
   <data name="FIO.Location" type="System.Drawing.Point, System.Drawing">
-    <value>187, 39</value>
+    <value>187, 38</value>
   </data>
   <data name="FIO.Size" type="System.Drawing.Size, System.Drawing">
     <value>166, 20</value>
@@ -828,6 +828,9 @@
   </data>
   <data name="comboEdr.Items4" xml:space="preserve">
     <value>УкрГаз</value>
+  </data>
+  <data name="comboEdr.Items5" xml:space="preserve">
+    <value>А-Банк</value>
   </data>
   <data name="comboEdr.Location" type="System.Drawing.Point, System.Drawing">
     <value>186, 11</value>

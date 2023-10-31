@@ -406,7 +406,8 @@
             resources.GetString("comboEdr.Items1"),
             resources.GetString("comboEdr.Items2"),
             resources.GetString("comboEdr.Items3"),
-            resources.GetString("comboEdr.Items4")});
+            resources.GetString("comboEdr.Items4"),
+            resources.GetString("comboEdr.Items5")});
             resources.ApplyResources(this.comboEdr, "comboEdr");
             this.comboEdr.Name = "comboEdr";
             this.comboEdr.SelectedIndexChanged += new System.EventHandler(this.ComboEdr_SelectedIndexChanged_1);

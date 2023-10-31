@@ -59,12 +59,36 @@ namespace SoftGenConverter.Entity
                             ('УкрГазБанк','26545743585101.980','','40375721','','UA383204780000026545743585101',1 ),
                             ('Індустріал','UA173138490000026503010000233','313849','','40375721','',2 ),
                             ('Ощадбанк','UA243020760000026501300388426','302076','40375721','3069252999','',3 ),
-                            ('Пумб','UA2','30','40','30','',4 )";
+                            ('Пумб','UA2','30','40','30','',4 ),
+                            ('А-Банк','UA643077700000026501011111113','307770','40375721','','',5 )";
             cmd.ExecuteNonQuery();
             con.Close();
             
         }
-       public static void CreateNewTablePurposeOfPayment()
+        public static void TempInsert()
+        {
+            SQLiteConnection con = new SQLiteConnection(Cs);
+            con.Open();
+            SQLiteCommand cmd = new SQLiteCommand(con);
+
+            cmd.CommandText = $"select count(*) from PayConverterConfig   where bankid=@bankid";
+            cmd.Parameters.AddWithValue("@bankid", 5);//А-Банк
+            var countObj = cmd.ExecuteScalar();
+
+            Int32.TryParse(countObj.ToString(), out int count);
+
+            if (count == 0)
+            {
+                cmd.CommandText = @"insert into PayConverterConfig (NAME,RAHUNOK,MFO,EDRPOU,clientBankCode,IBAN,bankid) 
+                            VALUES('А-Банк','UA643077700000026501011111113','307770','40375721','','',5 )";
+                cmd.ExecuteNonQuery();
+            }
+
+               
+            con.Close();
+
+        }
+        public static void CreateNewTablePurposeOfPayment()
         {
             SQLiteConnection con = new SQLiteConnection(Cs);
             con.Open();
