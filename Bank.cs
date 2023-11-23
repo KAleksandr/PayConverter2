@@ -103,7 +103,15 @@ namespace SoftGenConverter
                     edrpou = parts[4];
                     dateP = date;
                     summa = parts[8];
-                    pruznach = parts[0] + " " + parts[1];
+                    if (parts[1].Contains("!"))
+                    {
+                        pruznach = parts[1];
+                    }
+                    else
+                    {
+                        pruznach = parts[0] + " " + parts[1];
+                    }
+                    
                     Appointment = parts[1];
                     id = 1;
                 }
