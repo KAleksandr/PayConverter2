@@ -56,7 +56,29 @@ namespace SoftGenConverter
 
         public void Piece(string line, DateTime date, bool aval, bool anotherPay)
         {
+            string pattern = @";""(.*?)"";";
+            string result = "";
+            string mark = "&&";
+            Match match = Regex.Match(line, pattern);
+            if (match.Success)
+            {
+                // Отримайте значення підстрічки
+                result = match.Groups[1].Value;
+                line = line.Replace(@";""" + result + @""";", $";{mark};");
+                Console.WriteLine(result);
+            }
+            
             var parts = line.Split(';'); //Разделитель в CSV файле.
+            if (!string.IsNullOrEmpty(result))
+            {
+                for(int i=0; i<parts.Length; i++)
+                {
+                    if (parts[i].Contains(mark))
+                    {
+                        parts[i] = parts[i].Replace(mark, result);
+                    }
+                }
+            }
             if (aval)
             {
                 if (!anotherPay)

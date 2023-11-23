@@ -358,7 +358,7 @@ namespace SoftGenConverter
             List<Bank> CSV_Struct = new List<Bank>();
 
             CSV_Struct = Bank.ReadFile(path, anotherPay.Checked);
-
+           
             if (CSV_Struct == null || CSV_Struct.Count == 0)
             {
                 CSV_Struct = Bank.ReadFile(path, anotherPay.Checked, TypeFile.standart);
