@@ -1420,11 +1420,12 @@ namespace SoftGenConverter
                         //FIELD_PURPOSE
                         try
                         {
-                            if (dataGridView1N.Rows[i - 1].Cells[11].Value.ToString().Substring(0, 1).Equals("!"))
-                            {
-                                string prizn = dataGridView1N.Rows[i - 1].Cells[11].Value.ToString().TrimStart().Substring(1, dataGridView1N.Rows[i - 1].Cells[11].Value.ToString().Length - 1);
-                                worksheet.Cells[cellRowIndex, 16] = prizn;
-                            }
+                            
+                            //if (dataGridView1N.Rows[i - 1].Cells[13].Value.ToString().Substring(0, 1).Equals("!"))
+                            //{
+                            //    string prizn = dataGridView1N.Rows[i - 1].Cells[13].Value.ToString().TrimStart().Substring(1, dataGridView1N.Rows[i - 1].Cells[13].Value.ToString().Length - 1);
+                            //    worksheet.Cells[cellRowIndex, 16] = prizn;
+                            //}
                            
                             if (isUkrGaz && !anotherPay)
                             {
@@ -1440,9 +1441,9 @@ namespace SoftGenConverter
                                 
                                 
                               
-                                if (dataGridView1N.Rows[i - 1].Cells[11].Value.ToString().Substring(0, 1).Equals("!"))
+                                if (dataGridView1N.Rows[i - 1].Cells[13].Value.ToString().Substring(0, 1).Equals("!"))
                                 {
-                                    addPaym = dataGridView1N.Rows[i - 1].Cells[11].Value.ToString().TrimStart().Substring(1, dataGridView1N.Rows[i - 1].Cells[11].Value.ToString().Length - 1);
+                                    addPaym = dataGridView1N.Rows[i - 1].Cells[13].Value.ToString().TrimStart().Substring(1, dataGridView1N.Rows[i - 1].Cells[13].Value.ToString().Length - 1);
                                 }
                                 worksheet.Cells[cellRowIndex, 16] = addPaym;
                             }
@@ -1456,18 +1457,15 @@ namespace SoftGenConverter
                                 }
 
                                 worksheet.Cells[cellRowIndex, 16] = string.Join(" ", dataGridView1N.Rows[i - 1].Cells[13].Value.ToString(), dataGridView1N.Rows[i - 1].Cells[11].Value.ToString());
-                                if (dataGridView1N.Rows[i - 1].Cells[11].Value.ToString().Substring(0, 1).Equals("!"))
+                                if (dataGridView1N.Rows[i - 1].Cells[13].Value.ToString().Substring(0, 1).Equals("!"))
                                 {
-                                    worksheet.Cells[cellRowIndex, 16] = dataGridView1N.Rows[i - 1].Cells[11].Value.ToString().TrimStart().Substring(1, dataGridView1N.Rows[i - 1].Cells[11].Value.ToString().Length - 1);
+                                    worksheet.Cells[cellRowIndex, 16] = dataGridView1N.Rows[i - 1].Cells[13].Value.ToString().TrimStart().Substring(1, dataGridView1N.Rows[i - 1].Cells[13].Value.ToString().Length - 1);
                                 }
                             }
                             else
                             {
                                 worksheet.Cells[cellRowIndex, 16] = anotherPay ? string.Join(" ", dataGridView1N.Rows[i - 1].Cells[10].Value.ToString(), dataGridView1N.Rows[i - 1].Cells[2].Value.ToString()) : dataGridView1N.Rows[i - 1].Cells[2].Value.ToString();
-                                if (dataGridView1N.Rows[i - 1].Cells[11].Value.ToString().Substring(0, 1).Equals("!"))
-                                {
-                                    worksheet.Cells[cellRowIndex, 16] = dataGridView1N.Rows[i - 1].Cells[11].Value.ToString().TrimStart().Substring(1, dataGridView1N.Rows[i - 1].Cells[11].Value.ToString().Length - 1);
-                                }
+                               
                             }
 
 
