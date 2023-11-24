@@ -1437,9 +1437,9 @@ namespace SoftGenConverter
                                 
                                 
                               
-                                if (dataGridView1N.Rows[i - 1].Cells[13].Value.ToString().Substring(0, 1).Equals("!"))
+                                if (dataGridView1N.Rows[i - 1].Cells[11].Value.ToString().Substring(0, 1).Equals("!"))
                                 {
-                                    addPaym = dataGridView1N.Rows[i - 1].Cells[13].Value.ToString().TrimStart().Substring(1, dataGridView1N.Rows[i - 1].Cells[13].Value.ToString().Length - 1);
+                                    addPaym = dataGridView1N.Rows[i - 1].Cells[11].Value.ToString().TrimStart().Substring(1, dataGridView1N.Rows[i - 1].Cells[11].Value.ToString().Length - 1);
                                 }
                                 worksheet.Cells[cellRowIndex, 16] = addPaym;
                             }
