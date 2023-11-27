@@ -91,6 +91,15 @@ namespace SoftGenConverter
                     edrpou = parts[4];
                     dateP = date;
                     summa = parts[8];
+                    if (parts[1].ToString().Substring(0, 1).Equals("!"))
+                    {
+                        specialPr = "+";
+                        parts[1] = parts[1].ToString().TrimStart().Substring(1, parts[1].Length-1);
+                    }
+                    else
+                    {
+                        specialPr = "";
+                    }
                     pruznach = parts[1];
                     Appointment = parts[1];
                     id = 1;
@@ -104,13 +113,16 @@ namespace SoftGenConverter
                     edrpou = parts[4];
                     dateP = date;
                     summa = parts[8];
-                    if (parts[1].Contains("!"))
+                    if (parts[1].ToString().Substring(0, 1).Equals("!"))
                     {
-                        pruznach = parts[1];
+                        specialPr = "+";
+                        parts[1] = parts[1].ToString().TrimStart().Substring(1, parts[1].Length - 1);
+                        pruznach = parts[1]; 
                     }
                     else
                     {
                         pruznach = parts[0] + " " + parts[1];
+                        specialPr = "";
                     }
                     
                     Appointment = parts[1];
@@ -124,7 +136,16 @@ namespace SoftGenConverter
                 if (!anotherPay)
                 {
                     name = parts[0].ToUpper();
-                    pruznach = parts[1];
+                    if (parts[1].ToString().Substring(0, 1).Equals("!"))
+                    {
+                        specialPr = "+";
+                        parts[1] = parts[1].ToString().TrimStart().Substring(1, parts[1].Length - 1);
+                    }
+                    else
+                    {
+                        specialPr = "";
+                    }
+                        pruznach = parts[1];
                     Appointment = parts[1];
                     mfo = parts[2];
                     rahunok = "" + parts[3];
@@ -138,7 +159,15 @@ namespace SoftGenConverter
                 else
                 {
                     name = parts[0].ToUpper();
-                   
+                    if (parts[10].ToString().Substring(0, 1).Equals("!"))
+                    {
+                        specialPr = "+";
+                        parts[10] = parts[1].ToString().TrimStart().Substring(1, parts[10].Length - 1);
+                    }
+                    else
+                    {
+                        specialPr = "";
+                    }
                     pruznach = parts[10];
                     mfo = parts[1];
                     rahunok = "" + parts[2];

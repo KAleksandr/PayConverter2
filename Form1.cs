@@ -141,7 +141,7 @@ namespace SoftGenConverter
                 pumb = new Bank(configB.Where(b => b.bankid == 4).First());//banks[4];
                 ukrGaz2 = new Bank(configB.Where(b => b.bankid == 1).First());//banks[5];
                 aBank = new Bank(configB.Where(b => b.bankid == 5).First());//banks[6];
-                int c = 0;
+                
             }
             catch
             {
@@ -432,7 +432,7 @@ namespace SoftGenConverter
 
                     dataGridView1.Rows[n].Cells[9].Value = ukrGaz.iban;
                     dataGridView1.Rows[n].Cells[10].Value = anotherPay.Checked ? PurposeOfPayment_.GetPurpose(dataGridView1.Rows[n].Cells[8].Value.ToString()) : "";
-
+                    dataGridView1.Rows[n].Cells[10].Value = ukrGaz.specialPr;
                 }
 
 
@@ -466,6 +466,7 @@ namespace SoftGenConverter
                     dataGridView2.Rows[n].Cells[9].Value = "0";
                     dataGridView2.Rows[n].Cells[12].Value = CSV_Struct[i].edrpou;
 
+                    dataGridView2.Rows[n].Cells[14].Value = CSV_Struct[i].specialPr;
                     if (!anotherPay.Checked && (comboEdr.SelectedIndex.ToString() == "0" || comboEdr.SelectedIndex.ToString() == "2" || comboEdr.SelectedIndex.ToString() == "3"))
                     {
                         dataGridView2.Rows[n].Cells[10].Value =
@@ -478,7 +479,7 @@ namespace SoftGenConverter
                             FindZkpo(CSV_Struct[i].edrpou, CSV_Struct[i].rahunok),
                             CSV_Struct[i].dateP.ToString("dd.MM.yyyy")).Replace("null", "") + " " + CSV_Struct[i].Appointment;
                     }
-                    else //todo: пофиксить сохранение базы индустриала
+                    else //todo: 
                     {
                         string cells10 = CSV_Struct[i].name;
                         string nameRecipient = AlphaBeta(cells10);
@@ -494,12 +495,7 @@ namespace SoftGenConverter
                         dataGridView2.Rows[n].Cells[11].Value.ToString() != "null")
                     {
                         dataGridView2.Rows[n].DefaultCellStyle.BackColor = Color.BurlyWood;
-                        // int m = dataGridView3.Rows.Add();
-                        // dataGridView3.Rows[m].Cells[0].Value = CSV_Struct[i].name;
-                        // dataGridView3.Rows[m].Cells[1].Value = CSV_Struct[i].edrpou;
-                        //dataGridView3.Rows[m].Cells[2].Value = CSV_Struct[i].rahunok;
-                        // dataGridView3.Rows[m].Cells[3].Value = CSV_Struct[i].pruznach;
-                        //dataGridView3.Rows[m].Cells[3].Value = dataGridView2.Rows[n].Cells[11].Value;
+                       
                         try
                         {
 
@@ -725,23 +721,13 @@ namespace SoftGenConverter
             if (string.IsNullOrEmpty(path) && !Directory.Exists(pathDbf))
             {
                 Directory.CreateDirectory(pathDbf);
-            }
-            //if (!string.IsNullOrEmpty(path) && !panel2)
-            //{
-               
-            //   pathDbf = Path.Combine(Path.GetDirectoryName(path), Path.GetFileName(path).Replace(Path.GetExtension(path), ""));
-            //}
-
-
-
-
-
+            }     
             string dateTime = DateTime.Now.ToString("ddMMyy");
             //string fileName = $"{pathDbf}{dateTime}.dbf";
-            string fileName = Path.Combine(pathDbf, $"{dateTime}.dbf");
-            if (!Directory.Exists(pathDbf))
+            string fileName = Path.Combine(path, $"{dateTime}.dbf");
+            if (!Directory.Exists(path))
             {
-                Directory.CreateDirectory(pathDbf);
+                Directory.CreateDirectory(path);
             }
             if (File.Exists(fileName))
             {
@@ -883,22 +869,22 @@ namespace SoftGenConverter
                 writer.LanguageDriver = 0x26; // кодировка 866
                 DBFField field1 = new DBFField("DAY", NativeDbType.Char, 10); //Дата документа 
                 DBFField field2 = new DBFField("NUMBER", NativeDbType.Char, 10); //Номер документа  
-                DBFField field3 = new DBFField("A", NativeDbType.Char, 38); // Наименование плательщика 
-                DBFField field4 = new DBFField("B", NativeDbType.Char, 38); //Наименование получателя
-                DBFField field5 = new DBFField("OKPO_A", NativeDbType.Char, 14); //Код плательщика 
-                DBFField field6 = new DBFField("OKPO_B", NativeDbType.Char, 14); //Код получателя  
-                DBFField field7 = new DBFField("ACCOUNT_A", NativeDbType.Char, 29); //Номер счета плательщика 
-                DBFField field8 = new DBFField("ACCOUNT_B", NativeDbType.Char, 29); //Номер счета получателя  
-                DBFField field9 = new DBFField("BANK_A", NativeDbType.Char, 38); //Наименование банка плательщика 
-                DBFField field10 = new DBFField("BANK_B", NativeDbType.Char, 38); //Наименование банка получателя 
-                DBFField field11 = new DBFField("MFO_A", NativeDbType.Char, 9); //Код МФО банка плательщика  
-                DBFField field12 = new DBFField("MFO_B", NativeDbType.Char, 9); //Код МФО банка получателя 
-                DBFField field13 = new DBFField("CITY_A", NativeDbType.Char, 3); //код страны плательщика (для нерезидентов)  804 
-                DBFField field14 = new DBFField("CITY_B", NativeDbType.Char, 3); // код страны получателя (для нерезидентов) 804 
-                DBFField field15 = new DBFField("AMOUNT", NativeDbType.Char, 18); //(максимум 15 знаков + 2 знака после десятичного разделителя)    
-                DBFField field16 = new DBFField("DETAILS", NativeDbType.Char, 160); //Назначение платежа 
-                DBFField field17 = new DBFField("GUILTY", NativeDbType.Char, 50); //Ответственный  
-                DBFField field18 = new DBFField("DETAILS_T", NativeDbType.Char, 50); //Доп. Характеристика  
+                DBFField field3 = new DBFField("A", NativeDbType.Char, 38); // Найменування платника 
+                DBFField field4 = new DBFField("B", NativeDbType.Char, 38); //Найменування платника
+                DBFField field5 = new DBFField("OKPO_A", NativeDbType.Char, 14); //Код платника
+                DBFField field6 = new DBFField("OKPO_B", NativeDbType.Char, 14); //Код отримувача  
+                DBFField field7 = new DBFField("ACCOUNT_A", NativeDbType.Char, 29); //Номер рахунку платника
+                DBFField field8 = new DBFField("ACCOUNT_B", NativeDbType.Char, 29); //Номер рахунку отримувача  
+                DBFField field9 = new DBFField("BANK_A", NativeDbType.Char, 38); //Найменування банка платника 
+                DBFField field10 = new DBFField("BANK_B", NativeDbType.Char, 38); //Найменування банка отримувача 
+                DBFField field11 = new DBFField("MFO_A", NativeDbType.Char, 9); //Код МФО банка платника  
+                DBFField field12 = new DBFField("MFO_B", NativeDbType.Char, 9); //Код МФО банка отримувача 
+                DBFField field13 = new DBFField("CITY_A", NativeDbType.Char, 3); //код країни платника (для нерезидентів)  804 
+                DBFField field14 = new DBFField("CITY_B", NativeDbType.Char, 3); // код країни отримувача (для нерезидентів) 804 
+                DBFField field15 = new DBFField("AMOUNT", NativeDbType.Char, 18); //(максимум 15 знаків + 2 знака посля десяткового розподілювача)    
+                DBFField field16 = new DBFField("DETAILS", NativeDbType.Char, 160); //Призначення платежа 
+                DBFField field17 = new DBFField("GUILTY", NativeDbType.Char, 50); //Відповідальний  
+                DBFField field18 = new DBFField("DETAILS_T", NativeDbType.Char, 50); //Дод. Характеристика  
 
 
                 writer.Fields = new[]
@@ -929,7 +915,9 @@ namespace SoftGenConverter
                     {
                         row.Cells[11].Value = string.Empty;
                     }
-                    string details = anotherPayCh ? ChangeI(string.Join(" ", row.Cells[13].Value.ToString(), row.Cells[11].Value.ToString())) : ChangeI(row.Cells[11].Value.ToString());
+
+                    
+                    string details = anotherPayCh & string.IsNullOrEmpty(row.Cells[14].Value.ToString()) ? ChangeI(string.Join(" ", row.Cells[13].Value.ToString(), row.Cells[11].Value.ToString())) : ChangeI(row.Cells[11].Value.ToString());
                     
                     if (details.Length > 160)
                     {
@@ -988,7 +976,7 @@ namespace SoftGenConverter
             string path = $"{pathDbf}" + $"{dateTime}" + ".dbf";
 
             using (Stream pumb = File.Open(path, FileMode.OpenOrCreate,
-                FileAccess.ReadWrite)) ;
+                FileAccess.ReadWrite));
 
             //dBASE.NET.Dbf writer = new dBASE.NET.Dbf(Encoding.GetEncoding(866));
             dBASE.NET.Dbf writer = new dBASE.NET.Dbf(Encoding.GetEncoding(1251));
@@ -1041,7 +1029,7 @@ namespace SoftGenConverter
                 {
                     row.Cells[11].Value = string.Empty;
                 }
-                string details = anotherPayCh ? ChangeI(string.Join(" ", row.Cells[13].Value.ToString(), row.Cells[11].Value.ToString())) : ChangeI(row.Cells[11].Value.ToString());
+                string details = anotherPayCh & string.IsNullOrEmpty(row.Cells[14].Value.ToString()) ? ChangeI(string.Join(" ", row.Cells[13].Value.ToString(), row.Cells[11].Value.ToString())) : ChangeI(row.Cells[11].Value.ToString());
                
                 if (details.Length > 160)
                 {
@@ -1201,6 +1189,7 @@ namespace SoftGenConverter
             };
             if (saveDialog.ShowDialog() == DialogResult.OK)
             {
+                filePath = Path.GetDirectoryName(saveDialog.FileName);
                 if (type == 0 )
                 {
                     SaveExcel(saveDialog, dataGridViewn, anotherPay.Checked, isUkrGaz);
@@ -1214,7 +1203,7 @@ namespace SoftGenConverter
                         docnum = 1;
                     }
                     Service.Template.GetExcel(Service.Template.ConvertTableToOschad(dataGridView2, docnum, rahunok, anotherPay.Checked), saveDialog.FileName, progressBar1);
-                    filePath = saveDialog.FileName;
+                    //filePath = saveDialog.FileName;
                     //SaveExcelOschad(saveDialog);
                 }
                 else if (type == 5)
@@ -1433,14 +1422,17 @@ namespace SoftGenConverter
                                     dataGridView1N.Rows[i - 1].Cells[13].Value = string.Empty;
 
                                 }
-                                addPaym = string.Join(" ", addPaym, dataGridView1N.Rows[i - 1].Cells[13].Value.ToString());
+                                if(string.IsNullOrEmpty(dataGridView1N.Rows[i - 1].Cells[14].Value.ToString()))
+                                {
+                                    addPaym = string.Join(" ", addPaym, dataGridView1N.Rows[i - 1].Cells[13].Value.ToString());
+                                }                             
                                 
                                 
                               
-                                if (dataGridView1N.Rows[i - 1].Cells[11].Value.ToString().Substring(0, 1).Equals("!"))
-                                {
-                                    addPaym = dataGridView1N.Rows[i - 1].Cells[11].Value.ToString().TrimStart().Substring(1, dataGridView1N.Rows[i - 1].Cells[11].Value.ToString().Length - 1);
-                                }
+                                //if (dataGridView1N.Rows[i - 1].Cells[11].Value.ToString().Substring(0, 1).Equals("!"))
+                                //{
+                                //    addPaym = dataGridView1N.Rows[i - 1].Cells[11].Value.ToString().TrimStart().Substring(1, dataGridView1N.Rows[i - 1].Cells[11].Value.ToString().Length - 1);
+                                //}
                                 worksheet.Cells[cellRowIndex, 16] = addPaym;
                             }
                             else if (isUkrGaz && anotherPay)
@@ -1451,24 +1443,36 @@ namespace SoftGenConverter
                                     dataGridView1N.Rows[i - 1].Cells[13].Value = string.Empty;
 
                                 }
-
-                                worksheet.Cells[cellRowIndex, 16] = string.Join(" ", dataGridView1N.Rows[i - 1].Cells[13].Value.ToString(), dataGridView1N.Rows[i - 1].Cells[11].Value.ToString());
-                                if (dataGridView1N.Rows[i - 1].Cells[11].Value.ToString().Substring(0, 1).Equals("!"))
+                                if(dataGridView1N.Rows[i - 1].Cells[14].Value != null && dataGridView1N.Rows[i - 1].Cells[14].Value.ToString().Equals("+"))
                                 {
-                                    worksheet.Cells[cellRowIndex, 16] = dataGridView1N.Rows[i - 1].Cells[11].Value.ToString().TrimStart().Substring(1, dataGridView1N.Rows[i - 1].Cells[11].Value.ToString().Length - 1);
+                                    worksheet.Cells[cellRowIndex, 16] = dataGridView1N.Rows[i - 1].Cells[11].Value.ToString();
                                 }
+                                else
+                                {
+                                    worksheet.Cells[cellRowIndex, 16] = string.Join(" ", dataGridView1N.Rows[i - 1].Cells[13].Value.ToString(), dataGridView1N.Rows[i - 1].Cells[11].Value.ToString());
+                                }                               
+
+                                //if (dataGridView1N.Rows[i - 1].Cells[11].Value.ToString().Substring(0, 1).Equals("!"))
+                                //{
+                                //    worksheet.Cells[cellRowIndex, 16] = dataGridView1N.Rows[i - 1].Cells[11].Value.ToString().TrimStart().Substring(1, dataGridView1N.Rows[i - 1].Cells[11].Value.ToString().Length - 1);
+                                //}
                             }
                             else
-                            {
-                              
-                               
-
-                                worksheet.Cells[cellRowIndex, 16] = anotherPay ? string.Join(" ", dataGridView1N.Rows[i - 1].Cells[10].Value.ToString(), dataGridView1N.Rows[i - 1].Cells[2].Value.ToString()) : dataGridView1N.Rows[i - 1].Cells[2].Value.ToString();
-                                //Для платежів з !
-                                if (dataGridView1N.Rows[i - 1].Cells[2].Value != null && dataGridView1N.Rows[i - 1].Cells[2].Value.ToString().Length > 2 && dataGridView1N.Rows[i - 1].Cells[2].Value.ToString().Substring(0, 1).Equals("!"))
+                            {    
+                                if(dataGridView1N.Rows[i - 1].Cells[11].Value != null && dataGridView1N.Rows[i - 1].Cells[11].Value.ToString().Equals("+"))
                                 {
-                                    worksheet.Cells[cellRowIndex, 16] = dataGridView1N.Rows[i - 1].Cells[2].Value.ToString().TrimStart().Substring(1, dataGridView1N.Rows[i - 1].Cells[2].Value.ToString().Length - 1);
+                                    worksheet.Cells[cellRowIndex, 16] = dataGridView1N.Rows[i - 1].Cells[2].Value.ToString();
                                 }
+                                else
+                                {
+                                    worksheet.Cells[cellRowIndex, 16] = anotherPay ? string.Join(" ", dataGridView1N.Rows[i - 1].Cells[10].Value.ToString(), dataGridView1N.Rows[i - 1].Cells[2].Value.ToString()) : dataGridView1N.Rows[i - 1].Cells[2].Value.ToString();
+                                }
+                               
+                                //Для платежів з !
+                                //if (dataGridView1N.Rows[i - 1].Cells[2].Value != null && dataGridView1N.Rows[i - 1].Cells[2].Value.ToString().Length > 2 && dataGridView1N.Rows[i - 1].Cells[2].Value.ToString().Substring(0, 1).Equals("!"))
+                                //{
+                                //    worksheet.Cells[cellRowIndex, 16] = dataGridView1N.Rows[i - 1].Cells[2].Value.ToString().TrimStart().Substring(1, dataGridView1N.Rows[i - 1].Cells[2].Value.ToString().Length - 1);
+                                //}
                             }
 
 
@@ -1491,15 +1495,9 @@ namespace SoftGenConverter
 
 
                     }
-
-
-
                     cellRowIndex++;
                     progressBar1.PerformStep();
                 }
-
-
-
 
                 {
                     workbook.SaveAs(saveDialog.FileName);
@@ -1576,6 +1574,7 @@ namespace SoftGenConverter
                         catch { }
                         try
                         {
+                           
                             worksheet.Cells[cellRowIndex, 3] = dataGridView1N.Rows[i - 1].Cells[11].Value.ToString();//FIELD_PURPOSE_CODE
                         }
                         catch { }
@@ -1659,12 +1658,13 @@ namespace SoftGenConverter
                         SaveXml();
                     }
                     catch { }
-                    if (comboEdr2.SelectedIndex == 0 && dataGridView1.Visible)
+                    if (comboEdr2.SelectedIndex == 0 )
                     {
                        //
-                        SaveOschadDbf(Directory.GetCurrentDirectory() + "\\ОщадБанк\\", oschad.rahunok, dataGridView1.Visible);
+                        //SaveOschadDbf(Directory.GetCurrentDirectory() + "\\ОщадБанк\\", oschad.rahunok, dataGridView1.Visible);
+                        SaveOschadDbf(path + "\\ОщадБанк\\", oschad.rahunok, dataGridView1.Visible);
                     }
-
+                   
                 }
                 else if (comboEdr.SelectedIndex == 2)//ощад
                 {
@@ -2008,22 +2008,7 @@ namespace SoftGenConverter
                     //dataGridView2.CurrentRow.Cells[11].Value = dataGridView2.CurrentRow.Cells[11].Value.ToString().Replace("утримання", "утрим.").Replace("будинків", "буд.").Replace("утриман.", "утрим.").Replace("управління", "управл.").Replace("  ", @" ");
                     dataGridView2.CurrentRow.Cells[11].Value =
                         dataGridView2.CurrentRow.Cells[11].Value.ToString().Replace("  ", @" ");
-                    //if (!currentCellValue.Equals(dataGridView2.CurrentRow.Cells[11].Value.ToString()))
-                    //{
-                    //    DialogResult dialogResult = MessageBox.Show("Зміни записати базу данних", "Запис данних",
-                    //        MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                    //    if (dialogResult == DialogResult.Yes)
-                    //    {
-                    //        int n = dataGridView1.Rows.Add();
-                    //        dataGridView3.Rows[n].Cells[0].Value =
-                    //            dataGridView2.Rows[selRowNum].Cells[selColNum - 1].Value; // 
-                    //        dataGridView3.Rows[n].Cells[1].Value =
-                    //            dataGridView2.Rows[selRowNum].Cells[selColNum + 1].Value; // 
-                    //        dataGridView3.Rows[n].Cells[2].Value =
-                    //            dataGridView2.Rows[selRowNum].Cells[selColNum].Value; // 
-                    //        Xml.SaveXml(dataGridView3, path2);
-                    //    }
-                    //}
+                   
                 }
                 if (selColNum == 13)
                 {
