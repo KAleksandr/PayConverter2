@@ -51,6 +51,17 @@ namespace SoftGenConverter.Entity
             cmd.ExecuteNonQuery();
             con.Close();
         }
+        public static void DeletePurpose(string NAME)
+        {
+            SQLiteConnection con = new SQLiteConnection(Db.Cs);
+            SQLiteCommand cmd = new SQLiteCommand(con);
+            con.Open();           
+            cmd.CommandText = $"delete from {tableName} where NAME = @NAME";
+            cmd.Parameters.AddWithValue("@NAME", NAME);          
+
+            cmd.ExecuteNonQuery();
+            con.Close();
+        }
         public static void UpdatePurpose(PurposeOfPayment purpose)
         {
             SQLiteConnection con = new SQLiteConnection(Db.Cs);
@@ -78,6 +89,10 @@ namespace SoftGenConverter.Entity
                 {
                     UpdatePurpose(ofPayment.NAME,ofPayment.PURPOSE);
                 }
+            }
+            else
+            {
+                DeletePurpose(name);
             }
         }
         public static int InsertTableFromList(List<PurposeOfPayment> purposes)

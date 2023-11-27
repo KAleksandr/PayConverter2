@@ -2095,7 +2095,7 @@ namespace SoftGenConverter
                     string purpose =
                        MyDataGrid.shortText(dataGridView1.CurrentRow.Cells[10].Value.ToString());
                     purpose = purpose.Replace("  ", @" ").Trim();
-                    dataGridView2.CurrentRow.Cells[10].Value = purpose;
+                    dataGridView1.CurrentRow.Cells[10].Value = purpose;
 
                     var dialogResult = MessageBox.Show("Оновити довідник?", "Додати/Оновити довідник Призначення за умовчанням", MessageBoxButtons.YesNo);
                     if (dialogResult == DialogResult.Yes)

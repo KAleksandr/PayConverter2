@@ -37,6 +37,7 @@ namespace SoftGenConverter
         public string pruznach { get; set; }
         public string Appointment { get; set; }
         public DateTime dateP { get; set; }
+        public string specialPr { get; set; } = "";
         public Bank() { }
         public Bank(PayConverterConfig config) {
             this.id = config.bankid;
