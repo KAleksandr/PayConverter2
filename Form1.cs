@@ -432,7 +432,7 @@ namespace SoftGenConverter
 
                     dataGridView1.Rows[n].Cells[9].Value = ukrGaz.iban;
                     dataGridView1.Rows[n].Cells[10].Value = anotherPay.Checked ? PurposeOfPayment_.GetPurpose(dataGridView1.Rows[n].Cells[8].Value.ToString()) : "";
-                    dataGridView1.Rows[n].Cells[10].Value = ukrGaz.specialPr;
+                    dataGridView1.Rows[n].Cells[11].Value = ukrGaz.specialPr;
                 }
 
 
