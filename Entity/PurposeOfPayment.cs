@@ -158,12 +158,10 @@ namespace SoftGenConverter.Entity
                 dataTable.Load(readers);
                 List<DataRow> listTable = dataTable.AsEnumerable().ToList();
 
-                purp =
-                        (from item in listTable
+                purp = (from item in listTable
                          select new PurposeOfPayment
                          {
-                             PURPOSE = item.Field<string>("PURPOSE"),
-
+                             PURPOSE = item.Field<string>("PURPOSE")
 
                          }).FirstOrDefault();
                 purpuse = purp != null ? purp.PURPOSE : "";

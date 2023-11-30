@@ -96,13 +96,7 @@ namespace SoftGenConverter.Entity
             SQLiteCommand cmd = new SQLiteCommand(con)
             {
                 CommandText = @" CREATE TABLE IF NOT EXISTS PurposeOfPayment ( ID INTEGER, NAME TEXT, PURPOSE TEXT, PRIMARY KEY(ID AUTOINCREMENT));
-                            insert into PurposeOfPayment (NAME,PURPOSE) 
-                            VALUES('ВФ ПАТ ""УКРТЕЛЕКОМ""','Переказ коштів за телекомунікаційні посл.'),
-                            ('ДНЗ  3','Батьківська плата за харчування'),
-                            ('ДНЗ  13','Батьківська плата за харчування'),
-                            ('ДНЗ  7','Батьківська плата за харчування'),
-                            ('ДНЗ-39','Батьківська плата за харчування'),
-                            ('ДНЗ 50', 'Батьківська плата за харчування')
+                            
 "
             };
             cmd.ExecuteNonQuery();
