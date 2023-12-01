@@ -714,7 +714,7 @@ namespace SoftGenConverter
         }
 
 
-        public void SaveOschadDbf(string path, string rahunok, bool panel2 = false)
+        public void SaveOschadDbf(string path, Bank bank, bool panel2 = false)
         {
             // System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
             string pathDbf = Directory.GetCurrentDirectory() + "\\ОщадБанк\\";
@@ -742,24 +742,41 @@ namespace SoftGenConverter
                 writer.CharEncoding = Encoding.GetEncoding(1251);//866
                 writer.Signature = NotSet;
                 //writer.LanguageDriver = 0x26; // кодировка 866
-                DBFField field1 = new DBFField("ndoc", NativeDbType.Char, 10); //номер документа
-                DBFField field2 = new DBFField("dt", NativeDbType.Date); //дата документа
-                DBFField field3 = new DBFField("dv", NativeDbType.Date); //Дата валютування
-                DBFField field4 =
-                    new DBFField("acccli", NativeDbType.Char, 29); //Рахунок (IBAN )відправника
-                DBFField field5 = new DBFField("acccor", NativeDbType.Char, 29); //Рахунок (IBAN )отримувача
-                DBFField field6 = new DBFField("okpocor", NativeDbType.Char, 29); //Податковий код отримувача (ІПН, ЄДРПОУ)
-                DBFField field7 = new DBFField("namecor", NativeDbType.Char, 140); //ім’я отримувача
-                DBFField field8 = new DBFField("summa", NativeDbType.Numeric, 20); //сума платежу «в копійках»
-                DBFField field9 = new DBFField("val", NativeDbType.Numeric, 4); //код валюти платежу
-                DBFField field10 = new DBFField("nazn", NativeDbType.Char, 420); //призначення платежу
-                DBFField field11 = new DBFField("cod_cor", NativeDbType.Numeric, 20);//Код країни-нерезидента отримувача (ISO 3166-1 numeric)**
-                DBFField field12 = new DBFField("add_req", NativeDbType.Char, 160);//Додаткові реквізити*
-                DBFField field13 = new DBFField("uetr", NativeDbType.Char, 36);// універсальний ідентифікатор ***
+                DBFField field1 =  new DBFField("ndoc", NativeDbType.Char, 10); //номер документа
+                DBFField field2 =  new DBFField("dt", NativeDbType.Date); //дата документа
+                DBFField field3 =  new DBFField("mfocli", NativeDbType.Char, 12); //МФО клієнта  Нові поля від 01.12.2023
+                DBFField field4 =  new DBFField("okpocli", NativeDbType.Char, 14); //ЗКПО клієнта  Нові поля від 01.12.2023              
+                DBFField field5 =  new DBFField("acccli", NativeDbType.Char, 29); //рахунок клієнта
+                DBFField field6 =  new DBFField("namecli", NativeDbType.Char, 140); //ім’я клієнта  Нові поля від 01.12.2023
+                DBFField field7 =  new DBFField("bankcli", NativeDbType.Char, 254); //назва банку клієнта   Нові поля від 01.12.2023
+                DBFField field8 =  new DBFField("mfocor", NativeDbType.Char, 12); //МФО кореспондента  Нові поля від 01.12.2023
+                DBFField field9 =  new DBFField("acccor", NativeDbType.Char, 29); //Рахунок (IBAN )отримувача
+                DBFField field10 = new DBFField("okpocor", NativeDbType.Char, 29); //Податковий код отримувача (ІПН, ЄДРПОУ)
+                DBFField field11 = new DBFField("namecor", NativeDbType.Char, 140); //ім’я отримувача
+                DBFField field12 = new DBFField("bankcor", NativeDbType.Char, 254); //назва банку кореспондента  Нові поля від 01.12.2023
+                DBFField field13 = new DBFField("dk", NativeDbType.Numeric, 1); //ознака «дебет – 1; кредит – 0;»  Нові поля від 01.12.2023
+                DBFField field14 = new DBFField("summa", NativeDbType.Numeric, 20); //сума платежу «в копійках»
+                DBFField field15 = new DBFField("nazn", NativeDbType.Char, 420); //призначення платежу
+                DBFField field16 = new DBFField("val", NativeDbType.Numeric, 4); //код валюти платежу
+                DBFField field17 = new DBFField("datp", NativeDbType.Date); //дата документу  Нові поля від 01.12.2023
+                DBFField field18 = new DBFField("da", NativeDbType.Date); //дата проведення  Нові поля від 01.12.2023
+                DBFField field19 = new DBFField("saldovh", NativeDbType.Numeric, 16); //вхідний залишок в номіналі  Нові поля від 01.12.2023
+                DBFField field20 = new DBFField("saldovhEv", NativeDbType.Numeric, 16); //вхідний залишок в нац. валюті  Нові поля від 01.12.2023
+                DBFField field21 = new DBFField("saldoish", NativeDbType.Numeric, 16); //вихідний залишок в номіналі  Нові поля від 01.12.2023
+                DBFField field22 = new DBFField("saldoishEv", NativeDbType.Numeric, 16); //вихідний залишок в нац. валюті  Нові поля від 01.12.2023
+                DBFField field23 = new DBFField("uetr", NativeDbType.Char, 36);// універсальний ідентифікатор ***
+
+                
+                                                                               //Нові поля від 01.12.2023 ---------------------------
+               
+               
+                
+               
+                
 
                 writer.Fields = new[]
                 {
-                    field1, field2, field3, field4, field5, field6, field7, field8, field9, field10, field11, field12, field13
+                    field1, field2, field3, field4, field5, field6, field7, field8, field9, field10, field11, field12, field13, field14, field15, field16, field17, field18, field19, field20, field21, field22, field23
                 };
                 if (string.IsNullOrEmpty(docNumOschad.Text))
                 {
@@ -779,20 +796,42 @@ namespace SoftGenConverter
                     {
                         int summa = Convert.ToInt32(row.Cells[8].Value.ToString().Replace(".", ""));
                         writer.AddRecord(
-                             // добавляем поля в набор
-                             "", //docNum.ToString(), //1
-                             DateTime.Now, //2 dt
-                             DateTime.Now, //3 dv
-                             rahunok, //4 acccli
-                             row.Cells[7].Value.ToString(), //5 acccor
-                             row.Cells[12].Value.ToString(), //6 okpocor
-                             row.Cells[10].Value.ToString(), //7 namecor
-                             summa, //8 summa
-                             codeVal, //9 val
-                             row.Cells[11].Value.ToString().Trim(), //10 nazn
-                             804,//cod_cor 11
-                             "", //add_req 12
-                             ""//uetr
+                             // добавляємо поля в набiр
+                             "", //docNum.ToString(), //номер документа   1                                            
+                             DateTime.Now.Date, //2 dt дата документа                        
+                            bank.mfo,// mfocli МФО клієнта3
+                             bank.edrpou, // okpocli     ЗКПО клієнта4
+                             bank.rahunok,   // acccli"     рахунок клієнта5
+                             bank.clientBankCode,           //  namecli    ім’я клієнта6
+                             "АТ \"Ощадбанк\"",           //  bankcli",  назва банку клієнта7
+                             row.Cells[5].Value.ToString(),  //mfocor //МФО кореспондента  Нові поля від 01.12.2023
+                             row.Cells[7].Value.ToString(),// acccor", N  рахунок кореспондента9
+                             row.Cells[12].Value.ToString(),  //  okpocor",  ЗКПО кореспондента10
+                             row.Cells[10].Value.ToString(), //  namecor",  ім’я кореспондента11
+                              "",                                //  bankcor",  назва банку кореспондента
+                              0,                                // dk", Nativ  ознака «дебет – 1; кредит – 0;» 0
+                              summa,  //  summa", Na сума платежу «в копійках»
+                              row.Cells[11].Value.ToString().Trim(),  //  nazn", Nat призначення платежу
+                              codeVal,                         //  val", Nati код валюти платежу
+                              DateTime.Now.Date,                   //  datp", Nat дата документу
+                              DateTime.Now.Date,               // da", Nativ  дата проведення
+                              0,               // saldovh",   вхідний залишок в номіналі
+                              0,               //saldovhEv"   вхідний залишок в нац. валюті
+                              0,               // saldoish",  вихідний залишок в номіналі
+                              0,               // saldoishEv  вихідний залишок в нац. валюті
+                              ""                                 // uetr", Nat  ідентифікатор документа СЕП-4
+
+
+                             //rahunok, //4 acccli
+                             //row.Cells[7].Value.ToString(), //5 acccor
+                             //row.Cells[12].Value.ToString(), //6 okpocor
+                             //row.Cells[10].Value.ToString(), //7 namecor
+                             //summa, //8 summa
+                             //codeVal, //9 val
+                             //row.Cells[11].Value.ToString().Trim(), //10 nazn
+                             //804,//cod_cor 11
+                             //"", //add_req 12
+                             //""//uetr
                         );
                         docNum++;
                     }
@@ -815,20 +854,44 @@ namespace SoftGenConverter
                         }
 
                         writer.AddRecord(
-                             // добавляем поля в набор
-                             "", //docNum.ToString(), //1
-                             DateTime.Now, //2 dt
-                             DateTime.Now, //3 dv
-                             rahunok, //4 acccli
-                             row.Cells[6].Value.ToString(), //5 acccor
-                             row.Cells[7].Value.ToString(), //6 okpocor
-                             row.Cells[8].Value.ToString(), //7 namecor
-                             summa, //8 summa
-                             codeVal, //9 val
-                             row.Cells[2].Value.ToString().Trim(), //10 nazn
-                             804,//cod_cor 11
-                             "", //add_req 12
-                             ""//uetr
+                              // добавляем поля в набор
+                              "", //docNum.ToString(), //номер документа
+                             DateTime.Now.Date, //2 dt дата документа                        
+                             bank.mfo,// mfocli МФО клієнта
+                             bank.edrpou, // okpocli     ЗКПО клієнта
+                             bank.rahunok,   // acccli"     рахунок клієнта
+                             bank.clientBankCode,           //  namecli    ім’я клієнта
+                             "АТ \"Ощадбанк\"",           //  bankcli",  назва банку клієнта                                                          
+                             row.Cells[5].Value.ToString(),          // mfocor", N  МФО кореспондента
+                             row.Cells[6].Value.ToString(),// acccor", N  рахунок кореспондента
+                              row.Cells[7].Value.ToString(),  //  okpocor",  ЗКПО кореспондента
+                              row.Cells[8].Value.ToString(), //  namecor",  ім’я кореспондента
+                              row.Cells[8].Value.ToString(),  //  bankcor",  назва банку кореспондента
+                              0,                                // dk", Nativ  ознака «дебет – 1; кредит – 0;» 0
+                              summa,  //  summa", Na сума платежу «в копійках»
+                              row.Cells[2].Value.ToString().Trim(),  //  nazn", Nat призначення платежу
+                              codeVal,                         //  val", Nati код валюти платежу
+                              DateTime.Now.Date,                   //  datp", Nat дата документу
+                              DateTime.Now.Date,               // da", Nativ  дата проведення
+                              0,               // saldovh",   вхідний залишок в номіналі
+                              0,               //saldovhEv"   вхідний залишок в нац. валюті
+                              0,               // saldoish",  вихідний залишок в номіналі
+                              0,               // saldoishEv  вихідний залишок в нац. валюті
+                              ""       // uetr", Nat  ідентифікатор документа СЕП-4
+
+                             //"", //docNum.ToString(), //1
+                             //DateTime.Now, //2 dt
+                             //DateTime.Now, //3 dv
+                             //rahunok, //4 acccli
+                             //row.Cells[6].Value.ToString(), //5 acccor
+                             //row.Cells[7].Value.ToString(), //6 okpocor
+                             //row.Cells[8].Value.ToString(), //7 namecor
+                             //summa, //8 summa
+                             //codeVal, //9 val
+                             //row.Cells[2].Value.ToString().Trim(), //10 nazn
+                             //804,//cod_cor 11
+                             //"", //add_req 12
+                             //""//uetr
                         );
                         docNum++;
                     }
@@ -1699,7 +1762,7 @@ namespace SoftGenConverter
                     {
                         //
                         //SaveOschadDbf(Directory.GetCurrentDirectory() + "\\ОщадБанк\\", oschad.rahunok, dataGridView1.Visible);
-                        SaveOschadDbf(path + "\\ОщадБанк\\", oschad.rahunok, dataGridView1.Visible);
+                        SaveOschadDbf(path + "\\ОщадБанк\\", oschad, dataGridView1.Visible);
 
                         //30.11.2023 додавання вивантаження А-Банк для 
                         var result = MessageBox.Show("Вивантажити для А-Банк?", "Вивантажити для А-Банк?", MessageBoxButtons.YesNo);
@@ -1716,7 +1779,7 @@ namespace SoftGenConverter
                 else if (comboEdr.SelectedIndex == 2)//ощад
                 {
                     var path = SaveExcel(dataGrid, comboEdr.SelectedIndex, oschad.rahunok);
-                    SaveOschadDbf(path, oschad.rahunok);
+                    SaveOschadDbf(path, oschad);
                 }
                 else if (comboEdr.SelectedIndex == 3)//пумб
                 {
