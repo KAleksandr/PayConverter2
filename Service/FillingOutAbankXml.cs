@@ -14,7 +14,7 @@ namespace SoftGenConverter.Service
     {
         public Payments Payments { get; set; } 
         public List<Payments> PaymentsList { get; set; } = new List<Payments>();
-        public FillingOutAbankXml(DataGridView dataGridView1N, Bank aBank, bool anotherPay, int type = 0)
+        public FillingOutAbankXml(DataGridView dataGridView1N, Bank aBank, bool anotherPay,int docnum = 1, int type = 0)
         {
             int numberRecords = 499; //максимальна кількість записів для вивантаження АБанк
            Payments = new Payments();
@@ -139,7 +139,7 @@ namespace SoftGenConverter.Service
                         CurrencyTag = "UAH",//+
                         OrgDate = DateTime.Now.ToString("yyyy-MM-dd"),//+
                                                                       //PayDate = DateTime.Now.ToString("dd.MM.yyyy"),
-                        Code = (i + 1).ToString(),//+
+                        Code = (docnum + i).ToString(),//+
                                                   //отримувач
                         CreditBankCode = creditBankCode,//+
                         CreditAccount = creditAccount,
@@ -200,7 +200,7 @@ namespace SoftGenConverter.Service
                         CurrencyTag = "UAH",//+
                         OrgDate = DateTime.Now.ToString("yyyy-MM-dd"),//+
                         //PayDate = DateTime.Now.ToString("dd.MM.yyyy"),
-                        Code = (i + 1).ToString(),//+
+                        Code = (docnum + i).ToString(),//+
                         //отримувач
                         CreditBankCode = creditBankCode,//+
                         CreditAccount = creditAccount,

@@ -163,7 +163,7 @@ namespace SoftGenConverter
                         break;
                     case 5:
                         SetFieldsP(aBank);
-                        docNumOschadL.Visible = docNumOschad.Visible = false;
+                        docNumOschadL.Visible = docNumOschad.Visible = true;
                         break;
                 }
             }
@@ -1089,8 +1089,8 @@ namespace SoftGenConverter
                 {
                     //Внесення змін від 01.12.2023
                     //SaveExcel(saveDialog, dataGridViewn, anotherPay.Checked, type);
-
-                    FillingOutAbankXml aBankXml = new FillingOutAbankXml(dataGridViewn, aBank, anotherPay.Checked, type);
+                    Int32.TryParse(docNumOschad.Text, out int docnum);
+                    FillingOutAbankXml aBankXml = new FillingOutAbankXml(dataGridViewn, aBank, anotherPay.Checked, docnum, type);
                     XmlSerializer serializer = new XmlSerializer(typeof(Payments));
                     var xml = "";
                     XmlWriterSettings settings = new XmlWriterSettings();
@@ -1699,6 +1699,7 @@ namespace SoftGenConverter
                         break;
                     case 5:                        
                         aval.id = 5;
+                        docNumOschadL.Visible = docNumOschad.Visible = true;
                         break;
                 }
                 comboEdr.Enabled = true;
@@ -2011,7 +2012,7 @@ namespace SoftGenConverter
                     break;
                 case 5:
                     gridHeader.Text = NameBank1.Text = "А-Банк";
-                    docNumOschadL.Visible = docNumOschad.Visible = false;
+                    docNumOschadL.Visible = docNumOschad.Visible = true;
                     docNumOschad.Text = "1";
                     break;
             }
