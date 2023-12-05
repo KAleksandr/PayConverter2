@@ -108,6 +108,8 @@
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.DocNumber2l = new System.Windows.Forms.Label();
+            this.DocNumber2 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
             this.panel7.SuspendLayout();
@@ -255,6 +257,8 @@
             // panel2
             // 
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.DocNumber2);
+            this.panel2.Controls.Add(this.DocNumber2l);
             this.panel2.Controls.Add(this.textIban);
             this.panel2.Controls.Add(this.label3);
             this.panel2.Controls.Add(this.textBox4);
@@ -671,6 +675,16 @@
             this.toolTip1.SetToolTip(this.textBox1, resources.GetString("textBox1.ToolTip"));
             this.textBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBox1_KeyPress);
             // 
+            // DocNumber2l
+            // 
+            resources.ApplyResources(this.DocNumber2l, "DocNumber2l");
+            this.DocNumber2l.Name = "DocNumber2l";
+            // 
+            // DocNumber2
+            // 
+            resources.ApplyResources(this.DocNumber2, "DocNumber2");
+            this.DocNumber2.Name = "DocNumber2";
+            // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
@@ -777,6 +791,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column13;
         private System.Windows.Forms.DataGridViewTextBoxColumn PURPOSE;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column14;
+        private System.Windows.Forms.TextBox DocNumber2;
+        private System.Windows.Forms.Label DocNumber2l;
     }
 }
 

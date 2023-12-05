@@ -63,7 +63,7 @@ namespace SoftGenConverter
             Db.TempInsert();
             erdpo1l.Visible = erdpo1.Visible = false;
             InitData();
-
+           
         }
 
         //Подвійна буферизація для таблиці
@@ -133,6 +133,7 @@ namespace SoftGenConverter
 
             docNumOschadL.Visible = docNumOschad.Visible = false;
             docNumOschad.Text = "1";
+            DocNumber2.Text = "1";
             comboEdr2.SelectedIndex = 0;
 
             if (comboEdr.SelectedItem == null)
@@ -1089,7 +1090,16 @@ namespace SoftGenConverter
                 {
                     //Внесення змін від 01.12.2023
                     //SaveExcel(saveDialog, dataGridViewn, anotherPay.Checked, type);
-                    Int32.TryParse(docNumOschad.Text, out int docnum);
+                    int docnum = 1;
+                    if(type == 5)
+                    {
+                        Int32.TryParse(docNumOschad.Text, out docnum);
+                    }else if(type == 6)
+                    {
+                        Int32.TryParse(DocNumber2.Text, out docnum);
+                    }
+                    
+                    
                     FillingOutAbankXml aBankXml = new FillingOutAbankXml(dataGridViewn, aBank, anotherPay.Checked, docnum, type);
                     XmlSerializer serializer = new XmlSerializer(typeof(Payments));
                     var xml = "";
