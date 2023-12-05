@@ -19,7 +19,8 @@ using Application = System.Windows.Forms.Application;
 using Rectangle = System.Drawing.Rectangle;
 using TextBox = System.Windows.Forms.TextBox;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
-
+using SoftGenConverter.Service;
+using System.Xml.Serialization;
 
 namespace SoftGenConverter
 {
@@ -1246,7 +1247,7 @@ namespace SoftGenConverter
             string filePath = "";
             SaveFileDialog saveDialog = new SaveFileDialog
             {
-                Filter = "Excel Files(2003)|*.xls|Excel files(2007+)| *.xlsx",
+                Filter = type == 5 || type == 6 ? "xml file (.xml)|*.xml" : "Excel Files(2003)|*.xls|Excel files(2007+)| *.xlsx",
                 FilterIndex = 2,
                 FileName = DateTime.Now.ToString().Replace(":", "_")
             };
@@ -1271,7 +1272,55 @@ namespace SoftGenConverter
                 }
                 else if (type == 5 || type == 6)
                 {
-                    SaveExcel(saveDialog, dataGridViewn, anotherPay.Checked, type);
+                    //SaveExcel(saveDialog, dataGridViewn, anotherPay.Checked, type);
+
+                    FillingOutAbankXml aBankXml = new FillingOutAbankXml(dataGridViewn, aBank, type);
+                    XmlSerializer serializer = new XmlSerializer(typeof(Payments));
+                    var xml = "";
+                    XmlWriterSettings settings = new XmlWriterSettings();
+                    settings.OmitXmlDeclaration = true;
+                    int countFile = 1;
+                    aBankXml.PaymentsList.ForEach(xmlp => {
+                        string fileName = saveDialog.FileName;
+                        if(aBankXml.PaymentsList.Count > 1)
+                        {
+                            fileName = fileName.Replace(".xml", $"part{countFile}.xml");
+                        }
+                                              
+                       
+                        countFile++;
+                        using (var sww = new StringWriter())
+                        {
+                            using (XmlWriter writer = XmlWriter.Create(sww,settings))
+                            {
+                                try
+                                {
+                                    serializer.Serialize(writer, xmlp);
+                                }
+                                catch (Exception ex)
+                                {
+                                    MessageBox.Show($"Помилка: " + ex.Message);
+                                }
+
+                                xml = sww.ToString(); // Your XML
+                                if (!string.IsNullOrEmpty(xml))
+                                {
+                                    if (File.Exists(fileName))
+                                    {
+                                        File.Delete(fileName);
+                                    }
+                                    File.WriteAllText(fileName, xml, Encoding.GetEncoding(1251));
+                                    if (File.Exists(fileName))
+                                    {
+                                        MessageBox.Show("Файл сформовано: " + fileName);
+                                    }
+                                }
+                            }
+                        }
+                    });
+
+                   
+                   
                 }
             }
             return filePath;
