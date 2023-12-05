@@ -36,30 +36,22 @@ namespace SoftGenConverter
             if (!File.Exists(path4))
             {
                 DownloadFile(new Uri(url4), path4);
-                Thread.Sleep(300);
-            
-                //MessageBox.Show("Шаблон завантажено!");
+                Thread.Sleep(300);            
             }
             if (!File.Exists(path5))
             {
                 DownloadFile(new Uri(url5), path5);
                 Thread.Sleep(300);
-
-                //MessageBox.Show("Шаблон завантажено!");
             }
             if (!File.Exists(path6))
             {
                 DownloadFile(new Uri(url6), path6);
                 Thread.Sleep(300);
-
-                //MessageBox.Show("Шаблон завантажено!");
             }
             if (!File.Exists(path7))
             {
                 DownloadFile(new Uri(url7), path7);
                 Thread.Sleep(300);
-
-                //MessageBox.Show("Шаблон завантажено!");
             }
         }
         public void Download()
@@ -71,30 +63,22 @@ namespace SoftGenConverter
             {
                 DownloadFile(new Uri(url), path);
                 Thread.Sleep(300);
-
                 var exists = File.Exists(path);
-
                 if (exists)
                 {
                     doc.Load(path);
                     remoteVersion = new Version(doc.GetElementsByTagName("version")[0].InnerText);
-
                     File.Delete("version.xml");
                 }
                 else
                 {
                     remoteVersion = localVersion;
                 }
-
-
                 if (localVersion < remoteVersion)
                 {
                     DownloadFile(new Uri(url2), pCUpdate);
                     DownloadFile(new Uri(url3), updater);
-
                     Thread.Sleep(300);
-
-
                     if (File.Exists(updater) && File.Exists(pCUpdate) &&
                         new Version(FileVersionInfo.GetVersionInfo(pCUpdate).FileVersion) >
                         new Version(Application.ProductVersion))
@@ -124,9 +108,7 @@ namespace SoftGenConverter
         {
             using (var wc = new WebClient())
             {
-                //wc.DownloadProgressChanged += (s, te) => { progressBar1.Value = te.ProgressPercentage; };
-
-                wc.DownloadFile(adress, fileName);
+               wc.DownloadFile(adress, fileName);
             }
         }
 
@@ -144,15 +126,13 @@ namespace SoftGenConverter
                 }
                 else
                 {
-                    if (File.Exists(pCUpdate)) File.Delete(pCUpdate);
-                    //Download();
+                    if (File.Exists(pCUpdate)) File.Delete(pCUpdate);                   
                 }
             }
             catch (Exception)
             {
                 if (File.Exists(pCUpdate)) File.Delete(pCUpdate);
-                if (File.Exists(updater)) File.Delete(updater);
-                //Download();
+                if (File.Exists(updater)) File.Delete(updater);                
             }
         }
     }

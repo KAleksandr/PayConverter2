@@ -7,13 +7,7 @@ using System.Xml.Serialization;
 
 namespace SoftGenConverter.Entity
 {
-    // using System.Xml.Serialization;
-    // XmlSerializer serializer = new XmlSerializer(typeof(Payments));
-    // using (StringReader reader = new StringReader(xml))
-    // {
-    //    var test = (Payments)serializer.Deserialize(reader);
-    // }
-
+  
     [XmlRoot(ElementName = "DebitPrivate")]
     public class DebitPrivate
     {
@@ -291,10 +285,6 @@ namespace SoftGenConverter.Entity
         public string Xsd { get; set; }
 
         [XmlAttribute(AttributeName = "xsi",  Namespace = "http://www.w3.org/2000/xmlns/")]
-        public string Xsi { get; set; }
-
-       
+        public string Xsi { get; set; }       
     }
-
-
 }

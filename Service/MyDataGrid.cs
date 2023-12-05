@@ -21,8 +21,7 @@ namespace SoftGenConverter
                 dgv.DefaultCellStyle.BackColor = Color.Empty;
                 dgv.CellBorderStyle = DataGridViewCellBorderStyle.Single;
                 dgv.AllowUserToAddRows = false;
-                dgv.ReadOnly = isReadonly;
-                //dgv.SelectionMode = DataGridViewSelectionMode.CellSelect;
+                dgv.ReadOnly = isReadonly;                
                 var dataGridViewCellStyle1 = new DataGridViewCellStyle
                 {
                     BackColor = Color.LightBlue
@@ -62,7 +61,6 @@ namespace SoftGenConverter
                     dataGridView1[col[2], i].FormattedValue.ToString().ToLower().Contains(textF) ||
                     dataGridView1[col[3], i].FormattedValue.ToString().ToLower().Contains(textF))
                 {
-                    //MessageBox.Show(dataGridView1[1, i].FormattedValue.ToString());
                     dataGridView1.Rows[i].Selected = true;
                     dataGridView1.Rows[i].Visible = true;
                 }

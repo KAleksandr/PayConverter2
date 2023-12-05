@@ -39,7 +39,6 @@ namespace SoftGenConverter.Entity
                 cmd.Parameters.AddWithValue("@Comment", Comment);
                 cmd.Parameters.AddWithValue("@ID", ID);
                 cmd.ExecuteNonQuery();
-
                 con.Close();
             }
         }
@@ -57,7 +56,6 @@ namespace SoftGenConverter.Entity
                 cmd.Parameters.AddWithValue("@Comment", pay.Comment);
                 cmd.Parameters.AddWithValue("@ID", pay.ID);
                 cmd.ExecuteNonQuery();
-
                 con.Close();
             }
         }
@@ -74,23 +72,16 @@ namespace SoftGenConverter.Entity
                 {
                     anPay.ForEach(lst =>
                     {
-
                         cmd.CommandText = $"INSERT INTO {tableName}(NAME,ERDPO,RRahunok,Comment) VALUES(@NAME,@ERDPO,@RRahunok,@Comment)";
                         cmd.Parameters.AddWithValue("@NAME", lst.NAME);
                         cmd.Parameters.AddWithValue("@ERDPO", lst.ERDPO);
                         cmd.Parameters.AddWithValue("@RRahunok", lst.RRahunok);
                         cmd.Parameters.AddWithValue("@Comment", lst.Comment);
-
-                        count += cmd.ExecuteNonQuery();
-                        
-
+                        count += cmd.ExecuteNonQuery(); 
                     });
                     transaction.Commit();
-                }
-               
+                }               
                 con.Close();
-
-
                 return count;
             }
             else {return 0; }
@@ -106,20 +97,16 @@ namespace SoftGenConverter.Entity
                 int count = 0;
                 using (SQLiteTransaction transaction = con.BeginTransaction())
                 {
-                        cmd.CommandText = $"INSERT INTO {tableName}(NAME,ERDPO,RRahunok,Comment) VALUES(@NAME,@ERDPO,@RRahunok,@Comment)";
-                        cmd.Parameters.AddWithValue("@NAME", anPay.NAME);
-                        cmd.Parameters.AddWithValue("@ERDPO", anPay.ERDPO);
-                        cmd.Parameters.AddWithValue("@RRahunok", anPay.RRahunok);
-                        cmd.Parameters.AddWithValue("@Comment", anPay.Comment);
-
-                        count += cmd.ExecuteNonQuery();
-    
+                    cmd.CommandText = $"INSERT INTO {tableName}(NAME,ERDPO,RRahunok,Comment) VALUES(@NAME,@ERDPO,@RRahunok,@Comment)";
+                    cmd.Parameters.AddWithValue("@NAME", anPay.NAME);
+                    cmd.Parameters.AddWithValue("@ERDPO", anPay.ERDPO);
+                    cmd.Parameters.AddWithValue("@RRahunok", anPay.RRahunok);
+                    cmd.Parameters.AddWithValue("@Comment", anPay.Comment);
+                    count += cmd.ExecuteNonQuery();    
                     transaction.Commit();
                 }
                 id = con.LastInsertRowId;
                 con.Close();
-
-
                 return count;
             }
             else { id = 0; return 0; }

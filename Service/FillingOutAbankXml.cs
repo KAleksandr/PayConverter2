@@ -14,7 +14,7 @@ namespace SoftGenConverter.Service
     {
         public Payments Payments { get; set; } 
         public List<Payments> PaymentsList { get; set; } = new List<Payments>();
-        public FillingOutAbankXml(DataGridView dataGridView1N, Bank aBank, int type = 0)
+        public FillingOutAbankXml(DataGridView dataGridView1N, Bank aBank, bool anotherPay, int type = 0)
         {
             int numberRecords = 499; //максимальна кількість записів для вивантаження АБанк
            Payments = new Payments();
@@ -23,7 +23,7 @@ namespace SoftGenConverter.Service
             for (int i = 1; i <= dataGridView1N.Rows.Count; i++) // todo: 
             {
                 count++;
-                if(count == 499)
+                if(count == numberRecords)
                 {
                     PaymentsList.Add(Payments);
                     Payments = new Payments();
@@ -37,7 +37,6 @@ namespace SoftGenConverter.Service
                 //amount
                 try
                 {
-
                     if (type == 5)
                     {
                         decimal.TryParse(dataGridView1N.Rows[i - 1].Cells[8].Value.ToString().Replace(".", ","), out amount);//Сума платежу *
@@ -131,65 +130,98 @@ namespace SoftGenConverter.Service
                 catch { }
                 #endregion
 
-
-                var docs = new Docs()
+                var docs = new Docs();
+                if (!anotherPay)
                 {
-                    Amount = amount,
-                    CurrencyTag = "UAH",
-                    OrgDate = DateTime.Now.ToString("yyyy-MM-dd"),
-                    //PayDate = DateTime.Now.ToString("dd.MM.yyyy"),
-                    Code = (i + 1).ToString(),
-                    //отримувач
-                    CreditBankCode = creditBankCode,
-                    CreditAccount = creditAccount,
-                    CreditCodeIBAN = creditCodeIBAN,
-                    CreditName = creditName,
-                    CreditStateCode = creditStateCode,
-                    //платник
-                    DebitBankCode = aBank.mfo,
-                    DebitAccount = debitAccount,
-                    DebitCodeIBAN = aBank.rahunok,
-                    DebitBankName = @"АТ ""А - БАНК""",
-                    DebitName = "ТОВ \"ФК \" МПС\"",
-                    DebitStateCode = aBank.edrpou,
-                    Purpose = purpose,
-                    IsCreditResident = 1,                    
-                    DebitOrganization = new DebitOrganization()
+                    docs = new Docs()
                     {
-                        IdCode = aBank.edrpou,
-                        IdType = GetIdType(aBank.edrpou)
-                    },
-                    CreditOrganization = new CreditOrganization()
-                    {
-                        IdCode = creditStateCode,
-                        IdType = GetIdType(creditStateCode)
-                    },
-                    RefPurpose = new RefPurpose()
-                    {
-                        Taxes = new Taxes()
+                        Amount = amount,//+
+                        CurrencyTag = "UAH",//+
+                        OrgDate = DateTime.Now.ToString("yyyy-MM-dd"),//+
+                                                                      //PayDate = DateTime.Now.ToString("dd.MM.yyyy"),
+                        Code = (i + 1).ToString(),//+
+                                                  //отримувач
+                        CreditBankCode = creditBankCode,//+
+                        CreditAccount = creditAccount,
+                        CreditCodeIBAN = creditCodeIBAN,
+                        CreditName = creditName,
+                        CreditStateCode = creditStateCode,
+                        //платник
+                        DebitBankCode = aBank.mfo,
+                        DebitAccount = debitAccount,
+                        DebitCodeIBAN = aBank.rahunok,
+                        DebitBankName = @"АТ ""А - БАНК""",
+                        DebitName = "ТОВ \"ФК \" МПС\"",
+                        DebitStateCode = aBank.edrpou,
+                        Purpose = purpose,
+                        IsCreditResident = 1,
+                        DebitOrganization = new DebitOrganization()
                         {
-                            Header = new Header()
-                            {
-                                AdmstnZone = "",
-                                RefNb =""
-                            },
-                            Payertype = "Taxes",
-                            Items = new Items()
-                            {
-                                Tp="",
-                                Ctgy="",
-                                CtgyDtls ="",
-                                CertId = "121",
-                                TaxAmt ="0",
-                                AddtlInf = purpose
-                            }
-                            
+                            IdCode = aBank.edrpou,
+                            IdType = GetIdType(aBank.edrpou)
                         },
-                        AddtlRmtInf=""
-                    }
-                    
+                        CreditOrganization = new CreditOrganization()
+                        {
+                            IdCode = creditStateCode,
+                            IdType = GetIdType(creditStateCode)
+                        },
+                        RefPurpose = new RefPurpose()
+                        {
+                            Taxes = new Taxes()
+                            {
+                                Header = new Header()
+                                {
+                                    AdmstnZone = "",
+                                    RefNb = ""
+                                },
+                                Payertype = "Taxes",
+                                Items = new Items()
+                                {
+                                    Tp = "",
+                                    Ctgy = "",
+                                    CtgyDtls = "",
+                                    CertId = "121",
+                                    TaxAmt = "0",
+                                    AddtlInf = purpose
+                                }
 
-                };
+                            },
+                            AddtlRmtInf = ""
+                        }
+
+
+                    };
+                }
+                else
+                {
+                    docs = new Docs()
+                    {
+                        Amount = amount,//+
+                        CurrencyTag = "UAH",//+
+                        OrgDate = DateTime.Now.ToString("yyyy-MM-dd"),//+
+                        //PayDate = DateTime.Now.ToString("dd.MM.yyyy"),
+                        Code = (i + 1).ToString(),//+
+                        //отримувач
+                        CreditBankCode = creditBankCode,//+
+                        CreditAccount = creditAccount,
+                        CreditCodeIBAN = creditCodeIBAN,
+                        CreditName = creditName,
+                        CreditStateCode = creditStateCode,
+                        //платник
+                        DebitBankCode = aBank.mfo,
+                        DebitAccount = debitAccount,
+                        DebitCodeIBAN = aBank.rahunok,
+                        DebitBankName = @"АТ ""А - БАНК""",
+                        DebitName = "ТОВ \"ФК \" МПС\"",
+                        DebitStateCode = aBank.edrpou,
+                        Purpose = purpose,
+                        IsCreditResident = 1                    
+
+
+                    };
+                }
+                
+
                 Payments.Docs.Add(docs);
 
             }

@@ -30,8 +30,8 @@
     <TargetCulture>uk-UA</TargetCulture>
     <ProductName>PayConverter</ProductName>
     <PublisherName>Oleksandr Kuzmenko and Illya Baritskiy</PublisherName>
-    <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>3.4.0.0</ApplicationVersion>
+    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationVersion>3.4.0.1</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -146,7 +146,7 @@
   <ItemGroup>
     <Compile Include="Entity\AbankXml.cs" />
     <Compile Include="Entity\AnotherPay.cs" />
-    <Compile Include="Bank.cs" />
+    <Compile Include="Entity\Bank.cs" />
     <Compile Include="Dbf.cs" />
     <Compile Include="Entity\AnotherPay_.cs" />
     <Compile Include="Entity\Db.cs" />
@@ -178,7 +178,7 @@
     <Compile Include="Form4.Designer.cs">
       <DependentUpon>Form4.cs</DependentUpon>
     </Compile>
-    <Compile Include="ModifyProgressBarColor.cs" />
+    <Compile Include="Service\ModifyProgressBarColor.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -186,11 +186,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="MyDataGrid.cs" />
+    <Compile Include="Service\MyDataGrid.cs" />
     <Compile Include="Service\FillingOutAbankXml.cs" />
     <Compile Include="Service\Template.cs" />
-    <Compile Include="Update.cs" />
-    <Compile Include="Xml.cs" />
+    <Compile Include="Service\Update.cs" />
+    <Compile Include="Service\Xml.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

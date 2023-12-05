@@ -46,8 +46,7 @@ namespace SoftGenConverter.Entity
             con.Open();
             cmd.CommandText = $"UPDATE {tableName} set purpose=@purpose where NAME = @NAME";
             cmd.Parameters.AddWithValue("@NAME", NAME);
-            cmd.Parameters.AddWithValue("@purpose", purpose);
-            
+            cmd.Parameters.AddWithValue("@purpose", purpose);            
             cmd.ExecuteNonQuery();
             con.Close();
         }
@@ -57,8 +56,7 @@ namespace SoftGenConverter.Entity
             SQLiteCommand cmd = new SQLiteCommand(con);
             con.Open();           
             cmd.CommandText = $"delete from {tableName} where NAME = @NAME";
-            cmd.Parameters.AddWithValue("@NAME", NAME);          
-
+            cmd.Parameters.AddWithValue("@NAME", NAME); 
             cmd.ExecuteNonQuery();
             con.Close();
         }
@@ -79,8 +77,7 @@ namespace SoftGenConverter.Entity
             if (!string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(purpose))
             {
                 PurposeOfPayment ofPayment = new PurposeOfPayment() { NAME = name, PURPOSE = purpose };
-                string existName = GetPurpose(name);
-              
+                string existName = GetPurpose(name);              
                 if (string.IsNullOrEmpty(existName))
                 {
                     InsertData(ofPayment, out long id);
@@ -99,7 +96,6 @@ namespace SoftGenConverter.Entity
         {
             SQLiteConnection con = new SQLiteConnection(Db.Cs);
             con.Open();
-
             SQLiteCommand cmd = new SQLiteCommand(con);
             int count = 0;
             using (SQLiteTransaction transaction = con.BeginTransaction())
@@ -113,7 +109,6 @@ namespace SoftGenConverter.Entity
                 });
                 transaction.Commit();
             }
-
             con.Close();
             return count;
         }
@@ -121,7 +116,6 @@ namespace SoftGenConverter.Entity
         {
             SQLiteConnection con = new SQLiteConnection(Db.Cs);
             con.Open();
-
             SQLiteCommand cmd = new SQLiteCommand(con);
             int count = 0;
             using (SQLiteTransaction transaction = con.BeginTransaction())
@@ -129,17 +123,12 @@ namespace SoftGenConverter.Entity
                 cmd.CommandText = $"INSERT INTO {tableName}(NAME,PURPOSE) VALUES(@NAME,@PURPOSE)";
                 cmd.Parameters.AddWithValue("@NAME", purpose.NAME);
                 cmd.Parameters.AddWithValue("@PURPOSE", purpose.PURPOSE);
-
                 count += cmd.ExecuteNonQuery();
-
                 transaction.Commit();
             }
             id = con.LastInsertRowId;
             con.Close();
-
-
             return count;
-
         }
         public static string GetPurpose(string name)
         {
@@ -151,26 +140,20 @@ namespace SoftGenConverter.Entity
             cmd.Parameters.AddWithValue("@name", name);
             PurposeOfPayment purp = new PurposeOfPayment();
             string purpuse = "";
-
             using (SQLiteDataReader readers = cmd.ExecuteReader())
             {
                 var dataTable = new DataTable();
                 dataTable.Load(readers);
                 List<DataRow> listTable = dataTable.AsEnumerable().ToList();
-
                 purp = (from item in listTable
                          select new PurposeOfPayment
                          {
                              PURPOSE = item.Field<string>("PURPOSE")
-
                          }).FirstOrDefault();
                 purpuse = purp != null ? purp.PURPOSE : "";
             }
-
-            con.Close();
-            //MessageBox.Show(name + " " + purpuse);
+            con.Close();           
             return purpuse;
         }
-
     }
 }

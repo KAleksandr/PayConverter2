@@ -11,11 +11,8 @@ using System.Windows.Forms;
 namespace SoftGenConverter.Entity
 {
     public static  class Db
-    {
-       
-        // protected static string Cs  { get { return @"URI=file:D:\Shlyahovi\DbSqLite\DorMash.db"; } }
-
-       public readonly static string runningPath = AppDomain.CurrentDomain.BaseDirectory + "Resources" + @"\db\PayConverterData.db";
+    {     
+      public readonly static string runningPath = AppDomain.CurrentDomain.BaseDirectory + "Resources" + @"\db\PayConverterData.db";
         readonly static string uri = @"URI=file:";
         public static string Cs => uri + runningPath;
         public static void CreateDb()
@@ -36,7 +33,7 @@ namespace SoftGenConverter.Entity
                 CommandText = @"DROP TABLE IF EXISTS AnotherPayConverterData;
                                 DROP TABLE IF EXISTS PayConverterData;
                                 DROP TABLE IF EXISTS PurposeOfPayment;
-                                DROP TABLE IF EXISTS PayConverterConfig; "
+                                DROP TABLE IF EXISTS PayConverterConfig;"
             };
             cmd.ExecuteNonQuery();
             cmd.CommandText = @"CREATE TABLE AnotherPayConverterData ( ID INTEGER, NAME TEXT, ERDPO TEXT, RRahunok TEXT, Comment TEXT, PRIMARY KEY(ID AUTOINCREMENT));
@@ -82,25 +79,18 @@ namespace SoftGenConverter.Entity
                 cmd.CommandText = @"insert into PayConverterConfig (NAME,RAHUNOK,MFO,EDRPOU,clientBankCode,IBAN,bankid) 
                             VALUES('А-Банк','UA643077700000026501011111113','307770','40375721','','',5 )";
                 cmd.ExecuteNonQuery();
-            }
-
-               
+            }               
             con.Close();
-
         }
         public static void CreateNewTablePurposeOfPayment()
         {
             SQLiteConnection con = new SQLiteConnection(Cs);
             con.Open();
-
             SQLiteCommand cmd = new SQLiteCommand(con)
             {
-                CommandText = @" CREATE TABLE IF NOT EXISTS PurposeOfPayment ( ID INTEGER, NAME TEXT, PURPOSE TEXT, PRIMARY KEY(ID AUTOINCREMENT));
-                            
-"
+                CommandText = @" CREATE TABLE IF NOT EXISTS PurposeOfPayment ( ID INTEGER, NAME TEXT, PURPOSE TEXT, PRIMARY KEY(ID AUTOINCREMENT));"
             };
-            cmd.ExecuteNonQuery();
-          
+            cmd.ExecuteNonQuery();         
           
             con.Close();
         }
@@ -113,7 +103,6 @@ namespace SoftGenConverter.Entity
             cmd.Parameters.AddWithValue("@id", id);
 
             int delItem = cmd.ExecuteNonQuery();
-
             con.Close();
             return delItem;
         }
@@ -124,13 +113,10 @@ namespace SoftGenConverter.Entity
             con.Open();            
             cmd.CommandText = $"DELETE FROM {tableName} where id in ({string.Join(",", ids)})";        
              int delItem = cmd.ExecuteNonQuery();
-
             con.Close();
             return delItem;
         }
-        //
-
-
+       
         public static List<T> SelectTable<T>(string tableName) where T : new()
         {
             string TableName = tableName;// AnotherPayConverterData";

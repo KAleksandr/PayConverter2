@@ -8,8 +8,7 @@ using System.Windows.Forms;
 namespace SoftGenConverter.Entity
 {
     public class PayConverterConfig_
-    {
-        
+    {        
         public static void UpdateAnother(int ID, string NAME, string RAHUNOK, string MFO, string EDRPOU, string clientBankCode, string IBAN, int bankid)
         {
             SQLiteConnection con = new SQLiteConnection(Db.Cs);
@@ -25,7 +24,6 @@ namespace SoftGenConverter.Entity
             cmd.Parameters.AddWithValue("@bankid", bankid);
             cmd.Parameters.AddWithValue("@ID", ID);
             cmd.ExecuteNonQuery();
-
             con.Close();
         }
         public static void UpdateByBankId(PayConverterConfig config)
@@ -35,8 +33,7 @@ namespace SoftGenConverter.Entity
             con.Open();
             cmd.CommandText = $"select count(*) from PayConverterConfig   where bankid=@bankid";
             cmd.Parameters.AddWithValue("@bankid", config.bankid);
-            var countObj = cmd.ExecuteScalar();
-           
+            var countObj = cmd.ExecuteScalar();           
             Int32.TryParse(countObj.ToString(), out int count);
             if(count > 0)
             {
@@ -54,9 +51,7 @@ namespace SoftGenConverter.Entity
             else
             {
                 InsertByBankId(config);
-            }
-            
-
+            } 
             con.Close();
         }
        private static void InsertByBankId(PayConverterConfig config)
@@ -73,9 +68,7 @@ namespace SoftGenConverter.Entity
             cmd.Parameters.AddWithValue("@clientBankCode", config.clientBankCode);
             cmd.Parameters.AddWithValue("@IBAN", config.IBAN);
             cmd.Parameters.AddWithValue("@bankid", config.bankid);
-
             cmd.ExecuteNonQuery();
-
             con.Close();
         }
     }
