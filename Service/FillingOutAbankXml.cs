@@ -14,9 +14,10 @@ namespace SoftGenConverter.Service
     {
         public Payments Payments { get; set; } 
         public List<Payments> PaymentsList { get; set; } = new List<Payments>();
-        public FillingOutAbankXml(DataGridView dataGridView1N, Bank aBank, bool anotherPay,int docnum = 1, int type = 0)
+        public FillingOutAbankXml(DataGridView dataGridView1N, Bank aBank, int docnum = 1, int type = 0)
         {
             int numberRecords = 499; //максимальна кількість записів для вивантаження АБанк
+            string CreditBankCode = "899998";//Група реквізитів структурованого призначення платежів (обов’язково для платежів на користь   казначейства(МФО 899998) з 01.12.2023
            Payments = new Payments();
             int count = 0;
             //перебираємо всі записи
@@ -131,7 +132,7 @@ namespace SoftGenConverter.Service
                 #endregion
 
                 var docs = new Docs();
-                if (!anotherPay)
+                if (creditBankCode.Equals(CreditBankCode))
                 {
                     docs = new Docs()
                     {

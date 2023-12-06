@@ -1100,7 +1100,7 @@ namespace SoftGenConverter
                     }
                     
                     
-                    FillingOutAbankXml aBankXml = new FillingOutAbankXml(dataGridViewn, aBank, anotherPay.Checked, docnum, type);
+                    FillingOutAbankXml aBankXml = new FillingOutAbankXml(dataGridViewn, aBank, docnum, type);
                     XmlSerializer serializer = new XmlSerializer(typeof(Payments));
                     var xml = "";
                     XmlWriterSettings settings = new XmlWriterSettings();
