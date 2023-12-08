@@ -363,7 +363,7 @@ namespace SoftGenConverter
                             {
                                 NAME = CSV_Struct[i].name,
                                 ERDPO = CSV_Struct[i].edrpou,
-                                RRahunok = CSV_Struct[i].pruznach,
+                                RRahunok = CSV_Struct[i].rahunok,
                                 Comment = dataGridView2.Rows[n].Cells[2].Value.ToString()
                             };
                             AnotherPay_.InsertData("AnotherPayConverterData", pay, out long idN);
@@ -380,7 +380,9 @@ namespace SoftGenConverter
                     dataGridView1.Rows[n].Cells[7].Value = CSV_Struct[i].edrpou;
 
                     dataGridView1.Rows[n].Cells[9].Value = ukrGaz.iban;
-                    dataGridView1.Rows[n].Cells[10].Value = anotherPay.Checked ? PurposeOfPayment_.GetPurpose(dataGridView1.Rows[n].Cells[8].Value.ToString()) : "";
+                     string comment =AnotherPay_.GetAnotherPay(new AnotherPay { ERDPO = CSV_Struct[i].edrpou, RRahunok = CSV_Struct[i].rahunok, NAME= CSV_Struct[i].pruznach });
+                    //dataGridView1.Rows[n].Cells[10].Value = anotherPay.Checked ? PurposeOfPayment_.GetPurpose(dataGridView1.Rows[n].Cells[8].Value.ToString()) : "";
+                    dataGridView1.Rows[n].Cells[10].Value = anotherPay.Checked ? comment : "";
                     dataGridView1.Rows[n].Cells[11].Value = ukrGaz.specialPr;
                 }
                
@@ -1884,7 +1886,23 @@ namespace SoftGenConverter
                     var dialogResult = MessageBox.Show("Оновити довідник?", "Додати/Оновити довідник Призначення за умовчанням", MessageBoxButtons.YesNo);
                     if (dialogResult == DialogResult.Yes)
                     {
-                        PurposeOfPayment_.InsertOrUpdatePurpose(OrgName, purpose);
+                        if (anotherPay.Checked)
+                        {
+                            AnotherPay pay = new AnotherPay()
+                            {
+                                Comment = purpose,
+                                NAME = OrgName,
+                                ERDPO = dataGridView1.CurrentRow.Cells[7].Value.ToString(),
+                                RRahunok = dataGridView1.CurrentRow.Cells[6].Value.ToString()
+                            };
+                            AnotherPay_.InsertOrUpdate("AnotherPayConverterData", pay);
+                           
+                        }
+                        else
+                        {
+                            PurposeOfPayment_.InsertOrUpdatePurpose(OrgName, purpose);
+                        }
+                        
                     }
                     foreach (DataGridViewRow row in dataGridView1.Rows)
                     {

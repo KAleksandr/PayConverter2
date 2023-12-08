@@ -1,8 +1,12 @@
-﻿using System;
+﻿using Microsoft.Office.Interop.Excel;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SQLite;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace SoftGenConverter.Entity
 {
@@ -111,5 +115,94 @@ namespace SoftGenConverter.Entity
             }
             else { id = 0; return 0; }
         }
+        
+        public static void InsertOrUpdate(string tableName, AnotherPay anPay)
+        {
+            if(anPay != null)
+            {
+              var id = GetIdAnotherPay(tableName, anPay);
+                if (!string.IsNullOrEmpty(anPay.Comment))
+                {
+                    if(id==0)                    
+                    {
+                       InsertData(tableName, anPay, out long idN);
+                    }
+                    else
+                    {
+                        anPay.ID = id;
+                        UpdateAnother(tableName, anPay);
+                    }
+                }
+                else if(id != 0)
+                {
+                    Db.DeleteById(tableName, id);
+                }
+            }
+            
+        }
+        public static int GetIdAnotherPay(string tableName, AnotherPay anPay)
+        {
+            SQLiteConnection con = new SQLiteConnection(Db.Cs);
+            con.Open();
+            SQLiteCommand cmd = new SQLiteCommand(con);
+            string stm = $"SELECT id FROM {tableName} where NAME = @NAME and ERDPO=@ERDPO and RRahunok=@RRahunok";
+            cmd.CommandText = stm;
+           
+            cmd.Parameters.AddWithValue("@NAME", anPay.NAME);
+            cmd.Parameters.AddWithValue("@ERDPO", anPay.ERDPO);
+            cmd.Parameters.AddWithValue("@RRahunok", anPay.RRahunok);
+
+            AnotherPay pay = new AnotherPay();
+            int id = 0;
+            using (SQLiteDataReader readers = cmd.ExecuteReader())
+            {
+                var dataTable = new System.Data.DataTable();
+                dataTable.Load(readers);
+                List<DataRow> listTable = dataTable.AsEnumerable().ToList();
+                if(listTable.Count > 0)
+                {
+
+                   id = listTable
+                                        .AsEnumerable()
+                                        .Where(row => !row.IsNull("id") && !string.IsNullOrEmpty(row["id"].ToString()))
+                                        .Select(row => Convert.ToInt32(row["id"]))
+                                        .ToList().FirstOrDefault();
+                    
+                    
+                }
+               
+            }
+            con.Close();
+            return id;
+        }
+        public static string GetAnotherPay(AnotherPay anPay, string tableName= "AnotherPayConverterData")
+        {
+          
+            SQLiteConnection con = new SQLiteConnection(Db.Cs);
+            con.Open();
+            SQLiteCommand cmd = new SQLiteCommand(con);
+            string stm = $"SELECT * FROM {tableName} where NAME = @NAME and ERDPO=@ERDPO and RRahunok=@RRahunok";
+            cmd.CommandText = stm;
+            cmd.Parameters.AddWithValue("@NAME", anPay.NAME);
+            cmd.Parameters.AddWithValue("@ERDPO", anPay.ERDPO);
+            cmd.Parameters.AddWithValue("@RRahunok", anPay.RRahunok);
+            AnotherPay pay = new AnotherPay();
+            string comment = "";
+            using (SQLiteDataReader readers = cmd.ExecuteReader())
+            {
+                var dataTable = new System.Data.DataTable();
+                dataTable.Load(readers);
+                List<DataRow> listTable = dataTable.AsEnumerable().ToList();
+                pay = (from item in listTable
+                        select new AnotherPay
+                        {
+                           Comment = item.Field<string>("Comment")
+                        }).FirstOrDefault();
+                comment = pay != null ? pay.Comment : "";
+            }
+            con.Close();
+            return comment;
+        }
+
     }
 }

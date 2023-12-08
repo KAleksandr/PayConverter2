@@ -385,7 +385,9 @@ namespace SoftGenConverter
                 textBox1.Text = string.Empty;
                 textBox2.Text = string.Empty;
                 textBox3.Text = string.Empty;
-               // dataGridView1.Refresh();                advancedDataGridView1.Refresh();            }
+               // dataGridView1.Refresh();
+                advancedDataGridView1.Refresh();
+            }
         }
 
         private void textBox4_KeyPress(object sender, KeyPressEventArgs e)
