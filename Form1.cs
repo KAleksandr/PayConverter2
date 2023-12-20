@@ -422,7 +422,7 @@ namespace SoftGenConverter
                     else //todo: 
                     {
                         string cells10 = CSV_Struct[i].name;
-                        string nameRecipient = AlphaBeta(cells10);
+                        string nameRecipient = AlphaBeta(cells10).Replace("?","і");
                         dataGridView2.Rows[n].Cells[10].Value = nameRecipient;
                         dataGridView2.Rows[n].Cells[11].Value = AlphaBeta(CSV_Struct[i].pruznach);
                         dataGridView2.Rows[n].Cells[13].Value = anotherPay.Checked ? PurposeOfPayment_.GetPurpose(nameRecipient.Trim()) : "";
@@ -625,19 +625,19 @@ namespace SoftGenConverter
             name += DateTime.Now.Minute + bcode + ".";
             return name;
         }
-        public void SaveOschadDbf(string path, Bank bank, bool panel2 = false)
+        public void SaveOschadDbf(string fileName, Bank bank, bool panel2 = false)
         {
-            string pathDbf = Directory.GetCurrentDirectory() + "\\ОщадБанк\\";
-            if (string.IsNullOrEmpty(path) && !Directory.Exists(pathDbf))
-            {
-                Directory.CreateDirectory(pathDbf);
-            }
-            string dateTime = DateTime.Now.ToString("ddMMyy");
-            string fileName = Path.Combine(path, $"{dateTime}.dbf");
-            if (!Directory.Exists(path))
-            {
-                Directory.CreateDirectory(path);
-            }
+           // string pathDbf = Directory.GetCurrentDirectory() + "\\ОщадБанк\\";
+           // if (string.IsNullOrEmpty(path) && !Directory.Exists(pathDbf))
+           // {
+               // Directory.CreateDirectory(pathDbf);
+           // }
+            //string dateTime = DateTime.Now.ToString("ddMMyy");
+            //string fileName = Path.Combine(path, $"{dateTime}.dbf");
+            //if (!Directory.Exists(path))
+           // {
+               // Directory.CreateDirectory(path);
+            //}
             if (File.Exists(fileName))
             {
                 File.Delete(fileName);
@@ -1554,13 +1554,18 @@ namespace SoftGenConverter
 
         private void SaveFile_Click_1(object sender, EventArgs e)
         {
+            
             DataGridView dataGrid = dataGridView2.Visible ? dataGridView2 : dataGridView1;
 
             if (dataGrid.Rows.Count > 0)
             {
                 if (comboEdr.SelectedIndex == 0 || (comboEdr2.SelectedIndex == 0 && dataGridView1.Visible))// Аваль || УКрГаз
                 {
-                    string path = SaveExcel(dataGrid, comboEdr.SelectedIndex);
+                    if (dataGridView2.Visible)
+                    {
+                        string path = SaveExcel(dataGrid, comboEdr.SelectedIndex);
+                    }
+                   
                     try
                     {
                         SaveXml();
@@ -1571,7 +1576,19 @@ namespace SoftGenConverter
                         var result = MessageBox.Show("Вивантажити для ОщадБанк?", "Вивантажити для ОщадБанк?", MessageBoxButtons.YesNo);
                         if (result == DialogResult.Yes)
                         {
-                            SaveOschadDbf(path + "\\ОщадБанк\\", oschad, dataGridView1.Visible);
+                            string fileName = "";
+                            SaveFileDialog saveDialog = new SaveFileDialog
+                            {
+                                Filter =  "dbf file (.dbf)|*.dbf" ,
+                                FilterIndex = 2,
+                                FileName = DateTime.Now.ToString().Replace(":", "_")
+                            };
+                            if (saveDialog.ShowDialog() == DialogResult.OK)
+                            {
+                                //filePath = Path.GetDirectoryName(saveDialog.FileName);
+                                fileName = saveDialog.FileName;
+                            }
+                                SaveOschadDbf(fileName, oschad, dataGridView1.Visible);
                         }
                         //30.11.2023 додавання вивантаження А-Банк для 
                         result = MessageBox.Show("Вивантажити для А-Банк?", "Вивантажити для А-Банк?", MessageBoxButtons.YesNo);

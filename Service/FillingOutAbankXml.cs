@@ -53,13 +53,14 @@ namespace SoftGenConverter.Service
                 //purpose
                 try
                 {
+                    bool isOriginPurpose = dataGridView1N.Rows[i - 1].Cells[2].Value.ToString().Equals("+");
                     if (type == 5)
                     {
-                        purpose = dataGridView1N.Rows[i - 1].Cells[11].Value.ToString();//FIELD_PURPOSE_CODE Призначення платежу
+                        purpose = isOriginPurpose ? dataGridView1N.Rows[i - 1].Cells[11].Value.ToString() : dataGridView1N.Rows[i - 1].Cells[11].Value.ToString() + " " + dataGridView1N.Rows[i - 1].Cells[11].Value.ToString();//FIELD_PURPOSE_CODE Призначення платежу
                     }
                     else if (type == 6)
                     {
-                        purpose = dataGridView1N.Rows[i - 1].Cells[2].Value.ToString();//FIELD_PURPOSE_CODE Призначення платежу
+                        purpose = isOriginPurpose ? dataGridView1N.Rows[i - 1].Cells[2].Value.ToString() :  dataGridView1N.Rows[i - 1].Cells[10].Value.ToString() + " " + dataGridView1N.Rows[i - 1].Cells[2].Value.ToString();//FIELD_PURPOSE_CODE Призначення платежу
                     }
                 }
                 catch { }
