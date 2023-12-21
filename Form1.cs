@@ -1561,10 +1561,9 @@ namespace SoftGenConverter
             {
                 if (comboEdr.SelectedIndex == 0 || (comboEdr2.SelectedIndex == 0 && dataGridView1.Visible))// Аваль || УКрГаз
                 {
-                    if (dataGridView2.Visible)
-                    {
+                   
                         string path = SaveExcel(dataGrid, comboEdr.SelectedIndex);
-                    }
+                    
                    
                     try
                     {
@@ -1587,8 +1586,9 @@ namespace SoftGenConverter
                             {
                                 //filePath = Path.GetDirectoryName(saveDialog.FileName);
                                 fileName = saveDialog.FileName;
-                            }
                                 SaveOschadDbf(fileName, oschad, dataGridView1.Visible);
+                            }
+                               
                         }
                         //30.11.2023 додавання вивантаження А-Банк для 
                         result = MessageBox.Show("Вивантажити для А-Банк?", "Вивантажити для А-Банк?", MessageBoxButtons.YesNo);
@@ -1602,7 +1602,20 @@ namespace SoftGenConverter
                 else if (comboEdr.SelectedIndex == 2)//ощад
                 {
                     var path = SaveExcel(dataGrid, comboEdr.SelectedIndex, oschad.rahunok);
-                    SaveOschadDbf(path, oschad);
+                    string fileName = "";
+                    SaveFileDialog saveDialog = new SaveFileDialog
+                    {
+                        Filter = "dbf file (.dbf)|*.dbf",
+                        FilterIndex = 2,
+                        FileName = DateTime.Now.ToString().Replace(":", "_")
+                    };
+                    if (saveDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        //filePath = Path.GetDirectoryName(saveDialog.FileName);
+                        fileName = saveDialog.FileName;
+                        SaveOschadDbf(fileName, oschad);
+                    }
+                    
                 }
                 else if (comboEdr.SelectedIndex == 3)//пумб
                 {
