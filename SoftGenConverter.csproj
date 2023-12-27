@@ -30,8 +30,8 @@
     <TargetCulture>uk-UA</TargetCulture>
     <ProductName>PayConverter</ProductName>
     <PublisherName>Oleksandr Kuzmenko and Illya Baritskiy</PublisherName>
-    <ApplicationRevision>8</ApplicationRevision>
-    <ApplicationVersion>3.4.0.8</ApplicationVersion>
+    <ApplicationRevision>9</ApplicationRevision>
+    <ApplicationVersion>3.4.0.9</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>

@@ -56,11 +56,24 @@ namespace SoftGenConverter.Service
                     bool isOriginPurpose = dataGridView1N.Rows[i - 1].Cells[2].Value.ToString().Equals("+");
                     if (type == 5)
                     {
-                        purpose = isOriginPurpose ? dataGridView1N.Rows[i - 1].Cells[11].Value.ToString() : dataGridView1N.Rows[i - 1].Cells[13].Value.ToString() + " " + dataGridView1N.Rows[i - 1].Cells[11].Value.ToString();//FIELD_PURPOSE_CODE Призначення платежу
+                        string purpouseDefault = "";
+                        if(dataGridView1N.Rows[i - 1].Cells[13].Value == null)
+                        {
+                            dataGridView1N.Rows[i - 1].Cells[13].Value = "";
+                        }
+
+                         purpouseDefault =  string.IsNullOrEmpty(dataGridView1N.Rows[i - 1].Cells[13].Value.ToString()) ? "" : dataGridView1N.Rows[i - 1].Cells[13].Value.ToString() + " ";
+                        purpose = isOriginPurpose ? dataGridView1N.Rows[i - 1].Cells[11].Value.ToString() : purpouseDefault + dataGridView1N.Rows[i - 1].Cells[11].Value.ToString();//FIELD_PURPOSE_CODE Призначення платежу
                     }
                     else if (type == 6)
                     {
-                        purpose = isOriginPurpose ? dataGridView1N.Rows[i - 1].Cells[2].Value.ToString() :  dataGridView1N.Rows[i - 1].Cells[10].Value.ToString() + " " + dataGridView1N.Rows[i - 1].Cells[2].Value.ToString();//FIELD_PURPOSE_CODE Призначення платежу
+                        string purpouseDefault = "";
+                        if(dataGridView1N.Rows[i - 1].Cells[10].Value == null)
+                        {
+                            dataGridView1N.Rows[i - 1].Cells[10].Value = "";
+                        }
+                        purpouseDefault = string.IsNullOrEmpty(dataGridView1N.Rows[i - 1].Cells[10].Value.ToString()) ? "" : dataGridView1N.Rows[i - 1].Cells[10].Value.ToString() + " ";
+                        purpose = isOriginPurpose ? dataGridView1N.Rows[i - 1].Cells[2].Value.ToString() : purpouseDefault + dataGridView1N.Rows[i - 1].Cells[2].Value.ToString();//FIELD_PURPOSE_CODE Призначення платежу
                     }
                 }
                 catch { }
