@@ -62,6 +62,7 @@ namespace SoftGenConverter
             InitializeComponent();            
             Db.TempInsert();
             erdpo1l.Visible = erdpo1.Visible = false;
+            dateTimePicker1.Value = DateTime.Now;
             InitData();
            
         }
@@ -243,7 +244,7 @@ namespace SoftGenConverter
             rahunok.Text = bank.rahunok;
             cliBankCode.Text = bank.clientBankCode;
             erdpo1.Text = bank.edrpou;
-            dateTimePicker1.Value = DateTime.Now;
+           
             tableLayoutPanel7.RowStyles[1].Height = 100;
             tableLayoutPanel7.RowStyles[0].Height = 0;
             dataGridView2.Visible = true;
