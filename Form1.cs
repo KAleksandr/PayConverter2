@@ -307,13 +307,13 @@ namespace SoftGenConverter
         {
             List<Bank> CSV_Struct = new List<Bank>();
 
-            CSV_Struct = Bank.ReadFile(path, anotherPay.Checked);
+            CSV_Struct = Bank.ReadFile(path, anotherPay.Checked, dateTimePicker1.Value);
 
             if (CSV_Struct == null || CSV_Struct.Count == 0)
             {
-                CSV_Struct = Bank.ReadFile(path, anotherPay.Checked, TypeFile.standart);
+                CSV_Struct = Bank.ReadFile(path, anotherPay.Checked, dateTimePicker1.Value, TypeFile.standart);
             }
-            DateTime dt1 = DateTime.Today;
+            DateTime dt1 = dateTimePicker1.Value;
             for (int i = 0; i <= CSV_Struct.Count - 1; i++)
             {
                 int n = 0;

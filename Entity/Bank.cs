@@ -212,15 +212,17 @@ namespace SoftGenConverter
             }
             return csvData;
         }
-        public static List<Bank> ReadFile(string filename, bool anotherPay, TypeFile type = TypeFile.defaultType)
+        public static List<Bank> ReadFile(string filename, bool anotherPay,DateTime dT, TypeFile type = TypeFile.defaultType)
         {
             var res = new List<Bank>();
             var date = 0;
-            var regexDate = new Regex(@"\w*([0-9]{2}[.][0-9]{2}[.][0-9]{2}р.)");
+            var regexDate = new Regex(@"\w*([0-9]{2}[.][0-9]{2}[.][0-9]{2})");
             var regexLine = new Regex(@".+;.*;.+;.+;.+;.+;.*;.*;.+;.*");
+            var regexDate1 = new Regex(@"\b(\d{2}\.\d{2}\.\d{2})\b");
+            var regexLine1 = new Regex(@".+;.*;.+;.+;.+;.+;.*;.*;.+;.*");
             var flag = false;
             var aval = false;
-            var datePl = DateTime.Today;
+            var datePl = dT;
             try
             {
                 using (var sr = new StreamReader(filename, Encoding.GetEncoding(1251)))
@@ -239,10 +241,18 @@ namespace SoftGenConverter
                             datePl = DateTime.Parse(matchess[0].ToString().Replace("за", "").Replace("р.", "").Trim(),
                                 MyCultureInfo);
                         }
+                        var dateMatch1 = regexDate1.Match(line);
+                        if (dateMatch1.Success)
+                        {
+                            datePl = DateTime.ParseExact(dateMatch1.Value, "dd.MM.yy", CultureInfo.InvariantCulture);
+                        }
                     }
                 }
             }
-            catch { }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error reading date: " + ex.Message);
+            }
             try
             {
                 using (var sr = new StreamReader(filename, Encoding.GetEncoding(1251)))
